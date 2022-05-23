@@ -6,4 +6,6 @@ module it.unical.sadstudents.mediaplayeruid {
 
     opens it.unical.sadstudents.mediaplayeruid to javafx.fxml;
     exports it.unical.sadstudents.mediaplayeruid;
+    exports it.unical.sadstudents.mediaplayeruid.controller;
+    opens it.unical.sadstudents.mediaplayeruid.controller to javafx.fxml;
 }
