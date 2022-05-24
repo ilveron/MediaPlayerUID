@@ -1,22 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
+<AnchorPane minHeight="400.0" minWidth="400.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
    <children>
-      <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="800.0" prefWidth="1200.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="700.0" prefWidth="1200.0">
                <children>
-                  <VBox prefHeight="700.0" prefWidth="270.0" />
+                  <AnchorPane>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <VBox prefWidth="270.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" text="MediaPlayer UID">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-play-circle-o" iconSize="23" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" />
+                              <ToolBar minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" style="-fx-background-color: trasparent;" VBox.vgrow="ALWAYS">
+                                <items>
+                                  <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Home">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-home" iconSize="19" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Music Library">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-music" iconSize="19" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Video Library">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-film" iconSize="19" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Separator prefWidth="200.0" />
+                                    <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Play Queue">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-play" iconSize="19" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Playlists">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-list-ul" iconSize="19" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                </items>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ToolBar>
+                              <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" style="-fx-background-color: trasparent;" text="Settings">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-cog" iconSize="19" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
                   <VBox prefHeight="700.0" prefWidth="930.0">
                      <children>
                         <HBox minHeight="-Infinity" prefHeight="100.0" prefWidth="930.0" />
-                        <SubScene height="600.0" width="930.0">
+                        <SubScene fill="#ab2828" height="600.0" width="930.0" VBox.vgrow="ALWAYS">
                           <root>
                             <Region />
                           </root>

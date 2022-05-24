@@ -28,7 +28,12 @@
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
-            <version>12.2.0</version>
+            <version>12.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome-pack</artifactId>
+            <version>12.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -65,7 +70,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                it.unical.sadstudents.mediaplayeruid/it.unical.sadstudents.mediaplayeruid.HelloApplication
+                                it.unical.sadstudents.mediaplayeruid/it.unical.sadstudents.mediaplayeruid.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
