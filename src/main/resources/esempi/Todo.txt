@@ -2,3 +2,7 @@ ICONE DA RIVEDERE:
 - LOGO
 - PLAY QUEUE
 - PLAYLIST
+
+- Sistemare ridimensionamento toolbar (e relativa vbox)
+
+- Studiare funzionamento classe Media

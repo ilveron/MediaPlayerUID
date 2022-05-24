@@ -13,8 +13,8 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("MediaPlayer UID");
-        stage.setMinHeight(400);
-        stage.setMinWidth(400);
+        stage.setMinHeight(600);
+        stage.setMinWidth(600);
         stage.setScene(scene);
         stage.show();
     }
