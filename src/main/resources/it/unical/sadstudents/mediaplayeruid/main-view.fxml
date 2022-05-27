@@ -21,7 +21,7 @@
          <children>
             <HBox prefHeight="700.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefWidth="270.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <VBox maxWidth="-Infinity" prefWidth="270.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" text="MediaPlayer UID">
                            <graphic>
@@ -35,9 +35,9 @@
                            </font>
                         </Label>
                         <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" />
-                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" style="-fx-background-color: trasparent;" VBox.vgrow="ALWAYS">
+                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                           <items>
-                            <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Home">
+                            <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" style="-fx-background-color: transparent;" text="Home">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-home" iconSize="19" />
                                  </graphic>
@@ -45,7 +45,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Music Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" style="-fx-background-color: transparent;" text="Music Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-music" iconSize="19" />
                                  </graphic>
@@ -53,7 +53,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Video Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" style="-fx-background-color: transparent;" text="Video Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-film" iconSize="19" />
                                  </graphic>
@@ -62,7 +62,7 @@
                                  </font>
                               </Button>
                               <Separator prefWidth="200.0" />
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Play Queue">
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" style="-fx-background-color: transparent;" text="Play Queue">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-play" iconSize="19" />
                                  </graphic>
@@ -70,7 +70,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" style="-fx-background-color: trasparent;" text="Playlists">
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" style="-fx-background-color: transparent;" text="Playlists">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-list-ul" iconSize="19" />
                                  </graphic>
@@ -83,7 +83,7 @@
                               <Insets />
                            </VBox.margin>
                         </ToolBar>
-                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" style="-fx-background-color: trasparent;" text="Settings">
+                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" style="-fx-background-color: transparent;" text="Settings">
                            <graphic>
                               <FontIcon iconLiteral="fa-cog" iconSize="19" />
                            </graphic>
@@ -161,9 +161,9 @@
                      </children></HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0">
+                        <Button mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-random" iconSize="15" />
                            </graphic>
                         </Button>
                         <Button layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
