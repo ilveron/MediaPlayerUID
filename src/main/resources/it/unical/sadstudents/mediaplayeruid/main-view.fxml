@@ -166,19 +166,29 @@
                               <FontIcon iconLiteral="fa-random" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
+                        <Button layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-fast-backward" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0">
+                        <Button layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipBack" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-backward" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0">
+                        <Button layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-play" iconSize="25" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-forward" iconSize="15" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-fast-forward" iconSize="15" />
                            </graphic>
                         </Button>
                         <Button layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0">
@@ -200,7 +210,17 @@
                               <FontIcon />
                            </graphic>
                         </Button>
-                        <Button layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onMediaPlayedSett" prefWidth="20.0">
+                        <Button layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
+                           <graphic>
+                              <FontIcon />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-sliders-h" iconSize="15" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
                            <graphic>
                               <FontIcon />
                            </graphic>
