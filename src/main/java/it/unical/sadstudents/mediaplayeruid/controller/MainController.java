@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -27,12 +28,12 @@ public class MainController {
     private ToolBar toolbarMenu;
 
     @FXML
-    void onHome(ActionEvent event) {
+    void onEquilizer(ActionEvent event) {
 
     }
 
     @FXML
-    void onMediaPlayedSett(ActionEvent event) {
+    void onHome(ActionEvent event) {
 
     }
 
@@ -67,6 +68,11 @@ public class MainController {
     }
 
     @FXML
+    void onProperties(ActionEvent event) {
+
+    }
+
+    @FXML
     void onRepeat(ActionEvent event) {
 
     }
@@ -83,6 +89,21 @@ public class MainController {
 
     @FXML
     void onShuffle(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSkipBack(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSkipForward(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSpeedPlay(ActionEvent event) {
 
     }
 

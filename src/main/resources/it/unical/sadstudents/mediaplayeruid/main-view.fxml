@@ -191,38 +191,38 @@
                               <FontIcon iconLiteral="fa-fast-forward" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0">
+                        <Button layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-repeat" iconSize="15" />
                            </graphic>
                         </Button>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" layoutX="280.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onVolume" prefWidth="20.0">
+                        <Button mnemonicParsing="false" onAction="#onVolume" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-volume-up" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
+                        <Button layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-expand" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
+                        <Button layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-dashboard" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
+                        <Button layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon iconLiteral="fas-sliders-h" iconSize="15" />
+                              <FontIcon iconLiteral="fa-sliders" iconSize="15" />
                            </graphic>
                         </Button>
-                        <Button layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
+                        <Button layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon />
+                              <FontIcon iconLiteral="fa-info-circle" iconSize="15" />
                            </graphic>
                         </Button>
                      </children>
