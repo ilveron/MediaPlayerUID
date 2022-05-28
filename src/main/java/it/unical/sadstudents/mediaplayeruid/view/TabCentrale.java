@@ -20,6 +20,7 @@ public class TabCentrale {
     private TabCentrale(){    }
 
     public Pane init (){
+
         try{
             subScene = new FXMLLoader().load(MainApplication.class.getResource("home-view.fxml"));
 

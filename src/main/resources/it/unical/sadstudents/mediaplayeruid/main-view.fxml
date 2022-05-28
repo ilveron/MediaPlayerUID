@@ -99,29 +99,14 @@
                         <Insets left="10.0" />
                      </padding>
                   </VBox>
-                  <VBox prefHeight="700.0" prefWidth="930.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="675.0" prefWidth="930.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="100.0" prefWidth="930.0">
-                           <children>
-                              <Label fx:id="tabAttuale" alignment="TOP_LEFT" text="Label">
-                                 <font>
-                                    <Font size="39.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </HBox>
-                        <BorderPane fx:id="myBorderPane" prefHeight="575.0" prefWidth="930.0" VBox.vgrow="ALWAYS" />
+                        <BorderPane fx:id="myBorderPane" prefHeight="675.0" prefWidth="930.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="30.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="timeMediaPlayed" text="00.00.00">
                      <font>
@@ -145,7 +130,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="100.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="250.0">
                      <children>

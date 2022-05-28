@@ -3,6 +3,8 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 
 
+import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
+import it.unical.sadstudents.mediaplayeruid.model.MusicLibrary;
 import it.unical.sadstudents.mediaplayeruid.view.TabCentrale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,29 +16,26 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+
 public class MainController implements Initializable {
-    public TabCentrale subScenaAttuale;
+    public TabCentrale subScenaAttuale; //se settata a private, rimane grigia come se non venisse mai usata
+    private MusicLibrary myMusicLibrary;
+
+    DatabaseManager databaseManager;
+
+
 
     @FXML
     private BorderPane myBorderPane;
 
     @FXML
-    private Label durationMediaPlayed;
-
-    @FXML
-    private Label nameMediaPlayed;
-
-    @FXML
     private Slider sliderMediaPlayed;
 
-
     @FXML
-    private Label tabAttuale;
-
-    @FXML
-    private Label timeMediaPlayed;
+    private Label timeMediaPlayed, nameMediaPlayed, durationMediaPlayed;
 
     @FXML
     private ToolBar toolbarMenu;
@@ -47,14 +46,12 @@ public class MainController implements Initializable {
     void onHome(ActionEvent event) {
         Pane subScenePane = subScenaAttuale.getInstance().init();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("HOME");
     }
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
         Pane subScenePane = subScenaAttuale.getInstance().MusicLibrary();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("MUSIC LIBRARY");
 
     }
 
@@ -62,7 +59,6 @@ public class MainController implements Initializable {
     void onVideoLibrary(ActionEvent event) {
         Pane subScenePane = subScenaAttuale.getInstance().VideoLibrary();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("VIDEO LIBRARY");
 
     }
 
@@ -70,7 +66,6 @@ public class MainController implements Initializable {
     void onPlayQueue(ActionEvent event) {
         Pane subScenePane = subScenaAttuale.getInstance().PlayQueue();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("PLAY QUEUE");
 
     }
 
@@ -78,7 +73,6 @@ public class MainController implements Initializable {
     void onPlayLists(ActionEvent event) {
         Pane subScenePane = subScenaAttuale.getInstance().Playlists();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("PLAYLISTS");
 
     }
 
@@ -94,7 +88,22 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Pane subScenePane = subScenaAttuale.getInstance().init();
         myBorderPane.setCenter(subScenePane);
-        tabAttuale.setText("HOME");
+        //myMusicLibrary = new MusicLibrary();
+
+        databaseManager = new DatabaseManager();
+
+        try {
+            databaseManager.createConnection();
+            databaseManager.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
     }
 

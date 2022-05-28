@@ -14,7 +14,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
-        stage.setMinWidth(600);
+        stage.setMinWidth(750);
         stage.setScene(scene);
         stage.show();
     }

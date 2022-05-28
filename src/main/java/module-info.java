@@ -3,6 +3,7 @@ module it.unical.sadstudents.mediaplayeruid {
     requires javafx.fxml;
 
     requires org.kordamp.ikonli.javafx;
+    requires java.sql;
 
     opens it.unical.sadstudents.mediaplayeruid to javafx.fxml;
     exports it.unical.sadstudents.mediaplayeruid;
