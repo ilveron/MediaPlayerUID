@@ -14,6 +14,7 @@ public class HomeController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose the file");
         File file = fileChooser.showOpenDialog(stage);
+        Player.getInstance().playMedia(file);
 
 
     }

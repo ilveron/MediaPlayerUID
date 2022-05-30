@@ -1,29 +1,34 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
-import it.unical.sadstudents.mediaplayeruid.model.MusicLibrary;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainController implements Initializable {
+    private Timer timer;
+    private TimerTask task;
+    private boolean runningTimer;
 
-    private MusicLibrary myMusicLibrary;
-
-    DatabaseManager databaseManager;
 
     @FXML
     public FontIcon iconPlayPause;
@@ -32,7 +37,9 @@ public class MainController implements Initializable {
     private BorderPane myBorderPane;
 
     @FXML
-    private Slider sliderMediaPlayed;
+    private Slider volumeSlider;
+    @FXML
+    private ProgressBar progressBar;
 
     @FXML
     private Label timeMediaPlayed, nameMediaPlayed, durationMediaPlayed;
@@ -84,6 +91,17 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Pane subScenePane = MiddlePaneHandler.getInstance().init();
         myBorderPane.setCenter(subScenePane);
+
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                Player.getInstance().settaVolume(volumeSlider.getValue()*0.01);
+            }
+        });
+
+
+
     }
 
     @FXML
@@ -153,5 +171,32 @@ public class MainController implements Initializable {
 
     }
 
-    public void startSong(File file){}
+    /*
+    public void beginTimer(){
+
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                runningTimer = true;
+                double current = mediaPlayer.getCurrentTime().toSeconds();
+                double end = media.getDuration().toSeconds();
+                songProgressBar.setProgress(current/end);
+
+                if (current/end ==1){
+                    cancelTimer();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task,0,1000);
+
+    }
+
+    public void cancelTimer(){
+        runningTimer = false;
+        timer.cancel();
+
+    }*/
+
+
 }

@@ -48,4 +48,11 @@ public class Player {
             isRunning = true;
         }
     }
+
+
+    public void settaVolume(double v) {
+        mediaPlayer.setVolume(v);
+    }
+
+
 }
