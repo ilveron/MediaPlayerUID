@@ -164,7 +164,7 @@
                         </Button>
                         <Button layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0" style="-fx-background-color: transparent;">
                            <graphic>
-                              <FontIcon iconLiteral="fa-play" iconSize="25" />
+                              <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" />
                            </graphic>
                         </Button>
                         <Button layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0" style="-fx-background-color: transparent;">

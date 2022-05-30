@@ -13,7 +13,7 @@
             <Font size="39.0" />
          </font>
       </Label>
-      <Button minWidth="123.0" mnemonicParsing="false" text="Agiungi File(s)" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="12.0">
+      <Button minWidth="123.0" mnemonicParsing="false" onAction="#addFiles" text="Aggiungi File(s)" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="12.0">
          <font>
             <Font size="14.0" />
          </font>

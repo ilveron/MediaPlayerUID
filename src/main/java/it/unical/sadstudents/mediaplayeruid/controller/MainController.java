@@ -1,11 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-
-
-
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.MusicLibrary;
-import it.unical.sadstudents.mediaplayeruid.view.MidHandler;
+import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,21 +12,21 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.io.File;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
 public class MainController implements Initializable {
-    public MidHandler subScenaAttuale; //se settata a private, rimane grigia come se non venisse mai usata
+
     private MusicLibrary myMusicLibrary;
 
     DatabaseManager databaseManager;
 
-
+    @FXML
+    public FontIcon iconPlayPause;
 
     @FXML
     private BorderPane myBorderPane;
@@ -42,38 +40,36 @@ public class MainController implements Initializable {
     @FXML
     private ToolBar toolbarMenu;
 
-
-
     @FXML
     void onHome(ActionEvent event) {
-        Pane subScenePane = subScenaAttuale.getInstance().init();
+        Pane subScenePane = MiddlePaneHandler.getInstance().init();
         myBorderPane.setCenter(subScenePane);
     }
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
-        Pane subScenePane = subScenaAttuale.getInstance().MusicLibrary();
+        Pane subScenePane = MiddlePaneHandler.getInstance().MusicLibrary();
         myBorderPane.setCenter(subScenePane);
 
     }
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
-        Pane subScenePane = subScenaAttuale.getInstance().VideoLibrary();
+        Pane subScenePane = MiddlePaneHandler.getInstance().VideoLibrary();
         myBorderPane.setCenter(subScenePane);
 
     }
 
     @FXML
     void onPlayQueue(ActionEvent event) {
-        Pane subScenePane = subScenaAttuale.getInstance().PlayQueue();
+        Pane subScenePane = MiddlePaneHandler.getInstance().PlayQueue();
         myBorderPane.setCenter(subScenePane);
 
     }
 
     @FXML
     void onPlayLists(ActionEvent event) {
-        Pane subScenePane = subScenaAttuale.getInstance().Playlists();
+        Pane subScenePane = MiddlePaneHandler.getInstance().Playlists();
         myBorderPane.setCenter(subScenePane);
 
     }
@@ -84,37 +80,16 @@ public class MainController implements Initializable {
 
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Pane subScenePane = subScenaAttuale.getInstance().init();
+        Pane subScenePane = MiddlePaneHandler.getInstance().init();
         myBorderPane.setCenter(subScenePane);
-
-        //myMusicLibrary = new MusicLibrary();
-
-
-       databaseManager = new DatabaseManager();
-
-        try {
-            databaseManager.createConnection();
-            databaseManager.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
-
-
-
-
-
 
     @FXML
     void onVolume(ActionEvent event) {
 
     }
-
 
     @FXML
     void onShuffle(ActionEvent event) {
@@ -167,6 +142,16 @@ public class MainController implements Initializable {
     }
     @FXML
     void onPlayPause(ActionEvent event) {
+        if(Player.getInstance().getIsRunning()){
+            iconPlayPause.setIconLiteral("fa-play");
+            Player.getInstance().pauseMedia();
+        }
+        else{
+            iconPlayPause.setIconLiteral("fa-pause");
+            Player.getInstance().resumeMedia();
+        }
 
     }
+
+    public void startSong(File file){}
 }

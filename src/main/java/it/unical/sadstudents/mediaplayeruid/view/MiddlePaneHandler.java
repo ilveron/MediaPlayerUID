@@ -7,17 +7,17 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class MidHandler {
-    private static MidHandler instance = null;
+public class MiddlePaneHandler {
+    private static MiddlePaneHandler instance = null;
     private Pane subScene;
 
-    public static MidHandler getInstance(){
+    public static MiddlePaneHandler getInstance(){
         if (instance==null)
-            instance = new MidHandler();
+            instance = new MiddlePaneHandler();
         return instance;
     }
 
-    private MidHandler(){    }
+    private MiddlePaneHandler(){    }
 
     public Pane init (){
 
