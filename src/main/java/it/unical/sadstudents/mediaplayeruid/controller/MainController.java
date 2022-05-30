@@ -91,35 +91,23 @@ public class MainController implements Initializable {
         Pane subScenePane = subScenaAttuale.getInstance().init();
         myBorderPane.setCenter(subScenePane);
 
-        try {
-            this.testConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
         //myMusicLibrary = new MusicLibrary();
 
 
-        /*databaseManager = new DatabaseManager();
+       databaseManager = new DatabaseManager();
 
         try {
             databaseManager.createConnection();
             databaseManager.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 
 
 
-    public void testConnection() throws SQLException {
-        String url = "jdbc:sqlite:db_name.db";
-        Connection con = DriverManager.getConnection(url);
-        if(con != null && !con.isClosed())
-            System.out.println("Connected!");
-    }
+
 
 
     @FXML
