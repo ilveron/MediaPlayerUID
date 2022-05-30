@@ -3,6 +3,9 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -29,9 +32,12 @@ public class MainController implements Initializable {
     private TimerTask task;
     private boolean runningTimer;
 
+    private File file;
+
+
 
     @FXML
-    public FontIcon iconPlayPause;
+    protected FontIcon iconPlayPause;
 
     @FXML
     private BorderPane myBorderPane;
@@ -89,6 +95,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         Pane subScenePane = MiddlePaneHandler.getInstance().init();
         myBorderPane.setCenter(subScenePane);
 
@@ -99,6 +106,7 @@ public class MainController implements Initializable {
                 Player.getInstance().settaVolume(volumeSlider.getValue()*0.01);
             }
         });
+
 
 
 
@@ -170,6 +178,19 @@ public class MainController implements Initializable {
         }
 
     }
+
+    public void cambiaIcona (){
+        System.out.println("ci entro");
+        iconPlayPause.setIconLiteral("fa-pause");
+
+    }
+
+    public void riceviFile(File file){
+        this.file = file;
+        Player.getInstance().playMedia(file);
+
+    }
+
 
     /*
     public void beginTimer(){

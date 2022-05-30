@@ -1,8 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.controller.MainController;
+import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 
