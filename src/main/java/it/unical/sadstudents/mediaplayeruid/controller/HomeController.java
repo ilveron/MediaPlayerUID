@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,13 +21,7 @@ public class HomeController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose the file");
         File file = fileChooser.showOpenDialog(stage);
-
-
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        Parent parent = (Parent)fxmlLoader.load();
-        MainController mainController = fxmlLoader.getController();
-        mainController.riceviFile(file);
-
+        PlayQueue.getInstance().generateNewQueue(file);
 
     }
 

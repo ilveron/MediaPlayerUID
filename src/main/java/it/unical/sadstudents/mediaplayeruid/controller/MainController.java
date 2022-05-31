@@ -1,11 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,24 +14,19 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+
+
+
 
 public class MainController implements Initializable {
-    private Timer timer;
-    private TimerTask task;
-    private boolean runningTimer;
+
 
     private File file;
-
-
 
     @FXML
     protected FontIcon iconPlayPause;
@@ -107,6 +99,19 @@ public class MainController implements Initializable {
             }
         });
 
+        Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
+
+        Player.getInstance().currentProperty().addListener(observable ->settaProgressBar());
+
+        Player.getInstance().nameMediaProperty().addListener(observable -> nameMediaPlayed.setText(Player.getInstance().getNameMedia()));
+
+
+
+
+    }
+
+    private void settaProgressBar() {
+        progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));
 
 
 
@@ -114,6 +119,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onVolume(ActionEvent event) {
+
 
     }
 
@@ -124,12 +130,12 @@ public class MainController implements Initializable {
 
     @FXML
     void onSkipBack(ActionEvent event) {
-
+        Player.getInstance().tenSecondBack();
     }
 
     @FXML
     void onSkipForward(ActionEvent event) {
-
+        Player.getInstance().tenSecondForward();
     }
 
     @FXML
@@ -149,6 +155,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onRepeat(ActionEvent event) {
+        Player.getInstance().restart();
 
     }
 
@@ -180,44 +187,18 @@ public class MainController implements Initializable {
     }
 
     public void cambiaIcona (){
-        System.out.println("ci entro");
-        iconPlayPause.setIconLiteral("fa-pause");
+        if(Player.getInstance().getIsRunning())
+            iconPlayPause.setIconLiteral("fa-pause");
+        else{
+            iconPlayPause.setIconLiteral("fa-play");
+        }
 
     }
 
-    public void riceviFile(File file){
-        this.file = file;
-        Player.getInstance().playMedia(file);
-
-    }
 
 
-    /*
-    public void beginTimer(){
 
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                runningTimer = true;
-                double current = mediaPlayer.getCurrentTime().toSeconds();
-                double end = media.getDuration().toSeconds();
-                songProgressBar.setProgress(current/end);
 
-                if (current/end ==1){
-                    cancelTimer();
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task,0,1000);
-
-    }
-
-    public void cancelTimer(){
-        runningTimer = false;
-        timer.cancel();
-
-    }*/
 
 
 }
