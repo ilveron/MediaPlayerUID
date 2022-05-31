@@ -23,6 +23,7 @@ public class Player {
     private Timer timer;
     private TimerTask task;
     private boolean runningTimer;
+    private SimpleBooleanProperty mediaLoaded = new SimpleBooleanProperty(false);
 
     //private File file;
     //private String path;
@@ -38,6 +39,14 @@ public class Player {
     private SimpleDoubleProperty end = new SimpleDoubleProperty(0);
 
     private Player() { }
+
+    public boolean isMediaLoaded() {
+        return mediaLoaded.get();
+    }
+
+    public SimpleBooleanProperty mediaLoadedProperty() {
+        return mediaLoaded;
+    }
 
     public String getNameMedia() {
         return nameMedia.get();
@@ -84,7 +93,13 @@ public class Player {
         media = new Media(uri);
         mediaPlayer = new MediaPlayer(media);
         nameMedia.set(file.getName());
+        mediaLoaded.set(true);
         playMedia();
+
+        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+            System.out.println("Titolo: " + media.getMetadata().get("title"));
+            System.out.println("Artista: " + media.getMetadata().get("artist"));
+        });
         //TODO: REGEX per riproduzione *.mp4
     }
 
@@ -162,9 +177,4 @@ public class Player {
             mediaPlayer.play();
             beginTimer();
     }
-
-
-
-
-
 }
