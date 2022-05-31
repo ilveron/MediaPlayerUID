@@ -97,9 +97,30 @@ public class Player {
         playMedia();
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            System.out.println("Titolo: " + media.getMetadata().get("title"));
-            System.out.println("Artista: " + media.getMetadata().get("artist"));
+            if(change.wasAdded()){
+                if("title".equals(change.getKey())) {
+                    String title = media.getMetadata().get("title").toString();
+                    System.out.println("title: " + title);
+                }
+                else if ("artist".equals(change.getKey())){
+                    String artist = media.getMetadata().get("artist").toString();
+                    System.out.println("artist: " + artist);
+                }
+                else if ("album".equals(change.getKey())){
+                    String album = media.getMetadata().get("album").toString();
+                    System.out.println("album: " + album);
+                }
+                else if ("genre".equals(change.getKey())){
+                    String genre = media.getMetadata().get("genre").toString();
+                    System.out.println("genre: " + genre);
+                }
+                else if ("length".equals(change.getKey())){
+                    String length = media.getMetadata().get("length").toString();
+                    System.out.println("length: " + length);
+                }
+            }
         });
+
         //TODO: REGEX per riproduzione *.mp4
     }
 
@@ -107,7 +128,7 @@ public class Player {
         if(media != null){
             mediaPlayer.pause();
             isRunning.set(false);
-            cancelTimer();
+            //cancelTimer();
         }
     }
 
@@ -136,8 +157,7 @@ public class Player {
                 current.set(mediaPlayer.getCurrentTime().toSeconds());
                 end.set(media.getDuration().toSeconds());
 
-
-                if (getCurrent()/getEnd() ==1){
+                if (getCurrent()/getEnd()==1){
                     cancelTimer();
                 }
             }

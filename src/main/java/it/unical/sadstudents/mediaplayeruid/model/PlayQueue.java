@@ -25,22 +25,31 @@ public class PlayQueue {
         return instance;
     }
 
-    private ObservableList<File> queue;
+    private ObservableList<MyMedia> queue;
     private Integer currentMedia=0;
 
-
+    public ObservableList<MyMedia> getQueue(){
+        return queue;
+    }
 
     public void generateNewQueue(File file){
         queue.clear();
-        queue.add(file);
-        Player.getInstance().createMedia(queue.get(currentMedia));
+        MyMedia media = new MyMedia(file);
+        queue.add(media);
+
+        //Player.getInstance().createMedia(queue.get(currentMedia));
 
     }
 
-    public void addToQueue(File file){
-        queue.add(file);
+    public void generateNewQueueFromList(File[] files){
+        queue.clear();
+        for(File f: files){
+            MyMedia media = new MyMedia(f);
+            queue.add(media);
+        }
     }
 
-    public void aruStraculazzu(){}
-
+    public void addToQueue(MyMedia myMedia){
+        queue.add(myMedia);
+    }
 }
