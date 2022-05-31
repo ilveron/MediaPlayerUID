@@ -4,6 +4,8 @@ import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyMedia {
     private Media media;
@@ -15,32 +17,39 @@ public class MyMedia {
     private Double duration = 0.0;
     private Integer releaseYear = 0;
 
+
     private boolean isReturnable = false;
 
     public MyMedia() { }
 
     public MyMedia(File file) {
         this.file = file;
-        media = new Media(this.file.toURI().toString());
-        duration = media.getDuration().toSeconds();
-        
+        media = new Media(file.toURI().toString());
+        setDuration(media.getDuration().toSeconds());
+
+
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()){
                 if("title".equals(change.getKey())) {
-                    title = media.getMetadata().get("title").toString();
+                    setTitle(title = media.getMetadata().get("title").toString());
                     System.out.println("title: " + title);
                 }
                 else if ("artist".equals(change.getKey())){
-                    artist = media.getMetadata().get("artist").toString();
+                    setArtist(media.getMetadata().get("artist").toString());
                     System.out.println("artist: " + artist);
                 }
                 else if ("album".equals(change.getKey())){
-                    album = media.getMetadata().get("album").toString();
+                    setAlbum(media.getMetadata().get("album").toString());
                     System.out.println("album: " + album);
                 }
                 else if ("genre".equals(change.getKey())){
-                    genre = media.getMetadata().get("genre").toString();
+                    setGenre(media.getMetadata().get("genre").toString());
                     System.out.println("genre: " + genre);
+                }
+                else if ("lenght".equals(change.getKey())){
+                    setDuration((Double) media.getMetadata().get("lenght"));
+                    System.out.println(duration);
+
                 }
             }
         });
@@ -75,9 +84,18 @@ public class MyMedia {
         this.releaseYear = releaseYear;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public Media getMedia() {
         return media;
     }
+
 
     public String getTitle() {
         return title;

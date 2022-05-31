@@ -10,4 +10,6 @@ module it.unical.sadstudents.mediaplayeruid {
     exports it.unical.sadstudents.mediaplayeruid;
     exports it.unical.sadstudents.mediaplayeruid.controller;
     opens it.unical.sadstudents.mediaplayeruid.controller to javafx.fxml;
+    exports it.unical.sadstudents.mediaplayeruid.model;
+    opens it.unical.sadstudents.mediaplayeruid.model to javafx.fxml;
 }

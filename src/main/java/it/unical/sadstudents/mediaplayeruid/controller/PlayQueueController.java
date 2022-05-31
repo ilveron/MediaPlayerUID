@@ -2,10 +2,10 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
+import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,8 +13,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PlayQueueController implements Initializable {
+
+    private Timer timer;
+    private TimerTask task;
+    private Integer indice = 0;
+
+
     @FXML
     private TableView<MyMedia> tableViewQueue;
 
@@ -62,6 +70,10 @@ public class PlayQueueController implements Initializable {
         album.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("album"));
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         //duration.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("duration"));
-        // artist.setCellValueFactory();
+
     }
+
+
+
+
 }

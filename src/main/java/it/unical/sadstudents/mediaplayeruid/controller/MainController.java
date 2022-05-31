@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
 
@@ -154,6 +155,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    void onPrevious(ActionEvent event) {
+        if(PlayQueue.getInstance().getQueue().size()>1)
+            PlayQueue.getInstance().cambiacanzonefrombutton(-1);
+
+    }
+
+    @FXML
     void onSkipBack(ActionEvent event) {
         Player.getInstance().tenSecondBack();
     }
@@ -164,13 +172,10 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void onSpeedPlay(ActionEvent event) {
+    void onNext(ActionEvent event) {
 
-    }
-
-    @FXML
-    void onPrevious(ActionEvent event) {
-
+        if(PlayQueue.getInstance().getQueue().size()>1)
+            PlayQueue.getInstance().cambiacanzonefrombutton(1);
     }
 
     @FXML
@@ -190,14 +195,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void onEquilizer(ActionEvent event) {
+    void onSpeedPlay(ActionEvent event) {
 
     }
 
     @FXML
-    void onNext(ActionEvent event) {
+    void onEquilizer(ActionEvent event) {
 
     }
+
+
     @FXML
     void onPlayPause(ActionEvent event) {
         if(Player.getInstance().getIsRunning()){
