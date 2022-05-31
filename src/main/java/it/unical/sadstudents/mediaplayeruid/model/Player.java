@@ -84,7 +84,6 @@ public class Player {
         media = new Media(uri);
         mediaPlayer = new MediaPlayer(media);
         nameMedia.set(file.getName());
-        beginTimer();
         playMedia();
         //TODO: REGEX per riproduzione *.mp4
     }
