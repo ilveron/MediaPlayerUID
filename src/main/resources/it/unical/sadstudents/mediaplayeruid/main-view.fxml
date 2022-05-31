@@ -104,13 +104,13 @@
                <children>
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="timeMediaPlayed" text="00.00.00">
+                        <Label fx:id="timeMediaPlayed" maxWidth="52.0" minWidth="52.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="1052.0" progress="0.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="durationMediaPlayed" text="00.00.00">
+                        <Label fx:id="durationMediaPlayed" maxWidth="52.0" minWidth="52.0">
                            <font>
                               <Font size="14.0" />
                            </font>

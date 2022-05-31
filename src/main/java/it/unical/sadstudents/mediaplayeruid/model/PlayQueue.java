@@ -33,7 +33,7 @@ public class PlayQueue {
     public void generateNewQueue(File file){
         queue.clear();
         queue.add(file);
-        Player.getInstance().playMedia(queue.get(currentMedia));
+        Player.getInstance().createMedia(queue.get(currentMedia));
 
     }
 

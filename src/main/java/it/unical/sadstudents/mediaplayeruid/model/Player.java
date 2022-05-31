@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.controller.MainController;
 import javafx.beans.property.*;
+import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.media.Media;
@@ -78,20 +79,13 @@ public class Player {
         return instance;
     }
 
-    public void playMedia(File file){
+    public void createMedia(File file){
         String uri = file.toURI().toString();
         media = new Media(uri);
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-        isRunning.set(true);
         nameMedia.set(file.getName());
-
-        System.out.println(media.getMetadata().get("title").toString());
-
-
-
-
         beginTimer();
+        playMedia();
         //TODO: REGEX per riproduzione *.mp4
     }
 
@@ -103,7 +97,7 @@ public class Player {
         }
     }
 
-    public void resumeMedia(){
+    public void playMedia(){
         if(media != null){
             mediaPlayer.play();
             isRunning.set(true);

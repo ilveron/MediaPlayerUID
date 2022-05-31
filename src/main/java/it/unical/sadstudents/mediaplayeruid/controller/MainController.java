@@ -29,7 +29,7 @@ public class MainController implements Initializable {
     private File file;
 
     @FXML
-    protected FontIcon iconPlayPause;
+    private FontIcon iconPlayPause;
 
     @FXML
     private BorderPane myBorderPane;
@@ -102,6 +102,7 @@ public class MainController implements Initializable {
         Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
 
         Player.getInstance().currentProperty().addListener(observable ->settaProgressBar());
+        Player.getInstance().currentProperty().addListener(observable ->timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent())));
 
         Player.getInstance().nameMediaProperty().addListener(observable -> nameMediaPlayed.setText(Player.getInstance().getNameMedia()));
 
@@ -112,7 +113,8 @@ public class MainController implements Initializable {
 
     private void settaProgressBar() {
         progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));
-
+        //timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent()));
+        //System.out.println(Player.getInstance().getCurrent());
 
 
     }
@@ -181,7 +183,7 @@ public class MainController implements Initializable {
         }
         else{
             iconPlayPause.setIconLiteral("fa-pause");
-            Player.getInstance().resumeMedia();
+            Player.getInstance().playMedia();
         }
 
     }
