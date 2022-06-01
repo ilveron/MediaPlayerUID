@@ -11,6 +11,7 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.ResourceBundle;
 
@@ -21,7 +22,7 @@ public class PlayQueue {
     private PlayQueue (){
 
         queue = FXCollections.observableArrayList();
-        Player.getInstance().currentProperty().addListener(observable ->cambiacanzone() );//vericare come usare più funzioni
+        Player.getInstance().currentProperty().addListener(observable -> changeMedia() );//vericare come usare più funzioni
     }
 
     public static PlayQueue getInstance(){
@@ -54,55 +55,71 @@ public class PlayQueue {
         MyMedia media = new MyMedia(file);
         queue.add(media);
         currentMedia.set(0);
-        Player.getInstance().createMedia(queue.get(currentMedia.get()).getPath());
-        Player.getInstance().setNameMedia(queue.get(currentMedia.get()).getTitle());
+        Player.getInstance().createMedia(0);
         MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
 
     }
 
-    public void generateNewQueueFromList(File[] files){
+    public void generateNewQueueFromList(ArrayList<File> files){
         queue.clear();
         currentMedia.set(0);
         for(File f: files){
             MyMedia media = new MyMedia(f);
             queue.add(media);
             if(!Player.getInstance().getIsRunning())
-                Player.getInstance().createMedia(queue.get(currentMedia.get()).getPath());
-                Player.getInstance().setNameMedia(queue.get(currentMedia.get()).getTitle());
+                Player.getInstance().createMedia(currentMedia.get());
         }
         MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
-    public void addToQueue(MyMedia myMedia){
+    public void addFileToQueue(File file){
+        MyMedia myMedia = new MyMedia(file);
         queue.add(myMedia);
     }
 
-
-    public void cambiacanzone(){
-        Integer current = currentMedia.get();
-        if (Player.getInstance().getCurrent()==Player.getInstance().getEnd()){
-            if (current ==queue.size()-1)currentMedia.set(0);
-            else{
-                currentMedia.set(++current);
-
-            }
-            Player.getInstance().pauseMedia();
-            Player.getInstance().createMedia(queue.get(currentMedia.get()).getPath());
+    public void addFolderToQueue(ArrayList<File> files){
+        for(File file: files){
+            MyMedia myMedia = new MyMedia(file);
+            queue.add(myMedia);
         }
     }
 
-    public void cambiacanzonefrombutton(Integer direction){
+
+    public void changeMedia(){
+        Integer current = currentMedia.get();
+        if (Player.getInstance().getCurrent()==Player.getInstance().getEnd()){
+            if (current < PlayQueue.getInstance().getQueue().size()-1) {
+                currentMedia.set(++current);
+                Player.getInstance().pauseMedia();
+                Player.getInstance().createMedia(currentMedia.get());
+            }
+        }
+    }
+
+    public void changeMediaWithButton(Integer direction){
             currentMedia.set(currentMedia.get()+direction);
 
-            if (currentMedia.get()>queue.size()-1)currentMedia.set(0);
+            if(currentMedia.get() >= 0 && currentMedia.get()<queue.size()){
+                Player.getInstance().pauseMedia();
+                Player.getInstance().createMedia(currentMedia.get());
+            }
+            else
+                currentMedia.set(currentMedia.get()-direction);
+
+            //VECCHIA VERSIONE:
+            /*
+            currentMedia.set(currentMedia.get()+direction);
+
+            if (currentMedia.get()>queue.size()-1)
+                currentMedia.set(0);
             else if(currentMedia.get()<0){
                 currentMedia.set(queue.size()-1);
             }
-            Player.getInstance().pauseMedia();
-            Player.getInstance().createMedia(queue.get(currentMedia.get()).getPath());
+            */
 
     }
 
+    //TODO: NON CANCELLARE!!!
     /*public void compilaMetadati(){
         for(MyMedia myMedia: queue){
             Media media = new Media(myMedia.getPath());

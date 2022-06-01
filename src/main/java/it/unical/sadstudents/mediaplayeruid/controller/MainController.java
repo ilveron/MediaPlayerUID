@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -35,7 +38,7 @@ public class MainController implements Initializable {
     @FXML
     private Slider volumeSlider;
     @FXML
-    private ProgressBar progressBar;
+    private Slider sliderMedia;
 
     @FXML
     private Label timeMediaPlayed, nameMediaPlayed, durationMediaPlayed;
@@ -84,6 +87,17 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         switchMidPane();
+        //sliderMedia.setMax(Player.getInstance().getEnd());
+        //sliderMedia.setValue(0);
+
+        sliderMedia.valueChangingProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                //Player.getInstance().setCurrent(sliderMedia.getValue());
+                Player.getInstance().changePosition(sliderMedia.getValue());
+            }
+        });
 
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -101,14 +115,30 @@ public class MainController implements Initializable {
 
         Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
 
-        Player.getInstance().currentProperty().addListener(observable ->settaProgressBar());
+        Player.getInstance().currentProperty().addListener(observable ->settaSliderMedia());
         //Player.getInstance().currentProperty().addListener(observable ->timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent())));
 
         Player.getInstance().nameMediaProperty().addListener(observable -> nameMediaPlayed.setText(Player.getInstance().getNameMedia()));
 
+        Player.getInstance().endProperty().addListener(observable -> settaFineMedia());
 
 
 
+    }
+    private String CalcolaTempo(double second){
+        if(second>0) {
+            int minuti = (int) second / 64;
+            int ore = (int) minuti / 64;
+            int secon = (int) second % 64;
+            return String.format("%d:%2d:%2d", ore, minuti, secon);
+        }else
+            return "00:00:00";
+    }
+
+    private void settaFineMedia(){
+        sliderMedia.setMax(Player.getInstance().getEnd());
+        //durationMediaPlayed.setText(CalcolaTempo(Player.getInstance().getEnd()));
+        //System.out.println(CalcolaTempo(Player.getInstance().getEnd()));
     }
 
     private void switchMidPane(){
@@ -129,16 +159,18 @@ public class MainController implements Initializable {
         plsShuffle.setDisable(false);
         plsSpeedPlay.setDisable(false);
         plsVolume.setDisable(false);
-        progressBar.setDisable(false);
+        sliderMedia.setDisable(false);
         volumeSlider.setDisable(false);
     }
 
-    private void settaProgressBar() {
-        progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));
+
+
+    private void settaSliderMedia() {
+        sliderMedia.setValue(Player.getInstance().getCurrent());
+        //timeMediaPlayed.setText(CalcolaTempo(Player.getInstance().getCurrent()));
+        //progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));
         //timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent()));
         //System.out.println(Player.getInstance().getCurrent());
-
-
     }
 
     @FXML
@@ -155,7 +187,7 @@ public class MainController implements Initializable {
     @FXML
     void onPrevious(ActionEvent event) {
         if(PlayQueue.getInstance().getQueue().size()>1)
-            PlayQueue.getInstance().cambiacanzonefrombutton(-1);
+            PlayQueue.getInstance().changeMediaWithButton(-1);
 
     }
 
@@ -173,7 +205,7 @@ public class MainController implements Initializable {
     void onNext(ActionEvent event) {
 
         if(PlayQueue.getInstance().getQueue().size()>1)
-            PlayQueue.getInstance().cambiacanzonefrombutton(1);
+            PlayQueue.getInstance().changeMediaWithButton(1);
     }
 
     @FXML

@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.model.RetrievingEngine;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +40,10 @@ public class PlayQueueController implements Initializable {
     private TableColumn<MyMedia,String> genre;
 
     @FXML
-    private TableColumn<MyMedia,Double> duration;
+    private TableColumn<MyMedia, Integer> year;
+
+    @FXML
+    private TableColumn<MyMedia, Double> length;
 
     @FXML
     void addFileTo(ActionEvent event) {
@@ -48,12 +52,12 @@ public class PlayQueueController implements Initializable {
 
     @FXML
     void addFileToQueue(ActionEvent event) {
-
+        PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile());
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
-
+        PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder());
     }
 
     @FXML
@@ -69,8 +73,8 @@ public class PlayQueueController implements Initializable {
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
         album.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("album"));
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
-
-        //duration.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("duration"));
+        year.setCellValueFactory(new PropertyValueFactory<MyMedia,Integer>("year"));
+        length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
         beginTimer();
 
 
@@ -83,17 +87,10 @@ public class PlayQueueController implements Initializable {
         task = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("thread in funzione");
-                System.out.println(PlayQueue.getInstance().getQueue().size());
-                System.out.println(tableViewQueue.getItems().size());
                 runningTimer = true;
                 tableViewQueue.refresh();
 
                 if (PlayQueue.getInstance().getQueue().size()==0 /*|| PlayQueue.getInstance().getQueue().size() == tableViewQueue.getItems().size()*/){
-                    //System.out.println(PlayQueue.getInstance().getQueue().size());
-                    //System.out.println(tableViewQueue.getItems().size());
-                    //System.out.println("sto stoppando il thread");
-                    //tableViewQueue.refresh();
                     cancelTimer();
                 }
             }
@@ -103,7 +100,6 @@ public class PlayQueueController implements Initializable {
     }
 
     public void cancelTimer(){
-        System.out.println("thread stoppato");
         runningTimer = false;
         timer.cancel();
 

@@ -35,6 +35,7 @@ public class Player {
 
     private SimpleBooleanProperty isRunning = new SimpleBooleanProperty(false);
 
+
     private SimpleDoubleProperty current = new SimpleDoubleProperty(0);
     private SimpleDoubleProperty end = new SimpleDoubleProperty(0);
 
@@ -96,9 +97,9 @@ public class Player {
         return instance;
     }
 
-    public void createMedia(String pathURI){
-
-        media = new Media(pathURI);
+    public void createMedia(Integer index){
+        nameMedia.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+        media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaLoaded.set(true);
         playMedia();
@@ -138,6 +139,7 @@ public class Player {
             @Override
             public void run() {
                 runningTimer = true;
+
                 current.set(mediaPlayer.getCurrentTime().toSeconds());
                 end.set(media.getDuration().toSeconds());
 
@@ -155,6 +157,11 @@ public class Player {
         timer.cancel();
 
 
+    }
+
+    public void changePosition(double position){
+        mediaPlayer.seek(Duration.seconds(position));
+        beginTimer();
     }
 
     public void tenSecondBack() {
