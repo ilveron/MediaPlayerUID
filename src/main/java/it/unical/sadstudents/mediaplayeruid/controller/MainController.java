@@ -51,36 +51,27 @@ public class MainController implements Initializable {
 
     @FXML
     void onHome(ActionEvent event) {
-        Pane subScenePane = MiddlePaneHandler.getInstance().init();
-        myBorderPane.setCenter(subScenePane);
+        MiddlePaneHandler.getInstance().setCurrentMidPane("home-view.fxml");
     }
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
-        Pane subScenePane = MiddlePaneHandler.getInstance().MusicLibrary();
-        myBorderPane.setCenter(subScenePane);
-
+        MiddlePaneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
     }
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
-        Pane subScenePane = MiddlePaneHandler.getInstance().VideoLibrary();
-        myBorderPane.setCenter(subScenePane);
-
+        MiddlePaneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
     }
 
     @FXML
     void onPlayQueue(ActionEvent event) {
-        Pane subScenePane = MiddlePaneHandler.getInstance().PlayQueue();
-        myBorderPane.setCenter(subScenePane);
-
+        MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
     @FXML
     void onPlayLists(ActionEvent event) {
-        Pane subScenePane = MiddlePaneHandler.getInstance().Playlists();
-        myBorderPane.setCenter(subScenePane);
-
+        MiddlePaneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
     }
 
 
@@ -92,8 +83,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Pane subScenePane = MiddlePaneHandler.getInstance().init();
-        myBorderPane.setCenter(subScenePane);
+        switchMidPane();
 
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -103,6 +93,9 @@ public class MainController implements Initializable {
                 Player.getInstance().settaVolume(volumeSlider.getValue()*0.01);
             }
         });
+
+        MiddlePaneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
+
 
         Player.getInstance().mediaLoadedProperty().addListener(observable ->activeFunction());
 
@@ -116,6 +109,11 @@ public class MainController implements Initializable {
 
 
 
+    }
+
+    private void switchMidPane(){
+        Pane subScenePane = MiddlePaneHandler.getInstance().switchPane();
+        myBorderPane.setCenter(subScenePane);
     }
 
     private void activeFunction(){

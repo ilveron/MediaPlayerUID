@@ -40,6 +40,10 @@ public class Player {
 
     private Player() { }
 
+    public void setNameMedia(String nameMedia) {
+        this.nameMedia.set(nameMedia);
+    }
+
     public boolean isMediaLoaded() {
         return mediaLoaded.get();
     }
@@ -88,11 +92,10 @@ public class Player {
         return instance;
     }
 
-    public void createMedia(File file){
-        String uri = file.toURI().toString();
-        media = new Media(uri);
+    public void createMedia(String pathURI){
+
+        media = new Media(pathURI);
         mediaPlayer = new MediaPlayer(media);
-        nameMedia.set(file.getName());
         mediaLoaded.set(true);
         playMedia();
 

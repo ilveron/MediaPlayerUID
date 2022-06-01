@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
+import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.DirectoryChooser;
@@ -25,6 +26,7 @@ public class HomeController {
 
         PlayQueue.getInstance().generateNewQueue(file);
 
+
     }
 
     @FXML
@@ -41,6 +43,7 @@ public class HomeController {
         }));
 
         PlayQueue.getInstance().generateNewQueueFromList(files);
+
     }
     
 

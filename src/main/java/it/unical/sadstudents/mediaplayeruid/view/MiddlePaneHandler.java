@@ -1,14 +1,17 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class MiddlePaneHandler {
     private static MiddlePaneHandler instance = null;
+    private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
     private Pane subScene;
 
     public static MiddlePaneHandler getInstance(){
@@ -19,56 +22,25 @@ public class MiddlePaneHandler {
 
     private MiddlePaneHandler(){    }
 
-    public Pane init (){
+    public String getCurrentMidPane() {
+        return currentMidPane.get();
+    }
 
+    public SimpleStringProperty currentMidPaneProperty() {
+        return currentMidPane;
+    }
+
+    public void setCurrentMidPane(String currentMidPane) {
+        this.currentMidPane.set(currentMidPane);
+    }
+
+    public Pane switchPane(){
         try{
-            subScene = new FXMLLoader().load(MainApplication.class.getResource("home-view.fxml"));
-
-        }catch (IOException  e){}
-        return subScene;
-    }
-
-    public Pane MusicLibrary(){
-        try {
-            subScene = new FXMLLoader().load(MainApplication.class.getResource("music-library-view.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
+        }catch(IOException e){}
 
         return subScene;
     }
-
-    public Pane VideoLibrary(){
-        try {
-            subScene = new FXMLLoader().load(MainApplication.class.getResource("video-library-view.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return subScene;
-    }
-
-    public Pane PlayQueue(){
-        try {
-            subScene = new FXMLLoader().load(MainApplication.class.getResource("play-queue-view.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return subScene;
-    }
-
-    public Pane Playlists(){
-        try {
-            subScene = new FXMLLoader().load(MainApplication.class.getResource("playlist-view.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return subScene;
-    }
-
-
 
 
 

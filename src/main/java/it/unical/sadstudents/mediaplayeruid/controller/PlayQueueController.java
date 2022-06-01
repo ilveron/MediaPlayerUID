@@ -20,7 +20,7 @@ public class PlayQueueController implements Initializable {
 
     private Timer timer;
     private TimerTask task;
-    private Integer indice = 0;
+    private boolean runningTimer;
 
 
     @FXML
@@ -69,11 +69,46 @@ public class PlayQueueController implements Initializable {
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
         album.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("album"));
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
+
         //duration.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("duration"));
+        beginTimer();
+
+
 
     }
 
+    public void beginTimer(){
 
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("thread in funzione");
+                System.out.println(PlayQueue.getInstance().getQueue().size());
+                System.out.println(tableViewQueue.getItems().size());
+                runningTimer = true;
+                tableViewQueue.refresh();
+
+                if (PlayQueue.getInstance().getQueue().size()==0 /*|| PlayQueue.getInstance().getQueue().size() == tableViewQueue.getItems().size()*/){
+                    //System.out.println(PlayQueue.getInstance().getQueue().size());
+                    //System.out.println(tableViewQueue.getItems().size());
+                    //System.out.println("sto stoppando il thread");
+                    //tableViewQueue.refresh();
+                    cancelTimer();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task,0,500);
+
+    }
+
+    public void cancelTimer(){
+        System.out.println("thread stoppato");
+        runningTimer = false;
+        timer.cancel();
+
+
+    }
 
 
 }

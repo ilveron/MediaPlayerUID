@@ -8,12 +8,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MyMedia {
-    private Media media;
+    //private Media media;
     private String title = "";
     private String artist = "";
     private String album = "";
     private String genre = "";
-    private File file;
+    //private File file;
+    private String path = "";
     private Double duration = 0.0;
     private Integer releaseYear = 0;
 
@@ -23,41 +24,34 @@ public class MyMedia {
     public MyMedia() { }
 
     public MyMedia(File file) {
-        this.file = file;
-        media = new Media(file.toURI().toString());
-        setDuration(media.getDuration().toSeconds());
-
+        path = file.toURI().toString();
+        setTitle(file.getName());
+        Media media = new Media(path);
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()){
                 if("title".equals(change.getKey())) {
-                    setTitle(title = media.getMetadata().get("title").toString());
-                    System.out.println("title: " + title);
+                    if (media.getMetadata().get("title").toString()!= null)
+                        setTitle(media.getMetadata().get("title").toString());
+
                 }
                 else if ("artist".equals(change.getKey())){
                     setArtist(media.getMetadata().get("artist").toString());
-                    System.out.println("artist: " + artist);
                 }
                 else if ("album".equals(change.getKey())){
                     setAlbum(media.getMetadata().get("album").toString());
-                    System.out.println("album: " + album);
                 }
                 else if ("genre".equals(change.getKey())){
                     setGenre(media.getMetadata().get("genre").toString());
-                    System.out.println("genre: " + genre);
                 }
-                else if ("lenght".equals(change.getKey())){
-                    setDuration((Double) media.getMetadata().get("lenght"));
-                    System.out.println(duration);
-
-                }
+                /*else if (media.getDuration()!= null){
+                    setDuration(media.getDuration().toSeconds());
+                    if ( media.getMetadata().get("length")!= null)
+                        setDuration((Double) media.getMetadata().get("length"));
+                }*/
             }
         });
 
-    }
-
-    public void setMedia(Media media) {
-        this.media = media;
     }
 
     public void setTitle(String title) {
@@ -70,10 +64,6 @@ public class MyMedia {
 
     public void setAlbum(String album) {
         this.album = album;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     public void setDuration(Double duration) {
@@ -92,10 +82,13 @@ public class MyMedia {
         this.genre = genre;
     }
 
-    public Media getMedia() {
-        return media;
+    public String getPath() {
+        return path;
     }
 
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String getTitle() {
         return title;
@@ -107,10 +100,6 @@ public class MyMedia {
 
     public String getAlbum() {
         return album;
-    }
-
-    public File getFile() {
-        return file;
     }
 
     public Double getDuration() {
