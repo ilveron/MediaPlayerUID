@@ -72,6 +72,10 @@ public class Player {
         return current.get();
     }
 
+    public void setCurrent(double current) {
+        this.current.set(current);
+    }
+
     public SimpleDoubleProperty currentProperty() {
         return current;
     }
