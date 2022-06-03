@@ -16,13 +16,13 @@ public class HomeController implements Initializable {
     @FXML
     void addFile(ActionEvent event) {
         //invoca la funzione di PlayQueue per creare una coda da file
-        PlayQueue.getInstance().generateNewQueue(RetrievingEngine.getInstance().retrieveFile()) ;
+        PlayQueue.getInstance().generateNewQueue(RetrievingEngine.getInstance().retrieveFile(0)) ;
     }
 
     @FXML
     void addFolder(ActionEvent event) {
         //invoca la funzione di PlayQueue per creare una coda da folder
-        PlayQueue.getInstance().generateNewQueueFromList(RetrievingEngine.getInstance().retrieveFolder());
+        PlayQueue.getInstance().generateNewQueueFromList(RetrievingEngine.getInstance().retrieveFolder(0));
     }
 
 

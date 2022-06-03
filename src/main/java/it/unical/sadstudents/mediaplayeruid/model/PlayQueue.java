@@ -1,9 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,18 +13,6 @@ import java.util.ArrayList;
 public class PlayQueue {
 
     private static PlayQueue instance = null;
-
-    private PlayQueue (){
-
-        queue = FXCollections.observableArrayList();
-        Player.getInstance().currentProperty().addListener(observable -> changeMedia() );//vericare come usare più funzioni
-    }
-
-    public static PlayQueue getInstance(){
-        if (instance==null)
-            instance = new PlayQueue();
-        return instance;
-    }
 
     private ObservableList<MyMedia> queue;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
@@ -35,12 +25,34 @@ public class PlayQueue {
         return currentMedia;
     }
 
-    public void setCurrentMedia(int currentMedia) {
-        this.currentMedia.set(currentMedia);
+
+    //TODO: Rivedere se è possibile non chiamare da qui changeMedia()
+    public void setCurrentMedia(int newCurrentMedia) {
+        if(newCurrentMedia < 0 || newCurrentMedia == currentMedia.get()){
+            startMedia();
+            //changeMedia();
+            return;
+        }
+        else if(newCurrentMedia >= getQueue().size()){
+            newCurrentMedia = 0;
+        }
+
+        currentMedia.set(newCurrentMedia);
     }
 
     public ObservableList<MyMedia> getQueue(){
         return queue;
+    }
+
+    private PlayQueue (){
+        queue = FXCollections.observableArrayList();
+        currentMediaProperty().addListener(observable -> startMedia()/*changeMedia()*/ );//vericare come usare più funzioni
+    }
+
+    public static PlayQueue getInstance(){
+        if (instance==null)
+            instance = new PlayQueue();
+        return instance;
     }
 
     public void generateNewQueue(File file){
@@ -48,8 +60,10 @@ public class PlayQueue {
         MyMedia media = new MyMedia(file);
         queue.add(media);
         currentMedia.set(0);
-        Player.getInstance().createMedia(0);
-        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        startMedia();
+        //Player.getInstance().createMedia(0);
+        if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
+            SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
 
     }
 
@@ -61,16 +75,19 @@ public class PlayQueue {
             MyMedia media = new MyMedia(f);
             queue.add(media);
             if(!Player.getInstance().getIsRunning())
-                Player.getInstance().createMedia(currentMedia.get());
+                //Player.getInstance().createMedia(currentMedia.get());
+                startMedia();
         }
-        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
+            SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
     public void addFileToQueue(File file){
         MyMedia myMedia = new MyMedia(file);
         queue.add(myMedia);
-        if(!Player.getInstance().getIsRunning())
-            Player.getInstance().createMedia(currentMedia.get());
+        if(!Player.getInstance().isMediaLoaded())
+            //Player.getInstance().createMedia(currentMedia.get());
+            startMedia();
 
     }
 
@@ -78,44 +95,30 @@ public class PlayQueue {
         for(File file: files){
             MyMedia myMedia = new MyMedia(file);
             queue.add(myMedia);
-            if(!Player.getInstance().getIsRunning())
-                Player.getInstance().createMedia(currentMedia.get());
+            if(!Player.getInstance().isMediaLoaded())
+                //Player.getInstance().createMedia(currentMedia.get());
+                startMedia();
         }
     }
 
 
+    public void startMedia(){
+        if (queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4")){
+            SceneHandler.getInstance().setCurrentMidPane("video-view.fxml");
+        }
+        Player.getInstance().pauseMedia();
+        Player.getInstance().createMedia(currentMedia.get());
+
+    }
+
+    /* Sostituita da startMedia
     public void changeMedia(){
-        Integer current = currentMedia.get();
-        if (Player.getInstance().getCurrent()==Player.getInstance().getEnd()){
-            if (current < PlayQueue.getInstance().getQueue().size()-1) {
-                currentMedia.set(++current);
-                Player.getInstance().pauseMedia();
-                Player.getInstance().createMedia(currentMedia.get());
-            }
-        }
-    }
+        Player.getInstance().pauseMedia();
+        Player.getInstance().createMedia(currentMedia.get());
+    }*/
 
     public void changeMediaWithButton(Integer direction){
-            currentMedia.set(currentMedia.get()+direction);
-
-            if(currentMedia.get() >= 0 && currentMedia.get()<queue.size()){
-                Player.getInstance().pauseMedia();
-                Player.getInstance().createMedia(currentMedia.get());
-            }
-            else
-                currentMedia.set(currentMedia.get()-direction);
-
-            //VECCHIA VERSIONE:
-            /*
-            currentMedia.set(currentMedia.get()+direction);
-
-            if (currentMedia.get()>queue.size()-1)
-                currentMedia.set(0);
-            else if(currentMedia.get()<0){
-                currentMedia.set(queue.size()-1);
-            }
-            */
-
+        setCurrentMedia(getCurrentMedia()+direction);
     }
 
     //TODO: NON CANCELLARE!!!

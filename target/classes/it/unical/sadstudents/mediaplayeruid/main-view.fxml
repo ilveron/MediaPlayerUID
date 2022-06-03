@@ -98,6 +98,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Button fx:id="btnVideoView" alignment="TOP_LEFT" disable="true" graphicTextGap="10.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" text="VIDEO VIEW">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="icons" />
+                           </graphic>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                     </items>
                      <VBox.margin>
                         <Insets />

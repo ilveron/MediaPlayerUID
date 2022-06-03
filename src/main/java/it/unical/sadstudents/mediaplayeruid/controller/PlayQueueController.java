@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -52,24 +53,26 @@ public class PlayQueueController implements Initializable {
 
     @FXML
     void addFileToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile());
+        PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile(0));
         beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder());
+        PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder(0));
         beginTimer();
     }
 
     @FXML
     void deleteQueue(ActionEvent event) {
-
+        PlayQueue.getInstance().getQueue().clear();
+        Player.getInstance().stop();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         tableViewQueue.setItems(PlayQueue.getInstance().getQueue());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
@@ -79,8 +82,16 @@ public class PlayQueueController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
         beginTimer();
 
-
-
+        tableViewQueue.setRowFactory(tableView ->{
+            final TableRow<MyMedia> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if(event.getClickCount() > 1 && !row.isEmpty()){
+                    PlayQueue.getInstance().setCurrentMedia(row.getIndex());
+                    System.out.println(row.getIndex());
+                }
+            });
+            return row;
+        });
     }
 
     public void beginTimer(){
@@ -104,8 +115,6 @@ public class PlayQueueController implements Initializable {
     public void cancelTimer(){
         runningTimer = false;
         timer.cancel();
-
-
     }
 
 

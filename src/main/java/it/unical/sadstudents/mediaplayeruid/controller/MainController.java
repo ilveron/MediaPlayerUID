@@ -1,6 +1,5 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
@@ -13,13 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -32,6 +28,9 @@ public class MainController implements Initializable {
 
     @FXML
     private FontIcon iconPlayPause;
+
+    @FXML
+    private Button btnVideoView;
 
     @FXML
     private BorderPane myBorderPane;
@@ -52,6 +51,7 @@ public class MainController implements Initializable {
             plsScreenMode,plsShuffle,plsSkipBack,plsSpeedPlay,plsSkipForward;
     @FXML
     private MenuButton plsVolume;
+
 
     @FXML
     void onHome(ActionEvent event) {
@@ -76,6 +76,12 @@ public class MainController implements Initializable {
     @FXML
     void onPlayLists(ActionEvent event) {
         SceneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
+    }
+
+    @FXML
+    void onVideoView(ActionEvent event) {
+        SceneHandler.getInstance().setCurrentMidPane("video-view.fxml");
+
     }
 
 
@@ -112,7 +118,7 @@ public class MainController implements Initializable {
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
 
 
-        Player.getInstance().mediaLoadedProperty().addListener(observable ->activeFunction());
+        Player.getInstance().mediaLoadedProperty().addListener(observable -> changeButtonEnabledStatus());
 
         Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
 
@@ -122,6 +128,9 @@ public class MainController implements Initializable {
         Player.getInstance().nameMediaProperty().addListener(observable -> nameMediaPlayed.setText(Player.getInstance().getNameMedia()));
 
         Player.getInstance().endProperty().addListener(observable -> settaFineMedia());
+
+        //gestore Video
+
 
 
 
@@ -146,31 +155,39 @@ public class MainController implements Initializable {
     }
 
     private void switchMidPane(){
+        if (SceneHandler.getInstance().getCurrentMidPane()=="video-view.fxml"){
+            btnVideoView.setDisable(false);
+        }
         Pane subScenePane = SceneHandler.getInstance().switchPane();
         myBorderPane.setCenter(subScenePane);
     }
 
-    private void activeFunction(){
-        plsPrevious.setDisable(false);
-        plsScreenMode.setDisable(false);
-        plsEquilizer.setDisable(false);
-        plsSkipBack.setDisable(false);
-        plsSkipForward.setDisable(false);
-        plsNext.setDisable(false);
-        plsPlayPause.setDisable(false);
-        plsProperties.setDisable(false);
-        plsRepeat.setDisable(false);
-        plsShuffle.setDisable(false);
-        plsSpeedPlay.setDisable(false);
-        plsVolume.setDisable(false);
-        sliderMedia.setDisable(false);
-        volumeSlider.setDisable(false);
+    private void changeButtonEnabledStatus(){
+        boolean status = true;
+        if(plsPlayPause.isDisabled()){
+            status = false;
+        }
+        plsPrevious.setDisable(status);
+        plsScreenMode.setDisable(status);
+        plsEquilizer.setDisable(status);
+        plsSkipBack.setDisable(status);
+        plsSkipForward.setDisable(status);
+        plsNext.setDisable(status);
+        plsPlayPause.setDisable(status);
+        plsProperties.setDisable(status);
+        plsRepeat.setDisable(status);
+        plsShuffle.setDisable(status);
+        plsSpeedPlay.setDisable(status);
+        plsVolume.setDisable(status);
+        sliderMedia.setDisable(status);
+        volumeSlider.setDisable(status);
     }
 
 
 
     private void settaSliderMedia() {
         sliderMedia.setValue(Player.getInstance().getCurrent());
+
         //timeMediaPlayed.setText(CalcolaTempo(Player.getInstance().getCurrent()));
         //progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));
         //timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent()));

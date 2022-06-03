@@ -2,11 +2,10 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
+import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.lang.Object;
 
 public class MyMedia {
     private String title = "";
@@ -18,6 +17,7 @@ public class MyMedia {
     private Integer year;
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
+    // TODO:
 
     private boolean isReturnable = false;
 
@@ -30,6 +30,7 @@ public class MyMedia {
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()) {
+                //System.out.println(media.getMetadata());
                 if ("title".equals(change.getKey())) {
                     if (media.getMetadata().get("title").toString() != null)
                         setTitle(media.getMetadata().get("title").toString());
@@ -46,8 +47,12 @@ public class MyMedia {
                 else if ("year".equals(change.getKey())) {
                     setYear(Integer.parseInt(media.getMetadata().get("year").toString()));
                 }
-                else if (media.getMetadata().get("length") != null)
+                else if (media.getMetadata().get("length") != null){
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
+                    System.out.println("Ho la length: "+ length);
+                }
+
+
             }
         });
     }

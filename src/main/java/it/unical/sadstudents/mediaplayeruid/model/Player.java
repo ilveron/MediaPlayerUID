@@ -30,7 +30,7 @@ public class Player {
     //private String path;
     private Media media;
     private MediaPlayer mediaPlayer;
-    private MediaView mediaView;
+    private MediaView mediaView ;
 
     private SimpleStringProperty nameMedia = new SimpleStringProperty();
 
@@ -40,7 +40,19 @@ public class Player {
     private SimpleDoubleProperty current = new SimpleDoubleProperty(0);
     private SimpleDoubleProperty end = new SimpleDoubleProperty(0);
 
+    public MediaView getMediaView() {
+        return mediaView;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     private Player() { }
+
+    public void setMediaView(MediaView mediaView) {
+        this.mediaView = mediaView;
+    }
 
     public void setNameMedia(String nameMedia) {
         this.nameMedia.set(nameMedia);
@@ -49,6 +61,8 @@ public class Player {
     public boolean isMediaLoaded() {
         return mediaLoaded.get();
     }
+
+    public void setMediaLoaded(boolean mediaLoaded) { this.mediaLoaded.set(mediaLoaded);}
 
     public SimpleBooleanProperty mediaLoadedProperty() {
         return mediaLoaded;
@@ -102,6 +116,9 @@ public class Player {
         nameMedia.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
+        if(PlayQueue.getInstance().getQueue().get(index).getPath().toLowerCase().endsWith(".mp4")){
+            mediaView.setMediaPlayer(mediaPlayer);
+        }
         mediaLoaded.set(true);
         playMedia();
 
@@ -148,6 +165,7 @@ public class Player {
 
                 if (getCurrent()/getEnd()==1){
                     cancelTimer();
+                    PlayQueue.getInstance().setCurrentMedia(PlayQueue.getInstance().getCurrentMedia() + 1);
                 }
             }
         };
@@ -158,8 +176,6 @@ public class Player {
     public void cancelTimer(){
         runningTimer = false;
         timer.cancel();
-
-
     }
 
     public void changePosition(double position){
@@ -184,6 +200,12 @@ public class Player {
     @FXML
     void onNext(ActionEvent event) {
 
+    }
+
+    public void stop(){
+        pauseMedia();
+        setMediaLoaded(false);
+        nameMediaProperty().set("");
     }
 
     public void restart() {
