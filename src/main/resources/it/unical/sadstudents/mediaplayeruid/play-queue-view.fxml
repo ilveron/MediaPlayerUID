@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlayQueueController">
+<AnchorPane stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlayQueueController">
    <children>
       <Label alignment="TOP_LEFT" minWidth="450.0" text="PLAY QUEUE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -32,7 +32,7 @@
       </TableView>
       <Button layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" AnchorPane.leftAnchor="5.0">
          <graphic>
-            <FontIcon iconLiteral="fa-trash" iconSize="15" />
+            <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="icons" />
          </graphic>
          <font>
             <Font size="14.0" />
@@ -40,7 +40,7 @@
       </Button>
       <Button layoutX="98.0" layoutY="56.0" mnemonicParsing="false" onAction="#addFileTo" text="Add to" AnchorPane.leftAnchor="90.0">
          <graphic>
-            <FontIcon iconLiteral="fa-plus-square" iconSize="15" />
+            <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="icons" />
          </graphic>
          <font>
             <Font size="14.0" />
@@ -50,18 +50,18 @@
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addFileToQueue" style="-fx-font-size: 12;" text="Add file to play queue">
                <graphic>
-                  <FontIcon iconLiteral="fa-file" iconSize="15" />
+                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="icons" />
                </graphic></MenuItem>
           <MenuItem mnemonicParsing="false" onAction="#addFolderToQueue" style="-fx-font-size: 12;" text="Add folder to play queue">
                <graphic>
-                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
+                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="icons" />
                </graphic></MenuItem>
         </items>
          <font>
             <Font size="14.0" />
          </font>
          <graphic>
-            <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
+            <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="icons" />
          </graphic>
       </MenuButton>
    </children>

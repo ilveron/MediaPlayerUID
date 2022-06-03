@@ -1,8 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
-import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,15 +11,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -54,27 +55,27 @@ public class MainController implements Initializable {
 
     @FXML
     void onHome(ActionEvent event) {
-        MiddlePaneHandler.getInstance().setCurrentMidPane("home-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("home-view.fxml");
     }
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
-        MiddlePaneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
     }
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
-        MiddlePaneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
     }
 
     @FXML
     void onPlayQueue(ActionEvent event) {
-        MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
     @FXML
     void onPlayLists(ActionEvent event) {
-        MiddlePaneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
     }
 
 
@@ -108,7 +109,7 @@ public class MainController implements Initializable {
             }
         });
 
-        MiddlePaneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
+        SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
 
 
         Player.getInstance().mediaLoadedProperty().addListener(observable ->activeFunction());
@@ -125,6 +126,9 @@ public class MainController implements Initializable {
 
 
     }
+
+
+
     private String CalcolaTempo(double second){
         if(second>0) {
             int minuti = (int) second / 64;
@@ -142,7 +146,7 @@ public class MainController implements Initializable {
     }
 
     private void switchMidPane(){
-        Pane subScenePane = MiddlePaneHandler.getInstance().switchPane();
+        Pane subScenePane = SceneHandler.getInstance().switchPane();
         myBorderPane.setCenter(subScenePane);
     }
 

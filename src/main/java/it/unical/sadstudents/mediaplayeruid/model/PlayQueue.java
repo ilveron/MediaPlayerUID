@@ -1,19 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.view.MiddlePaneHandler;
-import javafx.beans.property.SimpleBooleanProperty;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
-import javafx.scene.media.Media;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.ResourceBundle;
 
 public class PlayQueue {
 
@@ -56,7 +49,7 @@ public class PlayQueue {
         queue.add(media);
         currentMedia.set(0);
         Player.getInstance().createMedia(0);
-        MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
 
     }
 
@@ -64,12 +57,13 @@ public class PlayQueue {
         queue.clear();
         currentMedia.set(0);
         for(File f: files){
+            // TODO: 03/06/2022 GESTIONE ECCEZIONE MEDIA UNSUPPORTED 
             MyMedia media = new MyMedia(f);
             queue.add(media);
             if(!Player.getInstance().getIsRunning())
                 Player.getInstance().createMedia(currentMedia.get());
         }
-        MiddlePaneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
     public void addFileToQueue(File file){
