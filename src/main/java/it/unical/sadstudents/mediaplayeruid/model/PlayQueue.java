@@ -69,12 +69,17 @@ public class PlayQueue {
     public void addFileToQueue(File file){
         MyMedia myMedia = new MyMedia(file);
         queue.add(myMedia);
+        if(!Player.getInstance().getIsRunning())
+            Player.getInstance().createMedia(currentMedia.get());
+
     }
 
     public void addFolderToQueue(ArrayList<File> files){
         for(File file: files){
             MyMedia myMedia = new MyMedia(file);
             queue.add(myMedia);
+            if(!Player.getInstance().getIsRunning())
+                Player.getInstance().createMedia(currentMedia.get());
         }
     }
 

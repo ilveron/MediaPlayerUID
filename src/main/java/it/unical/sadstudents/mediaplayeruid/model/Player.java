@@ -24,6 +24,7 @@ public class Player {
     private TimerTask task;
     private boolean runningTimer;
     private SimpleBooleanProperty mediaLoaded = new SimpleBooleanProperty(false);
+    private Double volume = 50.0 ;
 
     //private File file;
     //private String path;
@@ -119,6 +120,7 @@ public class Player {
 
     public void playMedia(){
         if(media != null){
+            mediaPlayer.setVolume(volume);
             mediaPlayer.play();
             isRunning.set(true);
             beginTimer();
@@ -127,6 +129,7 @@ public class Player {
 
 
     public void settaVolume(double v) {
+        volume= v;
 
         mediaPlayer.setVolume(v);
     }

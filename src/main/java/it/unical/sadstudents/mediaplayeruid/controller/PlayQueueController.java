@@ -53,11 +53,13 @@ public class PlayQueueController implements Initializable {
     @FXML
     void addFileToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile());
+        beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder());
+        beginTimer();
     }
 
     @FXML
