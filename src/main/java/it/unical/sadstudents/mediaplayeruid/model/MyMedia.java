@@ -9,16 +9,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MyMedia {
-    //private Media media;
     private String title = "";
     private String artist = "";
     private String album = "";
     private String genre = "";
-    //private File file;
     private String path = "";
     private Double length;
     private Integer year;
 
+    // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
 
     private boolean isReturnable = false;
 
@@ -108,4 +107,6 @@ public class MyMedia {
     public Integer getYear() {
         return year;
     }
+
+    
 }
