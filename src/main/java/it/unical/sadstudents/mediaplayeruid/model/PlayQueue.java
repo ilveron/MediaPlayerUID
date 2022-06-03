@@ -57,7 +57,7 @@ public class PlayQueue {
         queue.clear();
         currentMedia.set(0);
         for(File f: files){
-            // TODO: 03/06/2022 GESTIONE ECCEZIONE MEDIA UNSUPPORTED 
+            // TODO: 03/06/2022 GESTIONE ECCEZIONE MEDIA UNSUPPORTED
             MyMedia media = new MyMedia(f);
             queue.add(media);
             if(!Player.getInstance().getIsRunning())
