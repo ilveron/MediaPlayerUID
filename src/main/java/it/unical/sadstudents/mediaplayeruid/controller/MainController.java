@@ -163,6 +163,7 @@ public class MainController implements Initializable {
 
 
         PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
+        Player.getInstance().isRunningProperty().addListener(observable -> CalcolaTempo());
 
 
 
@@ -194,47 +195,36 @@ public class MainController implements Initializable {
             double menuSize = 270.0;
             double currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
             double currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
-            /*containerView.setPrefWidth(currentWidth);
-            containerView.setPrefHeight(currentHeight);
-            containerView.setMaxWidth(currentWidth);
-            containerView.setPrefHeight(currentHeight);*/
+
             mediaView.setFitHeight(currentHeight);
             mediaView.setFitWidth(currentWidth);
-            //
+
+            // TODO: 04/06/2022 AGGIUNGERE SPOSTASMENTO SU ASSE Y DEL VIDEO SECONDO SORGENTE
+
             mediaView.setPreserveRatio(true);
-            Player.getInstance().getMediaPlayer().getMedia().heightProperty().addListener(observable -> setYforVideo());
-        }
-    }
-
-    public void setYforVideo(){
-        System.out.println(Player.getInstance().getMediaPlayer().getMedia().getHeight());
-
-        if (Player.getInstance().getIsRunning())
-        {
-            double controllBar = 96.0;
-            double menuSize = 270.0;
-            double currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
-            double currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
-            System.out.println("stage size "+SceneHandler.getInstance().getStage().getHeight());
-            System.out.println("currentY "+mediaView.getY());
-            System.out.println("currentH "+currentHeight);
-            System.out.println("current source H "+Player.getInstance().getMediaPlayer().getMedia().getHeight());
-            mediaView.setY((currentHeight - (Player.getInstance().getMediaPlayer().getMedia().getHeight()))/2);
-            System.out.println("new currentY "+mediaView.getY());
-            System.out.println("new current source H "+Player.getInstance().getMediaPlayer().getMedia().getHeight());
         }
     }
 
 
 
-    private String CalcolaTempo(double second){
-        if(second>0) {
-            int minuti = (int) second / 64;
-            int ore = (int) minuti / 64;
-            int secon = (int) second % 64;
-            return String.format("%d:%2d:%2d", ore, minuti, secon);
-        }else
-            return "00:00:00";
+
+
+    private String CalcolaTempo(){
+        // TODO: 04/06/2022 sempre null 
+        if (Player.getInstance().isMediaLoaded() && Player.getInstance().getIsRunning() && Player.getInstance().getMediaPlayer().getMedia().durationProperty().get()!=null){
+            Double current = Player.getInstance().getMediaPlayer().getMedia().durationProperty().get().toSeconds();
+            System.out.println(current);
+            if(current>0) {
+                int minuti = (int) (current / 64);
+                int ore = (int) (current / 64);
+                int secon = (int) (current % 64);
+                return String.format("%d:%2d:%2d", ore, minuti, secon);
+            }
+        }
+
+
+        return "00:00:00";
+
     }
 
     private void settaFineMedia(){

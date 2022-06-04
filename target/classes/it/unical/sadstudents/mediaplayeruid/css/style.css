@@ -1,4 +1,4 @@
-* {
+.basicTemplate {
   -fx-text-fill: textColor;
   -fx-background-color: primaryBackgroundColor;
 }
@@ -10,7 +10,27 @@
     -fx-background-radius: 5px;
 }
 
+.labelMedia {
+    -fx-text-fill: primarySelectionColor;
+    -fx-font-size: 20px;
+}
+
+.videoBackGroundColor{
+    -fx-background-color: #151414;
+}
+
+.menu-button{
+    -fx-text-fill: textColor;
+    -fx-background-color: transparentBackgroundColor;
+    -fx-background-radius: 5px;
+
+}
+.menu-button:hover{
+    -fx-background-color: primarySelectionColor;
+}
+
 .button {
+    -fx-text-fill: textColor;
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
 }
