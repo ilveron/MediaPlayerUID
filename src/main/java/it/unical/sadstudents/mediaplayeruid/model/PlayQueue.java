@@ -16,6 +16,19 @@ public class PlayQueue {
 
     private ObservableList<MyMedia> queue;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
+    private SimpleBooleanProperty isAvideo = new SimpleBooleanProperty(false);
+
+    public boolean isIsAvideo() {
+        return isAvideo.get();
+    }
+
+    public SimpleBooleanProperty isAvideoProperty() {
+        return isAvideo;
+    }
+
+    public void setIsAvideo(boolean isAvideo) {
+        this.isAvideo.set(isAvideo);
+    }
 
     public int getCurrentMedia() {
         return currentMedia.get();
@@ -62,8 +75,8 @@ public class PlayQueue {
         currentMedia.set(0);
         startMedia();
         //Player.getInstance().createMedia(0);
-        if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
-            SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        /*if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
+            isAvideo.set(true);*/
 
     }
 
@@ -78,8 +91,8 @@ public class PlayQueue {
                 //Player.getInstance().createMedia(currentMedia.get());
                 startMedia();
         }
-        if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
-            SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+        /*if(!queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4"))
+            isAvideo.set(true);*/
     }
 
     public void addFileToQueue(File file){
@@ -104,8 +117,9 @@ public class PlayQueue {
 
     public void startMedia(){
         if (queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4")){
-            SceneHandler.getInstance().setCurrentMidPane("video-view.fxml");
+            isAvideo.set(true);
         }
+        else isAvideo.set(false);
         Player.getInstance().pauseMedia();
         Player.getInstance().createMedia(currentMedia.get());
 

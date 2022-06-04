@@ -1,11 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.File;
-import java.util.ArrayList;
 
 public class VideoLibrary {
     //VARIABLES
@@ -34,6 +32,9 @@ public class VideoLibrary {
     public void setVideoNumber(Integer videoNumber) {this.videoNumber = videoNumber;}
     public void setVideoLibrary(ObservableList<MyMedia> videoLibrary) {this.videoLibrary = videoLibrary;}
     //END GETTERS AND SETTERS FOR VARIABLES
+
+
+
 
     /*public void addToVideoLibrarySingleFile(){
 

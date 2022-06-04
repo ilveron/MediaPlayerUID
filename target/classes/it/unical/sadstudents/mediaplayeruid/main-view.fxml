@@ -14,289 +14,300 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane minHeight="600.0" minWidth="600.0" prefHeight="800.0" prefWidth="1200.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
+<AnchorPane minHeight="600.0" minWidth="600.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
    <children>
-      <BorderPane fx:id="myBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <VBox maxWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="icons" BorderPane.alignment="CENTER">
+      <StackPane stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="containerView" styleClass="videoBackGroundColor" visible="false" StackPane.alignment="TOP_LEFT">
                <children>
-                  <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" text="MediaPlayer UID">
-                     <graphic>
-                        <FontIcon iconLiteral="fa-play-circle-o" iconSize="23" styleClass="icons" />
-                     </graphic>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </TextField>
-                  <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" VBox.vgrow="ALWAYS">
-                    <items>
-                      <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" text="Home">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" text="Music Library">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" text="Video Library">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Separator prefWidth="200.0" />
-                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" text="Play Queue">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" text="Playlists">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="btnVideoView" alignment="TOP_LEFT" disable="true" graphicTextGap="10.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" text="VIDEO VIEW">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="icons" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                    </items>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ToolBar>
-                  <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" text="Settings">
-                     <graphic>
-                        <FontIcon iconLiteral="fa-cog" iconSize="19" styleClass="icons" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
+                  <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" visible="false" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </VBox>
-         </left>
-         <bottom>
-            <VBox alignment="CENTER" prefWidth="1200.0" spacing="10.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            </AnchorPane>
+            <BorderPane fx:id="myBorderPane">
+               <left>
+                  <VBox fx:id="leftItems" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="basicTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="timeMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                        <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" styleClass="basicTemplate" text="MediaPlayer UID">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-play-circle-o" iconSize="23" styleClass="icons" />
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" styleClass="basicTemplate">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
+                          <items>
+                            <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" text="Home">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" text="Music Library">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" text="Video Library">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Separator prefWidth="200.0" />
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" text="Play Queue">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" text="Playlists">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" text="VIDEO VIEW" visible="false">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="icons" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                          </items>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ToolBar>
+                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" text="Settings">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-cog" iconSize="19" styleClass="icons" />
+                           </graphic>
                            <font>
                               <Font size="14.0" />
                            </font>
-                        </Label>
-                        <Slider fx:id="sliderMedia" disable="true" prefWidth="1052.0" HBox.hgrow="ALWAYS">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
-                        </Slider>
-                        <Label fx:id="durationMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
+                        </Button>
                      </children>
                      <padding>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets left="10.0" />
                      </padding>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="1200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                  </VBox>
+               </left>
+               <bottom>
+                  <VBox alignment="CENTER" prefWidth="1200.0" spacing="10.0" styleClass="basicTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="250.0">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
-                              <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="180.0">
+                              <Label fx:id="timeMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="sliderMedia" disable="true" prefWidth="1052.0" HBox.hgrow="ALWAYS">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Slider>
+                              <Label fx:id="durationMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="1200.0" spacing="10.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="250.0">
                                  <children>
-                                    <Label fx:id="nameMediaPlayed" prefWidth="180.0" text="Label">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
+                                    <ImageView fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
+                                    <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="180.0">
+                                       <children>
+                                          <Label fx:id="nameMediaPlayed" prefWidth="180.0" styleClass="labelMedia" text="Label">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button fx:id="plsShuffle" disable="true" mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsPrevious" disable="true" layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsSkipBack" disable="true" layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipBack" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsPlayPause" disable="true" layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsSkipForward" disable="true" layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsNext" disable="true" layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsRepeat" disable="true" layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" layoutX="280.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0" spacing="5.0">
-                           <children>
-                              <MenuButton fx:id="plsVolume" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0">
-                                <items>
-                                  <MenuItem mnemonicParsing="false">
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="plsShuffle" disable="true" mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0">
                                        <graphic>
-                                          <Slider fx:id="volumeSlider" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="50.0" />
+                                          <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="icons" />
                                        </graphic>
-                                    </MenuItem>
-                                </items>
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-volume-up" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </MenuButton>
-                              <Button fx:id="plsScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsSpeedPlay" disable="true" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-dashboard" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <Button fx:id="plsProperties" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-info-circle" iconSize="15" styleClass="icons" />
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsPrevious" disable="true" layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsSkipBack" disable="true" layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipBack" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsPlayPause" disable="true" layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsSkipForward" disable="true" layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsNext" disable="true" layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsRepeat" disable="true" layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" layoutX="280.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0" spacing="5.0">
+                                 <children>
+                                    <MenuButton fx:id="plsVolume" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" styleClass="basicTemplate">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <Slider fx:id="volumeSlider" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="50.0" />
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-volume-up" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </MenuButton>
+                                    <Button fx:id="plsScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsSpeedPlay" disable="true" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-dashboard" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="plsProperties" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
+                                       <graphic>
+                                          <FontIcon iconLiteral="fa-info-circle" iconSize="15" styleClass="icons" />
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </VBox>
-         </bottom>
-      </BorderPane>
+                  </VBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

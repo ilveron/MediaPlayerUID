@@ -10,8 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
@@ -23,8 +26,17 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    @FXML
+    private AnchorPane containerView;
+
 
     private File file;
+
+    @FXML
+    private VBox leftItems;
+
+    @FXML
+    private MediaView mediaView;
 
     @FXML
     private FontIcon iconPlayPause;
@@ -55,32 +67,44 @@ public class MainController implements Initializable {
 
     @FXML
     void onHome(ActionEvent event) {
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("home-view.fxml");
     }
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
     }
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
     }
 
     @FXML
     void onPlayQueue(ActionEvent event) {
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
 
     @FXML
     void onPlayLists(ActionEvent event) {
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
     }
 
     @FXML
     void onVideoView(ActionEvent event) {
-        SceneHandler.getInstance().setCurrentMidPane("video-view.fxml");
+        btnVideoView.setVisible(true);
+        mediaView.setVisible(true);
+        myBorderPane.getCenter().setVisible(false);
 
     }
 
@@ -92,8 +116,14 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Player.getInstance().setMediaView(mediaView);
 
         switchMidPane();
+
+
+
+
+
         //sliderMedia.setMax(Player.getInstance().getEnd());
         //sliderMedia.setValue(0);
 
@@ -115,6 +145,8 @@ public class MainController implements Initializable {
             }
         });
 
+
+
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
 
 
@@ -129,11 +161,68 @@ public class MainController implements Initializable {
 
         Player.getInstance().endProperty().addListener(observable -> settaFineMedia());
 
-        //gestore Video
+
+        PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
+
+
+
+    }
 
 
 
 
+
+    public void activeVideoView (){
+        if(PlayQueue.getInstance().isIsAvideo()){
+            mediaView.setVisible(true);
+            btnVideoView.setVisible(true);
+            myBorderPane.getCenter().setVisible(false);
+            adjustVideoSize();
+        }
+        SceneHandler.getInstance().getStage().heightProperty().addListener(observable -> adjustVideoSize());
+        SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> adjustVideoSize());
+        Player.getInstance().isRunningProperty().addListener(observable -> adjustVideoSize());
+
+
+
+    }
+
+    public void adjustVideoSize(){
+        if(Player.getInstance().getIsRunning()){
+            System.out.println("ciao");
+            double controllBar = 96.0;
+            double menuSize = 270.0;
+            double currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
+            double currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
+            /*containerView.setPrefWidth(currentWidth);
+            containerView.setPrefHeight(currentHeight);
+            containerView.setMaxWidth(currentWidth);
+            containerView.setPrefHeight(currentHeight);*/
+            mediaView.setFitHeight(currentHeight);
+            mediaView.setFitWidth(currentWidth);
+            //
+            mediaView.setPreserveRatio(true);
+            Player.getInstance().getMediaPlayer().getMedia().heightProperty().addListener(observable -> setYforVideo());
+        }
+    }
+
+    public void setYforVideo(){
+        System.out.println(Player.getInstance().getMediaPlayer().getMedia().getHeight());
+
+        if (Player.getInstance().getIsRunning())
+        {
+            double controllBar = 96.0;
+            double menuSize = 270.0;
+            double currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
+            double currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
+            System.out.println("stage size "+SceneHandler.getInstance().getStage().getHeight());
+            System.out.println("currentY "+mediaView.getY());
+            System.out.println("currentH "+currentHeight);
+            System.out.println("current source H "+Player.getInstance().getMediaPlayer().getMedia().getHeight());
+            mediaView.setY((currentHeight - (Player.getInstance().getMediaPlayer().getMedia().getHeight()))/2);
+            System.out.println("new currentY "+mediaView.getY());
+            System.out.println("new current source H "+Player.getInstance().getMediaPlayer().getMedia().getHeight());
+        }
     }
 
 

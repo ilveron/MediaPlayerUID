@@ -2,9 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
@@ -22,8 +20,7 @@ import java.util.Objects;
 public class SceneHandler {
     private Scene scene;
     private Stage stage;
-    private SimpleDoubleProperty screenSizeHeigth = new SimpleDoubleProperty(1200);
-    private SimpleDoubleProperty screenSizeWidth = new SimpleDoubleProperty(800);
+
 
     public Stage getStage() {
         return stage;
@@ -45,9 +42,14 @@ public class SceneHandler {
     private SceneHandler(){    }
 
     public void init(Stage mainStage) throws Exception {
+
+
+
+
+
         stage = mainStage;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        scene = new Scene(loader.load(), screenSizeHeigth.get(), screenSizeWidth.get());
+        scene = new Scene(loader.load(), 1200, 800);
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
         stage.setMinWidth(750);
@@ -93,27 +95,4 @@ public class SceneHandler {
 
     }
 
-    public double getScreenSizeHeigth() {
-        return screenSizeHeigth.get();
-    }
-
-    public SimpleDoubleProperty screenSizeHeigthProperty() {
-        return screenSizeHeigth;
-    }
-
-    public void setScreenSizeHeigth(double screenSizeHeigth) {
-        this.screenSizeHeigth.set(screenSizeHeigth);
-    }
-
-    public double getScreenSizeWidth() {
-        return screenSizeWidth.get();
-    }
-
-    public SimpleDoubleProperty screenSizeWidthProperty() {
-        return screenSizeWidth;
-    }
-
-    public void setScreenSizeWidth(double screenSizeWidth) {
-        this.screenSizeWidth.set(screenSizeWidth);
-    }
 }

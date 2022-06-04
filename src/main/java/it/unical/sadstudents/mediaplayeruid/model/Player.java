@@ -116,11 +116,11 @@ public class Player {
         nameMedia.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
-        if(PlayQueue.getInstance().getQueue().get(index).getPath().toLowerCase().endsWith(".mp4")){
-            mediaView.setMediaPlayer(mediaPlayer);
-        }
+        mediaView.setMediaPlayer(mediaPlayer);
+
         mediaLoaded.set(true);
         playMedia();
+
 
 
 
