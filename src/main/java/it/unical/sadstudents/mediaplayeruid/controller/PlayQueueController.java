@@ -24,28 +24,19 @@ public class PlayQueueController implements Initializable {
     private TimerTask task;
     private boolean runningTimer;
 
-
+    //TABLEVIEW (WORK WITH OBSERVABLE LIST IN PLAY QUEUE MODEL)
     @FXML
     private TableView<MyMedia> tableViewQueue;
-
     @FXML
-    private TableColumn<MyMedia,String> title;
-
-    @FXML
-    private TableColumn<MyMedia,String> artist;
-
-    @FXML
-    private TableColumn<MyMedia,String> album;
-
-    @FXML
-    private TableColumn<MyMedia,String> genre;
-
+    private TableColumn<MyMedia,String> title, artist, album, genre;
     @FXML
     private TableColumn<MyMedia, Integer> year;
-
     @FXML
     private TableColumn<MyMedia, Double> length;
+    //END TABLEVIEW
 
+
+    //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
     @FXML
     void addFileTo(ActionEvent event) {
 
@@ -68,6 +59,7 @@ public class PlayQueueController implements Initializable {
         PlayQueue.getInstance().getQueue().clear();
         Player.getInstance().stop();
     }
+    //END ACTION EVENT
 
 
     @Override
@@ -94,6 +86,7 @@ public class PlayQueueController implements Initializable {
         });
     }
 
+    //TASK
     public void beginTimer(){
 
         timer = new Timer();
@@ -116,6 +109,7 @@ public class PlayQueueController implements Initializable {
         runningTimer = false;
         timer.cancel();
     }
+    //END TASK
 
 
 }

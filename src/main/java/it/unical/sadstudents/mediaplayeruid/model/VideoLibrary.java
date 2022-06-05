@@ -10,7 +10,7 @@ public class VideoLibrary {
     private Integer videoNumber= 0; //numero di video presenti nella libreria
     private ObservableList<MyMedia> videoLibrary;
 
-    //SINGLETON
+    //SINGLETON AND CLASS DECLARATION
     private static VideoLibrary instance = null;
 
     private VideoLibrary (){
@@ -25,13 +25,12 @@ public class VideoLibrary {
     //END SINGLETON
 
 
-    //GETTERS AND SETTERS FOR VARIABLES
+    //GETTERS AND SETTERS
     public Integer getVideoNumber() {return videoNumber;}
     public ObservableList<MyMedia> getVideoLibrary() {return videoLibrary;}
 
     public void setVideoNumber(Integer videoNumber) {this.videoNumber = videoNumber;}
-    public void setVideoLibrary(ObservableList<MyMedia> videoLibrary) {this.videoLibrary = videoLibrary;}
-    //END GETTERS AND SETTERS FOR VARIABLES
+    //END GETTERS AND SETTERS
 
 
 

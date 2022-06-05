@@ -6,26 +6,25 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
+
 
 public class RetrievingEngine {
-    //standard from home and queue, 1 from MusicLibrary and 2 from VideoLibrary
+    //TYPES: 0 is standard from home and queue , 1 from MusicLibrary and 2 from VideoLibrary
 
+    //SINGLETON
     private static RetrievingEngine instance = null;
-
     private RetrievingEngine(){}
-
     public static RetrievingEngine getInstance(){
         if (instance==null)
             instance = new RetrievingEngine();
         return instance;
     }
+    //END SINGLETON
 
 
+
+    //SINGLE FILE SELECTION
     public File retrieveFile(int type){
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -41,6 +40,7 @@ public class RetrievingEngine {
         return file;
     }
 
+    //ADD FILES FROM A MAIN FOLDER AND SCANNING ALL SUBFOLDER
     public ArrayList<File> retrieveFolder(int type){
         Stage stage = new Stage();
         DirectoryChooser directoryChooser = new DirectoryChooser();

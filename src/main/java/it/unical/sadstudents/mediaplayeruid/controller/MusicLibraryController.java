@@ -1,13 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.MusicLibrary;
-import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
-import it.unical.sadstudents.mediaplayeruid.model.RetrievingEngine;
+import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -16,45 +15,38 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MusicLibraryController {
+public class MusicLibraryController implements Initializable {
     private Timer timer;
     private TimerTask task;
     private boolean runningTimer;
 
-
+    //TABLEVIEW (WORK WITH OBSERVABLE LIST IN MUSIC LIBRARY MODEL)
     @FXML
     private TableView<MyMedia> tableViewMusicLibrary;
-
     @FXML
-    private TableColumn<MyMedia,String> title;
-
-    @FXML
-    private TableColumn<MyMedia,String> artist;
-
-    @FXML
-    private TableColumn<MyMedia,String> album;
-
-    @FXML
-    private TableColumn<MyMedia,String> genre;
-
+    private TableColumn<MyMedia,String> title, artist, album, genre;
     @FXML
     private TableColumn<MyMedia, Integer> year;
-
     @FXML
     private TableColumn<MyMedia, Double> length;
+    //END TABLEVIEW
 
+    //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
     @FXML
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFolderToMusicLibrary(RetrievingEngine.getInstance().retrieveFolder(1));
         beginTimer();
         System.out.println(MusicLibrary.getInstance().getKMusic());
     }
-
     @FXML
     void onAddMedia(ActionEvent event) {
         MusicLibrary.getInstance().addFileToMusicLibrary(RetrievingEngine.getInstance().retrieveFile(1));
         beginTimer();
     }
+    //END ACTION EVENT
+
+
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
@@ -67,8 +59,10 @@ public class MusicLibraryController {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
         beginTimer();
 
+        //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 
+    //TASK
     public void beginTimer(){
 
         timer = new Timer();
@@ -77,7 +71,6 @@ public class MusicLibraryController {
             public void run() {
                 runningTimer = true;
                 tableViewMusicLibrary.refresh();
-                System.out.println(tableViewMusicLibrary.getItems().size());
                 if (MusicLibrary.getInstance().getMusicLibrary().size() == 0) {
                     cancelTimer();
                 }
@@ -90,7 +83,6 @@ public class MusicLibraryController {
         runningTimer = false;
         timer.cancel();
     }
-
-
+    //END TASK
 
 }

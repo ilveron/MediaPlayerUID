@@ -7,29 +7,32 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MusicLibrary {
-    private static MusicLibrary instance = null;
-
+    //VARIABLES
     private ObservableList<MyMedia> Library;
     private Integer KMusic=0;
 
+    //SINGLETON AND CLASS DECLARATION
+    private static MusicLibrary instance = null;
     private MusicLibrary (){
         Library = FXCollections.observableArrayList();
     }
-
     public static MusicLibrary getInstance(){
         if (instance==null)
             instance = new MusicLibrary();
         return instance;
     }
+    //END SINGLETON
 
+    //GETTERS
     public ObservableList<MyMedia> getMusicLibrary() {
         return Library;
     }
-
     public Integer getKMusic() {
         return KMusic;
     }
 
+
+    //FUNCTIONS
     public void addFileToMusicLibrary(File file){
         MyMedia myMedia = new MyMedia(file);
         Library.add(myMedia);
@@ -43,4 +46,5 @@ public class MusicLibrary {
             ++KMusic;
         }
     }
+    //END FUNCTIONS
 }

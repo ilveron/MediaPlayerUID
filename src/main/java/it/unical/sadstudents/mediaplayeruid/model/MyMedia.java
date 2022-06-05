@@ -2,12 +2,12 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.lang.Object;
 
 public class MyMedia {
+    //VARIABLES-DATA
     private String title = "";
     private String artist = "";
     private String album = "";
@@ -19,10 +19,8 @@ public class MyMedia {
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
 
-    private boolean isReturnable = false;
-
+    //CLASS CONSTRUCTOR
     public MyMedia() { }
-
     public MyMedia(File file) {
         path = file.toURI().toString();
         setTitle(file.getName());
@@ -56,62 +54,24 @@ public class MyMedia {
             }
         });
     }
+    //END CLASS CONSTRUCTOR
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public void setLength(Double length) {
-        this.length = length;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getArtist() {
-        return artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public Double getLength() {
-        return length;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
+    //VARIABLES GETTERS AND SETTERS
+    public void setTitle(String title) { this.title = title; }
+    public void setArtist(String artist) { this.artist = artist; }
+    public void setAlbum(String album) { this.album = album; }
+    public void setLength(Double length) { this.length = length; }
+    public void setYear(Integer year) { this.year = year; }
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
+    public String getPath() { return path; }
+    public void setPath(String path) { this.path = path; }
+    public String getTitle() { return title; }
+    public String getArtist() { return artist; }
+    public String getAlbum() { return album; }
+    public Double getLength() { return length; }
+    public Integer getYear() { return year; }
+    //END VARIABLES GETTERS AND SETTERS
 
     
 }

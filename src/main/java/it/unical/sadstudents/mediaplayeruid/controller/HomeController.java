@@ -28,6 +28,6 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // TODO: 05/06/2022 INSERIRE IL CONTAINER CHE SARA' ASSOCIATO ALLA OBSERVABLE LIST DEL MODEL
     }
 }

@@ -18,35 +18,42 @@ import java.util.List;
 import java.util.Objects;
 
 public class SceneHandler {
+    //VARIABLES
     private Scene scene;
     private Stage stage;
-
-
-    public Stage getStage() {
-        return stage;
-    }
-
     private String theme = "dark";
-    private Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-    private static SceneHandler instance = null;
-    private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
     private Pane subScene;
+    private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
 
+    //SINGLETON
+    private static SceneHandler instance = null;
+    private SceneHandler(){    }
     public static SceneHandler getInstance(){
         if (instance==null)
             instance = new SceneHandler();
         return instance;
     }
+    //END SINGLETON
 
-    private SceneHandler(){    }
+    //GETTERS AND SETTERS
+    public Stage getStage() {
+        return stage;
+    }
 
+    public String getCurrentMidPane() {
+        return currentMidPane.get();
+    }
+    public SimpleStringProperty currentMidPaneProperty() {
+        return currentMidPane;
+    }
+    public void setCurrentMidPane(String currentMidPane) {
+        this.currentMidPane.set(currentMidPane);
+    }
+    //END GETTERS AND SETTERS
+
+
+    //START MAIN STAGE AND SCENE
     public void init(Stage mainStage) throws Exception {
-
-
-
-
-
         stage = mainStage;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         scene = new Scene(loader.load(), 1200, 800);
@@ -74,18 +81,8 @@ public class SceneHandler {
 
     }
 
-    public String getCurrentMidPane() {
-        return currentMidPane.get();
-    }
-
-    public SimpleStringProperty currentMidPaneProperty() {
-        return currentMidPane;
-    }
-
-    public void setCurrentMidPane(String currentMidPane) {
-        this.currentMidPane.set(currentMidPane);
-    }
-
+    //SWITCH PANE SEATED IN THE MIDDLE OF THE BORDERPANE
+    // TODO: 05/06/2022 RIVEDERE BENE SOTTO
     public Pane switchPane(){
         try{
             subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));

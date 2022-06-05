@@ -1,44 +1,45 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class PlayQueue {
-
-    private static PlayQueue instance = null;
-
+    //VARIABLES
     private ObservableList<MyMedia> queue;
-    private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
+    private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ; //probabilmente non serve property
     private SimpleBooleanProperty isAvideo = new SimpleBooleanProperty(false);
+    //END VARIABLES
 
-    public boolean isIsAvideo() {
-        return isAvideo.get();
+    //SINGLETON
+    private static PlayQueue instance = null;
+    private PlayQueue (){
+        queue = FXCollections.observableArrayList();
+        currentMediaProperty().addListener(observable -> startMedia()/*changeMedia()*/ );//vericare come usare più funzioni
     }
 
-    public SimpleBooleanProperty isAvideoProperty() {
-        return isAvideo;
+    public static PlayQueue getInstance(){
+        if (instance==null)
+            instance = new PlayQueue();
+        return instance;
     }
+    //END SINGLETON CLASS
 
-    public void setIsAvideo(boolean isAvideo) {
-        this.isAvideo.set(isAvideo);
-    }
+    //GETTERS AND SETTERS
+    public boolean isIsAvideo() { return isAvideo.get(); }
+    public SimpleBooleanProperty isAvideoProperty() { return isAvideo; }
+    public void setIsAvideo(boolean isAvideo) { this.isAvideo.set(isAvideo); }
 
     public int getCurrentMedia() {
         return currentMedia.get();
     }
-
     public SimpleIntegerProperty currentMediaProperty() {
         return currentMedia;
     }
-
-
     //TODO: Rivedere se è possibile non chiamare da qui changeMedia()
     public void setCurrentMedia(int newCurrentMedia) {
         if(newCurrentMedia < 0 || newCurrentMedia == currentMedia.get()){
@@ -56,18 +57,10 @@ public class PlayQueue {
     public ObservableList<MyMedia> getQueue(){
         return queue;
     }
+    //END GETTERS AND SETTERS
 
-    private PlayQueue (){
-        queue = FXCollections.observableArrayList();
-        currentMediaProperty().addListener(observable -> startMedia()/*changeMedia()*/ );//vericare come usare più funzioni
-    }
 
-    public static PlayQueue getInstance(){
-        if (instance==null)
-            instance = new PlayQueue();
-        return instance;
-    }
-
+    //FUNCTIONS LIST MANIPULATION
     public void generateNewQueue(File file){
         queue.clear();
         MyMedia media = new MyMedia(file);
@@ -113,8 +106,9 @@ public class PlayQueue {
                 startMedia();
         }
     }
+    //END FUNCTIONS LIST MANIPULATION
 
-
+    //FUNCTIONS LIST-ITEM SELECTION AND SEND TO PLAYER
     public void startMedia(){
         if (queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4")){
             isAvideo.set(true);
@@ -134,6 +128,8 @@ public class PlayQueue {
     public void changeMediaWithButton(Integer direction){
         setCurrentMedia(getCurrentMedia()+direction);
     }
+    //END LIST-ITEM SELECTION AND SEND TO PLAYER
+
 
     //TODO: NON CANCELLARE!!!
     /*public void compilaMetadati(){
