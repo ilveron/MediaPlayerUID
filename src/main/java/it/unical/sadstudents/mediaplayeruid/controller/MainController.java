@@ -63,14 +63,15 @@ public class MainController implements Initializable {
 
 
         //START LISTENER VARI
-        mediaSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>()
+        /*mediaSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                //Player.getInstance().setCurrent(sliderMedia.getValue());
+                //System.out.println(mediaSlider.getValue());
                 Player.getInstance().changePosition(mediaSlider.getValue());
             }
-        });
+        });*/
+
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 

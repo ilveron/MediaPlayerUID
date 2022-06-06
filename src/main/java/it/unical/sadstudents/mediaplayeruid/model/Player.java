@@ -125,7 +125,6 @@ public class Player {
 
     public void changePosition(double position){
         mediaPlayer.seek(Duration.seconds(position));
-        ThreadManager.getInstance().beginTimer();
     }
 
     public void tenSecondBack() {
