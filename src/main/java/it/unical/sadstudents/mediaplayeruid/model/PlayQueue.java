@@ -7,12 +7,14 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayQueue {
     //VARIABLES
     private ObservableList<MyMedia> queue;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ; //probabilmente non serve property
     private SimpleBooleanProperty isAvideo = new SimpleBooleanProperty(false);
+    private boolean shuffleActive=false;
     //END VARIABLES
 
     //SINGLETON
@@ -34,6 +36,9 @@ public class PlayQueue {
     public SimpleBooleanProperty isAvideoProperty() { return isAvideo; }
     public void setIsAvideo(boolean isAvideo) { this.isAvideo.set(isAvideo); }
 
+    public boolean isShuffleActive() { return shuffleActive; }
+    public void setShuffleActive(boolean shuffleActive) {  this.shuffleActive = shuffleActive; }
+
     public int getCurrentMedia() {
         return currentMedia.get();
     }
@@ -49,6 +54,7 @@ public class PlayQueue {
         }
         else if(newCurrentMedia >= getQueue().size()){
             newCurrentMedia = 0;
+            return;
         }
 
         currentMedia.set(newCurrentMedia);
@@ -119,6 +125,7 @@ public class PlayQueue {
 
     }
 
+
     /* Sostituita da startMedia
     public void changeMedia(){
         Player.getInstance().pauseMedia();
@@ -126,7 +133,16 @@ public class PlayQueue {
     }*/
 
     public void changeMediaWithButton(Integer direction){
-        setCurrentMedia(getCurrentMedia()+direction);
+        if(shuffleActive){
+            Random random=new Random();
+            int nextMedia=random.nextInt(0,queue.size());
+            while (nextMedia==getCurrentMedia())
+                nextMedia=random.nextInt(0,queue.size());
+            setCurrentMedia(nextMedia);
+        }else {
+            setCurrentMedia(getCurrentMedia()+direction);
+        }
+
     }
     //END LIST-ITEM SELECTION AND SEND TO PLAYER
 

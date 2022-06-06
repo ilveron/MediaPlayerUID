@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
 
 
-
+    // TODO: 06/06/2022 DECIDERE SE SWITCHARE IN PLAYQUEUE xd !!!
     @FXML
     void addFile(ActionEvent event) {
         //invoca la funzione di PlayQueue per creare una coda da file

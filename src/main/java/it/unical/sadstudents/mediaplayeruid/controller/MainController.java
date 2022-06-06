@@ -85,6 +85,9 @@ public class MainController implements Initializable {
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
             setMediaSlider();
             currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
+            if(Player.getInstance().getCurrentMediaTime()==Player.getInstance().getEndMediaTime()){
+                PlayQueue.getInstance().changeMediaWithButton(1);
+            }
         });
 
         Player.getInstance().endMediaTimeProperty().addListener(observable -> {
@@ -161,7 +164,13 @@ public class MainController implements Initializable {
 
     @FXML
     void onShuffle(ActionEvent event) {
-
+        if(PlayQueue.getInstance().isShuffleActive()){
+            PlayQueue.getInstance().setShuffleActive(false);
+            plsShuffle.setStyle("-fx-background-color: transparentBackgroundColor");
+        }else{
+            PlayQueue.getInstance().setShuffleActive(true);
+            plsShuffle.setStyle("-fx-background-color: primarySelectionColor");
+        }
     }
 
     @FXML
@@ -289,10 +298,11 @@ public class MainController implements Initializable {
     }
 
     private void changeButtonEnabledStatus(){
-        boolean status = true;
-        if(plsPlayPause.isDisabled()){
-            status = false;
-        }
+        boolean status;
+        if(Player.getInstance().isMediaLoaded()){
+            status=false;
+        }else
+            status=true;
         plsPrevious.setDisable(status);
         plsScreenMode.setDisable(status);
         plsEquilizer.setDisable(status);

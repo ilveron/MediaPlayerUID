@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid;
 
+import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;

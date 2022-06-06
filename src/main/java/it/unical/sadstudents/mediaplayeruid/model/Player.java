@@ -138,10 +138,13 @@ public class Player {
     }
 
     public void stop(){
-        pauseMedia();
-        setMediaLoaded(false);
-        mediaNameProperty().set("");
-        artistNameProperty().set("");
+        mediaPlayer.stop();
+        mediaLoaded.set(false);
+        mediaName.set("");
+        artistName.set("");
+        currentMediaTime.set(0);
+        endMediaTime.set(0);
+        ThreadManager.getInstance().cancelTimer();
     }
 
     public void restart() {
