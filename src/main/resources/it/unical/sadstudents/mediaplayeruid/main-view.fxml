@@ -24,11 +24,8 @@
    <children>
       <StackPane stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="containerView" styleClass="videoBackGroundColor" StackPane.alignment="TOP_LEFT">
-               <children>
-                  <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" visible="false" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+            <AnchorPane fx:id="containerView" styleClass="videoBackGroundColor" StackPane.alignment="TOP_RIGHT" />
+            <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" visible="false" StackPane.alignment="TOP_RIGHT" />
             <BorderPane fx:id="myBorderPane">
                <left>
                   <VBox fx:id="leftItems" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="basicTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">

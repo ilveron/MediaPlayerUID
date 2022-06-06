@@ -8,13 +8,12 @@ import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -231,10 +230,27 @@ public class MainController implements Initializable {
 
     @FXML
     void onScreenMode(ActionEvent event) {
-        if(!SceneHandler.getInstance().getStage().isFullScreen())
+        if (!SceneHandler.getInstance().getStage().isFullScreen()){
+            leftItems.setVisible(false);
             SceneHandler.getInstance().getStage().setFullScreen(true);
-        else
+            adjustVideoSize();
+            SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    KeyCode key = keyEvent.getCode();
+                    if (key == KeyCode.ESCAPE){
+                        leftItems.setVisible(true);
+                        adjustVideoSize();
+                    }
+                }
+            });
+
+        }
+        else{
+            leftItems.setVisible(true);
             SceneHandler.getInstance().getStage().setFullScreen(false);
+            adjustVideoSize();
+        }
     }
 
     @FXML
@@ -309,22 +325,39 @@ public class MainController implements Initializable {
             myBorderPane.getCenter().setVisible(false);
             plsScreenMode.setDisable(false);
             adjustVideoSize();
+            SceneHandler.getInstance().getStage().heightProperty().addListener(observable -> adjustVideoSize());
+            SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> adjustVideoSize());
+            Player.getInstance().isRunningProperty().addListener(observable -> adjustVideoSize());
+
         }
-        SceneHandler.getInstance().getStage().heightProperty().addListener(observable -> adjustVideoSize());
-        SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> adjustVideoSize());
-        Player.getInstance().isRunningProperty().addListener(observable -> adjustVideoSize());
+        else{
+            mediaView.setVisible(false);
+            btnVideoView.setVisible(false);
+            myBorderPane.getCenter().setVisible(true);
+            plsScreenMode.setDisable(true);
+        }
+
     }
 
     public void adjustVideoSize(){
         if(Player.getInstance().getIsRunning()){
-            System.out.println("ciao");
+            double currentWidth;
+            double currentHeight;
             double controllBar = 96.0;
             double menuSize = 270.0;
-            double currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
-            double currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
+            if (SceneHandler.getInstance().getStage().isFullScreen()){
+                currentWidth = SceneHandler.getInstance().getStage().getWidth();
+                currentHeight = SceneHandler.getInstance().getStage().getHeight();
+
+            }
+            else{
+                currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
+                currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
+            }
+
+
             mediaView.setFitHeight(currentHeight);
             mediaView.setFitWidth(currentWidth);
-
             // TODO: 04/06/2022 AGGIUNGERE SPOSTASMENTO SU ASSE Y DEL VIDEO SECONDO SORGENTE
             mediaView.setPreserveRatio(true);
         }

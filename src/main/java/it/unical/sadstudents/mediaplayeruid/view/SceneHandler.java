@@ -40,6 +40,8 @@ public class SceneHandler {
         return stage;
     }
 
+    public Scene getScene() { return scene; }
+
     public String getCurrentMidPane() {
         return currentMidPane.get();
     }
