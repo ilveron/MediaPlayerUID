@@ -14,10 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -29,10 +26,11 @@ public class MainController implements Initializable {
 
 
     //ELEMENTS ON LAYOUT
-    @FXML
-    private AnchorPane containerView;
+
     @FXML
     private VBox leftItems;
+    @FXML
+    private StackPane containerView;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -232,6 +230,7 @@ public class MainController implements Initializable {
     void onScreenMode(ActionEvent event) {
         if (!SceneHandler.getInstance().getStage().isFullScreen()){
             leftItems.setVisible(false);
+
             SceneHandler.getInstance().getStage().setFullScreen(true);
             adjustVideoSize();
             SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -349,15 +348,15 @@ public class MainController implements Initializable {
                 currentWidth = SceneHandler.getInstance().getStage().getWidth();
                 currentHeight = SceneHandler.getInstance().getStage().getHeight();
 
+
             }
             else{
+
                 currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
                 currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
             }
-
-
-            mediaView.setFitHeight(currentHeight);
             mediaView.setFitWidth(currentWidth);
+            mediaView.setFitHeight(currentHeight);
             // TODO: 04/06/2022 AGGIUNGERE SPOSTASMENTO SU ASSE Y DEL VIDEO SECONDO SORGENTE
             mediaView.setPreserveRatio(true);
         }
