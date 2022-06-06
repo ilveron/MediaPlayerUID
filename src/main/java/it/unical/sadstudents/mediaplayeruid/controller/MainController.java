@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
@@ -9,7 +10,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -87,7 +92,20 @@ public class MainController implements Initializable {
             setMediaSlider();
             currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
             if(Player.getInstance().getCurrentMediaTime()==Player.getInstance().getEndMediaTime()){
-                PlayQueue.getInstance().changeMediaWithButton(1);
+                PlayQueue.getInstance().changeMedia(1);
+            }
+        });
+
+        mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                double curr = Player.getInstance().getCurrentMediaTime();
+                if(Math.abs(curr - newValue.doubleValue()) > 1){
+                    Player.getInstance().changePosition(newValue.doubleValue());
+                    ThreadManager.getInstance().cancelTimer();
+                    currentMediaTimeLabel.setText(formatTime(newValue.doubleValue()));
+                    ThreadManager.getInstance().beginTimer();
+                }
             }
         });
 
@@ -95,6 +113,8 @@ public class MainController implements Initializable {
             setMediaSliderEnd();
             endMediaTimeLabel.setText(formatTime(Player.getInstance().getEndMediaTime()));
         });
+
+
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
@@ -177,7 +197,7 @@ public class MainController implements Initializable {
     @FXML
     void onPrevious(ActionEvent event) {
         if(PlayQueue.getInstance().getQueue().size()>1)
-            PlayQueue.getInstance().changeMediaWithButton(-1);
+            PlayQueue.getInstance().changeMedia(-1);
 
     }
 
@@ -195,7 +215,7 @@ public class MainController implements Initializable {
     void onNext(ActionEvent event) {
 
         if(PlayQueue.getInstance().getQueue().size()>1)
-            PlayQueue.getInstance().changeMediaWithButton(1);
+            PlayQueue.getInstance().changeMedia(1);
     }
 
     @FXML
@@ -211,7 +231,10 @@ public class MainController implements Initializable {
 
     @FXML
     void onScreenMode(ActionEvent event) {
-
+        if(!SceneHandler.getInstance().getStage().isFullScreen())
+            SceneHandler.getInstance().getStage().setFullScreen(true);
+        else
+            SceneHandler.getInstance().getStage().setFullScreen(false);
     }
 
     @FXML
@@ -237,6 +260,43 @@ public class MainController implements Initializable {
         }
 
     }
+
+    @FXML
+    void dragDetected(MouseEvent event) {
+        System.out.println("dragDetected");
+    }
+
+    @FXML
+    void dragDropped(DragEvent event) {
+        System.out.println("dragDropped");
+    }
+
+    @FXML
+    void dragOver(DragEvent event) {
+        System.out.println("dragOver");
+    }
+
+    @FXML
+    void mouseDragEntered(MouseDragEvent event) {
+        System.out.println("mouseDragEntered");
+    }
+
+    @FXML
+    void mouseDragExited(MouseDragEvent event) {
+        System.out.println("mouseDragExited");
+    }
+
+    @FXML
+    void mouseDragOver(MouseDragEvent event) {
+        System.out.println("mouseDragOver");
+    }
+
+    @FXML
+    void mouseDragReleased(MouseDragEvent event) {
+        System.out.println("mouseDragReleased");
+    }
+
+
     //END ACTION EVENT MEDIA CONTROLS BAR
 
 
@@ -247,6 +307,7 @@ public class MainController implements Initializable {
             mediaView.setVisible(true);
             btnVideoView.setVisible(true);
             myBorderPane.getCenter().setVisible(false);
+            plsScreenMode.setDisable(false);
             adjustVideoSize();
         }
         SceneHandler.getInstance().getStage().heightProperty().addListener(observable -> adjustVideoSize());
@@ -270,9 +331,6 @@ public class MainController implements Initializable {
     }
 
     private String formatTime(double timeDouble){
-        // TODO: 04/06/2022 sempre null 
-        System.out.println(timeDouble);
-        //3840
         if(timeDouble>0) {
             int hh = (int) (timeDouble / 3600);
             int mm = (int) ((timeDouble % 3600) / 60);
@@ -305,7 +363,7 @@ public class MainController implements Initializable {
         }else
             status=true;
         plsPrevious.setDisable(status);
-        plsScreenMode.setDisable(status);
+        //plsScreenMode.setDisable(status);
         plsEquilizer.setDisable(status);
         plsSkipBack.setDisable(status);
         plsSkipForward.setDisable(status);

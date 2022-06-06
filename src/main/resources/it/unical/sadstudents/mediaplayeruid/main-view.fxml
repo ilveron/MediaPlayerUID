@@ -153,7 +153,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Slider fx:id="mediaSlider" disable="true" prefWidth="1052.0" HBox.hgrow="ALWAYS">
+                              <Slider fx:id="mediaSlider" disable="true" onDragDetected="#dragDetected" onDragDropped="#dragDropped" onDragOver="#dragOver" onMouseDragEntered="#mouseDragEntered" onMouseDragExited="#mouseDragExited" onMouseDragOver="#mouseDragOver" onMouseDragReleased="#mouseDragReleased" prefWidth="1052.0" HBox.hgrow="ALWAYS">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -254,7 +254,7 @@
                                       <items>
                                         <MenuItem mnemonicParsing="false">
                                              <graphic>
-                                                <Slider fx:id="volumeSlider" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="50.0" />
+                                                <Slider fx:id="volumeSlider" blockIncrement="5.0" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="100.0" />
                                              </graphic>
                                           </MenuItem>
                                       </items>

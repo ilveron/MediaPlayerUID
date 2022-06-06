@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class Player {
     //VARIABLES
     private int skipMilliseconds = 10000;
-    private Double volume = 50.0 ;
+    private Double volume = 100.0 ;
     private Timer timer;
     private TimerTask task;
     private boolean runningTimer;
@@ -154,7 +154,7 @@ public class Player {
     }
 
     public void setVolume(double v) {
-        volume= v;
+        volume=v;
         mediaPlayer.setVolume(v);
     }
     //END BASIC CONTROLS

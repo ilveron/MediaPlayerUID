@@ -1,5 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.controller.MainController;
+import it.unical.sadstudents.mediaplayeruid.controller.PlayQueueController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -21,7 +23,9 @@ public class PlayQueue {
     private static PlayQueue instance = null;
     private PlayQueue (){
         queue = FXCollections.observableArrayList();
-        currentMediaProperty().addListener(observable -> startMedia()/*changeMedia()*/ );//vericare come usare più funzioni
+        currentMediaProperty().addListener(observable -> {
+            startMedia();
+        } );//vericare come usare più funzioni
     }
 
     public static PlayQueue getInstance(){
@@ -49,12 +53,10 @@ public class PlayQueue {
     public void setCurrentMedia(int newCurrentMedia) {
         if(newCurrentMedia < 0 || newCurrentMedia == currentMedia.get()){
             startMedia();
-            //changeMedia();
             return;
         }
         else if(newCurrentMedia >= getQueue().size()){
             newCurrentMedia = 0;
-            return;
         }
 
         currentMedia.set(newCurrentMedia);
@@ -132,14 +134,15 @@ public class PlayQueue {
         Player.getInstance().createMedia(currentMedia.get());
     }*/
 
-    public void changeMediaWithButton(Integer direction){
-        if(shuffleActive){
+    public void changeMedia(Integer direction){
+        if(shuffleActive) {
             Random random=new Random();
             int nextMedia=random.nextInt(0,queue.size());
             while (nextMedia==getCurrentMedia())
                 nextMedia=random.nextInt(0,queue.size());
             setCurrentMedia(nextMedia);
-        }else {
+        }
+        else {
             setCurrentMedia(getCurrentMedia()+direction);
         }
 

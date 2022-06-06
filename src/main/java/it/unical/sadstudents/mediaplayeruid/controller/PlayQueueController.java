@@ -74,6 +74,17 @@ public class PlayQueueController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
         beginTimer();
 
+        /*
+        PlayQueue.getInstance().currentMediaProperty().addListener(observable -> {
+            tableViewQueue.setRowFactory(tableView -> {
+                final TableRow<MyMedia> row = new TableRow<>();
+                row.
+                return row;
+            });
+        });
+
+         */
+
         tableViewQueue.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -81,6 +92,7 @@ public class PlayQueueController implements Initializable {
                     PlayQueue.getInstance().setCurrentMedia(row.getIndex());
                     System.out.println(row.getIndex());
                 }
+
             });
             return row;
         });
