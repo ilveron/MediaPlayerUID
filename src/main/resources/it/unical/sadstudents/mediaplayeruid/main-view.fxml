@@ -148,17 +148,17 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="timeMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                              <Label fx:id="currentMediaTimeLabel" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Slider fx:id="sliderMedia" disable="true" prefWidth="1052.0" HBox.hgrow="ALWAYS">
+                              <Slider fx:id="mediaSlider" disable="true" prefWidth="1052.0" HBox.hgrow="ALWAYS">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Slider>
-                              <Label fx:id="durationMediaPlayed" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                              <Label fx:id="endMediaTimeLabel" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -178,11 +178,12 @@
                                     <ImageView fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="180.0">
                                        <children>
-                                          <Label fx:id="nameMediaPlayed" prefWidth="180.0" styleClass="labelMedia" text="Label">
+                                          <Label fx:id="mediaNameLabel" prefWidth="180.0" styleClass="labelMedia" text="Label">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
+                                          <Label fx:id="artistNameLabel" styleClass="labelMediaArtist" text="Label" />
                                        </children>
                                     </VBox>
                                  </children>

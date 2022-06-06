@@ -17,10 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.ToDoubleBiFunction;
 
 
 public class MainController implements Initializable {
@@ -42,9 +40,9 @@ public class MainController implements Initializable {
     @FXML
     private Slider volumeSlider;
     @FXML
-    private Slider sliderMedia;
+    private Slider mediaSlider;
     @FXML
-    private Label timeMediaPlayed, nameMediaPlayed, durationMediaPlayed;
+    private Label currentMediaTimeLabel, mediaNameLabel, endMediaTimeLabel, artistNameLabel;
     @FXML
     private ToolBar toolbarMenu;
     @FXML
@@ -65,12 +63,12 @@ public class MainController implements Initializable {
 
 
         //START LISTENER VARI
-        sliderMedia.valueChangingProperty().addListener(new ChangeListener<Boolean>()
+        mediaSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 //Player.getInstance().setCurrent(sliderMedia.getValue());
-                Player.getInstance().changePosition(sliderMedia.getValue());
+                Player.getInstance().changePosition(mediaSlider.getValue());
             }
         });
 
@@ -84,16 +82,23 @@ public class MainController implements Initializable {
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
         Player.getInstance().mediaLoadedProperty().addListener(observable -> changeButtonEnabledStatus());
         Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
-        Player.getInstance().currentProperty().addListener(observable ->settaSliderMedia());
-        //Player.getInstance().currentProperty().addListener(observable ->timeMediaPlayed.setText(String.valueOf(Player.getInstance().getCurrent())));
-        Player.getInstance().nameMediaProperty().addListener(observable -> nameMediaPlayed.setText(Player.getInstance().getNameMedia()));
-        Player.getInstance().endProperty().addListener(observable -> settaFineMedia());
+        Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
+            setMediaSlider();
+            currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
+        });
+
+        Player.getInstance().endMediaTimeProperty().addListener(observable -> {
+            setMediaSliderEnd();
+            endMediaTimeLabel.setText(formatTime(Player.getInstance().getEndMediaTime()));
+        });
+
+        Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
-        Player.getInstance().isRunningProperty().addListener(observable -> CalcolaTempo());
+        Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
+        //Player.getInstance().isRunningProperty().addListener(observable -> formatTime());
         //END LISTENER VARI
 
     }
-
 
     //ACTION EVENT MENU
 
@@ -254,26 +259,23 @@ public class MainController implements Initializable {
         }
     }
 
-    private String CalcolaTempo(){
+    private String formatTime(double timeDouble){
         // TODO: 04/06/2022 sempre null 
-        if (Player.getInstance().isMediaLoaded() && Player.getInstance().getIsRunning() && Player.getInstance().getMediaPlayer().getMedia().durationProperty().get()!=null){
-            Double current = Player.getInstance().getMediaPlayer().getMedia().durationProperty().get().toSeconds();
-            System.out.println(current);
-            if(current>0) {
-                int minuti = (int) (current / 64);
-                int ore = (int) (current / 64);
-                int secon = (int) (current % 64);
-                return String.format("%d:%2d:%2d", ore, minuti, secon);
-            }
+        System.out.println(timeDouble);
+        //3840
+        if(timeDouble>0) {
+            int hh = (int) (timeDouble / 3600);
+            int mm = (int) ((timeDouble % 3600) / 60);
+            int ss = (int) ((timeDouble % 3600) % 60);
+
+            return String.format("%02d:%02d:%02d", hh, mm, ss);
         }
 
-
         return "00:00:00";
-
     }
 
-    private void settaFineMedia(){
-        sliderMedia.setMax(Player.getInstance().getEnd());
+    private void setMediaSliderEnd(){
+        mediaSlider.setMax(Player.getInstance().getEndMediaTime());
         //durationMediaPlayed.setText(CalcolaTempo(Player.getInstance().getEnd()));
         //System.out.println(CalcolaTempo(Player.getInstance().getEnd()));
     }
@@ -303,12 +305,12 @@ public class MainController implements Initializable {
         plsShuffle.setDisable(status);
         plsSpeedPlay.setDisable(status);
         plsVolume.setDisable(status);
-        sliderMedia.setDisable(status);
+        mediaSlider.setDisable(status);
         volumeSlider.setDisable(status);
     }
 
-    private void settaSliderMedia() {
-        sliderMedia.setValue(Player.getInstance().getCurrent());
+    private void setMediaSlider() {
+        mediaSlider.setValue(Player.getInstance().getCurrentMediaTime());
 
         //timeMediaPlayed.setText(CalcolaTempo(Player.getInstance().getCurrent()));
         //progressBar.setProgress((Player.getInstance().getCurrent()/Player.getInstance().getEnd()));

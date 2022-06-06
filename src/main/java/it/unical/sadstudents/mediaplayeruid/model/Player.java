@@ -1,8 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -23,13 +22,14 @@ public class Player {
     private MediaView mediaView ;
     //END VARIABLES
 
-    //PROPERTY
-    private SimpleDoubleProperty current = new SimpleDoubleProperty(0);
-    private SimpleDoubleProperty end = new SimpleDoubleProperty(0);
-    private SimpleStringProperty nameMedia = new SimpleStringProperty();
+    //PROPERTIES
+    private SimpleDoubleProperty currentMediaTime = new SimpleDoubleProperty(0);
+    private SimpleDoubleProperty endMediaTime = new SimpleDoubleProperty(0);
+    private SimpleStringProperty artistName = new SimpleStringProperty();
+    private SimpleStringProperty mediaName = new SimpleStringProperty();
     private SimpleBooleanProperty mediaLoaded = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty isRunning = new SimpleBooleanProperty(false);
-    //END PROPERTY
+    //END PROPERTIES
 
     //SINGLETON
     private static Player instance = null;
@@ -51,14 +51,14 @@ public class Player {
         return mediaLoaded;
     }
 
-    public void setNameMedia(String nameMedia) {
-        this.nameMedia.set(nameMedia);
+    public void setMediaName(String mediaName) {
+        this.mediaName.set(mediaName);
     }
-    public String getNameMedia() {
-        return nameMedia.get();
+    public String getMediaName() {
+        return mediaName.get();
     }
-    public SimpleStringProperty nameMediaProperty() {
-        return nameMedia;
+    public SimpleStringProperty mediaNameProperty() {
+        return mediaName;
     }
 
     public SimpleBooleanProperty isRunningProperty() {
@@ -66,26 +66,20 @@ public class Player {
     }
     public boolean getIsRunning() { return isRunning.get(); }
 
-    public double getCurrent() {
-        return current.get();
-    }
-    public void setCurrent(double current) {
-        this.current.set(current);
-    }
-    public SimpleDoubleProperty currentProperty() {
-        return current;
-    }
+    public double getCurrentMediaTime() { return currentMediaTime.get(); }
+    public void setCurrentMediaTime(double currentMediaTime) { this.currentMediaTime.set(currentMediaTime); }
+    public SimpleDoubleProperty currentMediaTimeProperty() { return currentMediaTime; }
 
-    public double getEnd() {
-        return end.get();
-    }
-    public SimpleDoubleProperty endProperty() {
-        return end;
-    }
+    public void setEndMediaTime(double endMediaTime) { this.endMediaTime.set(endMediaTime); }
+    public double getEndMediaTime() { return endMediaTime.get(); }
+    public SimpleDoubleProperty endMediaTimeProperty() { return endMediaTime; }
 
+    public String getArtistName() { return artistName.get(); }
+    public SimpleStringProperty artistNameProperty() { return artistName; }
+    public void setArtistName(String artistName) { this.artistName.set(artistName); }
     //END VARIABLES GETTERS AND SETTERS
 
-    //GETTERS AND SETTERS NEEDED FOR SET VIDEO TAB
+    //GETTERS AND SETTERS NEEDED TO SET VIDEO TAB
     public MediaView getMediaView() {
         return mediaView;
     }
@@ -100,12 +94,13 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
-        nameMedia.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+        mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaLoaded.set(true);
         playMedia();
+        ThreadManager.getInstance().setNameAndArtistLabels(media);
         //TODO: REGEX per riproduzione *.mp4
     }
 
@@ -114,7 +109,7 @@ public class Player {
             mediaPlayer.setVolume(volume);
             mediaPlayer.play();
             isRunning.set(true);
-            beginTimer();
+            ThreadManager.getInstance().beginTimer();
         }
     }
     //END FUNCTION START POINT FOR MEDIA REPRODUCTION
@@ -124,13 +119,13 @@ public class Player {
         if(media != null){
             mediaPlayer.pause();
             isRunning.set(false);
-            //cancelTimer();
+            ThreadManager.getInstance().cancelTimer();
         }
     }
 
     public void changePosition(double position){
         mediaPlayer.seek(Duration.seconds(position));
-        beginTimer();
+        ThreadManager.getInstance().beginTimer();
     }
 
     public void tenSecondBack() {
@@ -145,14 +140,15 @@ public class Player {
     public void stop(){
         pauseMedia();
         setMediaLoaded(false);
-        nameMediaProperty().set("");
+        mediaNameProperty().set("");
+        artistNameProperty().set("");
     }
 
     public void restart() {
         if(media != null)
             mediaPlayer.seek(Duration.seconds(0.0));
         mediaPlayer.play();
-        beginTimer();
+        ThreadManager.getInstance().beginTimer();
     }
 
     public void setVolume(double v) {
@@ -160,35 +156,4 @@ public class Player {
         mediaPlayer.setVolume(v);
     }
     //END BASIC CONTROLS
-
-    //TASK PROGRESS BAR
-    public void beginTimer(){
-
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                runningTimer = true;
-
-                current.set(mediaPlayer.getCurrentTime().toSeconds());
-                end.set(media.getDuration().toSeconds());
-
-                if (getCurrent()/getEnd()==1){
-                    cancelTimer();
-                    PlayQueue.getInstance().setCurrentMedia(PlayQueue.getInstance().getCurrentMedia() + 1);
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task,0,1000);
-
-    }
-
-    public void cancelTimer(){
-        runningTimer = false;
-        timer.cancel();
-    }
-    //END TASK
-
-
-
 }
