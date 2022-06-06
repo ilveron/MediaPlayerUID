@@ -20,8 +20,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-
+import java.util.function.ToDoubleBiFunction;
 
 
 public class MainController implements Initializable {
@@ -226,8 +225,7 @@ public class MainController implements Initializable {
     //END ACTION EVENT MEDIA CONTROLS BAR
 
 
-
-
+    // TODO: 06/06/2022 RENDERE INVISIBILE VIDEO VIEW DOPO CANCELLAZIONE DELLA PLAY QUEUE 
     //FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     public void activeVideoView (){
         if(PlayQueue.getInstance().isIsAvideo()){
