@@ -24,7 +24,7 @@
    <children>
       <StackPane stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane>
+            <AnchorPane fx:id="anchorView">
                <children>
                   <StackPane fx:id="containerView" styleClass="videoBackGroundColor" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>

@@ -26,6 +26,8 @@ public class MainController implements Initializable {
 
 
     //ELEMENTS ON LAYOUT
+    @FXML
+    private AnchorPane anchorView;
 
     @FXML
     private VBox leftItems;
