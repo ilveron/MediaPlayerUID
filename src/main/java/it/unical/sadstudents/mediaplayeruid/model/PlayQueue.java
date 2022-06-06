@@ -24,8 +24,9 @@ public class PlayQueue {
     private PlayQueue (){
         queue = FXCollections.observableArrayList();
         currentMediaProperty().addListener(observable -> {
-            startMedia();
-        } );//vericare come usare più funzioni
+            if(queue.size()>0)
+                startMedia();
+        } );//verificare come usare più funzioni
     }
 
     public static PlayQueue getInstance(){
@@ -51,15 +52,22 @@ public class PlayQueue {
     }
     //TODO: Rivedere se è possibile non chiamare da qui changeMedia()
     public void setCurrentMedia(int newCurrentMedia) {
-        if(newCurrentMedia < 0 || newCurrentMedia == currentMedia.get()){
-            startMedia();
-            return;
+        if(queue.size()>0){
+            if(newCurrentMedia < 0 || newCurrentMedia == currentMedia.get()){
+                startMedia();
+                return;
+            }
+            else if(newCurrentMedia >= getQueue().size()){
+                newCurrentMedia = 0;
+            }
+
+            currentMedia.set(newCurrentMedia);
+
         }
-        else if(newCurrentMedia >= getQueue().size()){
-            newCurrentMedia = 0;
+        else{
+            currentMedia.set(0);
         }
 
-        currentMedia.set(newCurrentMedia);
     }
 
     public ObservableList<MyMedia> getQueue(){

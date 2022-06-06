@@ -45,12 +45,14 @@ public class PlayQueueController implements Initializable {
     @FXML
     void addFileToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile(0));
+        colorSelectedRow();
         beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder(0));
+        colorSelectedRow();
         beginTimer();
     }
 
@@ -58,6 +60,8 @@ public class PlayQueueController implements Initializable {
     void deleteQueue(ActionEvent event) {
         PlayQueue.getInstance().getQueue().clear();
         Player.getInstance().stop();
+        PlayQueue.getInstance().setCurrentMedia(0);
+        PlayQueue.getInstance().setIsAvideo(false);
     }
     //END ACTION EVENT
 
@@ -74,16 +78,13 @@ public class PlayQueueController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
         beginTimer();
 
-        /*
+        colorSelectedRow();
+
+
         PlayQueue.getInstance().currentMediaProperty().addListener(observable -> {
-            tableViewQueue.setRowFactory(tableView -> {
-                final TableRow<MyMedia> row = new TableRow<>();
-                row.
-                return row;
-            });
+            tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
         });
 
-         */
 
         tableViewQueue.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
@@ -96,6 +97,12 @@ public class PlayQueueController implements Initializable {
             });
             return row;
         });
+    }
+
+    //aggiunta come fix
+    public void colorSelectedRow(){
+        if(PlayQueue.getInstance().getQueue().size() > 0)
+            tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
     }
 
     //TASK

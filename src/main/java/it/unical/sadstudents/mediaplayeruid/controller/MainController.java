@@ -26,8 +26,6 @@ public class MainController implements Initializable {
 
 
     //ELEMENTS ON LAYOUT
-    @FXML
-    private AnchorPane anchorView;
 
     @FXML
     private VBox leftItems;
@@ -232,7 +230,8 @@ public class MainController implements Initializable {
     void onScreenMode(ActionEvent event) {
         if (!SceneHandler.getInstance().getStage().isFullScreen()){
             leftItems.setVisible(false);
-
+            AnchorPane.setLeftAnchor(containerView,0.0);
+            AnchorPane.setBottomAnchor(containerView,0.0);
             SceneHandler.getInstance().getStage().setFullScreen(true);
             adjustVideoSize();
             SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -241,6 +240,9 @@ public class MainController implements Initializable {
                     KeyCode key = keyEvent.getCode();
                     if (key == KeyCode.ESCAPE){
                         leftItems.setVisible(true);
+                        AnchorPane.setLeftAnchor(containerView,270.0);
+                        AnchorPane.setBottomAnchor(containerView,96.00);
+
                         adjustVideoSize();
                     }
                 }
@@ -249,6 +251,8 @@ public class MainController implements Initializable {
         }
         else{
             leftItems.setVisible(true);
+            AnchorPane.setLeftAnchor(containerView,270.0);
+            AnchorPane.setBottomAnchor(containerView,96.00);
             SceneHandler.getInstance().getStage().setFullScreen(false);
             adjustVideoSize();
         }
