@@ -36,7 +36,7 @@ public class MusicLibraryController implements Initializable {
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFolderToList(RetrievingEngine.getInstance().retrieveFolder(1));
         beginTimer();
-        System.out.println(MusicLibrary.getInstance().getKMusic());
+        //System.out.println(MusicLibrary.getInstance().getKMusic());
     }
     @FXML
     void onAddMedia(ActionEvent event) {
@@ -45,7 +45,10 @@ public class MusicLibraryController implements Initializable {
     }
     //END ACTION EVENT
 
-
+    @FXML
+    void onPlayLibrary(ActionEvent event) {
+        // TODO: 07/06/2022 SELEZIONARE VARIE CANZONI DA RIPRODURRE
+    }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
@@ -75,6 +78,7 @@ public class MusicLibraryController implements Initializable {
             @Override
             public void run() {
                 runningTimer = true;
+                MusicLibrary.getInstance().sortList();
                 tableViewMusicLibrary.refresh();
                 if (MusicLibrary.getInstance().getMusicLibrary().size() == 0) {
                     cancelTimer();

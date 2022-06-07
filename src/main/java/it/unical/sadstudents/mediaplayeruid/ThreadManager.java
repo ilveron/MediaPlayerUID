@@ -1,17 +1,22 @@
 package it.unical.sadstudents.mediaplayeruid;
 
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ThreadManager {
     private Timer timer;
     private TimerTask timerTask;
+    private Task task;
 
     //SINGLETON
     private static ThreadManager instance = null;
@@ -58,6 +63,7 @@ public class ThreadManager {
         };
         timer.scheduleAtFixedRate(timerTask,0,1000);
 
+
     }
 
     public void cancelTimer(){
@@ -79,6 +85,47 @@ public class ThreadManager {
             }
         });
     }
+
+    public void createMedia(ObservableList<MyMedia> mylist, ArrayList<File> newFiles){
+        task = new Task<Void>() {
+            @Override public Void call() {
+                for (int i=0; i<newFiles.size()-1;i++) {
+                    mylist.add(new MyMedia(newFiles.get(i)));
+                }
+                task.cancel();
+                return null;
+            }
+        };
+
+
+        new Thread(task).start();
+
+    }
+
+
+
+    /*public MyMedia createMedia(File file){
+        final MyMedia[] myMedia = {null};
+        Task task2 = new Task() {
+            @Override
+            public MyMedia call() throws Exception {
+                myMedia[0] = new MyMedia(file);
+
+                return myMedia[0];
+            }
+        };
+
+        Thread thread = new Thread(task2);
+        thread.setDaemon(true);
+        thread.start();
+
+
+        return myMedia[0];
+    }
+*/
+
+
+
 
 
     //TODO: NON CANCELLARE!!!

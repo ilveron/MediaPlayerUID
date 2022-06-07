@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -47,5 +48,21 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Button layoutX="24.0" layoutY="66.0" mnemonicParsing="false" text="Delete" AnchorPane.leftAnchor="5.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="icons" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="108.0" layoutY="66.0" mnemonicParsing="false" onAction="#onPlayLibrary" text="Play library" AnchorPane.leftAnchor="90.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="icons" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

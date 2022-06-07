@@ -7,9 +7,7 @@ import it.unical.sadstudents.mediaplayeruid.model.RetrievingEngine;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.File;
@@ -34,6 +32,12 @@ public class PlayQueueController implements Initializable {
     @FXML
     private TableColumn<MyMedia, Double> length;
     //END TABLEVIEW
+
+    @FXML
+    private Button delete;
+
+    @FXML
+    private Button addTo;
 
 
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
@@ -109,6 +113,8 @@ public class PlayQueueController implements Initializable {
 
     public void startToolTip(){
         // TODO: 07/06/2022
+        delete.setTooltip(new Tooltip("Delete all the elements from the queue"));
+        addTo.setTooltip(new Tooltip("Add the selected media to a playlist or a library"));
     }
 
     //TASK

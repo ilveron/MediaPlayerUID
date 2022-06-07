@@ -84,9 +84,10 @@ public class MainController implements Initializable {
                 Player.getInstance().setVolume(volumeSlider.getValue()*0.01);
             }
         });
+        // TODO: 07/06/2022 fixare tooltip plsPlayPause 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane() );
         Player.getInstance().mediaLoadedProperty().addListener(observable -> changeButtonEnabledStatus());
-        Player.getInstance().isRunningProperty().addListener(observable ->cambiaIcona() );
+        Player.getInstance().isRunningProperty().addListener(observable -> {cambiaIcona(); plsPlayPause.setTooltip(new Tooltip("Pause"));});
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
             setMediaSlider();
             currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
@@ -124,8 +125,20 @@ public class MainController implements Initializable {
     }
 
     public void startToolTip() {
-        // TODO: 07/06/2022  
+        // TODO: 07/06/2022 
+        plsShuffle.setTooltip(new Tooltip("Shuffle model"));
+        plsScreenMode.setTooltip(new Tooltip("Screen mode"));
+        plsSpeedPlay.setTooltip(new Tooltip("Speed play"));
+        plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
+        plsSkipBack.setTooltip(new Tooltip("Skip back 10s"));
+        plsVolume.setTooltip(new Tooltip("Volume"));
+        plsRepeat.setTooltip(new Tooltip("Repeat"));
+        plsEquilizer.setTooltip(new Tooltip("Equilizer"));
+        plsProperties.setTooltip(new Tooltip("Info"));
+        plsNext.setTooltip(new Tooltip("Next"));
+        plsPrevious.setTooltip(new Tooltip("Previous"));
     }
+
 
     //ACTION EVENT MENU
 
@@ -188,9 +201,11 @@ public class MainController implements Initializable {
 
     @FXML
     void onShuffle(ActionEvent event) {
+        // TODO: 07/06/2022  se stai facendo girare un video in full screen e attivi onShuffle e skippi si bagga tutto X/ 
         if(PlayQueue.getInstance().isShuffleActive()){
             PlayQueue.getInstance().setShuffleActive(false);
             plsShuffle.setStyle("-fx-background-color: transparentBackgroundColor");
+
         }else{
             PlayQueue.getInstance().setShuffleActive(true);
             plsShuffle.setStyle("-fx-background-color: primarySelectionColor");
@@ -278,10 +293,12 @@ public class MainController implements Initializable {
     @FXML
     void onPlayPause(ActionEvent event) {
         if(Player.getInstance().getIsRunning()){
+            //plsPlayPause.setTooltip(new Tooltip("Play"));
             iconPlayPause.setIconLiteral("fa-play");
             Player.getInstance().pauseMedia();
         }
         else{
+            //plsPlayPause.setTooltip(new Tooltip("Pause"));
             iconPlayPause.setIconLiteral("fa-pause");
             Player.getInstance().playMedia();
         }

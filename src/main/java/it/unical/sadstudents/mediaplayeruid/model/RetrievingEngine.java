@@ -1,5 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -10,11 +12,15 @@ import java.util.ArrayList;
 
 
 public class RetrievingEngine {
+
     //TYPES: 0 is standard from home and queue , 1 from MusicLibrary and 2 from VideoLibrary
 
     //SINGLETON
     private static RetrievingEngine instance = null;
     private RetrievingEngine(){}
+
+
+
     public static RetrievingEngine getInstance(){
         if (instance==null)
             instance = new RetrievingEngine();
@@ -84,6 +90,7 @@ public class RetrievingEngine {
 
         return myFileList;
     }
+
 
 
 }

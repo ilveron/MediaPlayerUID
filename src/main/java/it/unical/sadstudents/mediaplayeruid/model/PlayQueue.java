@@ -14,6 +14,7 @@ import java.util.Random;
 public class PlayQueue implements DataListedModel {
     //VARIABLES
     private ObservableList<MyMedia> queue;
+    private ArrayList<String> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
     private SimpleBooleanProperty isAvideo = new SimpleBooleanProperty(false);
     private boolean shuffleActive=false;
@@ -23,6 +24,7 @@ public class PlayQueue implements DataListedModel {
     private static PlayQueue instance = null;
     private PlayQueue (){
         queue = FXCollections.observableArrayList();
+        alreadyPlayed = new ArrayList<>();
         currentMediaProperty().addListener(observable -> {
             if(queue.size()>0)
                 startMedia();
@@ -133,11 +135,15 @@ public class PlayQueue implements DataListedModel {
 
     public void changeMedia(Integer direction){
         // TODO: 07/06/2022 vedere se vale la pena di fare in modo che non richiami canzoni già suonate
+        alreadyPlayed.add(queue.get(getCurrentMedia()).getPath());
         if(shuffleActive) {
-            Random random=new Random();
-            int nextMedia=random.nextInt(0,queue.size());
-            while (nextMedia==getCurrentMedia())
-                nextMedia=random.nextInt(0,queue.size());
+            int nextMedia = generateRandomForShuffle();
+            System.out.println("nextMedia: " + nextMedia);
+            if(nextMedia == -1){
+                alreadyPlayed.clear();
+                nextMedia = generateRandomForShuffle();
+            }
+
             setCurrentMedia(nextMedia);
         }
         else {
@@ -146,5 +152,29 @@ public class PlayQueue implements DataListedModel {
     }
     //END LIST-ITEM SELECTION AND SEND TO PLAYER
 
+    private int generateRandomForShuffle() {
+        Random random = new Random();
+        int index = -1;
+        boolean indexFound = false;
+        int numbersGenerated = 0;
+        while(!indexFound && (numbersGenerated <= queue.size())){
+            indexFound = true;
+            index = random.nextInt(0, queue.size());
+            numbersGenerated++;
+
+            String newPath = queue.get(index).getPath();
+            for(int i = 0; i < alreadyPlayed.size(); ++i){
+                if (newPath == alreadyPlayed.get(i)) {
+                    indexFound = false;
+                    break;
+                }
+            }
+        }
+
+        if(numbersGenerated > queue.size())
+            return -1;
+
+        return index;
+    }
 
 }

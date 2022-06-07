@@ -30,7 +30,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" AnchorPane.leftAnchor="5.0">
+      <Button fx:id="delete" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" AnchorPane.leftAnchor="5.0">
          <graphic>
             <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="icons" />
          </graphic>
@@ -38,7 +38,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="98.0" layoutY="56.0" mnemonicParsing="false" onAction="#addFileTo" text="Add to" AnchorPane.leftAnchor="90.0">
+      <Button fx:id="addTo" layoutX="98.0" layoutY="56.0" mnemonicParsing="false" onAction="#addFileTo" text="Add to" AnchorPane.leftAnchor="90.0">
          <graphic>
             <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="icons" />
          </graphic>
