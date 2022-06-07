@@ -80,4 +80,34 @@ public class ThreadManager {
         });
     }
 
+
+    //TODO: NON CANCELLARE!!!
+    /*public void compilaMetadati(){
+        for(MyMedia myMedia: queue){
+            Media media = new Media(myMedia.getPath());
+            media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+                System.out.println("ciao");
+                if(change.wasAdded()){
+                    if("title".equals(change.getKey())) {
+                        myMedia.setTitle(media.getMetadata().get("title").toString());
+                    }
+                    else if ("artist".equals(change.getKey())){
+                        myMedia.setArtist(media.getMetadata().get("artist").toString());
+                    }
+                    else if ("album".equals(change.getKey())){
+                        myMedia.setAlbum(media.getMetadata().get("album").toString());
+                    }
+                    else if ("genre".equals(change.getKey())){
+                        myMedia.setGenre(media.getMetadata().get("genre").toString());
+                    }
+                    else if (media.getDuration()!= null){
+                        myMedia.setDuration(media.getDuration().toSeconds());
+                        if ( media.getMetadata().get("length")!= null)
+                            myMedia.setDuration((Double) media.getMetadata().get("length"));
+                    }
+                }
+            });
+        }
+    }*/
+
 }

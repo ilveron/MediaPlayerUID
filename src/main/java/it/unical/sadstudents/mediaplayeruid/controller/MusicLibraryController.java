@@ -34,13 +34,13 @@ public class MusicLibraryController implements Initializable {
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
     @FXML
     void onAddFolder(ActionEvent event) {
-        MusicLibrary.getInstance().addFolderToMusicLibrary(RetrievingEngine.getInstance().retrieveFolder(1));
+        MusicLibrary.getInstance().addFolderToList(RetrievingEngine.getInstance().retrieveFolder(1));
         beginTimer();
         System.out.println(MusicLibrary.getInstance().getKMusic());
     }
     @FXML
     void onAddMedia(ActionEvent event) {
-        MusicLibrary.getInstance().addFileToMusicLibrary(RetrievingEngine.getInstance().retrieveFile(1));
+        MusicLibrary.getInstance().addFileToList(RetrievingEngine.getInstance().retrieveFile(1));
         beginTimer();
     }
     //END ACTION EVENT
@@ -48,6 +48,7 @@ public class MusicLibraryController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        startToolTip();
         // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
@@ -60,6 +61,10 @@ public class MusicLibraryController implements Initializable {
         beginTimer();
 
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
+    }
+
+    private void startToolTip() {
+        // TODO: 07/06/2022
     }
 
     //TASK

@@ -4,8 +4,11 @@ package it.unical.sadstudents.mediaplayeruid.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.util.ArrayList;
 
-public class VideoLibrary {
+
+public class VideoLibrary implements DataListedModel{
     //VARIABLES
     private Integer videoNumber= 0; //numero di video presenti nella libreria
     private ObservableList<MyMedia> videoLibrary;
@@ -30,58 +33,25 @@ public class VideoLibrary {
     public ObservableList<MyMedia> getVideoLibrary() {return videoLibrary;}
 
     public void setVideoNumber(Integer videoNumber) {this.videoNumber = videoNumber;}
+
+    @Override
+    public void clearList() {
+        // TODO: 07/06/2022  
+        
+    }
+
+    @Override
+    public void addFileToList(File file) {
+        // TODO: 07/06/2022  
+    }
+
+    @Override
+    public void addFolderToList(ArrayList<File> files) {
+        // TODO: 07/06/2022
+    }
     //END GETTERS AND SETTERS
 
 
-
-
-    /*public void addToVideoLibrarySingleFile(){
-
-
-
-    }
-
-    public void generateNewQueue(File file){
-        queue.clear();
-        MyMedia media = new MyMedia(file);
-        queue.add(media);
-        currentMedia.set(0);
-        Player.getInstance().createMedia(0);
-        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
-
-    }
-
-    public void generateNewQueueFromList(ArrayList<File> files){
-        queue.clear();
-        currentMedia.set(0);
-        for(File f: files){
-            // TODO: 03/06/2022 GESTIONE ECCEZIONE MEDIA UNSUPPORTED
-            MyMedia media = new MyMedia(f);
-            queue.add(media);
-            if(!Player.getInstance().getIsRunning())
-                Player.getInstance().createMedia(currentMedia.get());
-        }
-        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
-    }
-
-    public void addFileToQueue(File file){
-        MyMedia myMedia = new MyMedia(file);
-        queue.add(myMedia);
-        if(!Player.getInstance().getIsRunning())
-            Player.getInstance().createMedia(currentMedia.get());
-
-    }
-
-    public void addFolderToQueue(ArrayList<File> files){
-        for(File file: files){
-            MyMedia myMedia = new MyMedia(file);
-            queue.add(myMedia);
-            if(!Player.getInstance().getIsRunning())
-                Player.getInstance().createMedia(currentMedia.get());
-        }
-    }
-
-*/
 
 
 }

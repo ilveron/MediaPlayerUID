@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import java.io.File;
 import java.util.ArrayList;
 
-public class MusicLibrary {
+public class MusicLibrary implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> Library;
     private Integer KMusic=0;
@@ -33,13 +33,20 @@ public class MusicLibrary {
 
 
     //FUNCTIONS
-    public void addFileToMusicLibrary(File file){
+    @Override
+    public void clearList() {
+        Library.clear();
+    }
+
+    @Override
+    public void addFileToList(File file) {
         MyMedia myMedia = new MyMedia(file);
         Library.add(myMedia);
         ++KMusic;
-    }
+  }
 
-    public void addFolderToMusicLibrary(ArrayList<File> files){
+    @Override
+    public void addFolderToList(ArrayList<File> files) {
         for(File file: files){
             MyMedia myMedia = new MyMedia(file);
             Library.add(myMedia);
@@ -47,4 +54,5 @@ public class MusicLibrary {
         }
     }
     //END FUNCTIONS
+
 }

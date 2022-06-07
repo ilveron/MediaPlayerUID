@@ -57,6 +57,8 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+        startToolTip();
         //INITIALIZE AN INVISIBLE MEDIAVIEW
         Player.getInstance().setMediaView(mediaView);
 
@@ -119,6 +121,10 @@ public class MainController implements Initializable {
         //Player.getInstance().isRunningProperty().addListener(observable -> formatTime());
         //END LISTENER VARI
 
+    }
+
+    public void startToolTip() {
+        // TODO: 07/06/2022  
     }
 
     //ACTION EVENT MENU

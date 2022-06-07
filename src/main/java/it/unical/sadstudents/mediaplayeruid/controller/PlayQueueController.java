@@ -44,14 +44,14 @@ public class PlayQueueController implements Initializable {
 
     @FXML
     void addFileToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFileToQueue(RetrievingEngine.getInstance().retrieveFile(0));
+        PlayQueue.getInstance().addFileToList(RetrievingEngine.getInstance().retrieveFile(0));
         colorSelectedRow();
         beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFolderToQueue(RetrievingEngine.getInstance().retrieveFolder(0));
+        PlayQueue.getInstance().addFolderToList(RetrievingEngine.getInstance().retrieveFolder(0));
         colorSelectedRow();
         beginTimer();
     }
@@ -68,6 +68,8 @@ public class PlayQueueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // TODO: 07/06/2022
+        startToolTip();
 
         tableViewQueue.setItems(PlayQueue.getInstance().getQueue());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
@@ -103,6 +105,10 @@ public class PlayQueueController implements Initializable {
     public void colorSelectedRow(){
         if(PlayQueue.getInstance().getQueue().size() > 0)
             tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
+    }
+
+    public void startToolTip(){
+        // TODO: 07/06/2022
     }
 
     //TASK
