@@ -15,11 +15,14 @@ public class MusicLibrary implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> Library;
     private Integer KMusic=0;
+    private ObservableList<Integer> Selection;
+    private boolean selectionModeActive=false;
 
     //SINGLETON AND CLASS DECLARATION
     private static MusicLibrary instance = null;
     private MusicLibrary (){
         Library = FXCollections.observableArrayList();
+        Selection=FXCollections.observableArrayList();
     }
     public static MusicLibrary getInstance(){
         if (instance==null)
@@ -32,22 +35,35 @@ public class MusicLibrary implements DataListedModel{
     public ObservableList<MyMedia> getMusicLibrary() {
         return Library;
     }
+
+    public ObservableList<Integer> getSelection() {
+        return Selection;
+    }
+
+    public boolean isSelectionModeActive() {
+        return selectionModeActive;
+    }
+
+    public void setSelectionModeActive(boolean selectionModeActive) {
+        this.selectionModeActive = selectionModeActive;
+    }
+
     public Integer getKMusic() {
         return KMusic;
     }
-
 
     //FUNCTIONS
     @Override
     public void clearList() {
         Library.clear();
+        Selection.clear();
     }
 
     @Override
     public void addFileToList(File file) {
         MyMedia myMedia = new MyMedia(file);
         Library.add(myMedia);
-        if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
+        //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
         ++KMusic;
   }
 
@@ -56,14 +72,20 @@ public class MusicLibrary implements DataListedModel{
         for(File file: files){
             MyMedia myMedia = new MyMedia(file);
             Library.add(myMedia);
-            if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
+            //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
             ++KMusic;
         }
     }
-
-    public void sortList(){
-        if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
+    public int alreadySelect(int t){
+        for(int i =0;i<Selection.size();i++){
+            if(Selection.get(i)==t) return i;
+        }
+        return -1;
     }
+    public void sortList(){
+        Library.sort(Comparator.comparing(MyMedia::toString));
+    }
+
 
 
 

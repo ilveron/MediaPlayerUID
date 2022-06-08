@@ -3,7 +3,9 @@
   -fx-background-color: primaryBackgroundColor;
 }
 
-
+.paneHeaders {
+    -fx-font-family: "Montserrat ExtraBold";
+}
 
 .text-field * {
     -fx-background-color: secondaryBackgroundColor;
@@ -13,6 +15,7 @@
 .labelMedia {
     -fx-text-fill: primarySelectionColor;
     -fx-font-size: 18px;
+    -fx-font-family: "Montserrat Black";
 }
 
 .labelMediaArtist{

@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import it.unical.sadstudents.mediaplayeruid.Settings;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
@@ -62,12 +63,11 @@ public class SceneHandler {
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
         stage.setMinWidth(750);
-        /*for (String font : List.of("fonts/Roboto/Roboto-Regular.ttf", "fonts/Roboto/Roboto-Bold.ttf")) {
-            Font.loadFont(Objects.requireNonNull(MainApplication.class.getResource(font)).toExternalForm(), 10);
-            //Font.loadFont((MainApplication.class.getResource(font)).toExternalForm(), 10);
-
-        }*/
-        for (String style : List.of("css/"+theme+".css", /*"css/fonts.css",*/ "css/style.css")) {
+        for (String font : Settings.fonts) {
+            System.out.println();
+            Font.loadFont(Objects.requireNonNull(MainApplication.class.getResourceAsStream(font)), 10);
+        }
+        for (String style : Settings.styles) {
             String resource = Objects.requireNonNull(MainApplication.class.getResource(style)).toExternalForm();
             scene.getStylesheets().add(resource);
         }
