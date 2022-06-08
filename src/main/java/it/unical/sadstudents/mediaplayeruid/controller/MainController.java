@@ -117,7 +117,7 @@ public class MainController implements Initializable {
 
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
-        PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
+        //PlayQueue.getInstance().isAvideoProperty().addListener(observable -> activeVideoView());
         Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
         //Player.getInstance().isRunningProperty().addListener(observable -> formatTime());
         //END LISTENER VARI
@@ -249,7 +249,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onScreenMode(ActionEvent event) {
-        if (!SceneHandler.getInstance().getStage().isFullScreen()){
+       /* if (!SceneHandler.getInstance().getStage().isFullScreen()){
             leftItems.setVisible(false);
             AnchorPane.setLeftAnchor(containerView,0.0);
             AnchorPane.setBottomAnchor(containerView,0.0);
@@ -276,7 +276,7 @@ public class MainController implements Initializable {
             AnchorPane.setBottomAnchor(containerView,96.00);
             SceneHandler.getInstance().getStage().setFullScreen(false);
             adjustVideoSize();
-        }
+        }*/
     }
 
     @FXML
@@ -346,7 +346,7 @@ public class MainController implements Initializable {
 
     // TODO: 06/06/2022 RENDERE INVISIBILE VIDEO VIEW DOPO CANCELLAZIONE DELLA PLAY QUEUE 
     //FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
-    public void activeVideoView (){
+   /* public void activeVideoView (){
         if(PlayQueue.getInstance().isIsAvideo()){
             mediaView.setVisible(true);
             btnVideoView.setVisible(true);
@@ -389,7 +389,7 @@ public class MainController implements Initializable {
             // TODO: 04/06/2022 AGGIUNGERE SPOSTASMENTO SU ASSE Y DEL VIDEO SECONDO SORGENTE
             mediaView.setPreserveRatio(true);
         }
-    }
+    }*/
 
     private String formatTime(double timeDouble){
         if(timeDouble>0) {

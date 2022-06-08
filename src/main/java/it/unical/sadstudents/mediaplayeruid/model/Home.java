@@ -1,15 +1,20 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import java.util.ArrayList;
+import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.*;
 
 public class Home {
     //VARIABLES
-    private ArrayList<MyMedia> recentMedia = new ArrayList<MyMedia>(10);
+    private ArrayList<MyMedia> recentMedia ;
+    private SimpleIntegerProperty sizeRecentMedia = new SimpleIntegerProperty(0);
 
     //SINGLETON AND CLASS DECLARATION
     private static Home instance = null;
-    private Home (){}
-    private Home getInstance(){
+    private Home (){
+        recentMedia = new ArrayList<MyMedia>();
+    }
+    public static Home getInstance(){
         if (instance==null)
             instance = new Home();
         return instance;
@@ -19,14 +24,17 @@ public class Home {
     //GETTERS
     public ArrayList<MyMedia> getRecentMedia() { return recentMedia; }
 
+    public int getSizeRecentMedia() { return sizeRecentMedia.get(); }
 
+    public SimpleIntegerProperty sizeRecentMediaProperty() { return sizeRecentMedia;     }
+
+    public void setSizeRecentMedia(int sizeRecentMedia) { this.sizeRecentMedia.set(sizeRecentMedia);     }
 
     //FUNCTIONS
     public void addToRecent(MyMedia myMedia){
-        if(recentMedia.size()>=10){
-            recentMedia.remove(0);
-        }
         recentMedia.add(myMedia);
+        sizeRecentMedia.add(1);
+
     }
 
     //END FUNCTIONS

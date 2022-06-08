@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -37,15 +36,13 @@ public class PlayQueueController implements Initializable {
     private Button delete;
 
     @FXML
-    private Button addTo;
+    private MenuItem addFileToMusicLibrary;
+
+    @FXML
+    private MenuItem addFileToPlaylist;
 
 
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
-    @FXML
-    void addFileTo(ActionEvent event) {
-
-    }
-
     @FXML
     void addFileToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFileToList(RetrievingEngine.getInstance().retrieveFile(0));
@@ -65,8 +62,19 @@ public class PlayQueueController implements Initializable {
         PlayQueue.getInstance().getQueue().clear();
         Player.getInstance().stop();
         PlayQueue.getInstance().setCurrentMedia(0);
-        PlayQueue.getInstance().setIsAvideo(false);
+        PlayQueue.getInstance().setIsAVideo(false);
     }
+
+    @FXML
+    void onAddFileToMusicLibrary(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onAddFileToPlaylist(ActionEvent event) {
+
+    }
+
     //END ACTION EVENT
 
 
@@ -114,7 +122,6 @@ public class PlayQueueController implements Initializable {
     public void startToolTip(){
         // TODO: 07/06/2022
         delete.setTooltip(new Tooltip("Delete all the elements from the queue"));
-        addTo.setTooltip(new Tooltip("Add the selected media to a playlist or a library"));
     }
 
     //TASK

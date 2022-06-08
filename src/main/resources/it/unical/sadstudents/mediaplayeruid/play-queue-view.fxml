@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,14 +39,6 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="addTo" layoutX="98.0" layoutY="56.0" mnemonicParsing="false" onAction="#addFileTo" text="Add to" AnchorPane.leftAnchor="90.0">
-         <graphic>
-            <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="icons" />
-         </graphic>
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
       <MenuButton layoutX="335.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="127.0" text="Add media" AnchorPane.rightAnchor="5.0">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addFileToQueue" style="-fx-font-size: 12;" text="Add file to play queue">
@@ -63,6 +56,32 @@
          <graphic>
             <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="icons" />
          </graphic>
+      </MenuButton>
+      <MenuButton layoutX="79.0" layoutY="56.0" mnemonicParsing="false" text="Add selected file to">
+        <items>
+          <MenuItem fx:id="addFileToMusicLibrary" mnemonicParsing="false" onAction="#onAddFileToMusicLibrary" text="Music library">
+               <graphic>
+                  <FontIcon iconLiteral="fa-music" iconSize="15" />
+               </graphic>
+            </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <SeparatorMenuItem mnemonicParsing="false">
+               <content>
+                  <Label text="Playlists" />
+               </content>
+            </SeparatorMenuItem>
+          <MenuItem fx:id="addFileToPlaylist" mnemonicParsing="false" onAction="#onAddFileToPlaylist" text="Playlists">
+               <graphic>
+                  <FontIcon iconLiteral="fa-list-ul" iconSize="15" />
+               </graphic>
+            </MenuItem>
+        </items>
+         <graphic>
+            <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="icons" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
       </MenuButton>
    </children>
 </AnchorPane>

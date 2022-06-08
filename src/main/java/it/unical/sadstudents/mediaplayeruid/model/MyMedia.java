@@ -1,11 +1,13 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import javafx.collections.MapChangeListener;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 
 import java.io.File;
 import java.lang.Object;
 import java.util.Objects;
+import java.util.Random;
 
 public class MyMedia {
     //VARIABLES-DATA
@@ -16,6 +18,7 @@ public class MyMedia {
     private String path = "";
     private Double length;
     private Integer year;
+    //private Image image = new Image("/it/unical/sadstudents/mediaplayeruid/resources/image/NotAvailable.png");
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
@@ -24,6 +27,7 @@ public class MyMedia {
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
+
         setTitle(file.getName());
         Media media = new Media(path);
 
@@ -50,6 +54,9 @@ public class MyMedia {
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
                     System.out.println("Ho la length: "+ length);
                 }
+                /*else if (media.getMetadata().get("image") != null){
+                    setImage((Image)(media.getMetadata().get("image")));
+                }*/
 
 
             }
@@ -58,6 +65,16 @@ public class MyMedia {
     //END CLASS CONSTRUCTOR
 
     //VARIABLES GETTERS AND SETTERS
+
+
+    /*public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }*/
+
     public void setTitle(String title) { this.title = title; }
     public void setArtist(String artist) { this.artist = artist; }
     public void setAlbum(String album) { this.album = album; }
@@ -88,5 +105,9 @@ public class MyMedia {
 
     //END VARIABLES GETTERS AND SETTERS
 
-    
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(path);
+    }
 }

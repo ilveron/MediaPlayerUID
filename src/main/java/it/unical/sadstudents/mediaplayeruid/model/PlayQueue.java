@@ -1,7 +1,5 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.controller.MainController;
-import it.unical.sadstudents.mediaplayeruid.controller.PlayQueueController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +14,7 @@ public class PlayQueue implements DataListedModel {
     private ObservableList<MyMedia> queue;
     private ArrayList<String> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
-    private SimpleBooleanProperty isAvideo = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty isAVideo = new SimpleBooleanProperty(false);
     private boolean shuffleActive=false;
     //END VARIABLES
 
@@ -39,9 +37,9 @@ public class PlayQueue implements DataListedModel {
     //END SINGLETON CLASS
 
     //GETTERS AND SETTERS
-    public boolean isIsAvideo() { return isAvideo.get(); }
-    public SimpleBooleanProperty isAvideoProperty() { return isAvideo; }
-    public void setIsAvideo(boolean isAvideo) { this.isAvideo.set(isAvideo); }
+    public boolean getIsAVideo() { return isAVideo.get(); }
+    public SimpleBooleanProperty isAVideoProperty() { return isAVideo; }
+    public void setIsAVideo(boolean isAVideo) { this.isAVideo.set(isAVideo); }
 
     public boolean isShuffleActive() { return shuffleActive; }
     public void setShuffleActive(boolean shuffleActive) {  this.shuffleActive = shuffleActive; }
@@ -125,9 +123,9 @@ public class PlayQueue implements DataListedModel {
     //FUNCTIONS LIST-ITEM SELECTION AND SEND TO PLAYER
     public void startMedia(){
         if (queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4")){
-            isAvideo.set(true);
+            isAVideo.set(true);
         }
-        else isAvideo.set(false);
+        else isAVideo.set(false);
         Player.getInstance().pauseMedia();
         Player.getInstance().createMedia(currentMedia.get());
 
@@ -138,7 +136,6 @@ public class PlayQueue implements DataListedModel {
         alreadyPlayed.add(queue.get(getCurrentMedia()).getPath());
         if(shuffleActive) {
             int nextMedia = generateRandomForShuffle();
-            System.out.println("nextMedia: " + nextMedia);
             if(nextMedia == -1){
                 alreadyPlayed.clear();
                 nextMedia = generateRandomForShuffle();

@@ -94,6 +94,8 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
+
+
         mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
@@ -104,6 +106,18 @@ public class Player {
         //TODO: REGEX per riproduzione *.mp4
     }
 
+    //public void createMedia(Integer index){
+    public void createMediaTest(MyMedia myMedia){
+
+        mediaName.set(myMedia.getTitle());
+        media = new Media(myMedia.getPath());
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaLoaded.set(true);
+        playMedia();
+        ThreadManager.getInstance().setNameAndArtistLabels(media);
+        //TODO: REGEX per riproduzione *.mp4
+    }
     public void playMedia(){
         if(media != null){
             mediaPlayer.setVolume(volume);
