@@ -1,13 +1,13 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface DataListedModel {
 
     public void clearList();
 
-    public void addFileToList(File file);
+    public void addFileToListFromOtherModel(MyMedia myMedia);
 
-    public void addFolderToList(ArrayList<File> files);
+    public void addFilesToList(List<File> files);
 }

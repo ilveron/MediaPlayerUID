@@ -1,14 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -36,7 +34,7 @@ public class MusicLibraryController implements Initializable {
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
     @FXML
     void onAddFolder(ActionEvent event) {
-        MusicLibrary.getInstance().addFolderToList(RetrievingEngine.getInstance().retrieveFolder(1));
+        MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(1));
         beginTimer();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
@@ -45,7 +43,7 @@ public class MusicLibraryController implements Initializable {
     }
     @FXML
     void onAddMedia(ActionEvent event) {
-        MusicLibrary.getInstance().addFileToList(RetrievingEngine.getInstance().retrieveFile(1));
+        MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(1));
         beginTimer();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
@@ -61,15 +59,14 @@ public class MusicLibraryController implements Initializable {
     @FXML
     void onAddLibraryToQueue(ActionEvent event) {
         for(int i=0;i<MusicLibrary.getInstance().getKMusic();i++){
-            //PlayQueue.getInstance().addFileToList(MusicLibrary.getInstance().getMusicLibrary().get(i));
+            PlayQueue.getInstance().addFileToListFromOtherModel((MusicLibrary.getInstance().getMusicLibrary().get(i)));
         }
     }
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
         MyMedia myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedItem();
         if(myMedia!=null){
-            //File temp=new File();
-            //PlayQueue.getInstance().addFileToList(temp);
+            PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
         }
     }
     @FXML

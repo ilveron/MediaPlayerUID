@@ -1,10 +1,28 @@
+/*
+    TODO: SISTEMARE LABEL PLAYLIST IN MENUBUTTON DI MUSICLIBRARY
+    TODO: SISTEMARE COLORI DEGLI EVENTI HOVER NELLE VARIE CLASSI CSS
+*/
+
 .basicTemplate {
   -fx-text-fill: textColor;
   -fx-background-color: primaryBackgroundColor;
 }
 
-.paneHeaders {
+.sceneHeaders {
     -fx-font-family: "Montserrat ExtraBold";
+    -fx-text-fill: headersTextColor;
+    -fx-font-size: 40px;
+    -fx-text-alignment: center;
+}
+
+.toolBarButton {
+    -fx-font-family: "Montserrat Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: textColor;
+}
+
+.toolBarIcons {
+    -fx-icon-color: WHITE;
 }
 
 .text-field * {
@@ -12,39 +30,68 @@
     -fx-background-radius: 5px;
 }
 
-.labelMedia {
+.mediaNameLabel {
     -fx-text-fill: primarySelectionColor;
     -fx-font-size: 18px;
-    -fx-font-family: "Montserrat Black";
+    -fx-font-family: "Montserrat Bold";
 }
 
-.labelMediaArtist{
+.artistMediaLabel{
     -fx-text-fill: primarySelectionColor;
+    -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
 }
 
 .videoBackGroundColor{
-    -fx-background-color: #151414;
+    -fx-background-color: primaryBackGroundColor;
 }
 
-.menu-button{
-    -fx-text-fill: textColor;
+.largeMenuButton, .smallMenuButton {
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
-
 }
-.menu-button:hover{
+
+.largeMenuButton .label, .smallMenuButton .label{
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+}
+
+.smallMenuButton .label{
+    -fx-font-size: 14px;
+}
+
+.largeMenuButton .label{
+    -fx-font-size: 16px;
+}
+
+.largeMenuButton:hover, .smallMenuButton:hover{
     -fx-background-color: primarySelectionColor;
+    -fx-text-fill: primaryBackgroundColor;
+}
+
+.menuItem {
+    -fx-background-radius: 5px;
+    -fx-icon-color: primaryBackgroundColor;
+}
+
+.menuItem .label {
+    -fx-font-family: "Montserrat Regular";
+    -fx-text-fill: primaryBackgroundColor;
+    -fx-font-size: 14px;
 }
 
 .button {
     -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
+    -fx-font-size: 14px;
 }
 
 .button:hover {
     -fx-background-color: primarySelectionColor;
+    -fx-text-fill: primaryBackgroundColor;
+
 }
 
 .table-view * {
@@ -119,9 +166,8 @@
     -fx-background-radius : 2.0em;
 }
 
-.icons {
-    -fx-icon-color: WHITE;
-
+.iconsOverBackground {
+    -fx-icon-color: iconOverBackgroundColor;
 }
 
 .slider .track {

@@ -58,11 +58,14 @@ public class SceneHandler {
     //START MAIN STAGE AND SCENE
     public void init(Stage mainStage) throws Exception {
         stage = mainStage;
+        System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         scene = new Scene(loader.load(), 1200, 800);
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
         stage.setMinWidth(750);
+
+
         for (String font : Settings.fonts) {
             System.out.println();
             Font.loadFont(Objects.requireNonNull(MainApplication.class.getResourceAsStream(font)), 10);

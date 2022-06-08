@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -7,9 +8,10 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class PlayQueue implements DataListedModel {
+public class PlayQueue implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> queue;
     private ArrayList<String> alreadyPlayed;
@@ -87,38 +89,41 @@ public class PlayQueue implements DataListedModel {
     }
 
     @Override
-    public void addFileToList(File file) {
-        MyMedia myMedia = new MyMedia(file);
+    public void addFileToListFromOtherModel(MyMedia myMedia) {
         queue.add(myMedia);
         if(!Player.getInstance().isMediaLoaded())
             //Player.getInstance().createMedia(currentMedia.get());
             startMedia();
-
     }
 
     @Override
-    public void addFolderToList(ArrayList<File> files) {
+    public void addFilesToList(List<File> files) {
         for(File file: files){
-            MyMedia myMedia = new MyMedia(file);
+            MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
             queue.add(myMedia);
+            if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                System.out.println("ciao");
+            }
+            else{
+                MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
+            }
+
             if(!Player.getInstance().isMediaLoaded())
                 //Player.getInstance().createMedia(currentMedia.get());
                 startMedia();
         }
-
     }
 
-    public void generateNewQueue(File file){
+    public void generateNewQueue(MyMedia myMedia){
         clearList();
-        addFileToList(file);
+        addFileToListFromOtherModel(myMedia);
 
     }
 
-    public void generateNewQueueFromList(ArrayList<File> files){
-        clearList();
-        addFolderToList(files);
-    }
-    //END FUNCTIONS LIST MANIPULATION
+
+
+     //END FUNCTIONS LIST MANIPULATION
+
 
     //FUNCTIONS LIST-ITEM SELECTION AND SEND TO PLAYER
     public void startMedia(){
@@ -127,6 +132,7 @@ public class PlayQueue implements DataListedModel {
         }
         else isAVideo.set(false);
         Player.getInstance().pauseMedia();
+        Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
         Player.getInstance().createMedia(currentMedia.get());
 
     }
@@ -173,5 +179,6 @@ public class PlayQueue implements DataListedModel {
 
         return index;
     }
+
 
 }

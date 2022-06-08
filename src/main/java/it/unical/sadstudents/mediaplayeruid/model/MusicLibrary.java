@@ -1,15 +1,13 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
 
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MusicLibrary implements DataListedModel{
     //VARIABLES
@@ -60,22 +58,40 @@ public class MusicLibrary implements DataListedModel{
     }
 
     @Override
-    public void addFileToList(File file) {
-        MyMedia myMedia = new MyMedia(file);
+    public void addFileToListFromOtherModel(MyMedia myMedia) {
+        for (MyMedia myMedia1: Library){
+            if (myMedia.equals(myMedia1))
+                return;
+        }
         Library.add(myMedia);
         //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
+
         ++KMusic;
-  }
+
+
+    }
+
 
     @Override
-    public void addFolderToList(ArrayList<File> files) {
-        for(File file: files){
-            MyMedia myMedia = new MyMedia(file);
-            Library.add(myMedia);
+    public void addFilesToList(List<File> files) {
+        boolean isPresent = false;
+        for (File file: files){
+            MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
+            for (int i=0; i< Library.size() && !isPresent;i++){
+                if(myMedia.equals(Library.get(i))){
+                    isPresent = true;
+                }
+            }
+            if (!isPresent){
+                Library.add(myMedia);
+                ++KMusic;
+            }
+            isPresent=false;
             //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
-            ++KMusic;
         }
     }
+
+
     public int alreadySelect(int t){
         for(int i =0;i<Selection.size();i++){
             if(Selection.get(i)==t) return i;

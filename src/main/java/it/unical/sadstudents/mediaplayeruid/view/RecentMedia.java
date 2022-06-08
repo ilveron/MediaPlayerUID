@@ -1,37 +1,33 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import it.unical.sadstudents.mediaplayeruid.controller.RecentMediaTemplateController;
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class RecentMedia {
-    private Pane pane ;
-    private ModuleLayer.Controller controller;
+public class RecentMedia extends StackPane {
 
-    public RecentMedia(){
-        this.pane = new Pane();
+    private MyMedia myMedia;
 
+    public RecentMedia(MyMedia myMedia){
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("recentMediaTemplate-view.fxml"));
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("recentMediaTemplate-view.fxml"));
-            pane = new FXMLLoader().load(MainApplication.class.getResource("recentMediaTemplate-view.fxml"));
+            VBox root = loader.load();
+            RecentMediaTemplateController controller = loader.getController();
+            controller.init(myMedia);
+            this.getChildren().add(root);
+            root.prefWidthProperty().bind(this.widthProperty());
+        }catch(Exception ignoredException){}
 
-            Object controller = fxmlLoader.getController();
-            //controller.
-        }catch(IOException e){}
     }
 
-    public Pane getPane() {
-        return pane;
-    }
+    public MyMedia getMyMedia(){return myMedia;}
 
-    public void setPane(Pane pane) {
-        this.pane = pane;
-    }
-
-    public ModuleLayer.Controller getController() {
-        return controller;
-    }
 }

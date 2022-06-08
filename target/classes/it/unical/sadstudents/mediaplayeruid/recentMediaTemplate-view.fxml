@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@image/NotAvailable.png" />
+            <Image url="@NotAvailable.png" />
          </image>
       </ImageView>
       <Label fx:id="nameLabel" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="170.0" />

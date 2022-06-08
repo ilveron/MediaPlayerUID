@@ -1,7 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.io.File;
 import java.util.*;
 
 public class Home {
@@ -35,6 +37,28 @@ public class Home {
         recentMedia.add(myMedia);
         sizeRecentMedia.add(1);
 
+    }
+
+    public void addMediaToPlayAndLibrary(List<File> files){
+        for (int i=0; i<files.size(); i++){
+            MyMedia myMedia = ThreadManager.getInstance().createMyMedia(files.get(i));
+            if(i==0){
+                PlayQueue.getInstance().generateNewQueue(myMedia);
+            }
+            else
+                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+
+            if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                System.out.println("ciao");
+            }
+            else{
+                MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
+        }
+
+    }
+
+    public void addToRecentMedia(MyMedia myMedia){
+        recentMedia.add(myMedia);
     }
 
     //END FUNCTIONS

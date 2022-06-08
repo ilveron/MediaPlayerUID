@@ -55,9 +55,9 @@
                         </TextField>
                         <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
                           <items>
-                            <Button alignment="TOP_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" text="Home">
+                            <Button alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="icons" />
+                                    <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
                                  <font>
                                     <Font size="14.0" />
@@ -66,9 +66,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" text="Music Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="icons" />
+                                    <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
                                  <font>
                                     <Font size="14.0" />
@@ -77,9 +77,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" text="Video Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="icons" />
+                                    <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
                                  <font>
                                     <Font size="14.0" />
@@ -89,9 +89,9 @@
                                  </cursor>
                               </Button>
                               <Separator prefWidth="200.0" />
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" text="Play Queue">
+                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="icons" />
+                                    <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
                                  <font>
                                     <Font size="14.0" />
@@ -100,9 +100,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" text="Playlists">
+                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="icons" />
+                                    <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
                                  <font>
                                     <Font size="14.0" />
@@ -127,9 +127,9 @@
                               <Insets />
                            </VBox.margin>
                         </ToolBar>
-                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" text="Settings">
+                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" styleClass="toolBarButton" text="Settings">
                            <graphic>
-                              <FontIcon iconLiteral="fa-cog" iconSize="19" styleClass="icons" />
+                              <FontIcon iconLiteral="fa-cog" iconSize="19" styleClass="iconsOverBackground" />
                            </graphic>
                            <font>
                               <Font size="14.0" />
@@ -182,12 +182,12 @@
                                     <ImageView fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="180.0">
                                        <children>
-                                          <Label fx:id="mediaNameLabel" prefWidth="180.0" styleClass="labelMedia" text="Label">
+                                          <Label fx:id="mediaNameLabel" prefWidth="180.0" styleClass="mediaNameLabel" text="Label">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="artistNameLabel" styleClass="labelMediaArtist" text="Label" />
+                                          <Label fx:id="artistNameLabel" styleClass="artistMediaLabel" text="Label" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -196,7 +196,7 @@
                                  <children>
                                     <Button fx:id="plsShuffle" disable="true" mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -204,7 +204,7 @@
                                     </Button>
                                     <Button fx:id="plsPrevious" disable="true" layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -212,7 +212,7 @@
                                     </Button>
                                     <Button fx:id="plsSkipBack" disable="true" layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipBack" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -220,7 +220,7 @@
                                     </Button>
                                     <Button fx:id="plsPlayPause" disable="true" layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="icons" />
+                                          <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -228,7 +228,7 @@
                                     </Button>
                                     <Button fx:id="plsSkipForward" disable="true" layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -236,7 +236,7 @@
                                     </Button>
                                     <Button fx:id="plsNext" disable="true" layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -244,7 +244,7 @@
                                     </Button>
                                     <Button fx:id="plsRepeat" disable="true" layoutX="228.0" layoutY="35.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -263,7 +263,7 @@
                                           </MenuItem>
                                       </items>
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-volume-up" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-volume-up" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -271,7 +271,7 @@
                                     </MenuButton>
                                     <Button fx:id="plsScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -279,7 +279,7 @@
                                     </Button>
                                     <Button fx:id="plsSpeedPlay" disable="true" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-dashboard" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-dashboard" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -287,7 +287,7 @@
                                     </Button>
                                     <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -295,7 +295,7 @@
                                     </Button>
                                     <Button fx:id="plsProperties" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-info-circle" iconSize="15" styleClass="icons" />
+                                          <FontIcon iconLiteral="fa-info-circle" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />

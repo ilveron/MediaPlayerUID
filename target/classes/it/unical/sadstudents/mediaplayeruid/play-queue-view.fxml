@@ -8,16 +8,55 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlayQueueController">
    <children>
-      <Label alignment="TOP_LEFT" minWidth="450.0" text="PLAY QUEUE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+      <Label minWidth="450.0" styleClass="sceneHeaders" text="PLAY QUEUE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
          </font>
       </Label>
+      <HBox spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" HBox.hgrow="ALWAYS">
+               <graphic>
+                  <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <MenuButton mnemonicParsing="false" styleClass="smallMenuButton" text="Add selected file to" HBox.hgrow="ALWAYS">
+              <items>
+                <MenuItem fx:id="addFileToMusicLibrary" mnemonicParsing="false" onAction="#onAddFileToMusicLibrary" styleClass="menuItem" text="Music library">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-music" iconSize="15" />
+                     </graphic>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <SeparatorMenuItem mnemonicParsing="false">
+                     <content>
+                        <Label text="Playlists" />
+                     </content>
+                  </SeparatorMenuItem>
+                <MenuItem fx:id="addFileToPlaylist" mnemonicParsing="false" onAction="#onAddFileToPlaylist" styleClass="menuItem" text="Playlists">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-list-ul" iconSize="15" />
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </MenuButton>
+         </children>
+      </HBox>
       <TableView fx:id="tableViewQueue" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
         <columns>
           <TableColumn fx:id="title" editable="false" prefWidth="163.20001524686813" sortable="false" text="Title" />
@@ -31,57 +70,23 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="delete" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" AnchorPane.leftAnchor="5.0">
-         <graphic>
-            <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="icons" />
-         </graphic>
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-      <MenuButton layoutX="335.0" layoutY="13.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="127.0" text="Add media" AnchorPane.rightAnchor="5.0">
+      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="30.0" prefWidth="155.0" styleClass="largeMenuButton" text="Add media" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#addFileToQueue" style="-fx-font-size: 12;" text="Add file to play queue">
+          <MenuItem mnemonicParsing="false" onAction="#addFilesToQueue" styleClass="menuItem" text="Add file to play queue">
                <graphic>
-                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="icons" />
+                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItemIcon" />
                </graphic></MenuItem>
-          <MenuItem mnemonicParsing="false" onAction="#addFolderToQueue" style="-fx-font-size: 12;" text="Add folder to play queue">
+          <MenuItem mnemonicParsing="false" onAction="#addFolderToQueue" styleClass="menuItem" text="Add folder to play queue">
                <graphic>
-                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="icons" />
+                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="menuItemIcon" />
                </graphic></MenuItem>
         </items>
          <font>
             <Font size="14.0" />
          </font>
          <graphic>
-            <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="icons" />
+            <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
-      </MenuButton>
-      <MenuButton layoutX="79.0" layoutY="56.0" mnemonicParsing="false" text="Add selected file to">
-        <items>
-          <MenuItem fx:id="addFileToMusicLibrary" mnemonicParsing="false" onAction="#onAddFileToMusicLibrary" text="Music library">
-               <graphic>
-                  <FontIcon iconLiteral="fa-music" iconSize="15" />
-               </graphic>
-            </MenuItem>
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <SeparatorMenuItem mnemonicParsing="false">
-               <content>
-                  <Label text="Playlists" />
-               </content>
-            </SeparatorMenuItem>
-          <MenuItem fx:id="addFileToPlaylist" mnemonicParsing="false" onAction="#onAddFileToPlaylist" text="Playlists">
-               <graphic>
-                  <FontIcon iconLiteral="fa-list-ul" iconSize="15" />
-               </graphic>
-            </MenuItem>
-        </items>
-         <graphic>
-            <FontIcon iconLiteral="fa-plus-square" iconSize="15" styleClass="icons" />
-         </graphic>
-         <font>
-            <Font size="14.0" />
-         </font>
       </MenuButton>
    </children>
 </AnchorPane>

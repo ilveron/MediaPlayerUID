@@ -1,9 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
-import it.unical.sadstudents.mediaplayeruid.model.Player;
-import it.unical.sadstudents.mediaplayeruid.model.RetrievingEngine;
+import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,15 +41,15 @@ public class PlayQueueController implements Initializable {
 
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
     @FXML
-    void addFileToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFileToList(RetrievingEngine.getInstance().retrieveFile(0));
+    void addFilesToQueue(ActionEvent event) {
+        PlayQueue.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(0));
         colorSelectedRow();
         beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
-        PlayQueue.getInstance().addFolderToList(RetrievingEngine.getInstance().retrieveFolder(0));
+        PlayQueue.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(0));
         colorSelectedRow();
         beginTimer();
     }

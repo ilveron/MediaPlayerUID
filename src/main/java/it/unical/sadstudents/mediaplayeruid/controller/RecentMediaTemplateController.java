@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -12,8 +13,8 @@ public class RecentMediaTemplateController {
     private Label nameLabel;
 
 
-    public void setData(String artist, String name){
-        artistLabel.setText(artist);
-        nameLabel.setText(name);
+    public void init(MyMedia myMedia){
+        artistLabel.setText(myMedia.getArtist());
+        nameLabel.setText(myMedia.getTitle());
     }
 }

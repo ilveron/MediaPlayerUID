@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RetrievingEngine {
@@ -31,7 +32,7 @@ public class RetrievingEngine {
 
 
     //SINGLE FILE SELECTION
-    public File retrieveFile(int type){
+    public List<File> retrieveFile(int type){
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose the file to add");
@@ -42,12 +43,15 @@ public class RetrievingEngine {
             extFilter = new FileChooser.ExtensionFilter("Video Files","*.mp4");
 
         fileChooser.getExtensionFilters().add(extFilter);
-        File file = fileChooser.showOpenDialog(stage);
-        return file;
+        List<File> files = fileChooser.showOpenMultipleDialog(stage);
+
+
+        return files;
+
     }
 
     //ADD FILES FROM A MAIN FOLDER AND SCANNING ALL SUBFOLDER
-    public ArrayList<File> retrieveFolder(int type){
+    public List<File> retrieveFolder(int type){
         Stage stage = new Stage();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose the directory to add");
@@ -55,7 +59,7 @@ public class RetrievingEngine {
         File directory = new File(String.valueOf(directoryChooser.showDialog(stage)));
         ArrayList<File> directoryList = new ArrayList<File>();
         directoryList.add(directory);
-        ArrayList<File> myFileList = new ArrayList<File>();
+       List<File> myFileList = new ArrayList<File>();
 
 
         while(!directoryList.isEmpty()){
@@ -87,6 +91,8 @@ public class RetrievingEngine {
 
             directoryList.remove(0);
         }
+
+
 
         return myFileList;
     }

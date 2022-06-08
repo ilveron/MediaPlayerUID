@@ -34,6 +34,12 @@ public class ThreadManager {
         // TODO: 05/06/2022
     }
 
+    public MyMedia createMyMedia(File file){
+        MyMedia myMedia =new MyMedia(file);
+
+        return myMedia;
+    }
+
     public void mediaPlayingNowDataDisplayedUpdate(){
         // TODO: 05/06/2022
     }

@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class VideoLibrary implements DataListedModel{
+public class VideoLibrary{
     //VARIABLES
     private Integer videoNumber= 0; //numero di video presenti nella libreria
     private ObservableList<MyMedia> videoLibrary;
@@ -34,21 +34,8 @@ public class VideoLibrary implements DataListedModel{
 
     public void setVideoNumber(Integer videoNumber) {this.videoNumber = videoNumber;}
 
-    @Override
-    public void clearList() {
-        // TODO: 07/06/2022  
-        
-    }
 
-    @Override
-    public void addFileToList(File file) {
-        // TODO: 07/06/2022  
-    }
 
-    @Override
-    public void addFolderToList(ArrayList<File> files) {
-        // TODO: 07/06/2022
-    }
     //END GETTERS AND SETTERS
 
 

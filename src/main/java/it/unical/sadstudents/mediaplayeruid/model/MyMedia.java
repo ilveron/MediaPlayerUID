@@ -6,10 +6,11 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 import java.lang.Object;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
-import java.util.Random;
 
-public class MyMedia {
+public class MyMedia  {
     //VARIABLES-DATA
     private String title = "";
     private String artist = "";
@@ -18,7 +19,7 @@ public class MyMedia {
     private String path = "";
     private Double length;
     private Integer year;
-    //private Image image = new Image("/it/unical/sadstudents/mediaplayeruid/resources/image/NotAvailable.png");
+    private String imageUrl = "/it/unical/sadstudents/mediaplayeruid/NotAvailable.png" ;
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
@@ -27,6 +28,8 @@ public class MyMedia {
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
+
+
 
         setTitle(file.getName());
         Media media = new Media(path);
@@ -55,7 +58,7 @@ public class MyMedia {
                     System.out.println("Ho la length: "+ length);
                 }
                 /*else if (media.getMetadata().get("image") != null){
-                    setImage((Image)(media.getMetadata().get("image")));
+                    System.out.println((media.getMetadata().get("image")));;
                 }*/
 
 
@@ -67,13 +70,13 @@ public class MyMedia {
     //VARIABLES GETTERS AND SETTERS
 
 
-    /*public Image getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }*/
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public void setTitle(String title) { this.title = title; }
     public void setArtist(String artist) { this.artist = artist; }
@@ -90,24 +93,32 @@ public class MyMedia {
     public Double getLength() { return length; }
     public Integer getYear() { return year; }
 
-    @Override
-    public String toString() {
+   @Override
+   public String toString() {
         return  title + '\'' + artist + '\'' +album + '\'' +genre + '\'' +path + '\'' +length +'\''+year ;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MyMedia myMedia = (MyMedia) o;
         return Objects.equals(title, myMedia.title) && Objects.equals(artist, myMedia.artist) && Objects.equals(album, myMedia.album) && Objects.equals(genre, myMedia.genre) && Objects.equals(path, myMedia.path) && Objects.equals(length, myMedia.length) && Objects.equals(year, myMedia.year);
-    }
+    }*/
 
     //END VARIABLES GETTERS AND SETTERS
 
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyMedia)) return false;
+        MyMedia myMedia = (MyMedia) o;
+        return getPath().equals(myMedia.getPath());
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(path);
+        return Objects.hash(getPath());
     }
 }
