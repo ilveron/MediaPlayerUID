@@ -36,7 +36,7 @@
             <Font size="14.0" />
          </font>
          <graphic>
-            <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="iconsOverBackground" />
+            <FontIcon iconLiteral="fa-film" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
    </children>

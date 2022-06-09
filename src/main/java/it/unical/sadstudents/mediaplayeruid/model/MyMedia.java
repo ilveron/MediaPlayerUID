@@ -19,7 +19,7 @@ public class MyMedia  {
     private String path = "";
     private Double length;
     private Integer year;
-    private String imageUrl = "/it/unical/sadstudents/mediaplayeruid/NotAvailable.png" ;
+    private Image image;
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
@@ -57,9 +57,11 @@ public class MyMedia  {
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
                     System.out.println("Ho la length: "+ length);
                 }
-                /*else if (media.getMetadata().get("image") != null){
-                    System.out.println((media.getMetadata().get("image")));;
-                }*/
+                else if (media.getMetadata().get("image") != null){
+                    setImage((Image) media.getMetadata().get("image"));;
+
+
+                }
 
 
             }
@@ -70,12 +72,12 @@ public class MyMedia  {
     //VARIABLES GETTERS AND SETTERS
 
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void setTitle(String title) { this.title = title; }

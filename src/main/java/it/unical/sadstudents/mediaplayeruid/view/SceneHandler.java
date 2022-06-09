@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -60,7 +61,9 @@ public class SceneHandler {
         stage = mainStage;
         System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        scene = new Scene(loader.load(), 1200, 800);
+
+        scene = new Scene(loader.load(),1344,756);
+
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
         stage.setMinWidth(750);

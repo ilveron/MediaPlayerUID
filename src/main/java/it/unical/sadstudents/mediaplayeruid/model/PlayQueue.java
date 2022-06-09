@@ -102,7 +102,7 @@ public class PlayQueue implements DataListedModel{
             MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
             queue.add(myMedia);
             if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                System.out.println("ciao");
+                //add action to send in video Gallery
             }
             else{
                 MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);

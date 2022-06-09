@@ -3,9 +3,22 @@
     TODO: SISTEMARE COLORI DEGLI EVENTI HOVER NELLE VARIE CLASSI CSS
 */
 
+/*aggiunto ernesto*/
+.scroll-pane{
+    -fx-text-fill: textColor;
+    -fx-background-color: secondaryBackgroundColor;
+}
+
+/*end aggiunta*/
+
 .basicTemplate {
   -fx-text-fill: textColor;
-  -fx-background-color: primaryBackgroundColor;
+  -fx-background-color: secondaryBackgroundColor;
+}
+
+.secondaryTemplate {
+    -fx-text-fill: textColor;
+    -fx-background-color: primaryBackgroundColor;
 }
 
 .sceneHeaders {
@@ -22,7 +35,7 @@
 }
 
 .toolBarIcons {
-    -fx-icon-color: WHITE;
+    -fx-icon-color: iconOverBackgroundColor;
 }
 
 .text-field * {
@@ -31,13 +44,13 @@
 }
 
 .mediaNameLabel {
-    -fx-text-fill: primarySelectionColor;
+    -fx-text-fill: textColor;
     -fx-font-size: 18px;
     -fx-font-family: "Montserrat Bold";
 }
 
 .artistMediaLabel{
-    -fx-text-fill: primarySelectionColor;
+    -fx-text-fill: darkerTextColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
 }
@@ -66,7 +79,16 @@
 
 .largeMenuButton:hover, .smallMenuButton:hover{
     -fx-background-color: primarySelectionColor;
+
+}
+
+.largeMenuButton .label:hover, .smallMenuButton .label:hover{
     -fx-text-fill: primaryBackgroundColor;
+}
+
+
+.largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground{
+    -fx-icon-color: primaryBackgroundColor;
 }
 
 .menuItem {
@@ -91,29 +113,45 @@
 .button:hover {
     -fx-background-color: primarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
+}
+.button:hover .iconsOverBackground {
+    -fx-icon-color: primaryBackgroundColor;
+}
 
+.lengthLabel{
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 12px;
 }
 
 .table-view * {
-    -fx-background-color: primaryBackgroundColor;
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 14px;
 }
 
 .table-view .column-header * {
-    -fx-background-color: primaryBackgroundColor;
+    -fx-background-color: transparent;
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-font-size: 14px;
 }
 
 .table-row-cell * {
-    -fx-background-color: primaryBackgroundColor;
+    -fx-background-color: transparent;
 }
-
+/*
 .table-row-cell:odd * {
     -fx-background-color: secondaryBackgroundColor;
 }
 
+ */
+
 .table-row-cell:selected * {
-    -fx-background-color: separatorColor;
-    -fx-text-fill: selectedTextColor;
+    -fx-background-color: secondarySelectionColor;
+    -fx-text-fill: primaryBackgroundColor;
 }
 
 .scroll-bar:horizontal .track,
@@ -170,12 +208,21 @@
     -fx-icon-color: iconOverBackgroundColor;
 }
 
-.slider .track {
-    -fx-background-color:
-            -fx-shadow-highlight-color,
-            linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
-            linear-gradient(to bottom, derive(-fx-control-inner-background, -9%), derive(-fx-control-inner-background, 0%),derive(-fx-control-inner-background, -5%), derive(-fx-control-inner-background, -12%)   );
-    -fx-background-insets: 0 0 -1 0, 0, 1;
-    -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
-    -fx-padding: 0.25em; /* 3 */
+.slider {
+    /* default track color: */
+    -slider-filled-track-color: primarySelectionColor ;
+    -slider-track-color: -slider-filled-track-color ;
 }
+/*
+.slider .thumb {
+    -fx-background-color: -slider-filled-track-color ;
+}
+
+.slider .track {
+    -fx-background-color: -slider-track-color ;
+}
+
+.slider .track {
+    -fx-background-color: linear-gradient(to right, primarySelectionColor 0%, primarySelectionColor 50%, -fx-base 50%, -fx-base 100%);
+}
+*/

@@ -33,11 +33,6 @@ public class Home {
     public void setSizeRecentMedia(int sizeRecentMedia) { this.sizeRecentMedia.set(sizeRecentMedia);     }
 
     //FUNCTIONS
-    public void addToRecent(MyMedia myMedia){
-        recentMedia.add(myMedia);
-        sizeRecentMedia.add(1);
-
-    }
 
     public void addMediaToPlayAndLibrary(List<File> files){
         for (int i=0; i<files.size(); i++){
@@ -49,7 +44,7 @@ public class Home {
                 PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
 
             if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                System.out.println("ciao");
+                //add to send in video gallery
             }
             else{
                 MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
@@ -58,7 +53,10 @@ public class Home {
     }
 
     public void addToRecentMedia(MyMedia myMedia){
+
         recentMedia.add(myMedia);
+        sizeRecentMedia.set((sizeRecentMedia.get()+1));
+        System.out.println(sizeRecentMedia.get());
     }
 
     //END FUNCTIONS

@@ -2,22 +2,25 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.TilePane;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
 
     @FXML
-    private ListView listView;
+    private TilePane tilePane;
     @FXML
     private ImageView imageTest;
+    @FXML
+    private ScrollPane scrollPane;
 
 
     // TODO: 06/06/2022 DECIDERE SE SWITCHARE IN PLAYQUEUE xd !!!
@@ -38,11 +41,11 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
-        for (MyMedia myMedia: Home.getInstance().getRecentMedia()){
-            RecentMedia recentMedia = new RecentMedia(myMedia);
-            listView.getItems().add(recentMedia);
 
-        }
+        SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
+        Home.getInstance().sizeRecentMediaProperty().addListener(observable -> setContentTilePane());
+
+
 
 
            // TODO: 05/06/2022 INSERIRE IL CONTAINER CHE SARA' ASSOCIATO ALLA OBSERVABLE LIST DEL MODEL
@@ -53,6 +56,20 @@ public class HomeController implements Initializable {
 
     private void startToolTip() {
         // TODO: 07/06/2022
+    }
+
+    private void setContentTilePane(){
+        tilePane.getChildren().clear();
+        for (MyMedia myMedia: Home.getInstance().getRecentMedia()){
+            RecentMedia recentMedia = new RecentMedia(myMedia);
+            tilePane.getChildren().add(recentMedia);
+        }
+    }
+
+    private  void setDimTilePane(){
+        double tilePaneSize = (SceneHandler.getInstance().getStage().getWidth())-310;
+        int numberOfColumns = ((int)tilePaneSize)/230;
+        tilePane.setPrefColumns(numberOfColumns);
     }
 
 
