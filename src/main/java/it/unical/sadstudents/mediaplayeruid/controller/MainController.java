@@ -51,8 +51,9 @@ public class MainController implements Initializable {
     private Button plsEquilizer,plsNext,plsPlayPause,plsPrevious,plsProperties,plsRepeat,
             plsScreenMode,plsShuffle,plsSkipBack,plsSpeedPlay,plsSkipForward;
     @FXML
-    private MenuButton plsVolume;
-
+    private MenuButton volumeButton;
+    @FXML
+    private FontIcon volumeIcon;
 
 
     @Override
@@ -81,7 +82,11 @@ public class MainController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if(volumeSlider.getValue()==0)       volumeIcon.setIconLiteral("fa-volume-off");
+                else if(volumeSlider.getValue()>50)  volumeIcon.setIconLiteral("fa-volume-up");
+                else                                 volumeIcon.setIconLiteral("fa-volume-down");
                 Player.getInstance().setVolume(volumeSlider.getValue()*0.01);
+
             }
         });
         // TODO: 07/06/2022 fixare tooltip plsPlayPause 
@@ -131,7 +136,7 @@ public class MainController implements Initializable {
         plsSpeedPlay.setTooltip(new Tooltip("Speed play"));
         plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
         plsSkipBack.setTooltip(new Tooltip("Skip back 10s"));
-        plsVolume.setTooltip(new Tooltip("Volume"));
+        volumeButton.setTooltip(new Tooltip("Volume"));
         plsRepeat.setTooltip(new Tooltip("Repeat"));
         plsEquilizer.setTooltip(new Tooltip("Equilizer"));
         plsProperties.setTooltip(new Tooltip("Info"));
@@ -434,7 +439,7 @@ public class MainController implements Initializable {
         plsRepeat.setDisable(status);
         plsShuffle.setDisable(status);
         plsSpeedPlay.setDisable(status);
-        plsVolume.setDisable(status);
+        volumeButton.setDisable(status);
         mediaSlider.setDisable(status);
         volumeSlider.setDisable(status);
     }
