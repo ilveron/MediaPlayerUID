@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,8 @@ public class RecentMediaTemplateController {
     private Label nameLabel;
     @FXML
     private AnchorPane mainRoot;
+
+
 
 
     public void init(MyMedia myMedia){

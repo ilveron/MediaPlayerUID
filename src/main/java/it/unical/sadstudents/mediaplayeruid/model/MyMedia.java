@@ -6,8 +6,6 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 import java.lang.Object;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Objects;
 
 public class MyMedia  {
@@ -28,6 +26,7 @@ public class MyMedia  {
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
+        image = new Image("file:src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png");
 
 
 

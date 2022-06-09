@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.ThreadManager;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.*;
 public class Home {
     //VARIABLES
     private ArrayList<MyMedia> recentMedia ;
-    private SimpleIntegerProperty sizeRecentMedia = new SimpleIntegerProperty(0);
+    private SimpleBooleanProperty changeHappened = new SimpleBooleanProperty(false);
 
     //SINGLETON AND CLASS DECLARATION
     private static Home instance = null;
@@ -26,13 +27,19 @@ public class Home {
     //GETTERS
     public ArrayList<MyMedia> getRecentMedia() { return recentMedia; }
 
-    public int getSizeRecentMedia() { return sizeRecentMedia.get(); }
+    public boolean isChangeHappened() {
+        return changeHappened.get();
+    }
 
-    public SimpleIntegerProperty sizeRecentMediaProperty() { return sizeRecentMedia;     }
+    public SimpleBooleanProperty changeHappenedProperty() {
+        return changeHappened;
+    }
 
-    public void setSizeRecentMedia(int sizeRecentMedia) { this.sizeRecentMedia.set(sizeRecentMedia);     }
+    public void setChangeHappened(boolean changeHappened) {
+        this.changeHappened.set(changeHappened);
+    }
 
-    //FUNCTIONS
+//FUNCTIONS
 
     public void addMediaToPlayAndLibrary(List<File> files){
         for (int i=0; i<files.size(); i++){
@@ -53,10 +60,17 @@ public class Home {
     }
 
     public void addToRecentMedia(MyMedia myMedia){
-
-        recentMedia.add(myMedia);
-        sizeRecentMedia.set((sizeRecentMedia.get()+1));
-        System.out.println(sizeRecentMedia.get());
+        boolean added=false;
+        for(int i=0; i<recentMedia.size();i++){
+            if (myMedia.equals(recentMedia.get(i))){
+                recentMedia.remove(i);
+                recentMedia.add(myMedia);
+                added=true;
+            }
+        }
+        if(!added)
+            recentMedia.add(myMedia);
+        changeHappened.set(true);
     }
 
     //END FUNCTIONS

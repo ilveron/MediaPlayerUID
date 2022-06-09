@@ -43,7 +43,7 @@ public class HomeController implements Initializable {
         startToolTip();
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
-        Home.getInstance().sizeRecentMediaProperty().addListener(observable -> setContentTilePane());
+        Home.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
 
 
 
@@ -59,17 +59,24 @@ public class HomeController implements Initializable {
     }
 
     private void setContentTilePane(){
-        tilePane.getChildren().clear();
-        for (MyMedia myMedia: Home.getInstance().getRecentMedia()){
-            RecentMedia recentMedia = new RecentMedia(myMedia);
-            tilePane.getChildren().add(recentMedia);
+        if(Home.getInstance().isChangeHappened()){
+            tilePane.getChildren().clear();
+            int size= Home.getInstance().getRecentMedia().size();
+            for (int i= size-1; i>=0; --i){
+                RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i));
+                tilePane.getChildren().add(recentMedia);
+            }
+            Home.getInstance().setChangeHappened(false);
         }
+
+
     }
 
     private  void setDimTilePane(){
         double tilePaneSize = (SceneHandler.getInstance().getStage().getWidth())-310;
         int numberOfColumns = ((int)tilePaneSize)/230;
         tilePane.setPrefColumns(numberOfColumns);
+
     }
 
 

@@ -148,7 +148,7 @@
                   </VBox>
                </left>
                <bottom>
-                  <VBox alignment="CENTER" prefWidth="1200.0" spacing="10.0" styleClass="secondaryTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" minWidth="750.0" spacing="10.0" styleClass="secondaryTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
                         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -169,7 +169,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="56.0" prefWidth="200.0">
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="750.0" prefHeight="56.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" layoutX="10.0" maxHeight="-Infinity" maxWidth="400.0" minWidth="300.0" prefHeight="56.0" prefWidth="400.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                                  <children>
