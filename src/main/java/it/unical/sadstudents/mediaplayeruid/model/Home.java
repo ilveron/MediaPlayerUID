@@ -51,7 +51,7 @@ public class Home {
                 PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
 
             if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                //add to send in video gallery
+                VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
             }
             else{
                 MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}

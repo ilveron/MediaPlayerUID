@@ -42,32 +42,32 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
 
-        SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
+        setContentTilePane();
         Home.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
 
 
-
-
-           // TODO: 05/06/2022 INSERIRE IL CONTAINER CHE SARA' ASSOCIATO ALLA OBSERVABLE LIST DEL MODEL
-
-
+        SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
 
     }
+
 
     private void startToolTip() {
         // TODO: 07/06/2022
     }
 
     private void setContentTilePane(){
-        if(Home.getInstance().isChangeHappened()){
-            tilePane.getChildren().clear();
-            int size= Home.getInstance().getRecentMedia().size();
-            for (int i= size-1; i>=0; --i){
-                RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i));
-                tilePane.getChildren().add(recentMedia);
-            }
-            Home.getInstance().setChangeHappened(false);
+        tilePane.getChildren().clear();
+        int size= Home.getInstance().getRecentMedia().size();
+        for (int i= size-1; i>=0; --i){
+            RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i));
+            tilePane.getChildren().add(recentMedia);
         }
+
+
+
+        if(Home.getInstance().isChangeHappened())
+            Home.getInstance().setChangeHappened(false);
+
 
 
     }

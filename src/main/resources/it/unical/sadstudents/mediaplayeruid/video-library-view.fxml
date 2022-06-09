@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
@@ -12,11 +16,6 @@
       <Label minWidth="450.0" styleClass="sceneHeaders" text="VIDEO LIBRARY" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" text="DA CAPIRE COME GESTIRE LA GALLERIA DI IMMAGINI E TUTTO IL RESTO" textFill="#137bd7" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <MenuButton graphicTextGap="5.0" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="30.0" prefWidth="155.0" styleClass="largeMenuButton" text="Add media" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
@@ -39,5 +38,42 @@
             <FontIcon iconLiteral="fa-film" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="507.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteVideo" text="Delete">
+               <graphic>
+                  <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Add entire library to play queue">
+               <graphic>
+                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAddVideoToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add video to play queue">
+               <graphic>
+                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scrollPane" minWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <content>
+          <AnchorPane minWidth="470.0">
+               <children>
+                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="430.0" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
