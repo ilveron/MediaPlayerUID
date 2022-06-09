@@ -120,7 +120,7 @@ public class MusicLibraryController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if(event.getClickCount() > 1 && !row.isEmpty()&&!MusicLibrary.getInstance().isSelectionModeActive()){
                     // TODO: 08/06/2022 aggiustare PlayQueue perche vuole un file come input ma io devo passare un MyMedia
-                    //PlayQueue.getInstance().generateNewQueue(new File(MusicLibrary.getInstance().getMusicLibrary().get(row.getIndex()).getPath()));
+                    PlayQueue.getInstance().generateNewQueue(row.getItem());
                 }else if(MusicLibrary.getInstance().isSelectionModeActive()&&!row.isEmpty()){
                     //int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
                     int posix=MusicLibrary.getInstance().alreadySelect(row.getIndex());

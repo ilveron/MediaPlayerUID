@@ -115,9 +115,10 @@ public class PlayQueue implements DataListedModel{
     }
 
     public void generateNewQueue(MyMedia myMedia){
+        if(Player.getInstance().isMediaLoaded())
+            Player.getInstance().stop();
         clearList();
         addFileToListFromOtherModel(myMedia);
-
     }
 
 
