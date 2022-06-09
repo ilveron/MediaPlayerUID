@@ -35,9 +35,9 @@
             </AnchorPane>
             <BorderPane fx:id="myBorderPane">
                <left>
-                  <VBox fx:id="leftItems" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="basicTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+                  <VBox fx:id="leftItems" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="secondaryTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" styleClass="basicTemplate" text="MediaPlayer UID">
+                        <Label alignment="CENTER" graphicTextGap="15.0" prefWidth="250.0" styleClass="secondaryTemplate" text="MediaPlayer UID">
                            <graphic>
                               <FontIcon iconLiteral="fa-play-circle-o" iconSize="23" styleClass="icons" />
                            </graphic>
@@ -48,14 +48,14 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" styleClass="basicTemplate">
+                        <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" styleClass="secondaryTemplate">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </TextField>
-                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
+                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="secondaryTemplate" VBox.vgrow="ALWAYS">
                           <items>
-                            <Button alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
+                            <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -66,7 +66,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -77,7 +77,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
+                              <Button alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -89,7 +89,7 @@
                                  </cursor>
                               </Button>
                               <Separator prefWidth="200.0" />
-                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
+                              <Button alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -100,7 +100,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
+                              <Button alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -148,41 +148,35 @@
                   </VBox>
                </left>
                <bottom>
-                  <VBox alignment="CENTER" prefWidth="1200.0" spacing="10.0" styleClass="basicTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefWidth="1200.0" spacing="10.0" styleClass="secondaryTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" spacing="10.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="currentMediaTimeLabel" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                              <Label fx:id="currentMediaTimeLabel" alignment="CENTER" layoutX="10.0" layoutY="7.0" styleClass="lengthLabel" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="7.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Slider fx:id="mediaSlider" disable="true" onDragDetected="#dragDetected" onDragDropped="#dragDropped" onDragOver="#dragOver" onMouseDragEntered="#mouseDragEntered" onMouseDragExited="#mouseDragExited" onMouseDragOver="#mouseDragOver" onMouseDragReleased="#mouseDragReleased" prefWidth="1052.0" HBox.hgrow="ALWAYS">
+                              <Slider fx:id="mediaSlider" disable="true" layoutX="74.0" layoutY="8.0" onDragDetected="#dragDetected" onDragDropped="#dragDropped" onDragOver="#dragOver" onMouseDragEntered="#mouseDragEntered" onMouseDragExited="#mouseDragExited" onMouseDragOver="#mouseDragOver" onMouseDragReleased="#mouseDragReleased" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="8.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Slider>
-                              <Label fx:id="endMediaTimeLabel" maxWidth="52.0" minWidth="52.0" HBox.hgrow="ALWAYS">
+                              <Label fx:id="endMediaTimeLabel" alignment="CENTER" layoutX="1142.0" layoutY="7.0" styleClass="lengthLabel" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                            </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="23.0" prefWidth="1200.0" spacing="10.0" styleClass="basicTemplate" VBox.vgrow="ALWAYS">
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="56.0" prefWidth="200.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="250.0">
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" maxHeight="-Infinity" maxWidth="400.0" minWidth="300.0" prefHeight="56.0" prefWidth="400.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                                  <children>
                                     <ImageView fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
-                                    <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="180.0">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="75.0">
                                        <children>
-                                          <Label fx:id="mediaNameLabel" prefWidth="180.0" styleClass="mediaNameLabel" text="Label">
+                                          <Label fx:id="mediaNameLabel" styleClass="mediaNameLabel" text="Label" VBox.vgrow="ALWAYS">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -192,7 +186,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER" layoutX="420.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="56.0" prefWidth="300.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="420.0">
                                  <children>
                                     <Button fx:id="plsShuffle" disable="true" mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0">
                                        <graphic>
@@ -252,9 +246,9 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="280.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0" spacing="5.0">
+                              <HBox alignment="CENTER_RIGHT" layoutX="790.0" prefHeight="56.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                  <children>
-                                    <MenuButton fx:id="plsVolume" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" styleClass="basicTemplate">
+                                    <MenuButton fx:id="plsVolume" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" styleClass="secondaryTemplate">
                                       <items>
                                         <MenuItem mnemonicParsing="false">
                                              <graphic>
@@ -304,10 +298,7 @@
                                  </children>
                               </HBox>
                            </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </HBox>
+                        </AnchorPane>
                      </children>
                   </VBox>
                </bottom>

@@ -3,15 +3,14 @@
   secondaryBackgroundColor: #393E46;
   transparentBackgroundColor: transparent;
   iconOverBackgroundColor: #EEEEEE;
-  mediaNameColor: black;
-  artistNameColor: black;
   primarySelectionColor: #C9D6DF;
-  secondarySelectionColor: #ee7201;
-  tertiarySelectionColor: #ee7201;
+  secondarySelectionColor: #8da5c9;
+  tertiarySelectionColor: #697b96;
   imagesColor: #dcdcdd;
   textColor: #EEEEEE;
+  darkerTextColor: #B0B0B0;
   headersTextColor: #f0f0f0;
   selectedTextColor: #dcdcdd;
   lineColor: #b3b3b3;
-  separatorColor: #ee7201;
+  separatorColor: #7b90b0;
 }

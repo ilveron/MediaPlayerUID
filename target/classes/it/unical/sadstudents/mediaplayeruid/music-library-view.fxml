@@ -20,11 +20,11 @@
       </Label>
       <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="30.0" prefWidth="155.0" styleClass="largeMenuButton" text="Add media" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file to music library">
+            <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to music library">
                <graphic>
                   <FontIcon iconLiteral="fa-file" iconSize="15" />
                </graphic></MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#onAddFolder" styleClass="menuItem" text="Add folder to music library">
+            <MenuItem mnemonicParsing="false" onAction="#onAddFolder" styleClass="menuItem" text="Add folder(s) to music library">
                <graphic>
                   <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
                </graphic></MenuItem>
@@ -33,7 +33,7 @@
             <Font size="14.0" />
          </font>
          <graphic>
-            <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="iconsOverBackground" />
+            <FontIcon iconLiteral="fa-music" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
       <TableView fx:id="tableViewMusicLibrary" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
@@ -59,7 +59,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Add Library">
+            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Add entire library to play queue">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
                </graphic>
@@ -67,7 +67,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add song">
+            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add song to play queue">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
