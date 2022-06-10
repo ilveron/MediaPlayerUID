@@ -70,9 +70,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="30.0" prefWidth="155.0" styleClass="largeMenuButton" text="Add media" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#addFilesToQueue" styleClass="menuItem" text="Add file to play queue">
+          <MenuItem mnemonicParsing="false" onAction="#addFilesToQueue" styleClass="menuItem" text="Add file(s) to play queue">
                <graphic>
                   <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItemIcon" />
                </graphic></MenuItem>

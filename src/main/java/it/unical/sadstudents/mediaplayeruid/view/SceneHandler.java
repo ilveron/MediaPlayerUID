@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
+import it.unical.sadstudents.mediaplayeruid.controller.MainController;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
@@ -9,10 +10,12 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
@@ -59,6 +62,8 @@ public class SceneHandler {
     //START MAIN STAGE AND SCENE
     public void init(Stage mainStage) throws Exception {
         stage = mainStage;
+        //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
+        stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID.png")));
         System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
 
@@ -66,7 +71,7 @@ public class SceneHandler {
 
         stage.setTitle("MediaPlayer UID");
         stage.setMinHeight(600);
-        stage.setMinWidth(750);
+        stage.setMinWidth(806);
 
 
         for (String font : Settings.fonts) {

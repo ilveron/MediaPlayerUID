@@ -54,11 +54,11 @@ public class MainController implements Initializable {
     private MenuButton volumeButton;
     @FXML
     private FontIcon volumeIcon;
-
+    @FXML
+    private StackPane stackPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
         startToolTip();
         //INITIALIZE AN INVISIBLE MEDIAVIEW
         Player.getInstance().setMediaView(mediaView);
@@ -74,6 +74,9 @@ public class MainController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 //System.out.println(mediaSlider.getValue());
                 Player.getInstance().changePosition(mediaSlider.getValue());
+                System.out.println("Stage: "+SceneHandler.getInstance().getStage().getWidth());
+                System.out.println("Border pane: "+myBorderPane.getWidth());
+                System.out.println("Stack pane: "+stackPane.getWidth());
             }
         });
 
@@ -123,9 +126,11 @@ public class MainController implements Initializable {
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
+        PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
         Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
         //END LISTENER VARI
+
 
     }
 
@@ -381,11 +386,8 @@ public class MainController implements Initializable {
             if (SceneHandler.getInstance().getStage().isFullScreen()){
                 currentWidth = SceneHandler.getInstance().getStage().getWidth();
                 currentHeight = SceneHandler.getInstance().getStage().getHeight();
-
-
             }
             else{
-
                 currentWidth = SceneHandler.getInstance().getStage().getWidth() - menuSize;
                 currentHeight = SceneHandler.getInstance().getStage().getHeight() - controllBar;
             }
@@ -420,6 +422,7 @@ public class MainController implements Initializable {
         }
         Pane subScenePane = SceneHandler.getInstance().switchPane();
         myBorderPane.setCenter(subScenePane);
+        subScenePane.autosize();
     }
 
     private void changeButtonEnabledStatus(){
