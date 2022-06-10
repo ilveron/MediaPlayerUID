@@ -41,13 +41,13 @@
     -fx-background-radius: 5px;
 }
 
-.mediaNameLabel {
+.mediaNameLabel, .recentMediaNameLabel {
     -fx-text-fill: textColor;
     -fx-font-size: 18px;
     -fx-font-family: "Montserrat Bold";
 }
 
-.artistMediaLabel{
+.artistMediaLabel, .recentArtistMediaLabel {
     -fx-text-fill: darkerTextColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
@@ -140,12 +140,10 @@
 .table-row-cell * {
     -fx-background-color: transparent;
 }
-/*
-.table-row-cell:odd * {
-    -fx-background-color: secondaryBackgroundColor;
-}
 
- */
+.table-row-cell:hover:filled {
+    -fx-background-color: tertiarySelectionColor;
+}
 
 .table-row-cell:selected * {
     -fx-background-color: secondarySelectionColor;
@@ -212,10 +210,22 @@
     -slider-track-color: -slider-filled-track-color ;
 }
 
-.newBackgroungForRecent{
-    -fx-background-color: #000000;
+.recentMedia {
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 5.0, 0.0);
+    -fx-background-radius: 10px;
 }
 
+.recentMedia:hover{
+    -fx-background-color: primarySelectionColor;
+}
+
+.recentMedia:hover > .recentArtistMediaLabel {
+    -fx-text-fill: primaryBackgroundColor;
+}
+
+.recentMedia:hover > .recentMediaNameLabel {
+    -fx-text-fill: secondaryBackgroundColor;
+}
 /*
 .slider .thumb {
     -fx-background-color: -slider-filled-track-color ;

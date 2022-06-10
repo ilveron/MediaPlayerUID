@@ -101,7 +101,9 @@ public class Player {
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaLoaded.set(true);
-        playMedia();
+        mediaPlayer.setOnReady(()->{
+            playMedia();
+        });
         ThreadManager.getInstance().setNameAndArtistLabels(media);
         //TODO: REGEX per riproduzione *.mp4
     }
@@ -151,7 +153,8 @@ public class Player {
     }
 
     public void stop(){
-        mediaPlayer.stop();
+        //mediaPlayer.stop();
+        mediaPlayer.dispose();
         mediaLoaded.set(false);
         mediaName.set("");
         artistName.set("");

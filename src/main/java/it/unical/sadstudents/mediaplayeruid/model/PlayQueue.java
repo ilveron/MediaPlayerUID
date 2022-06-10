@@ -132,10 +132,10 @@ public class PlayQueue implements DataListedModel{
             isAVideo.set(true);
         }
         else isAVideo.set(false);
-        Player.getInstance().pauseMedia();
+        if(Player.getInstance().isMediaLoaded())
+            Player.getInstance().stop();
         Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
         Player.getInstance().createMedia(currentMedia.get());
-
     }
 
     public void changeMedia(Integer direction){

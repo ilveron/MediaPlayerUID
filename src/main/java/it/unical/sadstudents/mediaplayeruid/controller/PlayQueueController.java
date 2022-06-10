@@ -100,11 +100,13 @@ public class PlayQueueController implements Initializable {
         tableViewQueue.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if(event.getClickCount() > 1 && !row.isEmpty()){
+                if(!row.isEmpty())
                     PlayQueue.getInstance().setCurrentMedia(row.getIndex());
-                    System.out.println(row.getIndex());
-                }
+            });
 
+            row.setOnMouseDragged(event ->{
+                if(!row.isEmpty())
+                    PlayQueue.getInstance().setCurrentMedia(row.getIndex());
             });
             return row;
         });
