@@ -63,7 +63,7 @@ public class SceneHandler {
     public void init(Stage mainStage) throws Exception {
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
-        stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID.png")));
+        stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
         System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
 
