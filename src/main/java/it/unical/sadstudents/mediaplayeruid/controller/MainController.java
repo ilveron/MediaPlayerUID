@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
@@ -16,6 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
@@ -49,13 +52,19 @@ public class MainController implements Initializable {
     private ToolBar toolbarMenu;
     @FXML
     private Button plsEquilizer,plsNext,plsPlayPause,plsPrevious,plsProperties,plsRepeat,
-            plsScreenMode,plsShuffle,plsSkipBack,plsSpeedPlay,plsSkipForward;
+            plsScreenMode,plsSkipBack,plsSpeedPlay,plsSkipForward;
+    @FXML
+    private ToggleButton plsShuffle;
     @FXML
     private MenuButton volumeButton;
     @FXML
     private FontIcon volumeIcon;
     @FXML
     private StackPane stackPane;
+    @FXML
+    private FontIcon repeatIcon;
+    @FXML
+    private FontIcon shuffleIcon;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,9 +83,7 @@ public class MainController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 //System.out.println(mediaSlider.getValue());
                 Player.getInstance().changePosition(mediaSlider.getValue());
-                System.out.println("Stage: "+SceneHandler.getInstance().getStage().getWidth());
-                System.out.println("Border pane: "+myBorderPane.getWidth());
-                System.out.println("Stack pane: "+stackPane.getWidth());
+
             }
         });
 
@@ -114,6 +121,8 @@ public class MainController implements Initializable {
                     currentMediaTimeLabel.setText(formatTime(newValue.doubleValue()));
                     ThreadManager.getInstance().beginTimer();
                 }
+                double percentage = 100.0 * (newValue.doubleValue() - mediaSlider.getMin()) / (mediaSlider.getMax() - mediaSlider.getMin());
+                mediaSlider.setStyle("-track-color: linear-gradient(to right, tertiarySelectionColor " + percentage+"%, white "+percentage+("%);"));
             }
         });
 
@@ -136,7 +145,7 @@ public class MainController implements Initializable {
 
     public void startToolTip() {
         // TODO: 07/06/2022 
-        plsShuffle.setTooltip(new Tooltip("Shuffle model"));
+        plsShuffle.setTooltip(new Tooltip("Shuffle mode"));
         plsScreenMode.setTooltip(new Tooltip("Screen mode"));
         plsSpeedPlay.setTooltip(new Tooltip("Speed play"));
         plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
@@ -214,11 +223,8 @@ public class MainController implements Initializable {
         // TODO: 07/06/2022  se stai facendo girare un video in full screen e attivi onShuffle e skippi si bagga tutto X/ 
         if(PlayQueue.getInstance().isShuffleActive()){
             PlayQueue.getInstance().setShuffleActive(false);
-            plsShuffle.setStyle("-fx-background-color: transparentBackgroundColor");
-
         }else{
             PlayQueue.getInstance().setShuffleActive(true);
-            plsShuffle.setStyle("-fx-background-color: primarySelectionColor");
         }
     }
 

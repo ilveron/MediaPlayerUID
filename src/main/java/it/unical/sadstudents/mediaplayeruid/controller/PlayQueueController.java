@@ -1,11 +1,17 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -91,6 +97,7 @@ public class PlayQueueController implements Initializable {
 
         colorSelectedRow();
 
+        focusTableView();
 
         PlayQueue.getInstance().currentMediaProperty().addListener(observable -> {
             tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
@@ -110,6 +117,16 @@ public class PlayQueueController implements Initializable {
             });
             return row;
         });
+
+        tableViewQueue.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCode key = keyEvent.getCode();
+                if (key == KeyCode.ENTER)
+                    PlayQueue.getInstance().setCurrentMedia(tableViewQueue.getSelectionModel().getSelectedIndex());
+            }
+        });
+
     }
 
     //aggiunta come fix
@@ -148,5 +165,12 @@ public class PlayQueueController implements Initializable {
     }
     //END TASK
 
-
+    private void focusTableView(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tableViewQueue.requestFocus();
+            }
+        });
+    }
 }

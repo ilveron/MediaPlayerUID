@@ -78,9 +78,6 @@ public class PlayQueue implements DataListedModel{
     }
     //END GETTERS AND SETTERS
 
-
-
-
     //FUNCTIONS LIST MANIPULATION
     @Override
     public void clearList() {
@@ -147,7 +144,6 @@ public class PlayQueue implements DataListedModel{
                 alreadyPlayed.clear();
                 nextMedia = generateRandomForShuffle();
             }
-
             setCurrentMedia(nextMedia);
         }
         else {

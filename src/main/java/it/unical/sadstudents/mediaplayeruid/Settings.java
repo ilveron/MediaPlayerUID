@@ -1,6 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid;
 
 public class Settings {
+    public static String theme = "dark";
+
     public final static String[] fonts = {
             "fonts/Montserrat-Black.ttf",
             "fonts/Montserrat-Bold.ttf",

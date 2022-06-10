@@ -108,10 +108,33 @@
     -fx-font-size: 14px;
 }
 
+.toggleButton {
+    -fx-background-color: transparentBackgroundColor;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+.toggleButton:selected{
+    -fx-background-color: tertiarySelectionColor;
+}
+
+.toggleButton:hover{
+    -fx-background-color: primarySelectionColor;
+}
+
+.toggleButton:selected:hover {
+    -fx-background-color: secondarySelectionColor;
+}
+
+.toggleButton:hover .iconsOverBackground{
+    -fx-icon-color: primaryBackgroundColor;
+}
+
 .button:hover {
     -fx-background-color: primarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
+
 .button:hover .iconsOverBackground {
     -fx-icon-color: primaryBackgroundColor;
 }
@@ -226,16 +249,10 @@
 .recentMedia:hover > .recentMediaNameLabel {
     -fx-text-fill: secondaryBackgroundColor;
 }
-/*
-.slider .thumb {
-    -fx-background-color: -slider-filled-track-color ;
-}
 
-.slider .track {
-    -fx-background-color: -slider-track-color ;
+.slider {
+    -track-color: sliderTrackColor;
 }
-
 .slider .track {
-    -fx-background-color: linear-gradient(to right, primarySelectionColor 0%, primarySelectionColor 50%, -fx-base 50%, -fx-base 100%);
+    -fx-background-color: -track-color ;
 }
-*/

@@ -27,7 +27,7 @@ public class SceneHandler {
     private Scene scene;
     private Stage stage;
     private Pane subScene;
-    private String theme = "dark";
+
     private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
 
     //SINGLETON
@@ -81,7 +81,7 @@ public class SceneHandler {
 
         //Loads style.css stylesheet
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+theme+".css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
 
 
         stage.setScene(scene);
@@ -108,14 +108,14 @@ public class SceneHandler {
     }
 
     public void changeTheme() {
-        if("dark".equals(theme))
-            theme = "unical";
+        if("dark".equals(Settings.theme))
+            Settings.theme = "unical";
         else
-            theme = "dark";
+            Settings.theme = "dark";
         scene.getStylesheets().clear();
 
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource(Settings.style)).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+theme+".css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
     }
 
 }
