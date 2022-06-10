@@ -1,15 +1,15 @@
 * {
-  primaryBackgroundColor: #222831;
+  primaryBackgroundColor: #DFDEDE;
   secondaryBackgroundColor: #393E46;
   transparentBackgroundColor: transparent;
-  iconOverBackgroundColor: #EEEEEE;
-  primarySelectionColor: #C9D6DF;
-  secondarySelectionColor: #8da5c9;
+  iconOverBackgroundColor: #121212;
+  primarySelectionColor: #8D0011;
+  secondarySelectionColor: #808080;
   tertiarySelectionColor: #697b96;
   imagesColor: #dcdcdd;
-  textColor: #EEEEEE;
+  textColor: #121212;
   darkerTextColor: #B0B0B0;
-  headersTextColor: #EEEEEE;
+  headersTextColor: #121212;
   selectedTextColor: #dcdcdd;
   lineColor: #b3b3b3;
   separatorColor: #7b90b0;

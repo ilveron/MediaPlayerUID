@@ -9,5 +9,5 @@ public class Settings {
             "fonts/Montserrat-Medium.ttf",
             "fonts/Montserrat-Regular.ttf",
     };
-    public final static String[] styles = {"css/dark.css", /*"css/fonts.css",*/ "css/style.css"};
+    public final static String[] styles = {"css/dark.css", /*"css/fonts.css",*/ "css/style.css", "css/unical.css"};
 }
