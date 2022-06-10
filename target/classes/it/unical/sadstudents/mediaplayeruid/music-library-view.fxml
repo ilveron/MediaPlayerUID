@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -13,12 +15,12 @@
 
 <AnchorPane stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MusicLibraryController">
    <children>
-      <Label minWidth="450.0" styleClass="sceneHeaders" text="MUSIC LIBRARY" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <Label minWidth="470.0" styleClass="sceneHeaders" text="MUSIC LIBRARY" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
          </font>
       </Label>
-      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" prefHeight="30.0" prefWidth="155.0" styleClass="largeMenuButton" text="Add media" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to music library">
                <graphic>
@@ -36,7 +38,7 @@
             <FontIcon iconLiteral="fa-music" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
-      <TableView fx:id="tableViewMusicLibrary" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
+      <TableView fx:id="tableViewMusicLibrary" minWidth="470.0" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
          <columns>
             <TableColumn fx:id="title" editable="false" prefWidth="163.20001524686813" text="Title" />
             <TableColumn fx:id="artist" editable="false" minWidth="4.7999267578125" prefWidth="78.4000244140625" text="Artist" />
@@ -49,7 +51,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="507.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
+      <HBox alignment="CENTER_LEFT" minWidth="387.0" prefHeight="30.0" prefWidth="387.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="60.0">
          <children>
             <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteSong" text="Delete">
                <graphic>
@@ -59,7 +61,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Add entire library to play queue">
+            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Play entire library">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
                </graphic>
@@ -67,7 +69,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add song to play queue">
+            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add song to queue">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
@@ -77,13 +79,10 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="btnEnableSelection" disable="true" mnemonicParsing="false" onAction="#onSelectionMode" text="Enable Selection" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
-         <graphic>
-            <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
-         </graphic>
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <TextField focusTraversable="false" maxWidth="200.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="394.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="62.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
    </children>
 </AnchorPane>

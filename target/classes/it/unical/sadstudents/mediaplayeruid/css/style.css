@@ -2,20 +2,27 @@
     TODO: SISTEMARE LABEL PLAYLIST IN MENUBUTTON DI MUSICLIBRARY
     TODO: SISTEMARE COLORI DEGLI EVENTI HOVER NELLE VARIE CLASSI CSS
 */
-.basicTemplate {
+.primaryTemplate {
   -fx-text-fill: textColor;
-  -fx-background-color: secondaryBackgroundColor;
+  -fx-background-color: primaryBackgroundColor;
 }
 
 .secondaryTemplate {
     -fx-text-fill: textColor;
-    -fx-background-color: primaryBackgroundColor;
+    -fx-background-color: secondaryBackgroundColor;
 }
 
 .sceneHeaders {
     -fx-font-family: "Montserrat ExtraBold";
     -fx-text-fill: headersTextColor;
     -fx-font-size: 40px;
+    -fx-text-alignment: center;
+}
+
+.sceneSubHeaders {
+    -fx-font-family: "Montserrat Bold";
+    -fx-text-fill: headersTextColor;
+    -fx-font-size: 20px;
     -fx-text-alignment: center;
 }
 
@@ -209,12 +216,6 @@
     -fx-background-color: #000000;
 }
 
-.sceneHeadersBis {
-    -fx-font-family: "Montserrat ExtraBold";
-    -fx-text-fill: headersTextColor;
-    -fx-font-size: 24px;
-    -fx-text-alignment: center;
-}
 /*
 .slider .thumb {
     -fx-background-color: -slider-filled-track-color ;

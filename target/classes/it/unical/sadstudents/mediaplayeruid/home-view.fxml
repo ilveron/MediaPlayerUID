@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane minWidth="470.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController">
+<AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController">
    <children>
       <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="HOME" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
@@ -36,12 +36,12 @@
             <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
-      <Label layoutX="21.0" layoutY="67.0" styleClass="sceneHeadersBis" text="Recent Media:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="67.0" />
-      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" minWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <Label layoutX="6.0" layoutY="68.0" styleClass="sceneSubHeaders" text="Recent Media:" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="68.0" />
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="basicTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <content>
-          <AnchorPane minWidth="470.0">
+          <AnchorPane styleClass="basicTemplate">
                <children>
-                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="430.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
         </content>
