@@ -127,7 +127,7 @@
                               <Insets />
                            </VBox.margin>
                         </ToolBar>
-                        <Button alignment="BOTTOM_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" styleClass="toolBarButton" text="Settings">
+                        <Button alignment="BOTTOM_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="30.0" prefWidth="240.0" styleClass="toolBarButton" text="Settings">
                            <graphic>
                               <FontIcon iconLiteral="fa-cog" iconSize="19" styleClass="iconsOverBackground" />
                            </graphic>
@@ -248,7 +248,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" layoutX="790.0" prefHeight="56.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                  <children>
-                                    <MenuButton fx:id="plsVolume" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" styleClass="secondaryTemplate">
+                                    <MenuButton fx:id="volumeButton" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" styleClass="secondaryTemplate">
                                       <items>
                                         <MenuItem mnemonicParsing="false">
                                              <graphic>
@@ -257,7 +257,7 @@
                                           </MenuItem>
                                       </items>
                                        <graphic>
-                                          <FontIcon iconLiteral="fa-volume-up" iconSize="15" styleClass="iconsOverBackground" />
+                                          <FontIcon fx:id="volumeIcon" iconLiteral="fa-volume-up" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />

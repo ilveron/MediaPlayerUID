@@ -17,7 +17,7 @@ public class MyMedia  {
     private String path = "";
     private Double length;
     private Integer year;
-    private Image image;
+    private String imageUrl;
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
@@ -26,11 +26,12 @@ public class MyMedia  {
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
-        image = new Image("file:src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png");
+        imageUrl = "src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png";
 
 
 
         setTitle(file.getName());
+
         Media media = new Media(path);
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
@@ -56,11 +57,14 @@ public class MyMedia  {
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
                     System.out.println("Ho la length: "+ length);
                 }
-                else if (media.getMetadata().get("image") != null){
-                    setImage((Image) media.getMetadata().get("image"));;
+                /*else if (media.getMetadata().get("image") != null){
+                    Object newImage = (media.getMetadata().get("image"));
+
+                    setImage(String.valueOf(newImage.getClass().getResource() .toString());;
+                    System.out.println(newImage.getClass().toString());
 
 
-                }
+                }*/
 
 
             }
@@ -71,12 +75,12 @@ public class MyMedia  {
     //VARIABLES GETTERS AND SETTERS
 
 
-    public Image getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setTitle(String title) { this.title = title; }

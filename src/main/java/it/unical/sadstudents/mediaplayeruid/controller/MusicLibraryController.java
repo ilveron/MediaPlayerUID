@@ -36,6 +36,7 @@ public class MusicLibraryController implements Initializable {
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(1));
         beginTimer();
+        tableViewMusicLibrary.refresh();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
         }
@@ -45,6 +46,7 @@ public class MusicLibraryController implements Initializable {
     void onAddMedia(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(1));
         beginTimer();
+        tableViewMusicLibrary.refresh();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
         }
@@ -86,6 +88,7 @@ public class MusicLibraryController implements Initializable {
     }
     @FXML
     void onSelectionMode(ActionEvent event) {
+
         if(MusicLibrary.getInstance().isSelectionModeActive()){
             MusicLibrary.getInstance().setSelectionModeActive(false);
             btnEnableSelection.setStyle("-fx-background-color: transparentBackgroundColor");
@@ -103,6 +106,7 @@ public class MusicLibraryController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
+        if(MusicLibrary.getInstance().getMusicLibrary().size()>0) setObject(false);
         // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
@@ -157,6 +161,10 @@ public class MusicLibraryController implements Initializable {
             @Override
             public void run() {
                 runningTimer = true;
+                /*if(MusicLibrary.getInstance().sortTF>0&&MusicLibrary.getInstance().getMusicLibrary().size()>0){
+                    MusicLibrary.getInstance().sortList();
+                    MusicLibrary.getInstance().sortTF--;
+                }*/
                 tableViewMusicLibrary.refresh();
                 if (MusicLibrary.getInstance().getMusicLibrary().size() == 0) {
                     cancelTimer();

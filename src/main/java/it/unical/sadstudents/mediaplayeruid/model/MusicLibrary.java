@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 import it.unical.sadstudents.mediaplayeruid.ThreadManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class MusicLibrary implements DataListedModel{
     private Integer KMusic=0;
     private ObservableList<Integer> Selection;
     private boolean selectionModeActive=false;
+    //public int sortTF=0;
 
     //SINGLETON AND CLASS DECLARATION
     private static MusicLibrary instance = null;
@@ -64,8 +66,8 @@ public class MusicLibrary implements DataListedModel{
                 return;
         }
         Library.add(myMedia);
-        //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
-
+        //sortTF++;
+        //if(getKMusic()>1) sortList();
         ++KMusic;
 
 
@@ -84,10 +86,11 @@ public class MusicLibrary implements DataListedModel{
             }
             if (!isPresent){
                 Library.add(myMedia);
+                //if(getKMusic()>1) sortList();
+                //sortTF++;
                 ++KMusic;
             }
             isPresent=false;
-            //if(getKMusic()>1) Library.sort(Comparator.comparing(MyMedia::toString));
         }
     }
 
