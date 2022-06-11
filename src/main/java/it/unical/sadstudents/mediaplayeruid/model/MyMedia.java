@@ -32,7 +32,7 @@ public class MyMedia  {
 
         setTitle(file.getName());
 
-        Media media = new Media(path);
+        /*Media media = new Media(path);
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()) {
@@ -64,11 +64,11 @@ public class MyMedia  {
                     System.out.println(newImage.getClass().toString());
 
 
-                }*/
+                }
 
 
             }
-        });
+        });*/
     }
     //END CLASS CONSTRUCTOR
 

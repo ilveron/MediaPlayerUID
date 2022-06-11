@@ -1,6 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import javafx.beans.property.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

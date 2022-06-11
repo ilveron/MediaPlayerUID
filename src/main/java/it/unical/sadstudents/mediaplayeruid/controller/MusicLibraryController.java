@@ -28,7 +28,7 @@ public class MusicLibraryController implements Initializable {
     private TableColumn<MyMedia, Double> length;
 
     @FXML
-    private Button btnAddLibraryToQueue, btnAddSongToQueue, btnDelete, btnEnableSelection;
+    private Button btnAddLibraryToQueue, btnAddSongToQueue, btnDelete;
     //END TABLEVIEW
 
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
@@ -52,7 +52,6 @@ public class MusicLibraryController implements Initializable {
         }
     }
     void setObject(boolean t){
-        btnEnableSelection.setDisable(t);
         btnAddLibraryToQueue.setDisable(t);
         btnDelete.setDisable(t);
         btnAddSongToQueue.setDisable(t);
@@ -86,21 +85,7 @@ public class MusicLibraryController implements Initializable {
         }
         if(MusicLibrary.getInstance().getMusicLibrary().size()==0) setObject(true);
     }
-    @FXML
-    void onSelectionMode(ActionEvent event) {
 
-        if(MusicLibrary.getInstance().isSelectionModeActive()){
-            MusicLibrary.getInstance().setSelectionModeActive(false);
-            btnEnableSelection.setStyle("-fx-background-color: transparentBackgroundColor");
-            btnAddLibraryToQueue.setDisable(false);
-            MusicLibrary.getInstance().getSelection().clear();
-        }else{
-            MusicLibrary.getInstance().setSelectionModeActive(true);
-            btnEnableSelection.setStyle("-fx-background-color: RED;");
-            btnAddLibraryToQueue.setDisable(true);
-
-        }
-    }
     //END ACTION EVENT
 
 
@@ -119,7 +104,7 @@ public class MusicLibraryController implements Initializable {
         MusicLibrary.getInstance().sortList();
         beginTimer();
 
-        tableViewMusicLibrary.setRowFactory(tableView ->{
+        /*tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if(event.getClickCount() > 1 && !row.isEmpty()&&!MusicLibrary.getInstance().isSelectionModeActive()){
@@ -140,7 +125,7 @@ public class MusicLibraryController implements Initializable {
 
             });
             return row;
-        });
+        });*/
 
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
