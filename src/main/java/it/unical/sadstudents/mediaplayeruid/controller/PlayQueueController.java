@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -100,7 +101,9 @@ public class PlayQueueController implements Initializable {
         focusTableView();
 
         PlayQueue.getInstance().currentMediaProperty().addListener(observable -> {
-            tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
+            Integer current = PlayQueue.getInstance().getCurrentMedia();
+            tableViewQueue.getSelectionModel().select(current);
+            tableViewQueue.scrollTo(current);
         });
 
 
@@ -126,7 +129,6 @@ public class PlayQueueController implements Initializable {
                     PlayQueue.getInstance().setCurrentMedia(tableViewQueue.getSelectionModel().getSelectedIndex());
             }
         });
-
     }
 
     //aggiunta come fix

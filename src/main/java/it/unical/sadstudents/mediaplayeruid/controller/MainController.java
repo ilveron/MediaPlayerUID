@@ -222,6 +222,12 @@ public class MainController implements Initializable {
         }else{
             PlayQueue.getInstance().setShuffleActive(true);
         }
+
+        if(!PlayQueue.getInstance().isShuffleQueueIndexesGenerated()){
+            PlayQueue.getInstance().generateShuffleList();
+            System.out.println("Lista generata!");
+        }
+
     }
 
     @FXML

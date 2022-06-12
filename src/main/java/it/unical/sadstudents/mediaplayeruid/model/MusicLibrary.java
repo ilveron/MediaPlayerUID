@@ -74,7 +74,7 @@ public class MusicLibrary implements DataListedModel{
 
     @Override
     public void addFilesToList(List<File> files) {
-        boolean isPresent = false;
+        /*boolean isPresent = false;
         for (File file: files){
             MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
             for (int i=0; i< Library.size() && !isPresent;i++){
@@ -89,7 +89,13 @@ public class MusicLibrary implements DataListedModel{
                 ++KMusic;
             }
             isPresent=false;
+        }*/
+        try {
+            ThreadManager.getInstance().createMediaBis(files,false,false);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
     }
 
 

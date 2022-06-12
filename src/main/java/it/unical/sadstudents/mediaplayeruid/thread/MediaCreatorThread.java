@@ -9,11 +9,16 @@ import java.util.List;
 public class MediaCreatorThread extends Task<List<File>> {
     private List<File> files;
     private List<MyMedia> myMediaList;
+    private boolean startPlayNeeded = false;
+    private boolean resetPlayQueueNeeded = false;
 
-    public MediaCreatorThread(List<File> files, List<MyMedia> myMediaList) {
+    public MediaCreatorThread(List<File> files, List<MyMedia> myMediaList, boolean startPlayNeeded,boolean resetPlayQueueNeeded) {
         this.files = files;
         this.myMediaList = myMediaList;
+        this.startPlayNeeded = startPlayNeeded;
+        this.resetPlayQueueNeeded = resetPlayQueueNeeded;
     }
+
 
     @Override
     protected List<File> call() throws Exception {
@@ -22,12 +27,14 @@ public class MediaCreatorThread extends Task<List<File>> {
             MyMedia myMedia = new MyMedia(files.get(i));
             myMediaList.add(myMedia);
             System.out.println(++cont);
-            if(i==0){
-                PlayQueue.getInstance().generateNewQueue(myMedia);
+            if(startPlayNeeded){
+                if (resetPlayQueueNeeded && i==0){
+                    PlayQueue.getInstance().generateNewQueue(myMedia);
+                }
+                else{
+                    PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+                }
             }
-            else
-                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
-
             if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
                 VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
             }
@@ -35,7 +42,8 @@ public class MediaCreatorThread extends Task<List<File>> {
                 MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
         }
 
-        ThreadManager.getInstance().generateMetadataBis(myMediaList);
+        files.clear();
+
 
         return null;
     }

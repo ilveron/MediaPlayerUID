@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -96,7 +97,12 @@ public class Player {
     public void createMedia(Integer index){
 
 
-        mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+            }
+        });
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -109,7 +115,7 @@ public class Player {
     }
 
     //public void createMedia(Integer index){
-    public void createMediaTest(MyMedia myMedia){
+    /*public void createMediaTest(MyMedia myMedia){
 
         mediaName.set(myMedia.getTitle());
         media = new Media(myMedia.getPath());
@@ -119,7 +125,9 @@ public class Player {
         playMedia();
         ThreadManager.getInstance().setNameAndArtistLabels(media);
         //TODO: REGEX per riproduzione *.mp4
-    }
+    }*/
+
+
     public void playMedia(){
         if(media != null){
             mediaPlayer.setVolume(volume);

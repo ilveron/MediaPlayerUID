@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.concurrent.Task;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
@@ -52,16 +53,25 @@ public class ThreadManager {
         return myMedia;
     }
 
-     public void createMediaBis(List<File> files){
+     public void createMediaBis(List<File> files, boolean startIsNeeded,boolean resetPlayQueueNeeded) throws InterruptedException {
          List<MyMedia> provv = new ArrayList<>();
-         thread =new Thread(new MediaCreatorThread(files,provv));
+         //Platform.runLater(new MediaCreatorThread(files,provv,startIsNeeded,resetPlayQueueNeeded));
+
+
+         thread =new Thread(new MediaCreatorThread(files,provv,startIsNeeded,resetPlayQueueNeeded));
          thread.setDaemon(true);
          thread.start();
+         synchronized (obj){
+             obj.wait(2000);
+         }
+         Thread thread1 = new Thread(new MetaDataApply(provv));
+         thread1.setDaemon(true);
+         thread1.start();
 
     }
 
 
-   public void generateMetadata(List<MyMedia> myMediaList) throws InterruptedException {
+   /*public void generateMetadata(List<MyMedia> myMediaList) throws InterruptedException {
 
         Media media;
         MediaPlayer mediaPlayer;
@@ -74,18 +84,29 @@ public class ThreadManager {
             }MetaDataApply metaDataApply = new MetaDataApply(myMedia,mediaPlayer);
 
         }
-    }
+    }*/
 
-    public void generateMetadataBis(List<MyMedia> myMediaList) throws InterruptedException {
-        long iniziale = currentTimeMillis();
+    public void generateMetadataBis(List<MyMedia> myMediaList) {
+        System.out.println("ciao");
+        long startTime = currentTimeMillis();
+        System.out.println("inizio a: "+startTime);
         int cont=0;
-        Media media;
-        MediaPlayer mediaPlayer;
+        Media media = new Media(myMediaList.get(0).getPath());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         for (MyMedia myMedia : myMediaList) {
-            media = new Media(myMedia.getPath());
-            mediaPlayer = new MediaPlayer(media);
+            try{
+                media = new Media(myMedia.getPath());
+                mediaPlayer = new MediaPlayer(media);
+            }catch(MediaException mediaException){
+                mediaException.printStackTrace();
+            }
+
             synchronized(obj){
-                obj.wait(20);
+                try {
+                    obj.wait(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             Map<String, Object> metadata = mediaPlayer.getMedia().getMetadata();
             if (metadata != null && metadata.get("title") != null) {
@@ -114,7 +135,8 @@ public class ThreadManager {
             mediaPlayer.dispose();
 
         }
-        System.out.println("Tempo esecuzione metadata: "+(currentTimeMillis()-iniziale));
+        long finale = currentTimeMillis()-startTime;
+        System.out.println("Tempo esecuzione metadata: "+finale);
         System.out.println("trovati n metadata: "+cont);
     }
 

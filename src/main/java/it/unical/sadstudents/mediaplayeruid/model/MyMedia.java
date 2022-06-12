@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 import javafx.collections.MapChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 
 import java.io.File;
 import java.lang.Object;
@@ -19,6 +20,8 @@ public class MyMedia  {
     private Integer year;
     private String imageUrl;
 
+
+
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
 
@@ -32,14 +35,16 @@ public class MyMedia  {
 
         setTitle(file.getName());
 
-        /*Media media = new Media(path);
+        /*try{Media media = new Media(path);
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()) {
                 //System.out.println(media.getMetadata());
                 if ("title".equals(change.getKey())) {
-                    if (media.getMetadata().get("title").toString() != null)
+                    if (media.getMetadata().get("title").toString() != null){
                         setTitle(media.getMetadata().get("title").toString());
+
+                    }
                 }
                 else if ("artist".equals(change.getKey())) {
                     setArtist(media.getMetadata().get("artist").toString());
@@ -57,7 +62,7 @@ public class MyMedia  {
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
                     System.out.println("Ho la length: "+ length);
                 }
-                /*else if (media.getMetadata().get("image") != null){
+                else if (media.getMetadata().get("image") != null){
                     Object newImage = (media.getMetadata().get("image"));
 
                     setImage(String.valueOf(newImage.getClass().getResource() .toString());;
@@ -68,7 +73,10 @@ public class MyMedia  {
 
 
             }
-        });*/
+        });}catch(MediaException mediaException){
+            mediaException.printStackTrace();
+        }*/
+
     }
     //END CLASS CONSTRUCTOR
 

@@ -29,7 +29,10 @@ public class RecentMediaTemplateController {
         nameLabel.setText(myMedia.getTitle());
         //imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png"));
 
+
         imageView.setImage(new Image("file:"+myMedia.getImageUrl()));
+
+
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
     }

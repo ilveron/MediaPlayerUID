@@ -14,10 +14,13 @@ import java.util.Random;
 public class PlayQueue implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> queue;
-    private ArrayList<String> alreadyPlayed;
+    private ArrayList<Integer> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
     private SimpleBooleanProperty isAVideo = new SimpleBooleanProperty(false);
     private boolean shuffleActive=false;
+    private boolean shuffleQueueIndexesGenerated = false;
+    private Integer shuffleQueueCurrentIndex;
+    private ArrayList<Integer> shuffleQueueIndexes;
     //END VARIABLES
 
     //SINGLETON
@@ -25,6 +28,7 @@ public class PlayQueue implements DataListedModel{
     private PlayQueue (){
         queue = FXCollections.observableArrayList();
         alreadyPlayed = new ArrayList<>();
+        shuffleQueueCurrentIndex = 0;
         currentMediaProperty().addListener(observable -> {
             if(queue.size()>0)
                 startMedia();
@@ -60,22 +64,44 @@ public class PlayQueue implements DataListedModel{
                 startMedia();
                 return;
             }
-            else if(newCurrentMedia >= getQueue().size()){
+            else if(newCurrentMedia >= getQueue().size())
                 newCurrentMedia = 0;
-            }
 
             currentMedia.set(newCurrentMedia);
 
         }
-        else{
+        else
             currentMedia.set(0);
-        }
-
     }
 
     public ObservableList<MyMedia> getQueue(){
         return queue;
     }
+
+    public boolean isShuffleQueueIndexesGenerated() {
+        return shuffleQueueIndexesGenerated;
+    }
+
+    public void setShuffleQueueIndexesGenerated(boolean shuffleQueueIndexesGenerated) {
+        this.shuffleQueueIndexesGenerated = shuffleQueueIndexesGenerated;
+    }
+
+    public ArrayList<Integer> getShuffleQueueIndexes() {
+        return shuffleQueueIndexes;
+    }
+
+    public void setShuffleQueueIndexes(ArrayList<Integer> shuffleQueueIndexes) {
+        this.shuffleQueueIndexes = shuffleQueueIndexes;
+    }
+
+    public Integer getShuffleQueueCurrentIndex() {
+        return shuffleQueueCurrentIndex;
+    }
+
+    public void setShuffleQueueCurrentIndex(Integer shuffleQueueCurrentIndex) {
+        this.shuffleQueueCurrentIndex = shuffleQueueCurrentIndex;
+    }
+
     //END GETTERS AND SETTERS
 
     //FUNCTIONS LIST MANIPULATION
@@ -95,7 +121,7 @@ public class PlayQueue implements DataListedModel{
 
     @Override
     public void addFilesToList(List<File> files) {
-        for(File file: files){
+        /*for(File file: files){
             MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
             queue.add(myMedia);
             if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
@@ -108,6 +134,11 @@ public class PlayQueue implements DataListedModel{
             if(!Player.getInstance().isMediaLoaded())
                 //Player.getInstance().createMedia(currentMedia.get());
                 startMedia();
+        }*/
+        try {
+            ThreadManager.getInstance().createMediaBis(files,true,false);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -137,16 +168,15 @@ public class PlayQueue implements DataListedModel{
 
     public void changeMedia(Integer direction){
         // TODO: 07/06/2022 vedere se vale la pena di fare in modo che non richiami canzoni già suonate
-        alreadyPlayed.add(queue.get(getCurrentMedia()).getPath());
+        alreadyPlayed.add(getCurrentMedia());
         if(shuffleActive) {
-            int nextMedia = generateRandomForShuffle();
-            if(nextMedia == -1){
-                alreadyPlayed.clear();
-                nextMedia = generateRandomForShuffle();
-            }
-            setCurrentMedia(nextMedia);
+            shuffleQueueCurrentIndex += direction;
+            if(shuffleQueueCurrentIndex < 0 || shuffleQueueCurrentIndex >= shuffleQueueIndexes.size())
+                shuffleQueueCurrentIndex = 0;
+            setCurrentMedia(shuffleQueueIndexes.get(shuffleQueueCurrentIndex));
         }
         else {
+            // TODO: 11/06/2022 SISTEMARE PASSAGGIO DA SHUFFLE A SEQUENZIALE E VICEVERSA 
             setCurrentMedia(getCurrentMedia()+direction);
         }
     }
@@ -154,28 +184,39 @@ public class PlayQueue implements DataListedModel{
 
     private int generateRandomForShuffle() {
         Random random = new Random();
-        int index = -1;
-        boolean indexFound = false;
-        int numbersGenerated = 0;
-        while(!indexFound && (numbersGenerated <= queue.size())){
-            indexFound = true;
+        boolean validIndex = false;
+        Integer index = Integer.MIN_VALUE;
+        while(!validIndex){
+            validIndex = true;
             index = random.nextInt(0, queue.size());
-            numbersGenerated++;
-
-            String newPath = queue.get(index).getPath();
-            for(int i = 0; i < alreadyPlayed.size(); ++i){
-                if (newPath == alreadyPlayed.get(i)) {
-                    indexFound = false;
+            for(Integer indexInList : shuffleQueueIndexes){
+                if(index == indexInList){
+                    validIndex = false;
                     break;
                 }
             }
         }
 
-        if(numbersGenerated > queue.size())
-            return -1;
-
         return index;
     }
 
+    public void generateShuffleList(){
+        shuffleQueueIndexes = new ArrayList<>();
+
+        if(getQueue().size() > 0){
+            //Se presenti, aggiungo le canzoni già riprodotte all'inizio di shuffleQueueIndexes per permettere la riproduzione a ritroso
+            if(alreadyPlayed.size() > 0){
+                for(Integer index : alreadyPlayed)
+                    shuffleQueueIndexes.add(index);
+
+                shuffleQueueCurrentIndex = alreadyPlayed.size();
+            }
+
+            while(shuffleQueueIndexes.size() != queue.size())
+                shuffleQueueIndexes.add(generateRandomForShuffle());
+
+            shuffleQueueIndexesGenerated = true;
+        }
+    }
 
 }

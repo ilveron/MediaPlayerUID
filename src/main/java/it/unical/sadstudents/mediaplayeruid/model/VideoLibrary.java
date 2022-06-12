@@ -2,6 +2,11 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,11 +20,19 @@ public class VideoLibrary implements DataListedModel{
     private ObservableList<MyMedia> videoLibrary;
     private SimpleBooleanProperty changeHappened = new SimpleBooleanProperty(false);
 
+
     //SINGLETON AND CLASS DECLARATION
     private static VideoLibrary instance = null;
 
     private VideoLibrary (){
         videoLibrary = FXCollections.observableArrayList();
+
+
+        /*BooleanBinding multipleElemsProperty = new BooleanBinding() {
+            @Override protected boolean computeValue() {
+                return videoLibrary.size() > 1;
+            }
+        };*/
     }
 
     public static VideoLibrary getInstance(){
@@ -64,13 +77,22 @@ public class VideoLibrary implements DataListedModel{
                 return;
         }
         videoLibrary.add(myMedia);
-        setChangeHappened(true);
+        if (!changeHappened.get()){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    setChangeHappened(true);
+                }
+            });
+        }
 
+        /*DoubleProperty ciao = null;
+        ciao.bind(videoLibrary.size());*/
     }
 
     @Override
     public void addFilesToList(List<File> files) {
-        boolean isPresent = false;
+        /*boolean isPresent = false;
         boolean almostOneAdded = false;
         for (File file: files){
             MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
@@ -86,8 +108,18 @@ public class VideoLibrary implements DataListedModel{
             isPresent=false;
         }
         if(almostOneAdded)
-            setChangeHappened(true);
+            setChangeHappened(true);*/
 
+        try {
+            ThreadManager.getInstance().createMediaBis(files,false,false);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void notifyChangeHappened(){
+        setChangeHappened(true);
     }
 
 

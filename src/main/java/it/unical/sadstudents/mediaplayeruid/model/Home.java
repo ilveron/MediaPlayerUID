@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.File;
@@ -55,7 +56,11 @@ public class Home {
             else{
                 MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
         }*/
-        ThreadManager.getInstance().createMediaBis(files);
+        try {
+            ThreadManager.getInstance().createMediaBis(files,true,true);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -70,7 +75,12 @@ public class Home {
         }
         if(!added)
             recentMedia.add(myMedia);
-        changeHappened.set(true);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                changeHappened.set(true);
+            }
+        });
     }
 
     //END FUNCTIONS
