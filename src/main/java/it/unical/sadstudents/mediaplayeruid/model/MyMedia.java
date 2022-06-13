@@ -4,10 +4,15 @@ import javafx.collections.MapChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
+import javax.imageio.ImageIO;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 import java.lang.Object;
 import java.util.Objects;
+
 
 public class MyMedia  {
     //VARIABLES-DATA
@@ -36,7 +41,7 @@ public class MyMedia  {
 
         setTitle(file.getName());
 
-        /*try{Media media = new Media(path);
+        try{Media media = new Media(path);
 
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()) {
@@ -66,20 +71,29 @@ public class MyMedia  {
                     setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
                     System.out.println("Ho la length: "+ length);
                 }
-                else if (media.getMetadata().get("image") != null){
+               /*else if (media.getMetadata().get("image") != null){
                     Object newImage = (media.getMetadata().get("image"));
+                    Image image = ((Image)newImage);
+                    File outputFile = new File("src/main/resources/it/unical/sadstudents/mediaplayeruid/imageMedia/");
+                    BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
 
-                    setImage(String.valueOf(newImage.getClass().getResource() .toString());;
-                    System.out.println(newImage.getClass().toString());
+
+                    try {
+                        ImageIO.write((RenderedImage) image, "jpg", outputFile);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
 
-                }
+
+
+                }*/
 
 
             }
         });}catch(MediaException mediaException){
             mediaException.printStackTrace();
-        }*/
+        }
 
 
     }

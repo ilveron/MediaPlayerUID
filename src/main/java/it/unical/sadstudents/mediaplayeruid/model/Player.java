@@ -104,8 +104,11 @@ public class Player {
         mediaView.setMediaPlayer(mediaPlayer);
         mediaLoaded.set(true);
         mediaPlayer.setOnReady(()->{
-            setMediaName(media.getMetadata().get("title").toString());
-            setArtistName(media.getMetadata().get("artist").toString());
+            if (!PlayQueue.getInstance().getQueue().get(index).getPath().toLowerCase().endsWith(".mp4")){
+                setMediaName(media.getMetadata().get("title").toString());
+                setArtistName(media.getMetadata().get("artist").toString());
+            }
+
             playMedia();
             //metadataUpdate(index);
         });

@@ -43,7 +43,7 @@ public class MediaCreatorThread extends Task<List<File>> {
         }
 
         files.clear();
-        ThreadManager.getInstance().startMetadata(myMediaList);
+        //ThreadManager.getInstance().startMetadata(myMediaList);
 
 
         return null;
