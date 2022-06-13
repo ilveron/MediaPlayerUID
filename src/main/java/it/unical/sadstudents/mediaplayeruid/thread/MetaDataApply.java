@@ -26,7 +26,6 @@ public class MetaDataApply extends Task<List<MyMedia>> {
 
     @Override
     protected List<MyMedia> call()  {
-        System.out.println("ciao");
         long startTime = currentTimeMillis();
         System.out.println("inizio a: "+startTime);
         int cont=0;

@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -96,21 +97,20 @@ public class Player {
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
 
+        //mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
-            }
-        });
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaLoaded.set(true);
         mediaPlayer.setOnReady(()->{
+            setMediaName(media.getMetadata().get("title").toString());
+            setArtistName(media.getMetadata().get("artist").toString());
             playMedia();
+            //metadataUpdate(index);
         });
-        ThreadManager.getInstance().setNameAndArtistLabels(media);
+
+
         //TODO: REGEX per riproduzione *.mp4
     }
 
@@ -183,4 +183,38 @@ public class Player {
         mediaPlayer.setVolume(v);
     }
     //END BASIC CONTROLS
+
+    public void metadataUpdate(int index){
+        mediaPlayer.getMedia().getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+            if(change.wasAdded()) {
+                //System.out.println(media.getMetadata());
+                if ("title".equals(change.getKey())) {
+                    if (mediaPlayer.getMedia().getMetadata().get("title").toString() != null){
+                        PlayQueue.getInstance().getQueue().get(index).setTitle(mediaPlayer.getMedia().getMetadata().get("title").toString());
+                        setMediaName(media.getMetadata().get("title").toString());
+
+                    }
+                }
+                else if ("artist".equals(change.getKey())) {
+                    PlayQueue.getInstance().getQueue().get(index).setArtist(mediaPlayer.getMedia().getMetadata().get("artist").toString());
+                    setArtistName(media.getMetadata().get("artist").toString());
+
+                }
+                else if ("album".equals(change.getKey())) {
+                    PlayQueue.getInstance().getQueue().get(index).setAlbum(mediaPlayer.getMedia().getMetadata().get("album").toString());
+                }
+                else if ("genre".equals(change.getKey())) {
+                    PlayQueue.getInstance().getQueue().get(index).setGenre(mediaPlayer.getMedia().getMetadata().get("genre").toString());
+                }
+                else if ("year".equals(change.getKey())) {
+                    PlayQueue.getInstance().getQueue().get(index).setYear(Integer.parseInt(mediaPlayer.getMedia().getMetadata().get("year").toString()));
+                }
+                else if (media.getMetadata().get("length") != null){
+                    PlayQueue.getInstance().getQueue().get(index).setLength(Double.parseDouble(mediaPlayer.getMedia().getMetadata().get("length").toString()));
+                }
+
+            }
+        });
+
+    }
 }

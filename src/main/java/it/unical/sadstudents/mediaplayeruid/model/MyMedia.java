@@ -19,6 +19,7 @@ public class MyMedia  {
     private Double length;
     private Integer year;
     private String imageUrl;
+    private static int cont=0;
 
 
 
@@ -43,6 +44,9 @@ public class MyMedia  {
                 if ("title".equals(change.getKey())) {
                     if (media.getMetadata().get("title").toString() != null){
                         setTitle(media.getMetadata().get("title").toString());
+                        cont++;
+                        System.out.println("metadati trovati: "+cont);
+
 
                     }
                 }
@@ -77,10 +81,12 @@ public class MyMedia  {
             mediaException.printStackTrace();
         }*/
 
+
     }
     //END CLASS CONSTRUCTOR
 
     //VARIABLES GETTERS AND SETTERS
+
 
 
     public String getImageUrl() {

@@ -2,7 +2,6 @@ package it.unical.sadstudents.mediaplayeruid.thread;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.application.Platform;
-import javafx.collections.MapChangeListener;
 import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
@@ -10,6 +9,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -61,84 +61,21 @@ public class ThreadManager {
          thread =new Thread(new MediaCreatorThread(files,provv,startIsNeeded,resetPlayQueueNeeded));
          thread.setDaemon(true);
          thread.start();
-         synchronized (obj){
+         /*synchronized (obj){
              obj.wait(2000);
          }
          Thread thread1 = new Thread(new MetaDataApply(provv));
          thread1.setDaemon(true);
-         thread1.start();
+         thread1.start();*/
 
     }
 
-
-   /*public void generateMetadata(List<MyMedia> myMediaList) throws InterruptedException {
-
-        Media media;
-        MediaPlayer mediaPlayer;
-        for (MyMedia myMedia : myMediaList) {
-            media = new Media(myMedia.getPath());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setOnReady(new MetaDataApply(myMedia,mediaPlayer));
-            synchronized(obj){
-                obj.wait(100);
-            }MetaDataApply metaDataApply = new MetaDataApply(myMedia,mediaPlayer);
-
-        }
-    }*/
-
-    public void generateMetadataBis(List<MyMedia> myMediaList) {
-        System.out.println("ciao");
-        long startTime = currentTimeMillis();
-        System.out.println("inizio a: "+startTime);
-        int cont=0;
-        Media media = new Media(myMediaList.get(0).getPath());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        for (MyMedia myMedia : myMediaList) {
-            try{
-                media = new Media(myMedia.getPath());
-                mediaPlayer = new MediaPlayer(media);
-            }catch(MediaException mediaException){
-                mediaException.printStackTrace();
-            }
-
-            synchronized(obj){
-                try {
-                    obj.wait(20);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            Map<String, Object> metadata = mediaPlayer.getMedia().getMetadata();
-            if (metadata != null && metadata.get("title") != null) {
-                myMedia.setTitle(metadata.get("title").toString());
-                cont++;
-            }
-            if (metadata != null && metadata.get("artist") != null) {
-                myMedia.setArtist(metadata.get("artist").toString());
-            }
-            if (metadata != null && metadata.get("album") != null) {
-                myMedia.setAlbum(metadata.get("album").toString());
-            }
-            if (metadata != null && metadata.get("genre") != null) {
-                myMedia.setGenre(metadata.get("genre").toString());
-            }
-            if (metadata != null && metadata.get("year") != null) {
-                myMedia.setYear((Integer) metadata.get("year"));
-            }
-            if (metadata != null && metadata.get("length") != null) {
-                myMedia.setLength((Double) metadata.get("length"));
-            }
-
-            synchronized(ThreadManager.getInstance().getObj()){//this is required since mp.setOnReady creates a new thread and our loopp  in the main thread
-                ThreadManager.getInstance().getObj().notify();// the loop has to wait unitl we are able to get the media metadata thats why use .wait() and .notify() to synce the two threads(main thread and MediaPlayer thread)
-            }
-            mediaPlayer.dispose();
-
-        }
-        long finale = currentTimeMillis()-startTime;
-        System.out.println("Tempo esecuzione metadata: "+finale);
-        System.out.println("trovati n metadata: "+cont);
+    public void startMetadata(List<MyMedia> myMediaList){
+        Thread thread1 = new Thread(new MetaDataApply(myMediaList));
+        thread1.setDaemon(true);
+        thread1.start();
     }
+
 
 
 
@@ -181,7 +118,7 @@ public class ThreadManager {
     }
     //END TASK
 
-    public void setNameAndArtistLabels(Media media){
+    /*public void metadataInRunTime(Media media){
         media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
             if(change.wasAdded()) {
                 //System.out.println(media.getMetadata());
@@ -194,5 +131,6 @@ public class ThreadManager {
                 }
             }
         });
-    }
+
+    }*/
 }
