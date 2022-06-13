@@ -18,6 +18,7 @@ public class RecentMedia extends Pane {
     private MyMedia myMedia;
 
     public RecentMedia(MyMedia myMedia){
+        this.myMedia = myMedia;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("recentMediaTemplate-view.fxml"));
         try{
             AnchorPane root = loader.load();
