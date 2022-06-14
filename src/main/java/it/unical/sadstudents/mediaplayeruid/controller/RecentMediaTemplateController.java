@@ -38,8 +38,8 @@ public class RecentMediaTemplateController {
     public void init(MyMedia myMedia){
         artistLabel.setText(myMedia.getArtist());
         nameLabel.setText(myMedia.getTitle());
-        //imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png"));
-        imageView.setImage(new Image("file:"+myMedia.getImageUrl()));
+        imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
+
 
         if (!myMedia.getPath().toLowerCase().endsWith(".mp4")){
             Media media = new Media(myMedia.getPath());

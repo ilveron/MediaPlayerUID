@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -41,6 +42,8 @@ public class SceneHandler {
     //END SINGLETON
 
     //GETTERS AND SETTERS
+
+
     public Stage getStage() {
         return stage;
     }

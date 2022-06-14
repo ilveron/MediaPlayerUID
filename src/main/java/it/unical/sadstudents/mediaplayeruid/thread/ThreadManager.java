@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.thread;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.application.Platform;
+import javafx.collections.MapChangeListener;
 import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
@@ -53,32 +54,64 @@ public class ThreadManager {
         return myMedia;
     }
 
-     public void createMediaBis(List<File> files, boolean startIsNeeded,boolean resetPlayQueueNeeded) throws InterruptedException {
-         List<MyMedia> provv = new ArrayList<>();
-         //Platform.runLater(new MediaCreatorThread(files,provv,startIsNeeded,resetPlayQueueNeeded));
 
+    private boolean next = false;
+    private boolean startIsNeeded = false;
+    private boolean resetPlayQueueNeeded = false;
+    public void createMediaBis(List<File> files, boolean startIsNeeded,boolean resetPlayQueueNeeded) throws InterruptedException {
+        this.startIsNeeded=startIsNeeded;
+        this.resetPlayQueueNeeded=resetPlayQueueNeeded;
+        Thread t = new Thread(() -> {
+             for (int i=0; i<files.size();i++) {
+                 next = false;
+                 MyMedia myMedia = new MyMedia(files.get(i));
+                 try {
+                     String path = files.get(i).toURI().toString();
+                     Media media = new Media(path);
+                     media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+                         if (change.wasAdded()) {
+                             String key = change.getKey();
+                             if ("title".equals(key)) {
+                                 if (media.getMetadata().get("title").toString() != null) {
+                                     myMedia.setTitle(media.getMetadata().get("title").toString());
+                                 }
+                             } else if ("artist".equals(key)) {
+                                 myMedia.setArtist(media.getMetadata().get("artist").toString());
+                             } else if ("album".equals(key)) {
+                                 myMedia.setAlbum(media.getMetadata().get("album").toString());
+                             } else if ("genre".equals(key)) {
+                                 myMedia.setGenre(media.getMetadata().get("genre").toString());
+                             } else if ("year".equals(key)) {
+                                 myMedia.setYear(Integer.parseInt(media.getMetadata().get("year").toString()));
+                             } else if (media.getMetadata().get("length") != null) {
+                                 myMedia.setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
+                             }
 
-         thread =new Thread(new MediaCreatorThread(files,provv,startIsNeeded,resetPlayQueueNeeded));
-         thread.setDaemon(true);
-         thread.start();
-         /*synchronized (obj){
-             obj.wait(2000);
-         }
-         Thread thread1 = new Thread(new MetaDataApply(provv));
-         thread1.setDaemon(true);
-         thread1.start();*/
-
+                         }
+                     });
+                     next = true;
+                     if(startIsNeeded){
+                         if (resetPlayQueueNeeded && i==0){
+                             PlayQueue.getInstance().generateNewQueue(myMedia);
+                         }
+                         else{
+                             PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+                         }
+                     }
+                     if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                         VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
+                     }
+                     else{
+                         MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
+                 } catch (Exception e) {
+                     next = true;
+                 }
+                 while(!next) {}
+             }
+         });
+         t.setDaemon(true);
+         t.start();
     }
-
-    public void startMetadata(List<MyMedia> myMediaList){
-        Thread thread1 = new Thread(new MetaDataApply(myMediaList));
-        thread1.setDaemon(true);
-        thread1.start();
-    }
-
-
-
-
 
 
     public void mediaPlayingNowDataDisplayedUpdate(){

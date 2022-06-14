@@ -97,20 +97,20 @@ public class Player {
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
 
-        //mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+
 
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaLoaded.set(true);
         mediaPlayer.setOnReady(()->{
-            if (!PlayQueue.getInstance().getQueue().get(index).getPath().toLowerCase().endsWith(".mp4")){
-                setMediaName(media.getMetadata().get("title").toString());
-                setArtistName(media.getMetadata().get("artist").toString());
-            }
+            // TODO: 14/06/2022 se rimosso, problemi con lo slider 
 
             playMedia();
-            //metadataUpdate(index);
+        });
+        Platform.runLater(()->{
+            mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+            artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
         });
 
 

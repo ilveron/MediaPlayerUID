@@ -69,18 +69,33 @@ public class HomeController implements Initializable {
         for (int i= size-1; i>=0; --i){
             RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i));
 
-            //tasto sinistro sul recentMedia
+
+
+            //tasto destro e sinistro sul recentMedia
             recentMedia.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
+                        if(mouseEvent.getClickCount() == 1){
+                            Double x = mouseEvent.getScreenX();
+                            Double y = mouseEvent.getScreenY();
+
+                            try {
+                                RightClickHandler.getInstance().init("Home",recentMedia.getMyMedia(),x,y,mouseEvent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                    else if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                         if(mouseEvent.getClickCount() == 2){
                             PlayQueue.getInstance().generateNewQueue(recentMedia.getMyMedia());
                         }
                         else if (mouseEvent.getClickCount()==1){
                             Platform.runLater(()->{
                                 recentMedia.requestFocus();
-                                System.out.println(recentMedia.isFocused());
                             });
 
 
@@ -89,24 +104,8 @@ public class HomeController implements Initializable {
                 }
             });
 
-            //tasto destro sul recentMedia
-            recentMedia.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-                        if(mouseEvent.getClickCount() == 1){
 
 
-                            try {
-                                RightClickHandler.getInstance().init("Home",recentMedia.getMyMedia());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                }
-            });
 
 
             recentMedia.setFocusTraversable(true);

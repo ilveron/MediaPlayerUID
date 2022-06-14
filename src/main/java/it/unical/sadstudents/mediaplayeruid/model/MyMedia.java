@@ -23,9 +23,6 @@ public class MyMedia  {
     private String path = "";
     private Double length;
     private Integer year;
-    private String imageUrl;
-    private static int cont=0;
-
 
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
@@ -35,81 +32,15 @@ public class MyMedia  {
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
-        imageUrl = "src/main/resources/it/unical/sadstudents/mediaplayeruid/image/download.png";
-
-
-
         setTitle(file.getName());
-
-        try{Media media = new Media(path);
-
-        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            if(change.wasAdded()) {
-                //System.out.println(media.getMetadata());
-                if ("title".equals(change.getKey())) {
-                    if (media.getMetadata().get("title").toString() != null){
-                        setTitle(media.getMetadata().get("title").toString());
-                        cont++;
-                        System.out.println("metadati trovati: "+cont);
-
-
-                    }
-                }
-                else if ("artist".equals(change.getKey())) {
-                    setArtist(media.getMetadata().get("artist").toString());
-                }
-                else if ("album".equals(change.getKey())) {
-                    setAlbum(media.getMetadata().get("album").toString());
-                }
-                else if ("genre".equals(change.getKey())) {
-                    setGenre(media.getMetadata().get("genre").toString());
-                }
-                else if ("year".equals(change.getKey())) {
-                    setYear(Integer.parseInt(media.getMetadata().get("year").toString()));
-                }
-                else if (media.getMetadata().get("length") != null){
-                    setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
-                    System.out.println("Ho la length: "+ length);
-                }
-               /*else if (media.getMetadata().get("image") != null){
-                    Object newImage = (media.getMetadata().get("image"));
-                    Image image = ((Image)newImage);
-                    File outputFile = new File("src/main/resources/it/unical/sadstudents/mediaplayeruid/imageMedia/");
-                    BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
-
-
-                    try {
-                        ImageIO.write((RenderedImage) image, "jpg", outputFile);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-
-
-
-                }*/
-
-
-            }
-        });}catch(MediaException mediaException){
-            mediaException.printStackTrace();
-        }
-
-
-    }
+   }
     //END CLASS CONSTRUCTOR
 
     //VARIABLES GETTERS AND SETTERS
 
 
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
 
-    public void setImage(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public void setTitle(String title) { this.title = title; }
     public void setArtist(String artist) { this.artist = artist; }
