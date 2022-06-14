@@ -508,6 +508,7 @@ public class MainController implements Initializable {
 
                 }
                 else if (key == KeyCode.T){//T	Shuffle
+                    onShuffle(new ActionEvent());
 
                 }
 
@@ -539,6 +540,8 @@ public class MainController implements Initializable {
         M	Mute*/
 
     }
+
+
 
 
 

@@ -23,6 +23,8 @@ public class RecentMediaTemplateController {
 
     @FXML
     private Label artistLabel;
+    @FXML
+    private MediaView   mediaViewBis;
 
     @FXML
     private ImageView imageView;
@@ -53,22 +55,32 @@ public class RecentMediaTemplateController {
                 }
             });
         }
-        /*else{
+        else{
             Media media = new Media(myMedia.getPath());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
-            MediaView mediaView = new MediaView(mediaPlayer);
-            int width = mediaPlayer.getMedia().getWidth();
-            int height = mediaPlayer.getMedia().getHeight();
-            WritableImage wim = new WritableImage(width, height);
 
-            mediaView.setFitWidth(width);
-            mediaView.setFitHeight(height);
-            //mv.setMediaPlayer(mediaPlayer);
-            mediaPlayer.seek(Duration.seconds ((media.getDuration().toSeconds()/100.00)*10.00));
-            mediaView.snapshot(null, wim);
-            Image image = (Image)wim;
-            imageView.setImage(image);
-        }*/
+            //MediaView mv = new MediaView();
+            mediaViewBis.setMediaPlayer(mediaPlayer);
+
+            mediaPlayer.setOnReady(()->{
+                int width = (int)mediaViewBis.getFitWidth();
+                int height = (int)mediaViewBis.getFitHeight();
+                System.out.println(width);
+                System.out.println(height);
+                WritableImage wim = new WritableImage(width, height);
+                System.out.println(mediaPlayer.getStatus());
+                mediaPlayer.seek(Duration.seconds(20));
+                mediaPlayer.play();
+                mediaViewBis.snapshot(null, wim);
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaViewBis.setVisible(false);
+
+                imageView.setImage(wim);
+            });
+
+
+        }
 
 
         imageView.setFitHeight(200);
