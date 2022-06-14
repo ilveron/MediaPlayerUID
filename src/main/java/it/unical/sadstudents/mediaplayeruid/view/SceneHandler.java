@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.controller.MainController;
+import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
@@ -11,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -97,6 +100,11 @@ public class SceneHandler {
             }
         });
 
+
+
+
+
+
     }
 
     //SWITCH PANE SEATED IN THE MIDDLE OF THE BORDERPANE
@@ -120,5 +128,7 @@ public class SceneHandler {
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource(Settings.style)).toExternalForm());
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
     }
+
+
 
 }

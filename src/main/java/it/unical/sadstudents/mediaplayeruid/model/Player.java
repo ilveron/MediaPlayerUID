@@ -22,6 +22,7 @@ public class Player {
     private Media media;
     private MediaPlayer mediaPlayer;
     private MediaView mediaView ;
+    private Integer index;
     //END VARIABLES
 
     //PROPERTIES
@@ -96,6 +97,7 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
+        this.index = index;
 
 
 
@@ -137,6 +139,7 @@ public class Player {
             mediaPlayer.play();
             isRunning.set(true);
             ThreadManager.getInstance().beginTimer();
+            Home.getInstance().addToRecentMedia(PlayQueue.getInstance().getQueue().get(index));
         }
     }
     //END FUNCTION START POINT FOR MEDIA REPRODUCTION

@@ -32,6 +32,7 @@ public class MainController implements Initializable {
     private StackPane containerView;
     @FXML
     private MediaView mediaView;
+
     @FXML
     private FontIcon iconPlayPause;
     @FXML
@@ -65,11 +66,14 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
+
         //INITIALIZE AN INVISIBLE MEDIAVIEW
         Player.getInstance().setMediaView(mediaView);
 
         //AFTER THE LOAD CONTROL IN SCENE HANDLER, THE FUNCTION SET THE CORRECT PANE IN MIDDLE OF BORDER PANE
         switchMidPane();
+
+        setKeyEvent();
 
 
         //START LISTENER VARI
@@ -252,6 +256,8 @@ public class MainController implements Initializable {
 
         if(PlayQueue.getInstance().getQueue().size()>1)
             PlayQueue.getInstance().changeMedia(1);
+        myBorderPane.requestFocus();
+
     }
 
     @FXML
@@ -472,6 +478,70 @@ public class MainController implements Initializable {
         }
 
     }
+
+    public void setKeyEvent(){
+
+        myBorderPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCode key = keyEvent.getCode();
+                if(key == KeyCode.SPACE && Player.getInstance().isMediaLoaded()){ //Space	Play/pause
+                    plsPlayPause.requestFocus();
+                    if(Player.getInstance().getIsRunning())
+                        Player.getInstance().pauseMedia();
+                    else
+                        Player.getInstance().playMedia();
+
+                }
+                else if(key == KeyCode.S){//S	Stop
+                    Player.getInstance().stop();
+                }
+                else if (key == KeyCode.N){//N	Next track
+                    PlayQueue.getInstance().changeMedia(1);
+                }
+                else if (key == KeyCode.P){//P	Previous track
+                    PlayQueue.getInstance().changeMedia(-1);
+
+                }
+                else if (key == KeyCode.L){ //L	Normal/loop/repeat
+
+
+                }
+                else if (key == KeyCode.T){//T	Shuffle
+
+                }
+
+
+                myBorderPane.requestFocus();
+                //else if(key == KeyCode.ALT+KeyCode.KP_LEFT)
+
+            }
+        });
+        /*Playback
+
+
+        +	Faster
+                -	Slower
+                    ]	Faster (fine)
+                [	Slower (fine)
+                =	Normal rate
+
+        Alt + Left arrow	Back 10 seconds
+        Alt + Right arrow	Forward 10 seconds
+
+        Ctrl + Q	Quit
+
+
+
+                Audio
+        Ctrl + Up arrow	Increase volume
+        Ctrl + Down arrow	Decrease volume
+        M	Mute*/
+
+    }
+
+
+
     //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
 
 

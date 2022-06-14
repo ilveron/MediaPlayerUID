@@ -162,7 +162,7 @@ public class PlayQueue implements DataListedModel{
         else isAVideo.set(false);
         if(Player.getInstance().isMediaLoaded())
             Player.getInstance().stop();
-        Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
+        //Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
         Player.getInstance().createMedia(currentMedia.get());
     }
 
