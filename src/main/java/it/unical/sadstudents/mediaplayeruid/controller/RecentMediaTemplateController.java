@@ -56,7 +56,7 @@ public class RecentMediaTemplateController {
                 }
             });
         }
-        else{
+        /*else{
             Media media = new Media(myMedia.getPath());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
 
@@ -83,7 +83,7 @@ public class RecentMediaTemplateController {
             });
 
 
-        }
+        }*/
 
 
         imageView.setFitHeight(200);

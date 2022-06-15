@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -49,7 +50,7 @@ public class MainController implements Initializable {
     private ToolBar toolbarMenu;
     @FXML
     private Button plsEquilizer,plsNext,plsPlayPause,plsPrevious,plsProperties,plsRepeat,
-            plsScreenMode,plsSkipBack,plsSpeedPlay,plsSkipForward;
+            plsScreenMode,plsSkipBack,plsSpeedPlay,plsSkipForward,lightMode,darkMode,about;
     @FXML
     private ToggleButton plsShuffle;
     @FXML
@@ -136,7 +137,6 @@ public class MainController implements Initializable {
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
         // TODO: 15/06/2022 why??
-        PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
         Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
         //END LISTENER VARI
@@ -206,11 +206,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void onSettings(ActionEvent event) {
-
+    void onLightMode(ActionEvent event) {
+        SceneHandler.getInstance().changeTheme("unical");
     }
-    //END ACTION EVENT MENU
 
+    @FXML
+    void onDarkMode(ActionEvent event) {
+        SceneHandler.getInstance().changeTheme("dark");
+    }
+
+    @FXML
+    void onAbout(ActionEvent event) {
+        // TODO: 15/06/2022 Fare quello che ci si aspetta in about
+        System.out.println("About");
+    }
 
     //ACTION EVENT MEDIA CONTROLS BAR
     @FXML
@@ -237,9 +246,13 @@ public class MainController implements Initializable {
 
     @FXML
     void onPrevious(ActionEvent event) {
+       previous();
+
+    }
+
+    private void previous(){
         if(PlayQueue.getInstance().getQueue().size()>1)
             PlayQueue.getInstance().changeMedia(-1);
-
     }
 
     @FXML

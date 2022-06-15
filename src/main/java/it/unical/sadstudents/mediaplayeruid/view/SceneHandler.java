@@ -124,15 +124,18 @@ public class SceneHandler {
 
     }
 
-    public void changeTheme() {
-        if("dark".equals(Settings.theme))
-            Settings.theme = "unical";
-        else
-            Settings.theme = "dark";
-        scene.getStylesheets().clear();
+    public void changeTheme(String theme) {
+        if(!theme.equals(Settings.theme)){
+            Settings.theme = theme;
+            scene.getStylesheets().clear();
 
-        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource(Settings.style)).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource(Settings.style)).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
+        }
+        //else
+            // TODO: 15/06/2022 Mostrare "Theme already applied"
+
+
     }
 
 
