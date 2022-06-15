@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="anchorPanePlaylist" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistTemplateController">
+   <children>
+      <ImageView fx:id="imagePlaylist" fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Label fx:id="labelName" text="Label" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewPlaylist" layoutX="10.0" layoutY="10.0" minWidth="470.0" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <columns>
+            <TableColumn fx:id="title" editable="false" prefWidth="163.20001524686813" text="Title" />
+            <TableColumn fx:id="artist" editable="false" minWidth="4.7999267578125" prefWidth="78.4000244140625" text="Artist" />
+            <TableColumn fx:id="album" editable="false" prefWidth="71.19993591308594" text="Album" />
+            <TableColumn fx:id="genre" editable="false" prefWidth="72.0" text="Genre" />
+            <TableColumn fx:id="year" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Year" />
+            <TableColumn fx:id="length" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="Length" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

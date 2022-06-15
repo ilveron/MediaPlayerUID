@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
@@ -21,6 +22,9 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class RecentMediaTemplateController {
+
+    @FXML
+    private StackPane stackPaneRecent;
 
     @FXML
     private Label artistLabel;
@@ -88,5 +92,9 @@ public class RecentMediaTemplateController {
 
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
+
+
     }
+
+
 }

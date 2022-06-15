@@ -18,7 +18,9 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RightClickController implements Initializable {
+public class RightClickController {
+    String source;
+    MyMedia myMedia;
 
     @FXML
     private Button delFrom, playfromBtn;
@@ -35,25 +37,23 @@ public class RightClickController implements Initializable {
         actionPlayFrom();
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        String source = RightClickHandler.getInstance().getSource();
+    public void init (MyMedia myMedia, String source){
+        this.source=source;
+        this.myMedia=myMedia;
         if (source=="Home"){
             delFrom.setText("Delete from Recent");
             playfromBtn.setText("Play");
 
         }
-
     }
 
+
     public void actionDeleteFrom(){
-        if(RightClickHandler.getInstance().getSource()=="Home"){
+        if(source=="Home"){
             for (int i=0; i< Home.getInstance().getRecentMedia().size();i++){
-                if(Home.getInstance().getRecentMedia().get(i).equals(RightClickHandler.getInstance().getMyMedia())){
+                if(Home.getInstance().getRecentMedia().get(i).equals(myMedia)){
                     Home.getInstance().getRecentMedia().remove(i);
                     Home.getInstance().setChangeHappened(true);
-                    stageClose();
 
                 }
             }
@@ -61,16 +61,12 @@ public class RightClickController implements Initializable {
     }
 
     public void actionPlayFrom(){
-        if(RightClickHandler.getInstance().getSource()=="Home"){
-            PlayQueue.getInstance().generateNewQueue(RightClickHandler.getInstance().getMyMedia());
-            stageClose();
+        if(source=="Home"){
+            PlayQueue.getInstance().generateNewQueue(myMedia);
         }
 
     }
 
-    public void stageClose(){
-        RightClickHandler.getInstance().getStageRightClick().close();
-    }
 
 
 }

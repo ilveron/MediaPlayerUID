@@ -5,46 +5,52 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController">
+
+<StackPane fx:id="homeStackPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController">
    <children>
-      <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="HOME" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font size="39.0" />
-         </font>
-      </Label>
-      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#addFiles" styleClass="menuItem" text="Media(s)">
+      <AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css">
+         <children>
+            <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="HOME" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#addFiles" styleClass="menuItem" text="Media(s)">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItem" />
+                     </graphic>
+                  </MenuItem>
+                <MenuItem mnemonicParsing="false" onAction="#addFolder" styleClass="menuItem" text="Folder(s)">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="menuItem" />
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <font>
+                  <Font size="14.0" />
+               </font>
                <graphic>
-                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItem" />
+                  <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
-            </MenuItem>
-          <MenuItem mnemonicParsing="false" onAction="#addFolder" styleClass="menuItem" text="Folder(s)">
-               <graphic>
-                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="menuItem" />
-               </graphic>
-            </MenuItem>
-        </items>
-         <font>
-            <Font size="14.0" />
-         </font>
-         <graphic>
-            <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
-         </graphic>
-      </MenuButton>
-      <Label layoutX="6.0" layoutY="68.0" styleClass="sceneSubHeaders" text="Recent Media:" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="68.0" />
-      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="primaryTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-        <content>
-          <AnchorPane styleClass="primaryTemplate">
-               <children>
-                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+            </MenuButton>
+            <Label layoutX="6.0" layoutY="68.0" styleClass="sceneSubHeaders" text="Recent Media:" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="68.0" />
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="primaryTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+              <content>
+                <AnchorPane styleClass="primaryTemplate">
+                     <children>
+                        <TilePane fx:id="tilePane" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
@@ -24,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
 
+    @FXML
+    private StackPane homeStackPane;
     @FXML
     private TilePane tilePane;
     @FXML
@@ -77,11 +80,14 @@ public class HomeController implements Initializable {
                 public void handle(MouseEvent mouseEvent) {
                     if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
                         if(mouseEvent.getClickCount() == 1){
-                            Double x = mouseEvent.getScreenX();
-                            Double y = mouseEvent.getScreenY();
+                            Double x = mouseEvent.getX();
+
+                            Double y = mouseEvent.getY();
+
 
                             try {
-                                RightClickHandler.getInstance().init("Home",recentMedia.getMyMedia(),x,y,mouseEvent);
+                                RightClickHandler rightClickHandler = new RightClickHandler(recentMedia.getMyMedia(),x,y);
+                                homeStackPane.getChildren().add(1,rightClickHandler);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistsController">
+<AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistsController">
    <children>
-      <Label minWidth="450.0" styleClass="sceneHeaders" text="PLAYLISTS" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="PlayList" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" text="Crea Playlist" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
-         <graphic>
-            <FontIcon iconLiteral="fa-list-alt" iconSize="15" styleClass="icons" />
-         </graphic>
+      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#addFiles" styleClass="menuItem" text="Media(s)">
+               <graphic>
+                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItem" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#addFolder" styleClass="menuItem" text="Folder(s)">
+               <graphic>
+                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="menuItem" />
+               </graphic>
+            </MenuItem>
+         </items>
          <font>
             <Font size="14.0" />
          </font>
-      </Button>
-      <ListView AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0" />
+         <graphic>
+            <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
+         </graphic>
+      </MenuButton>
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="primaryTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <AnchorPane styleClass="primaryTemplate">
+               <children>
+                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

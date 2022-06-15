@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.ShortCutController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutY="190.0" prefHeight="241.0" prefWidth="400.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="141.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="Alt + Left arrow" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Back 10 seconds" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="169.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="Alt + Right arrow" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Forward 10 seconds" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="173.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="Ctrl + Q" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Quit" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="177.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="Ctrl + Up arrow" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Increase volume" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="180.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="Ctrl + Down arrow" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Decrease volume" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="132.0" maxHeight="40.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefWidth="100.0" text="F" />
+                  <Label layoutX="190.0" layoutY="21.0" text=":" />
+                  <Label text="Change screen mode (only on videos)" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER" layoutY="287.0" prefHeight="121.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="290.0">
+         <children>
+            <Label alignment="CENTER" text="MusicPlayerUID">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Developed in May/June 2022 for the User Interface Design course by:" />
+            <Label text="Alessandro Monetti" />
+            <Label text="Andrea Tocci " />
+            <Label layoutX="196.0" layoutY="60.0" text="Ernesto Rapisarda" />
+         </children>
+      </VBox>
+      <Label alignment="CENTER" prefHeight="40.0" text="ABOUT THIS PROJECT" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
