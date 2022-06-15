@@ -41,15 +41,16 @@ public class RightClickHandler extends Pane {
     //END GETTERS AND SETTERS
 
 
-    public RightClickHandler(MyMedia myMedia,Double x, Double y){
+    public RightClickHandler(MyMedia myMedia,Double x, Double y,String source){
         this.source = source;
         this.myMedia = myMedia;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("rightClick-view.fxml"));
         try{
             AnchorPane root = loader.load();
-            root.setLayoutX(x);
-            root.setLayoutY(y);
-            RightClickController controller = loader.getController();
+            //root.setLayoutX(x);
+            //root.setLayoutY(y);
+
+            RightClickController controller=loader.getController();
             controller.init(myMedia,source);
             this.getChildren().add(root);
         }catch(Exception ignoredException){}

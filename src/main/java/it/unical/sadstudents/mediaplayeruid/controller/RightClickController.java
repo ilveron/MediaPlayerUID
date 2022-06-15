@@ -19,8 +19,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RightClickController {
-    String source;
-    MyMedia myMedia;
+    public String source;
+    public MyMedia myMedia;
+
 
     @FXML
     private Button delFrom, playfromBtn;
@@ -61,6 +62,8 @@ public class RightClickController {
     }
 
     public void actionPlayFrom(){
+        System.out.println("ciao");
+        System.out.println(source);
         if(source=="Home"){
             PlayQueue.getInstance().generateNewQueue(myMedia);
         }
