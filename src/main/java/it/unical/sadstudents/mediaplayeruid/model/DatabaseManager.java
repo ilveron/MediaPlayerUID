@@ -93,6 +93,7 @@ public class DatabaseManager {
                 stmt.setInt(10,0);
                 stmt.execute();
                 stmt.close();
+
                 return true;
             }
         }catch (SQLException e) {e.printStackTrace();}

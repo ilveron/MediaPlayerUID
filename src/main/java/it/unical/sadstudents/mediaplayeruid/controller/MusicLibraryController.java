@@ -101,7 +101,7 @@ public class MusicLibraryController implements Initializable {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,Integer>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
-        MusicLibrary.getInstance().sortList();
+        //MusicLibrary.getInstance().sortList();
         beginTimer();
 
         /*tableViewMusicLibrary.setRowFactory(tableView ->{
