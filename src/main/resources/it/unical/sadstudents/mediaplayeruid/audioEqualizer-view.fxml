@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="225.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.AudioEqualizerController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label text="Audio equalizer" />
+            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <AnchorPane maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider32" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="6.0" layoutY="167.0" text="32" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider64" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="6.0" layoutY="167.0" text="64" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="49.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider125" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="6.0" layoutY="167.0" text="125" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="88.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider250" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="6.0" layoutY="167.0" text="250" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="127.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider500" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="6.0" layoutY="167.0" text="500" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="166.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider1k" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="13.0" layoutY="149.0" text="1K" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="149.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="205.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider2k" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="13.0" layoutY="149.0" text="2K" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="149.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="244.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider4k" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="13.0" layoutY="149.0" text="4K" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="149.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="283.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider8k" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="13.0" layoutY="149.0" text="8K" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="149.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="322.0" layoutY="10.0" maxWidth="39.0" prefHeight="200.0" prefWidth="39.0">
+                     <children>
+                        <Slider fx:id="slider16k" blockIncrement="5.0" majorTickUnit="5.0" orientation="VERTICAL" snapToTicks="true" value="50.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="9.0" layoutY="150.0" prefHeight="19.0" prefWidth="21.0" text="16K" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="150.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

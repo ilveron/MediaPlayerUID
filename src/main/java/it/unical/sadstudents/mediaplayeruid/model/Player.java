@@ -4,6 +4,7 @@ import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.MapChangeListener;
+import javafx.scene.media.EqualizerBand;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -23,6 +24,7 @@ public class Player {
     private MediaPlayer mediaPlayer;
     private MediaView mediaView ;
     private Integer index;
+    private boolean loopMode;
     //END VARIABLES
 
     //PROPERTIES
@@ -83,6 +85,10 @@ public class Player {
     public String getArtistName() { return artistName.get(); }
     public SimpleStringProperty artistNameProperty() { return artistName; }
     public void setArtistName(String artistName) { this.artistName.set(artistName); }
+
+    public boolean isLoopMode() { return loopMode; }
+    public void setLoopMode(boolean loopMode) { this.loopMode = loopMode; }
+
     //END VARIABLES GETTERS AND SETTERS
 
     //GETTERS AND SETTERS NEEDED TO SET VIDEO TAB
@@ -180,11 +186,11 @@ public class Player {
         ThreadManager.getInstance().cancelTimer();
     }
 
-    public void restart() {
-        if(media != null)
-            mediaPlayer.seek(Duration.seconds(0.0));
-        mediaPlayer.play();
-        ThreadManager.getInstance().beginTimer();
+    public void repeat() {
+        if(!loopMode)
+            loopMode = true;
+        else
+            loopMode = false;
     }
 
     public void setVolume(double v) {
