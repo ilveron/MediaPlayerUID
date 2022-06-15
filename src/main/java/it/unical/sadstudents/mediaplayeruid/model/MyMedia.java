@@ -23,6 +23,7 @@ public class MyMedia  {
     private String path = "";
     private Double length;
     private Integer year;
+    private Image image;
 
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 

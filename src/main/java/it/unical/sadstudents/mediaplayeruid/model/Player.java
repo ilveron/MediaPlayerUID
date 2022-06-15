@@ -46,6 +46,9 @@ public class Player {
 
 
     //VARIABLES GETTERS AND SETTERS
+
+
+
     public boolean isMediaLoaded() {
         return mediaLoaded.get();
     }

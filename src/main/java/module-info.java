@@ -7,6 +7,7 @@ module it.unical.sadstudents.mediaplayeruid {
     requires javafx.media;
     requires java.desktop;
 
+
     opens it.unical.sadstudents.mediaplayeruid to javafx.fxml;
     exports it.unical.sadstudents.mediaplayeruid;
     exports it.unical.sadstudents.mediaplayeruid.controller;

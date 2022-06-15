@@ -135,6 +135,7 @@ public class MainController implements Initializable {
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
+        // TODO: 15/06/2022 why??
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
         Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
@@ -487,37 +488,47 @@ public class MainController implements Initializable {
                 KeyCode key = keyEvent.getCode();
                 if(key == KeyCode.SPACE && Player.getInstance().isMediaLoaded()){ //Space	Play/pause
                     plsPlayPause.requestFocus();
-                    if(Player.getInstance().getIsRunning())
-                        Player.getInstance().pauseMedia();
-                    else
-                        Player.getInstance().playMedia();
-
+                    plsPlayPause.fire();
                 }
                 else if(key == KeyCode.S){//S	Stop
                     Player.getInstance().stop();
                 }
                 else if (key == KeyCode.N){//N	Next track
-                    PlayQueue.getInstance().changeMedia(1);
+                    plsNext.fire();
+                    //PlayQueue.getInstance().changeMedia(1);
                 }
                 else if (key == KeyCode.P){//P	Previous track
-                    PlayQueue.getInstance().changeMedia(-1);
+                    plsPrevious.fire();
+                    //PlayQueue.getInstance().changeMedia(-1);
 
                 }
                 else if (key == KeyCode.L){ //L	Normal/loop/repeat
-
+                    plsRepeat.fire();
 
                 }
                 else if (key == KeyCode.T){//T	Shuffle
-                    onShuffle(new ActionEvent());
+                    plsShuffle.fire();
+               }
+                else if (key == KeyCode.M){//M	Mute
+                    if(Player.getInstance().getMediaPlayer().isMute()){
+                        Player.getInstance().getMediaPlayer().setMute(false);
+                        volumeSlider.setDisable(false);
+                    }
+
+                    else{
+                        volumeSlider.setDisable(true);
+                        Player.getInstance().getMediaPlayer().setMute(true);
+                    }
 
                 }
-
-
                 myBorderPane.requestFocus();
                 //else if(key == KeyCode.ALT+KeyCode.KP_LEFT)
 
             }
         });
+
+
+
         /*Playback
 
 
@@ -536,8 +547,8 @@ public class MainController implements Initializable {
 
                 Audio
         Ctrl + Up arrow	Increase volume
-        Ctrl + Down arrow	Decrease volume
-        M	Mute*/
+        Ctrl + Down arrow	Decrease volume*/
+
 
     }
 

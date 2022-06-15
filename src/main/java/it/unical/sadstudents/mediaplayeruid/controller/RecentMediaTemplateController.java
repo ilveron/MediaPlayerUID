@@ -15,6 +15,7 @@ import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
+import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -72,6 +73,8 @@ public class RecentMediaTemplateController {
                 mediaPlayer.seek(Duration.seconds(20));
                 mediaPlayer.play();
                 mediaViewBis.snapshot(null, wim);
+                //BufferedImage image = wim.getPixelWriter();
+
                 mediaPlayer.stop();
                 mediaPlayer.dispose();
                 mediaViewBis.setVisible(false);
