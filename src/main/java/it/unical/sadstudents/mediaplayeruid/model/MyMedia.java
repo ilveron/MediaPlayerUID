@@ -21,15 +21,27 @@ public class MyMedia  {
     private String album = "";
     private String genre = "";
     private String path = "";
-    private Double length;
-    private Integer year;
-    private Image image;
+    private Double length=0.0;
+    private Integer year=0;
+    private String imageUrl="";
 
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
     // TODO:
 
     //CLASS CONSTRUCTOR
+
+    public MyMedia(String title, String artist, String album, String genre, String path, Double length, Integer year, String imageUrl) {
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+        this.path = path;
+        this.length = length;
+        this.year = year;
+        this.imageUrl = imageUrl;
+    }
+
     public MyMedia() { }
     public MyMedia(File file) {
         path = file.toURI().toString();
@@ -58,7 +70,15 @@ public class MyMedia  {
     public Double getLength() { return length; }
     public Integer getYear() { return year; }
 
-   @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageURL) {
+        this.imageUrl = imageURL;
+    }
+
+    @Override
    public String toString() {
         return  title + '\'' + artist + '\'' +album + '\'' +genre + '\'' +path + '\'' +length +'\''+year ;
     }

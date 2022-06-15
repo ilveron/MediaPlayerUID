@@ -65,6 +65,7 @@ public class ThreadManager {
              for (int i=0; i<files.size();i++) {
                  next = false;
                  MyMedia myMedia = new MyMedia(files.get(i));
+                 DatabaseManager.getInstance().addMedia(myMedia);
                  try {
                      String path = files.get(i).toURI().toString();
                      Media media = new Media(path);
@@ -74,17 +75,23 @@ public class ThreadManager {
                              if ("title".equals(key)) {
                                  if (media.getMetadata().get("title").toString() != null) {
                                      myMedia.setTitle(media.getMetadata().get("title").toString());
+                                     DatabaseManager.getInstance().setMediaString(myMedia.getTitle(),"Title", myMedia.getPath());
                                  }
                              } else if ("artist".equals(key)) {
                                  myMedia.setArtist(media.getMetadata().get("artist").toString());
+                                 DatabaseManager.getInstance().setMediaString(myMedia.getArtist(),"Artist", myMedia.getPath());
                              } else if ("album".equals(key)) {
                                  myMedia.setAlbum(media.getMetadata().get("album").toString());
+                                 DatabaseManager.getInstance().setMediaString(myMedia.getAlbum(),"Album", myMedia.getPath());
                              } else if ("genre".equals(key)) {
                                  myMedia.setGenre(media.getMetadata().get("genre").toString());
+                                 DatabaseManager.getInstance().setMediaString(myMedia.getGenre(),"Genre", myMedia.getPath());
                              } else if ("year".equals(key)) {
                                  myMedia.setYear(Integer.parseInt(media.getMetadata().get("year").toString()));
+                                 DatabaseManager.getInstance().setMediaInt(myMedia.getYear(),"Year", myMedia.getPath());
                              } else if (media.getMetadata().get("length") != null) {
                                  myMedia.setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
+                                 DatabaseManager.getInstance().setMediaDouble(myMedia.getLength(),"Length", myMedia.getPath());
                              }
 
                          }
@@ -99,10 +106,13 @@ public class ThreadManager {
                          }
                      }
                      if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                         DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"VideoLibrary");
                          VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                      }
                      else{
-                         MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
+                         DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"MusicLibrary");
+                         MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
+                     }
                  } catch (Exception e) {
                      next = true;
                  }

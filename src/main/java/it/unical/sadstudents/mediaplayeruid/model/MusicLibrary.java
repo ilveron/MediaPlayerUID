@@ -63,6 +63,7 @@ public class MusicLibrary implements DataListedModel{
             if (myMedia.equals(myMedia1))
                 return;
         }
+
         Library.add(myMedia);
         //sortTF++;
         //if(getKMusic()>1) sortList();

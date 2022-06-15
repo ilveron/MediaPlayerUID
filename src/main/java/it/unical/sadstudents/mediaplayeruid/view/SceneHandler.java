@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.controller.MainController;
+import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -67,6 +68,8 @@ public class SceneHandler {
 
     //START MAIN STAGE AND SCENE
     public void init(Stage mainStage) throws Exception {
+        DatabaseManager.getInstance().createTableMyMedia();
+
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
         stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
@@ -97,11 +100,14 @@ public class SceneHandler {
             public void handle(WindowEvent windowEvent) {
                 Platform.exit();
                 System.exit(0);
+                DatabaseManager.getInstance().disconnect();
             }
         });
 
 
-
+        DatabaseManager.getInstance().receiveMyMedia("MusicLibrary");
+        DatabaseManager.getInstance().receiveMyMedia("VideoLibrary");
+        //DatabaseManager.getInstance().receiveRecentMedia();
 
 
 
