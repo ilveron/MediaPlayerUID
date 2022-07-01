@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
@@ -27,6 +28,9 @@ public class RecentMediaTemplateController {
     private StackPane stackPaneRecent;
 
     @FXML
+    private AnchorPane actionAnchorPane;
+
+    @FXML
     private Label artistLabel;
     @FXML
     private MediaView   mediaViewBis;
@@ -38,6 +42,8 @@ public class RecentMediaTemplateController {
     private Label nameLabel;
     @FXML
     private AnchorPane mainRoot;
+    @FXML
+    private Pane onActionPane;
 
 
 
@@ -94,6 +100,19 @@ public class RecentMediaTemplateController {
         imageView.setFitWidth(200);
 
 
+    }
+
+    public void onMouseOver(){
+        if(!onActionPane.isVisible()){
+            onActionPane.setVisible(true);
+            actionAnchorPane.setVisible(true);
+
+        }
+        else{
+            onActionPane.setVisible(false);
+            actionAnchorPane.setVisible(false);
+
+        }
     }
 
 

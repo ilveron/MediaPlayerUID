@@ -16,13 +16,14 @@ import java.io.IOException;
 public class RecentMedia extends Pane {
 
     private MyMedia myMedia;
+    private RecentMediaTemplateController controller;
 
     public RecentMedia(MyMedia myMedia){
         this.myMedia = myMedia;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("recentMediaTemplate-view.fxml"));
         try{
             AnchorPane root = loader.load();
-            RecentMediaTemplateController controller = loader.getController();
+            controller = loader.getController();
             controller.init(myMedia);
             this.getChildren().add(root);
             //root.prefWidthProperty().bind(this.widthProperty());
@@ -31,5 +32,10 @@ public class RecentMedia extends Pane {
     }
 
     public MyMedia getMyMedia(){return myMedia;}
+
+    public void mouseOverAction(){
+        controller.onMouseOver();
+    }
+
 
 }

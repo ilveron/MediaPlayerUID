@@ -63,4 +63,9 @@ public class PlaylistTemplateController {
         year.setCellValueFactory(new PropertyValueFactory<MyMedia, Integer>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia, Double>("length"));
     }
+
+    public void setDim(double size){
+        anchorPanePlaylist.setPrefWidth(size);
+    }
+
 }

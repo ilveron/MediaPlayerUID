@@ -5,6 +5,7 @@ import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
 import it.unical.sadstudents.mediaplayeruid.view.RightClickHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -111,6 +112,15 @@ public class HomeController implements Initializable {
 
                         }
                     }
+                }
+            });
+
+            recentMedia.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    recentMedia.mouseOverAction();
+
+                } else {
+                    recentMedia.mouseOverAction();
                 }
             });
 
