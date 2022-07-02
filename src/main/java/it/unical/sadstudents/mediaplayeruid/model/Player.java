@@ -222,10 +222,10 @@ public class Player {
                     PlayQueue.getInstance().getQueue().get(index).setGenre(mediaPlayer.getMedia().getMetadata().get("genre").toString());
                 }
                 else if ("year".equals(change.getKey())) {
-                    PlayQueue.getInstance().getQueue().get(index).setYear(Integer.parseInt(mediaPlayer.getMedia().getMetadata().get("year").toString()));
+                    PlayQueue.getInstance().getQueue().get(index).setYear((mediaPlayer.getMedia().getMetadata().get("year").toString()));
                 }
                 else if (media.getMetadata().get("length") != null){
-                    PlayQueue.getInstance().getQueue().get(index).setLength(Double.parseDouble(mediaPlayer.getMedia().getMetadata().get("length").toString()));
+                    PlayQueue.getInstance().getQueue().get(index).setLength(ThreadManager.getInstance().formatTime((Double) mediaPlayer.getMedia().getMetadata().get("length")));
                 }
 
             }

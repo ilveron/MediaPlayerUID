@@ -24,7 +24,7 @@ public class DatabaseManager {
 
     //GET AND SETTER
     public String getUrl() {return url;}
-    public void setUrl(String url) {this.url = url;}
+    //public void setUrl(String url) {this.url = url;}
     //END GET AND SETTER
 
     //FUNCTION
@@ -87,8 +87,8 @@ public class DatabaseManager {
                 stmt.setString(4, myMedia.getGenre());
                 stmt.setString(5, myMedia.getAlbum());
                 stmt.setString(6, myMedia.getImageUrl());
-                stmt.setDouble(7, myMedia.getLength());
-                stmt.setInt(8, myMedia.getYear());
+                stmt.setString(7, myMedia.getLength());
+                stmt.setString(8, myMedia.getYear());
                 stmt.setInt(9,0);
                 stmt.setInt(10,0);
                 stmt.execute();
@@ -224,12 +224,12 @@ public class DatabaseManager {
                     if(filter=="MusicLibrary") {
                         MusicLibrary.getInstance().getMusicLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                                 rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
-                                , rs.getDouble("Length"), rs.getInt("Year"), rs.getString("Image")));
+                                , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                     }
                     else if(filter=="VideoLibrary"){
                         VideoLibrary.getInstance().getVideoLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                                 rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
-                                , rs.getDouble("Length"), rs.getInt("Year"), rs.getString("Image")));
+                                , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                     }
                 }
                 stmt.close();
@@ -253,7 +253,7 @@ public class DatabaseManager {
                 while (rs.next()) {
                     myMedia.add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
-                            , rs.getDouble("Length"), rs.getInt("Year"), rs.getString("Image")));
+                            , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                 }
                 stmt.close();
                 return myMedia;
@@ -275,7 +275,7 @@ public class DatabaseManager {
                 while (rs.next()) {
                     myMedia.add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
-                            , rs.getDouble("Length"), rs.getInt("Year"), rs.getString("Image")));
+                            , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                 }
                 stmt.close();
                 return myMedia;
@@ -334,8 +334,8 @@ public class DatabaseManager {
                             "Genre VARCHAR(100)," +
                             "Album VARCHAR(100)," +
                             "Image VARCHAR(255)," +
-                            "Length FLOAT(25)," +
-                            "Year INT," +
+                            "Length VARCHAR(10)," +
+                            "Year VARCHAR(10)," +
                             "MusicLibrary INT,"+
                             "VideoLibrary INT,"+
                             "PRIMARY KEY (Path));";

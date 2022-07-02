@@ -35,4 +35,5 @@ public class PlayList extends Pane {
     public void setDim(double size){
      playlistTemplateController.setDim(size);
     }
+
 }

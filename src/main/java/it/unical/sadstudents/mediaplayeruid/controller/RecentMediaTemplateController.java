@@ -3,8 +3,11 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import javafx.collections.MapChangeListener;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotResult;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,10 +19,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
 
 public class RecentMediaTemplateController {
@@ -66,7 +71,7 @@ public class RecentMediaTemplateController {
                 }
             });
         }
-        /*else{
+        else{
             Media media = new Media(myMedia.getPath());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
 
@@ -76,24 +81,52 @@ public class RecentMediaTemplateController {
             mediaPlayer.setOnReady(()->{
                 int width = (int)mediaViewBis.getFitWidth();
                 int height = (int)mediaViewBis.getFitHeight();
-                System.out.println(width);
-                System.out.println(height);
+                //System.out.println(width);
+                //System.out.println(height);
                 WritableImage wim = new WritableImage(width, height);
-                System.out.println(mediaPlayer.getStatus());
-                mediaPlayer.seek(Duration.seconds(20));
+                //System.out.println(mediaPlayer.getStatus());
+                // mediaPlayer.seek(Duration.seconds(15));
+                mediaViewBis.setVisible(true);
+                mediaPlayer.seek(Duration.seconds(5));
                 mediaPlayer.play();
-                mediaViewBis.snapshot(null, wim);
+                mediaPlayer.pause();
+                Service<Void> service = new Service<>() {
+                    @Override
+                    protected Task<Void> createTask() {
+                        return new Task<>() {
+                            @Override
+                            protected Void call() throws Exception {
+                                Thread.sleep(5000);
+                                return null;
+                            }
+                        };
+                    }
+                };
+                service.setOnSucceeded(event -> {
+                    mediaViewBis.snapshot(new Callback<SnapshotResult, Void>() {
+                        @Override
+                        public Void call(SnapshotResult snapshotResult) {
+                            //System.out.println("QUI");
+                            //imageView.setImage(snapshotResult.getImage());
+                            //saveToFile(snapshotResult.getImage());
+                            mediaViewBis.setVisible(false);
+                            mediaPlayer.dispose();
+                            return null;
+                        }
+                    }, null, wim);
+                    imageView.setImage(wim);
+                });
+                service.start();
                 //BufferedImage image = wim.getPixelWriter();
+                //System.out.println(wimBis);
 
-                mediaPlayer.stop();
-                mediaPlayer.dispose();
-                mediaViewBis.setVisible(false);
-
-                imageView.setImage(wim);
+                //mediaPlayer.stop();
+                //mediaViewBis.setVisible(false);
+                //               imageView.setImage(wim);
             });
 
 
-        }*/
+        }
 
 
         imageView.setFitHeight(200);
@@ -113,7 +146,18 @@ public class RecentMediaTemplateController {
             actionAnchorPane.setVisible(false);
 
         }
+
     }
+
+    /*public void saveToFile(Image image) {
+        File outputFile = new File("/Users/carmine/Desktop/prova.png");
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 
 
 }

@@ -17,12 +17,12 @@ import java.util.Objects;
 public class MyMedia  {
     //VARIABLES-DATA
     private String title = "";
-    private String artist = "";
-    private String album = "";
-    private String genre = "";
+    private String artist = "N/A";
+    private String album = "N/A";
+    private String genre = "N/A";
     private String path = "";
-    private Double length=0.0;
-    private Integer year=0;
+    private String length="00:00:00";
+    private String year="N/A";
     private String imageUrl="";
 
 
@@ -31,7 +31,7 @@ public class MyMedia  {
 
     //CLASS CONSTRUCTOR
 
-    public MyMedia(String title, String artist, String album, String genre, String path, Double length, Integer year, String imageUrl) {
+    public MyMedia(String title, String artist, String album, String genre, String path, String length, String year, String imageUrl) {
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -58,8 +58,10 @@ public class MyMedia  {
     public void setTitle(String title) { this.title = title; }
     public void setArtist(String artist) { this.artist = artist; }
     public void setAlbum(String album) { this.album = album; }
-    public void setLength(Double length) { this.length = length; }
-    public void setYear(Integer year) { this.year = year; }
+    public void setLength(String length) {
+        this.length = length;
+    }
+    public void setYear(String year) { this.year = year; }
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
     public String getPath() { return path; }
@@ -67,8 +69,8 @@ public class MyMedia  {
     public String getTitle() { return title; }
     public String getArtist() { return artist; }
     public String getAlbum() { return album; }
-    public Double getLength() { return length; }
-    public Integer getYear() { return year; }
+    public String getLength() { return length; }
+    public String getYear() { return year; }
 
     public String getImageUrl() {
         return imageUrl;
@@ -106,4 +108,5 @@ public class MyMedia  {
     public int hashCode() {
         return Objects.hash(getPath());
     }
+
 }

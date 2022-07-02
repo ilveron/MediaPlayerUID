@@ -7,6 +7,7 @@ import it.unical.sadstudents.mediaplayeruid.view.RightClickHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.scene.control.Button;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,12 +33,10 @@ public class PlaylistsController implements Initializable {
     private TilePane tilePane;
 
     @FXML
-    void addFiles(ActionEvent event) {
-
-    }
+    private Button ButtonCreatePlaylist;
 
     @FXML
-    void addFolder(ActionEvent event) {
+    void onCreatePlaylist(ActionEvent event) {
 
     }
 
@@ -54,6 +54,7 @@ public class PlaylistsController implements Initializable {
         tilePane.getChildren().clear();
         int size= Playlists.getInstance().getPlayListsCollections().size();
         for (int i= 0; i<size; ++i){
+            System.out.println("creato");
             PlayList playList = new PlayList(Playlists.getInstance().getPlayListsCollections().get(i));
             playList.setFocusTraversable(true);
             playList.setDim(setDimTilePane());

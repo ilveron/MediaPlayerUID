@@ -62,6 +62,9 @@ public class ThreadManager {
         this.startIsNeeded=startIsNeeded;
         this.resetPlayQueueNeeded=resetPlayQueueNeeded;
         Thread t = new Thread(() -> {
+            MediaPlayer mediaPlayer;
+
+            List<String> myMediaList = new ArrayList<>();
              for (int i=0; i<files.size();i++) {
                  next = false;
                  MyMedia myMedia = new MyMedia(files.get(i));
@@ -72,30 +75,65 @@ public class ThreadManager {
                      media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
                          if (change.wasAdded()) {
                              String key = change.getKey();
+                             //System.out.println(key);
                              if ("title".equals(key)) {
                                  if (media.getMetadata().get("title").toString() != null) {
                                      myMedia.setTitle(media.getMetadata().get("title").toString());
+                                     myMediaList.add(myMedia.getTitle());
+                                     myMediaList.add("Title");
+                                     myMediaList.add(myMedia.getPath());
                                      //DatabaseManager.getInstance().setMediaString(myMedia.getTitle(),"Title", myMedia.getPath());
                                  }
                              } else if ("artist".equals(key)) {
                                  myMedia.setArtist(media.getMetadata().get("artist").toString());
+                                 myMediaList.add(myMedia.getArtist());
+                                 myMediaList.add("Artist");
+                                 myMediaList.add(myMedia.getPath());
                                  //DatabaseManager.getInstance().setMediaString(myMedia.getArtist(),"Artist", myMedia.getPath());
                              } else if ("album".equals(key)) {
                                  myMedia.setAlbum(media.getMetadata().get("album").toString());
+                                 myMediaList.add(myMedia.getAlbum());
+                                 myMediaList.add("Album");
+                                 myMediaList.add(myMedia.getPath());
                                  //DatabaseManager.getInstance().setMediaString(myMedia.getAlbum(),"Album", myMedia.getPath());
                              } else if ("genre".equals(key)) {
                                  myMedia.setGenre(media.getMetadata().get("genre").toString());
+                                 myMediaList.add(myMedia.getGenre());
+                                 myMediaList.add("Genre");
+                                 myMediaList.add(myMedia.getPath());
                                  //DatabaseManager.getInstance().setMediaString(myMedia.getGenre(),"Genre", myMedia.getPath());
                              } else if ("year".equals(key)) {
-                                 myMedia.setYear(Integer.parseInt(media.getMetadata().get("year").toString()));
-                                // DatabaseManager.getInstance().setMediaInt(myMedia.getYear(),"Year", myMedia.getPath());
-                             } else if (media.getMetadata().get("length") != null) {
-                                 myMedia.setLength(Double.parseDouble(media.getMetadata().get("length").toString()));
+                                 myMedia.setYear(media.getMetadata().get("year").toString());
+                                 myMediaList.add(myMedia.getYear());
+                                 myMediaList.add("Year");
+                                 myMediaList.add(myMedia.getPath());
+                                //DatabaseManager.getInstance().setMediaInt(myMedia.getYear(),"Year", myMedia.getPath());
+                             }/* else if (media.getMetadata().get("duration") != null) {
+                                 //myMedia.setLength(Double.parseDouble(media.getMetadata().get("duration").toString()));
                                  //DatabaseManager.getInstance().setMediaDouble(myMedia.getLength(),"Length", myMedia.getPath());
-                             }
+                                 System.out.println(media.getMetadata().get("duration").toString());
+                             }*/
+
+                             //System.out.println(media.getDuration());
+
 
                          }
                      });
+                     mediaPlayer = new MediaPlayer(media);
+                     MediaPlayer finalMediaPlayer = mediaPlayer;
+                     mediaPlayer.setOnReady(new Runnable() {
+                         @Override
+                         public void run() {
+                             myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
+                             myMediaList.add(myMedia.getLength());
+                             myMediaList.add("Length");
+                             myMediaList.add(myMedia.getPath());
+                             finalMediaPlayer.dispose();
+                         }
+                     });
+
+                     //mediaPlayer.dispose();
+
                      next = true;
                      if(startIsNeeded){
                          if (resetPlayQueueNeeded && i==0){
@@ -110,7 +148,7 @@ public class ThreadManager {
                          VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                      }
                      else{
-                         //DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"MusicLibrary");
+                         DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"MusicLibrary");
                          MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                      }
                  } catch (Exception e) {
@@ -118,6 +156,30 @@ public class ThreadManager {
                  }
                  while(!next) {}
              }
+
+            synchronized(obj){
+                try {
+                    obj.wait(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (int i=0; i<myMediaList.size();i+=3 ){
+                 next= false;
+                 try {
+                     DatabaseManager.getInstance().setMediaString(myMediaList.get(i), myMediaList.get(i + 1), myMediaList.get(i + 2));
+                     next = true;
+                 }catch (Exception exception){
+                     next=true;
+                 }
+
+
+             }
+             while(!next){}
+
+
+
          });
          t.setDaemon(true);
          t.start();
@@ -161,19 +223,15 @@ public class ThreadManager {
     }
     //END TASK
 
-    /*public void metadataInRunTime(Media media){
-        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            if(change.wasAdded()) {
-                //System.out.println(media.getMetadata());
-                if ("title".equals(change.getKey())) {
-                    if (media.getMetadata().get("title").toString() != null)
-                        Player.getInstance().setMediaName(media.getMetadata().get("title").toString());
-                }
-                else if ("artist".equals(change.getKey())) {
-                    Player.getInstance().setArtistName(media.getMetadata().get("artist").toString());
-                }
-            }
-        });
+    public String formatTime(double timeDouble) {
+        if (timeDouble > 0) {
+            int hh = (int) (timeDouble / 3600);
+            int mm = (int) ((timeDouble % 3600) / 60);
+            int ss = (int) ((timeDouble % 3600) % 60);
 
-    }*/
+            return String.format("%02d:%02d:%02d", hh, mm, ss);
+        }
+
+        return "00:00:00";
+    }
 }

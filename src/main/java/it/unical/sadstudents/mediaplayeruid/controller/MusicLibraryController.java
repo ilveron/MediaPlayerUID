@@ -23,9 +23,9 @@ public class MusicLibraryController implements Initializable {
     @FXML
     private TableColumn<MyMedia,String> title, artist, album, genre;
     @FXML
-    private TableColumn<MyMedia, Integer> year;
+    private TableColumn<MyMedia, String> year;
     @FXML
-    private TableColumn<MyMedia, Double> length;
+    private TableColumn<MyMedia, String> length;
 
     @FXML
     private Button btnAddLibraryToQueue, btnAddSongToQueue, btnDelete;
@@ -99,8 +99,8 @@ public class MusicLibraryController implements Initializable {
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
         album.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("album"));
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
-        year.setCellValueFactory(new PropertyValueFactory<MyMedia,Integer>("year"));
-        length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
+        year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
+        length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
         //MusicLibrary.getInstance().sortList();
         beginTimer();
 
