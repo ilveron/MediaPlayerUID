@@ -59,6 +59,7 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
+        reset();
         tableView.setItems(MusicLibrary.getInstance().getMusicLibrary());
     }
 
@@ -69,6 +70,7 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
+        reset();
         tableView.setItems(VideoLibrary.getInstance().getVideoLibrary());
     }
 
@@ -101,28 +103,26 @@ public class AddMediaToPlaylistController implements Initializable {
         tableView.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if(event.getClickCount() > 1 && !row.isEmpty()){
-                    DataExchangePlaylist.getInstance().addPlaylist(row.getItem());
-                }else if(event.getClickCount()==1 && !row.isEmpty()){
-                    // TODO: 02/07/2022  fixare errore deselezione
+                //if(event.getClickCount() > 1 && !row.isEmpty()){
+                //    DataExchangePlaylist.getInstance().addPlaylist(row.getItem());
+                //}else
+                if(event.getClickCount()==1 && !row.isEmpty()){
                     int index=presente(row.getIndex());
                     if(index!=-1){
-                        prinf();
-                        System.out.println("deseleziono: "+row.getIndex());
-                        row.setStyle("-fx-background-color: white;");
+                        row.setStyle("-fx-background-color: white;"); // TODO: 02/07/2022  vedere che colore mettere
+                        row.setFocusTraversable(false);
                         PosizioniSelezionate.remove(index);
-                        prinf();
                     }else {
                         setButtonAdd(false);
-                        System.out.println("Ci sono pos " + row.getIndex());
+                        row.setFocusTraversable(false);
                         PosizioniSelezionate.add(row.getIndex());
-                        prinf();
                         row.setStyle("-fx-background-color: RED;");
                     }
 
                 }else if(row.isEmpty()){
                     System.out.println("clear");
                     reset();
+                    row.setFocusTraversable(false);
                     PosizioniSelezionate.clear();
                     setButtonAdd(true);
 
@@ -137,24 +137,18 @@ public class AddMediaToPlaylistController implements Initializable {
     }
 
     public int presente(int index){
-        System.out.println(index+" voglio cacciare il numero ");
         for(int i=0;i<PosizioniSelezionate.size();i++) {
             if (PosizioniSelezionate.get(i) == index)
                 return i;
         }
         return -1;
     }
-    private void prinf(){
-        for(int i=0;i<PosizioniSelezionate.size();i++){
-            System.out.println(PosizioniSelezionate.get(i));
-        }
-        System.out.println();
-    }
+
 
     public void reset(){
+        // TODO: 02/07/2022  non funziona il reset 
         for(int i=0;i<PosizioniSelezionate.size();i++){
-            TableRow<MyMedia> row=new TableRow<>();
-            row=tableView.getRowFactory().call(tableView);
+            TableRow<MyMedia> row=tableView.getRowFactory().call(tableView);
             row.setStyle("-fx-background-color: white;");
         }
     }

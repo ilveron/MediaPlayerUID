@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.ToggleButton?>
@@ -111,6 +112,16 @@
                               <Insets />
                            </VBox.margin>
                         </ToolBar>
+                        <VBox fx:id="vBoxProgressBar" spacing="5.0" visible="false" VBox.vgrow="NEVER">
+                           <children>
+                              <Label fx:id="progressType" text="LOADING  MEDIA IN PROGRESS" textFill="#f2eeee" />
+                              <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
+                              <Label text="Don't close the Media Player" textFill="#da0909" />
+                           </children>
+                           <VBox.margin>
+                              <Insets right="10.0" />
+                           </VBox.margin>
+                        </VBox>
                         <ToolBar prefHeight="40.0" prefWidth="245.0" styleClass="primaryTemplate">
                           <items>
                             <Button fx:id="lightMode" mnemonicParsing="false" onAction="#onLightMode" prefHeight="29.0" prefWidth="80.0" styleClass="toolBarButton">

@@ -94,7 +94,7 @@ public class PlayQueueController implements Initializable {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
-        beginTimer();
+        //beginTimer();
 
         colorSelectedRow();
 

@@ -2,29 +2,20 @@ package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
-import it.unical.sadstudents.mediaplayeruid.controller.MainController;
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
-import it.unical.sadstudents.mediaplayeruid.model.Player;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class SceneHandler {
@@ -32,6 +23,8 @@ public class SceneHandler {
     private Scene scene;
     private Stage stage;
     private Pane subScene;
+    private SimpleBooleanProperty mediaLoadingInProgess = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty metadataLoadindagInProgess = new SimpleBooleanProperty(false);
 
     private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
 
@@ -48,6 +41,18 @@ public class SceneHandler {
     //GETTERS AND SETTERS
 
 
+    public boolean isMetadataLoadindagInProgess() {
+        return metadataLoadindagInProgess.get();
+    }
+
+    public SimpleBooleanProperty metadataLoadindagInProgessProperty() {
+        return metadataLoadindagInProgess;
+    }
+
+    public void setMetadataLoadindagInProgess(boolean metadataLoadindagInProgess) {
+        this.metadataLoadindagInProgess.set(metadataLoadindagInProgess);
+    }
+
     public Stage getStage() {
         return stage;
     }
@@ -63,6 +68,19 @@ public class SceneHandler {
     public void setCurrentMidPane(String currentMidPane) {
         this.currentMidPane.set(currentMidPane);
     }
+
+    public boolean getMediaLoadingInProgess() {
+        return mediaLoadingInProgess.get();
+    }
+
+    public SimpleBooleanProperty mediaLoadingInProgessProperty() {
+        return mediaLoadingInProgess;
+    }
+
+    public void setMediaLoadingInProgess(boolean mediaLoadingInProgess) {
+        this.mediaLoadingInProgess.set(mediaLoadingInProgess);
+    }
+
     //END GETTERS AND SETTERS
 
 

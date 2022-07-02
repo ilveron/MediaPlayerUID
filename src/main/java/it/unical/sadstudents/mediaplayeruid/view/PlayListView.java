@@ -9,11 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class PlayList extends Pane {
+public class PlayListView extends Pane {
     private Playlist playlist;
     private PlaylistTemplateController playlistTemplateController;
 
-    public PlayList(Playlist playlist){
+    public PlayListView(Playlist playlist){
         this.playlist = playlist;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("playlist-template.fxml"));
         try{

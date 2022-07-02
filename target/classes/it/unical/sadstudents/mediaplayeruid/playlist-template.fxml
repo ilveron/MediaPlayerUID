@@ -28,7 +28,7 @@
                         </HBox>
                         <Button fx:id="ButtonAzione" mnemonicParsing="false" onAction="#onPlayPlaylist" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <graphic>
-                              <FontIcon iconLiteral="fa-play" iconSize="50" />
+                              <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="50" />
                            </graphic>
                         </Button>
                      </children>

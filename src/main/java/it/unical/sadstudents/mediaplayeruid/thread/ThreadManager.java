@@ -1,29 +1,39 @@
 package it.unical.sadstudents.mediaplayeruid.thread;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.concurrent.Task;
+import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.ToDoubleBiFunction;
 
+import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
 public class ThreadManager {
     private Timer timer;
     private TimerTask timerTask;
-    private Task task;
-    private Thread thread;
+    //private Task task;
+    //private Thread thread;
     private final Object obj= new Object();
 
-    public Thread getThread() {
+    private double mediaFinded = 0.0;
+    private double mediaProcessed = 0.0;
+    private double metaDataFinded = 0.0;
+    private double metaDataProcessed=0.0;
+
+
+
+    /*public Thread getThread() {
         return thread;
-    }
+    }*/
 
     public Object getObj() {
         return obj;
@@ -61,10 +71,15 @@ public class ThreadManager {
     public void createMediaBis(List<File> files, boolean startIsNeeded,boolean resetPlayQueueNeeded) throws InterruptedException {
         this.startIsNeeded=startIsNeeded;
         this.resetPlayQueueNeeded=resetPlayQueueNeeded;
+        mediaFinded=files.size();
+        SceneHandler.getInstance().setMediaLoadingInProgess(true);
         Thread t = new Thread(() -> {
+            int cont=0;
+            double start = System.currentTimeMillis();
             MediaPlayer mediaPlayer;
 
             List<String> myMediaList = new ArrayList<>();
+
              for (int i=0; i<files.size();i++) {
                  next = false;
                  MyMedia myMedia = new MyMedia(files.get(i));
@@ -108,20 +123,15 @@ public class ThreadManager {
                                  myMediaList.add("Year");
                                  myMediaList.add(myMedia.getPath());
                                 //DatabaseManager.getInstance().setMediaInt(myMedia.getYear(),"Year", myMedia.getPath());
-                             }/* else if (media.getMetadata().get("duration") != null) {
-                                 //myMedia.setLength(Double.parseDouble(media.getMetadata().get("duration").toString()));
-                                 //DatabaseManager.getInstance().setMediaDouble(myMedia.getLength(),"Length", myMedia.getPath());
-                                 System.out.println(media.getMetadata().get("duration").toString());
-                             }*/
-
-                             //System.out.println(media.getDuration());
+                             }
 
 
                          }
                      });
+
                      mediaPlayer = new MediaPlayer(media);
                      MediaPlayer finalMediaPlayer = mediaPlayer;
-                     mediaPlayer.setOnReady(new Runnable() {
+                     finalMediaPlayer.setOnReady(new Runnable() {
                          @Override
                          public void run() {
                              myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
@@ -131,9 +141,18 @@ public class ThreadManager {
                              finalMediaPlayer.dispose();
                          }
                      });
+                     boolean tooTime=false;
+                     double current=System.currentTimeMillis();
+                     while(!tooTime && finalMediaPlayer.getStatus()!= MediaPlayer.Status.READY ){
+                         if(System.currentTimeMillis()-current>500)
+                             tooTime=true;
+                     }
 
-                     //mediaPlayer.dispose();
+                     //System.out.println(String.format(("%d %d"),files.size(),++cont));
 
+
+
+                     mediaProcessed+=1;
                      next = true;
                      if(startIsNeeded){
                          if (resetPlayQueueNeeded && i==0){
@@ -153,30 +172,38 @@ public class ThreadManager {
                      }
                  } catch (Exception e) {
                      next = true;
+                     mediaProcessed+=1;
                  }
                  while(!next) {}
              }
-
-            synchronized(obj){
-                try {
-                    obj.wait(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+            metaDataFinded= myMediaList.size()/3;
+            Platform.runLater(() -> {
+                SceneHandler.getInstance().setMetadataLoadindagInProgess(true);
+            });
 
             for (int i=0; i<myMediaList.size();i+=3 ){
                  next= false;
                  try {
                      DatabaseManager.getInstance().setMediaString(myMediaList.get(i), myMediaList.get(i + 1), myMediaList.get(i + 2));
+                     metaDataProcessed+=1;
                      next = true;
                  }catch (Exception exception){
+                     metaDataProcessed+=1;
                      next=true;
                  }
 
+                while(!next){}
+            }
 
-             }
-             while(!next){}
+            double fine = System.currentTimeMillis();
+            System.out.println (String.format("tempo impiegato %f",(fine-start)));
+
 
 
 
@@ -186,12 +213,42 @@ public class ThreadManager {
     }
 
 
+
+
+
     public void mediaPlayingNowDataDisplayedUpdate(){
         // TODO: 05/06/2022
     }
 
-    public void progressBarUpdate(){
-        // TODO: 05/06/2022
+    public void progressBarUpdate(ProgressBar progressBar,String type) {
+        Task task = new Task<Void>() {
+            @Override
+            public Void call() {
+                if(type=="media"){
+                    while(mediaFinded>mediaProcessed) {
+                        if(isCancelled())
+                            break;
+                        updateProgress(mediaProcessed,mediaFinded);
+                    }
+                }else{
+                    while(metaDataFinded>metaDataProcessed) {
+                        if(isCancelled())
+                            break;
+                        updateProgress(metaDataProcessed,metaDataFinded);
+                        //break;
+                    }
+                    SceneHandler.getInstance().setMetadataLoadindagInProgess(false);
+                    SceneHandler.getInstance().setMediaLoadingInProgess(false);
+                    System.out.println("finito");
+                }
+                return null;
+            }
+        };
+        progressBar.progressProperty().bind(task.progressProperty());
+        Thread t = new Thread(task);
+        t.setDaemon(true);
+        t.start();
+
     }
     
     public void listGenerator(){
@@ -229,7 +286,7 @@ public class ThreadManager {
             int mm = (int) ((timeDouble % 3600) / 60);
             int ss = (int) ((timeDouble % 3600) % 60);
 
-            return String.format("%02d:%02d:%02d", hh, mm, ss);
+            return format("%02d:%02d:%02d", hh, mm, ss);
         }
 
         return "00:00:00";

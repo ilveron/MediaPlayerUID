@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

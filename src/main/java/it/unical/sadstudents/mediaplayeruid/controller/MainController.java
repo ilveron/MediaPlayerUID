@@ -34,6 +34,10 @@ public class MainController implements Initializable {
     private StackPane containerView;
     @FXML
     private MediaView mediaView;
+    @FXML
+    private ProgressBar progressBarLoading;
+    @FXML
+    private VBox vBoxProgressBar;
 
     @FXML
     private FontIcon iconPlayPause;
@@ -46,7 +50,7 @@ public class MainController implements Initializable {
     @FXML
     private Slider mediaSlider;
     @FXML
-    private Label currentMediaTimeLabel, mediaNameLabel, endMediaTimeLabel, artistNameLabel;
+    private Label currentMediaTimeLabel, mediaNameLabel, endMediaTimeLabel, artistNameLabel,progressType;
     @FXML
     private ToolBar toolbarMenu;
     @FXML
@@ -137,6 +141,26 @@ public class MainController implements Initializable {
             endMediaTimeLabel.setText(formatTime(Player.getInstance().getEndMediaTime()));
         });
 
+        SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+            if (SceneHandler.getInstance().getMediaLoadingInProgess()){
+                vBoxProgressBar.setVisible(true);
+                progressType.setText("LOADING MEDIA IN PROGRESS");
+                ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"media");
+            }
+            else{
+                vBoxProgressBar.setVisible(false);
+            }
+        });
+
+        SceneHandler.getInstance().metadataLoadindagInProgessProperty().addListener(observable -> {
+                if(SceneHandler.getInstance().isMetadataLoadindagInProgess())
+                {
+                    progressType.setText("LOADING METADATA IN PROGRESS");
+                    ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"meta");
+                }
+
+
+        });
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());

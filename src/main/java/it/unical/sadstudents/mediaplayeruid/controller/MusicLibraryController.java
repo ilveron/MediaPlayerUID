@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,10 +60,12 @@ public class MusicLibraryController implements Initializable {
     // TODO: 08/06/2022 stesso problema sotto, passo un myMedia non un file 
     @FXML
     void onAddLibraryToQueue(ActionEvent event) {
-        for(int i=0;i<MusicLibrary.getInstance().getKMusic();i++){
-            PlayQueue.getInstance().addFileToListFromOtherModel((MusicLibrary.getInstance().getMusicLibrary().get(i)));
+        for(MyMedia myMedia : MusicLibrary.getInstance().getMusicLibrary()){
+            PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
         }
+        SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
     }
+
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
         MyMedia myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedItem();
