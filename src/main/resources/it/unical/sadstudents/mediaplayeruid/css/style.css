@@ -235,7 +235,7 @@
 
 .recentMedia {
     -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 5.0, 0.0);
-    -fx-background-radius: 10px;
+    -fx-background-radius: 15px;
 }
 
 .recentMedia:hover{
@@ -248,6 +248,16 @@
 
 .recentMedia:hover > .recentMediaNameLabel {
     -fx-text-fill: secondaryBackgroundColor;
+}
+
+.recentMediaImageBg{
+    -fx-background-color: black;
+    -fx-background-radius: 15px;
+}
+
+.recentMediaOverlyingMenu{
+    -fx-background-color: primarySelectionColor;
+    -fx-opacity: 0.9;
 }
 
 .slider {

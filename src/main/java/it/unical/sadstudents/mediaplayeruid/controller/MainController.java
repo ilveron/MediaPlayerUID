@@ -38,6 +38,8 @@ public class MainController implements Initializable {
     private ProgressBar progressBarLoading;
     @FXML
     private VBox vBoxProgressBar;
+    @FXML
+    private ComboBox<String> speedComboBox;
 
     @FXML
     private FontIcon iconPlayPause;
@@ -82,6 +84,8 @@ public class MainController implements Initializable {
         switchMidPane();
 
         setKeyEvent();
+
+        //speedComboBox.butt
 
 
         //START LISTENER VARI

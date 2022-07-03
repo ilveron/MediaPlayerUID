@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotResult;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -161,11 +162,13 @@ public class RecentMediaTemplateController {
         if(!actionAnchorPane.isVisible()){
             //onActionPane.setVisible(true);
             actionAnchorPane.setVisible(true);
+            imageView.setEffect(new GaussianBlur(20));
 
         }
         else{
             //onActionPane.setVisible(false);
             actionAnchorPane.setVisible(false);
+            imageView.setEffect(null);
 
         }
 
