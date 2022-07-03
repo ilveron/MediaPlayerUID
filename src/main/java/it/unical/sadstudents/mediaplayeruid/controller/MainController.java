@@ -1,22 +1,32 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.keyCombo;
+import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
@@ -57,7 +67,7 @@ public class MainController implements Initializable {
     private ToolBar toolbarMenu;
     @FXML
     private Button plsEquilizer, plsNext, plsPlayPause, plsPrevious, plsProperties,
-            plsScreenMode, plsSkipBack, plsSpeedPlay, plsSkipForward, lightMode, darkMode, about;
+            plsScreenMode, plsSkipBack,  plsSkipForward, lightMode, darkMode, about;
     @FXML
     private ToggleButton plsShuffle;
     @FXML
@@ -72,6 +82,9 @@ public class MainController implements Initializable {
     private FontIcon repeatIcon;
     @FXML
     private FontIcon shuffleIcon;
+
+    @FXML
+    private StackPane centralStackPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,6 +123,9 @@ public class MainController implements Initializable {
 
             }
         });
+
+
+
         // TODO: 07/06/2022 fixare tooltip plsPlayPause 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane());
         Player.getInstance().mediaLoadedProperty().addListener(observable -> changeButtonEnabledStatus());
@@ -125,7 +141,17 @@ public class MainController implements Initializable {
             }
         });
 
-        mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        String[] speeds = {"0.5 X","1.0 X","2.0 X"};
+        for(int i=0; i<speeds.length ; i++){
+            speedComboBox.getItems().add(speeds[i]);
+        }
+        speedComboBox.setOnAction(this::changeSpeed);
+/*        Player.getInstance().getMediaPlayer().rateProperty().addListener(observable -> {
+            if (speedComboBox.getValue()!=Player.getInstance().getMediaPlayer().getRate())
+                speedComboBox.setId("ciao");
+        });
+
+  */      mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
                 double curr = Player.getInstance().getCurrentMediaTime();
@@ -166,22 +192,7 @@ public class MainController implements Initializable {
 
         });
 
-        volumeButton.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-            if (newValue && !volumeButton.isShowing()) {
-                //volumeButton.requestFocus();
-                volumeButton.show();
-                System.out.println("ciao");
-            }
-           /* else if(volumeButton.isHover()){
 
-            }*/
-        });
-
-        volumeButton.onMouseExitedProperty().addListener(observable -> {
-            if(volumeButton.isShowing())
-                System.out.println("ciao2");
-                volumeButton.hide();
-        });
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
@@ -197,7 +208,7 @@ public class MainController implements Initializable {
         // TODO: 07/06/2022 
         plsShuffle.setTooltip(new Tooltip("Shuffle mode"));
         plsScreenMode.setTooltip(new Tooltip("Screen mode"));
-        plsSpeedPlay.setTooltip(new Tooltip("Speed play"));
+        speedComboBox.setTooltip(new Tooltip("Speed play"));
         plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
         plsSkipBack.setTooltip(new Tooltip("Skip back 10s"));
         volumeButton.setTooltip(new Tooltip("Volume"));
@@ -375,13 +386,29 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
+   /* @FXML
     void onSpeedPlay(ActionEvent event) {
 
-    }
+    }*/
 
     @FXML
     void onEquilizer(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("audioEqualizer-view.fxml"));
+        try{
+            Scene scene = new Scene(loader.load(),400,225);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("AUDIO EQUALIZER");
+            stage.setMinHeight(400);
+            stage.setMinWidth(225);
+            stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
+            stage.setScene(scene);
+            stage.showAndWait();
+            //stage.setOnCloseRequest
+        }catch(Exception exception){
+            exception.printStackTrace();}
+
+
 
     }
 
@@ -494,6 +521,22 @@ public class MainController implements Initializable {
         return "00:00:00";
     }
 
+    public void changeSpeed(ActionEvent event){
+        if (speedComboBox.getValue()=="0.5 X")
+            Player.getInstance().getMediaPlayer().setRate(0.5);
+        else if(speedComboBox.getValue()=="1.0 X")
+            Player.getInstance().getMediaPlayer().setRate(1);
+        else{
+            Player.getInstance().getMediaPlayer().setRate(2.0);
+
+        }
+
+
+
+        //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue())*0.01);
+        //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue().substring(0, speedComboBox.getValue().length() - 1)) * 0.01);
+    }
+
     private void setMediaSliderEnd() {
         mediaSlider.setMax(Player.getInstance().getEndMediaTime());
         //durationMediaPlayed.setText(CalcolaTempo(Player.getInstance().getEnd()));
@@ -504,9 +547,30 @@ public class MainController implements Initializable {
         if (SceneHandler.getInstance().getCurrentMidPane() == "video-view.fxml") {
             btnVideoView.setDisable(false);
         }
-        Pane subScenePane = SceneHandler.getInstance().switchPane();
-        myBorderPane.setCenter(subScenePane);
-        subScenePane.autosize();
+        Timeline timeline = new Timeline();
+        if(centralStackPane.getChildren().size() <= 1){
+            centralStackPane.getChildren().add(SceneHandler.getInstance().switchPane());
+        }
+
+        // TODO: 03/07/2022 CLIC RIPETUTI BUGGANO TUTTO
+        if(centralStackPane.getChildren().size() == 2){
+            //subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
+            centralStackPane.getChildren().get(1).translateYProperty().set(SceneHandler.getInstance().getScene().getHeight());
+
+            KeyValue kv = new KeyValue(centralStackPane.getChildren().get(1).translateYProperty(), 0, Interpolator.EASE_BOTH);
+            KeyFrame kf = new KeyFrame(Duration.seconds(0.5), kv);
+            timeline.getKeyFrames().add(kf);
+            timeline.play();
+            //toolbarMenu.setDisable(true);
+            timeline.setOnFinished(event -> {
+                centralStackPane.getChildren().remove(0);
+                //toolbarMenu.setDisable(false);
+            });
+
+        }
+        //stackPane.getChildren().get()
+        //myBorderPane.setCenter(centralStackPane);
+        //subScenePane.autosize();
     }
 
     private void changeButtonEnabledStatus() {
@@ -524,7 +588,7 @@ public class MainController implements Initializable {
         plsProperties.setDisable(status);
         plsRepeat.setDisable(status);
         plsShuffle.setDisable(status);
-        plsSpeedPlay.setDisable(status);
+        speedComboBox.setDisable(status);
         volumeButton.setDisable(status);
         mediaSlider.setDisable(status);
         volumeSlider.setDisable(status);

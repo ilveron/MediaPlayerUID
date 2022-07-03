@@ -241,7 +241,7 @@
                                     </ToggleButton>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="790.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="192.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                              <HBox alignment="CENTER_RIGHT" layoutX="790.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="231.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                  <children>
                                     <MenuButton fx:id="volumeButton" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" style="-fx-background-color: transparent;" styleClass="secondaryTemplate">
                                       <items>
@@ -266,15 +266,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ComboBox fx:id="speedComboBox" prefWidth="150.0" />
-                                    <Button fx:id="plsSpeedPlay" disable="true" layoutX="191.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSpeedPlay" prefWidth="20.0">
-                                       <graphic>
-                                          <FontIcon iconLiteral="fa-dashboard" iconSize="15" styleClass="iconsOverBackground" />
-                                       </graphic>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
+                                    <ComboBox fx:id="speedComboBox" disable="true" prefHeight="25.0" prefWidth="68.0" promptText="1.0 X" style="-fx-background-color: transparent;" />
                                     <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="iconsOverBackground" />
@@ -298,6 +290,9 @@
                      </children>
                   </VBox>
                </bottom>
+               <center>
+                  <StackPane fx:id="centralStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
             </BorderPane>
          </children>
       </StackPane>

@@ -136,6 +136,7 @@ public class SceneHandler {
     // TODO: 05/06/2022 RIVEDERE BENE SOTTO
     public Pane switchPane(){
         try{
+
             subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
         }catch(IOException e){}
 

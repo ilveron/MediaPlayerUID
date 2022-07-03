@@ -259,9 +259,19 @@
     -fx-text-fill: secondaryBackgroundColor;
 }
 
-.recentMediaImageBg{
+.recentMediaImageBg {
     -fx-background-color: black;
     -fx-background-radius: 15px;
+}
+
+.recentMediaButton {
+    -fx-background-color: primaryBackgroundColor;
+    -fx-opacity: 0.7;
+    -fx-background-radius: 30px;
+}
+
+.recentMediaButton:hover {
+    -fx-background-color: primarySelectionColor;
 }
 
 .recentMediaOverlyingMenu{
