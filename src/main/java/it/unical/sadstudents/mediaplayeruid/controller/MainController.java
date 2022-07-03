@@ -162,6 +162,23 @@ public class MainController implements Initializable {
 
         });
 
+        volumeButton.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+            if (newValue && !volumeButton.isShowing()) {
+                //volumeButton.requestFocus();
+                volumeButton.show();
+                System.out.println("ciao");
+            }
+           /* else if(volumeButton.isHover()){
+
+            }*/
+        });
+
+        volumeButton.onMouseExitedProperty().addListener(observable -> {
+            if(volumeButton.isShowing())
+                System.out.println("ciao2");
+                volumeButton.hide();
+        });
+
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
         // TODO: 15/06/2022 why??
@@ -589,4 +606,5 @@ public class MainController implements Initializable {
         });
         //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     }
+
 }

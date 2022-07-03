@@ -127,14 +127,16 @@ public class RecentMediaTemplateController {
                         @Override
                         public Void call(SnapshotResult snapshotResult) {
                             //System.out.println("QUI");
-                            imageView.setImage(snapshotResult.getImage());
+                            //imageView.setImage(snapshotResult.getImage());
                             //saveToFile(snapshotResult.getImage());
                             mediaViewBis.setVisible(false);
                             mediaPlayer.dispose();
                             return null;
                         }
                     }, null, wim);
-                    //imageView.setImage(wim);
+                    imageView.setImage(wim);
+                    //imageView.setFitHeight(200);
+                    //imageView.setFitWidth(200);
                 });
                 service.start();
                 //BufferedImage image = wim.getPixelWriter();
@@ -149,8 +151,8 @@ public class RecentMediaTemplateController {
         }
 
 
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(200);
+        //imageView.setFitHeight(200);
+        //imageView.setFitWidth(200);
 
 
     }
