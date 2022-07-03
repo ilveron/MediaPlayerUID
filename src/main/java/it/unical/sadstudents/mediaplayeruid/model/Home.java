@@ -4,6 +4,7 @@ import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.chart.PieChart;
 
 import java.io.File;
 import java.util.*;
@@ -71,11 +72,28 @@ public class Home {
             if (myMedia.equals(recentMedia.get(i))){
                 recentMedia.remove(i);
                 recentMedia.add(myMedia);
+                DatabaseManager.getInstance().changePosixRecentMedia(myMedia.getPath());
                 added=true;
             }
         }
-        if(!added)
+        if(!added) {
+            if(recentMedia.size()>=20){
+                DatabaseManager.getInstance().deleteMedia(recentMedia.get(0).getPath(),"RecentMedia");
+                recentMedia.remove(0);
+            }
             recentMedia.add(myMedia);
+            DatabaseManager.getInstance().insertRecentMedia(myMedia);
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                changeHappened.set(true);
+            }
+        });
+    }
+
+    public void addToRecentMediaBis(MyMedia myMedia){
+        recentMedia.add(myMedia);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

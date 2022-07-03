@@ -6,6 +6,7 @@ import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.TilePane;
@@ -43,7 +44,7 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onAddLibraryToQueue(ActionEvent event) {
-        for(int i=0;i<MusicLibrary.getInstance().getKMusic();i++){
+        for(int i=0;i<VideoLibrary.getInstance().getVideoLibrary().size();i++){
             PlayQueue.getInstance().addFileToListFromOtherModel((VideoLibrary.getInstance().getVideoLibrary().get(i)));
         }
 
@@ -66,6 +67,8 @@ public class VideoLibraryController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         setContentTilePane();
+        if(VideoLibrary.getInstance().getVideoLibrary().size()>0)
+            activeButton();
 
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
@@ -78,7 +81,7 @@ public class VideoLibraryController  implements Initializable {
     }
 
 
-    private void setContentTilePane(){
+    public void setContentTilePane(){
 
         tilePane.getChildren().clear();
         int size= VideoLibrary.getInstance().getVideoLibrary().size();
@@ -93,10 +96,16 @@ public class VideoLibraryController  implements Initializable {
 
     }
 
-    private  void setDimTilePane(){
+    public  void setDimTilePane(){
         double tilePaneSize = (SceneHandler.getInstance().getStage().getWidth())-310;
         int numberOfColumns = ((int)tilePaneSize)/230;
         tilePane.setPrefColumns(numberOfColumns);
 
+    }
+
+    public void activeButton(){
+        btnAddLibraryToQueue.setDisable(false);
+        btnDelete.setDisable(false);
+        btnAddVideoToQueue.setDisable(false);
     }
 }

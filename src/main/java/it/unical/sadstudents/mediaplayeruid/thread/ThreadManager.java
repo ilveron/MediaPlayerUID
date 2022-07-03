@@ -11,6 +11,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.function.ToDoubleBiFunction;
 
@@ -51,17 +52,13 @@ public class ThreadManager {
 
 
 
-    public MyMedia createMyMedia(File file){
-        MyMedia myMedia =new MyMedia(file);
+    public void addToLibraryFromDB(ResultSet rs){
+        Thread A = new Thread(()->{
 
-        /*MediaCreatorThread metaDataGenerator = new MediaCreatorThread(myMedia);
-        Thread  thread = new Thread(metaDataGenerator);
-        thread.setDaemon(true);
-        thread.start();*/
+        });
+        A.setDaemon(true);
+        A.start();
 
-
-
-        return myMedia;
     }
 
 
@@ -144,8 +141,9 @@ public class ThreadManager {
                      boolean tooTime=false;
                      double current=System.currentTimeMillis();
                      while(!tooTime && finalMediaPlayer.getStatus()!= MediaPlayer.Status.READY ){
-                         if(System.currentTimeMillis()-current>500)
+                         if(System.currentTimeMillis()-current>50) //con 100 solo 3 persi
                              tooTime=true;
+
                      }
 
                      //System.out.println(String.format(("%d %d"),files.size(),++cont));

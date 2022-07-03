@@ -87,6 +87,7 @@ public class SceneHandler {
     //START MAIN STAGE AND SCENE
     public void init(Stage mainStage) throws Exception {
         DatabaseManager.getInstance().createTableMyMedia();
+        DatabaseManager.getInstance().createTableRecentMedia();
 
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
@@ -125,7 +126,7 @@ public class SceneHandler {
 
         DatabaseManager.getInstance().receiveMyMedia("MusicLibrary");
         DatabaseManager.getInstance().receiveMyMedia("VideoLibrary");
-        //DatabaseManager.getInstance().receiveRecentMedia();
+        DatabaseManager.getInstance().receiveRecentMedia();
 
 
 

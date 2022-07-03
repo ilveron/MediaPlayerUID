@@ -1,5 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -56,7 +58,7 @@ public class DatabaseManager {
         try {
             connection = DriverManager.getConnection(url);
             if(connection != null && !connection.isClosed()) {
-                System.out.println("Aperto");
+                System.out.println("Aperto DataBase");
                 return true;
             }
         }catch (SQLException e){
@@ -67,7 +69,7 @@ public class DatabaseManager {
     public boolean disconnect(){
         try {
             if(connection!=null && !connection.isClosed()) {
-                System.out.println("Chiuso");
+                System.out.println("Chiuso DataBase");
                 connection.close();
                 return  true;
             }
@@ -132,18 +134,29 @@ public class DatabaseManager {
                     addMedia(myMedia);
                 }
                 if(!isPresent("Path",myMedia.getPath(),"RecentMedia")) {
-                    PreparedStatement stmt = connection.prepareStatement("INSERT INTO RecentMedia VALUES(?, ?)");
+                    PreparedStatement stmt = connection.prepareStatement("INSERT INTO RecentMedia (Path) VALUES(?)");
                     stmt.setString(1, myMedia.getPath());
-                    //stmt.set(2,new SimpleDateFormat("yyyy-MM-dd")); calcolare la data
                     stmt.execute();
                     stmt.close(); //???
                     return  true;
                 }
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
         return false;
     } // TODO: 15/06/2022  da controllare
-
+    public boolean changePosixRecentMedia(String Path){
+        try {
+            if(isPresent("Path",Path,"RecentMedia")&&connection != null&&Path!=null&&!connection.isClosed()) {
+                deleteMedia(Path,"RecentMedia");
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO RecentMedia (Path) VALUES(?)");
+                stmt.setString(1, Path);
+                stmt.execute();
+                stmt.close();
+                return  true;
+            }
+        }catch (SQLException e){e.printStackTrace();}
+        return false;
+    }
 
     public boolean setLibrary(String pathMedia,String nameLibrary){
         try {
@@ -233,6 +246,7 @@ public class DatabaseManager {
                     }
                 }
                 stmt.close();
+                rs.close();
                 return null;
             }
 
@@ -256,6 +270,7 @@ public class DatabaseManager {
                             , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                 }
                 stmt.close();
+                rs.close();
                 return myMedia;
             }
 
@@ -273,15 +288,18 @@ public class DatabaseManager {
                 ResultSet rs = stmt.executeQuery();
                 ArrayList<MyMedia> myMedia = new ArrayList<>();
                 while (rs.next()) {
-                    myMedia.add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
+                    String t=rs.getString("Title");
+                    System.out.println(t);
+                    Home.getInstance().addToRecentMediaBis(new MyMedia(t, rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                             , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                 }
                 stmt.close();
+                rs.close();
                 return myMedia;
             }
 
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
         return null;
     } //// TODO: 15/06/2022 da controllare
 
@@ -336,8 +354,8 @@ public class DatabaseManager {
                             "Image VARCHAR(255)," +
                             "Length VARCHAR(10)," +
                             "Year VARCHAR(10)," +
-                            "MusicLibrary INT,"+
-                            "VideoLibrary INT,"+
+                            "MusicLibrary INTEGER,"+
+                            "VideoLibrary INTEGER,"+
                             "PRIMARY KEY (Path));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
@@ -352,8 +370,7 @@ public class DatabaseManager {
         try {
             String query =
                     "CREATE TABLE IF NOT EXISTS RecentMedia(Path VARCHAR(255)," +
-                            "Date DATE," +
-                            "FOREIGN KEY (Path) REFERENCES MyMedia(path),"+ // TODO: 15/06/2022 da vedere la data come calcolare millisecondi
+                            "FOREIGN KEY (Path) REFERENCES MyMedia(Path),"+
                             "PRIMARY KEY (Path));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);

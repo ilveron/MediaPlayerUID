@@ -15,21 +15,21 @@
       <StackPane fx:id="stackPaneRecent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <MediaView fx:id="mediaViewBis" fitHeight="200.0" fitWidth="200.0" />
-            <Pane fx:id="onActionPane" style="-fx-background-color: #000000; -fx-opacity: .4;" visible="false" />
-            <AnchorPane fx:id="actionAnchorPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <MediaView fx:id="mediaViewBis" fitHeight="200.0" fitWidth="200.0" StackPane.alignment="CENTER" />
+            <AnchorPane fx:id="actionAnchorPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" visible="false">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Play" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                  <Pane fx:id="onActionPane" layoutY="36.0" prefHeight="82.0" prefWidth="200.0" style="-fx-background-color: #000000; -fx-opacity: .4;" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="36.0" />
+                  <Button layoutY="42.0" mnemonicParsing="false" onAction="#onPlayAction" prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: transparent;" text="Play" textFill="#a10202" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
                      <graphic>
-                        <FontIcon />
+                        <FontIcon iconColor="#a10202" iconLiteral="fa-play" />
                      </graphic>
                      <font>
-                        <Font size="18.0" />
+                        <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Delete" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                  <Button mnemonicParsing="false" onAction="#onDeleteAction" prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: transparent;" text="Delete" textFill="#a10202" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                      <graphic>
-                        <FontIcon iconLiteral="fa-trash" />
+                        <FontIcon iconColor="#a10202" iconLiteral="fa-trash" />
                      </graphic>
                      <font>
                         <Font size="18.0" />
@@ -41,5 +41,6 @@
       </StackPane>
       <Label fx:id="nameLabel" styleClass="recentMediaNameLabel" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="210.0" />
       <Label fx:id="artistLabel" styleClass="recentArtistMediaLabel" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="230.0" />
+      <Label fx:id="labelDuration" prefHeight="17.0" prefWidth="60.0" text="Label" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="230.0" />
    </children>
 </AnchorPane>

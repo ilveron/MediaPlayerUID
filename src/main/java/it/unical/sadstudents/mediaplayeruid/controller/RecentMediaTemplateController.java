@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.model.Home;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import javafx.collections.MapChangeListener;
@@ -28,7 +29,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class RecentMediaTemplateController {
-
+    @FXML
+    private Label labelDuration;
     @FXML
     private StackPane stackPaneRecent;
 
@@ -50,13 +52,31 @@ public class RecentMediaTemplateController {
     @FXML
     private Pane onActionPane;
 
+    @FXML
+    void onDeleteAction(ActionEvent event) {
+        for (int i=0; i<Home.getInstance().getRecentMedia().size();i++){
+            if(myMedia.equals(Home.getInstance().getRecentMedia().get(i))){
+                Home.getInstance().getRecentMedia().remove(i);
+                Home.getInstance().setChangeHappened(true);
+                break;
+            }
+        }
+    }
+
+    @FXML
+    void onPlayAction(ActionEvent event) {
+        PlayQueue.getInstance().generateNewQueue(myMedia);
+    }
 
 
 
+    private MyMedia myMedia;
     public void init(MyMedia myMedia){
+        this.myMedia=myMedia;
         artistLabel.setText(myMedia.getArtist());
         nameLabel.setText(myMedia.getTitle());
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
+        labelDuration.setText(myMedia.getLength());
 
 
         if (!myMedia.getPath().toLowerCase().endsWith(".mp4")){
@@ -107,14 +127,14 @@ public class RecentMediaTemplateController {
                         @Override
                         public Void call(SnapshotResult snapshotResult) {
                             //System.out.println("QUI");
-                            //imageView.setImage(snapshotResult.getImage());
+                            imageView.setImage(snapshotResult.getImage());
                             //saveToFile(snapshotResult.getImage());
                             mediaViewBis.setVisible(false);
                             mediaPlayer.dispose();
                             return null;
                         }
                     }, null, wim);
-                    imageView.setImage(wim);
+                    //imageView.setImage(wim);
                 });
                 service.start();
                 //BufferedImage image = wim.getPixelWriter();
@@ -136,13 +156,13 @@ public class RecentMediaTemplateController {
     }
 
     public void onMouseOver(){
-        if(!onActionPane.isVisible()){
-            onActionPane.setVisible(true);
+        if(!actionAnchorPane.isVisible()){
+            //onActionPane.setVisible(true);
             actionAnchorPane.setVisible(true);
 
         }
         else{
-            onActionPane.setVisible(false);
+            //onActionPane.setVisible(false);
             actionAnchorPane.setVisible(false);
 
         }
