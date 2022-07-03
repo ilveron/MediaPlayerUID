@@ -32,6 +32,15 @@
     -fx-text-fill: textColor;
 }
 
+.toolBarButton:focused {
+    -fx-background-color: primarySelectionColor;
+    -fx-text-fill: primaryBackgroundColor;
+}
+
+.toolBarButton:focused .iconsOverBackground {
+    -fx-icon-color: primaryBackgroundColor;
+}
+
 .toolBarIcons {
     -fx-icon-color: iconOverBackgroundColor;
 }
@@ -131,7 +140,7 @@
 }
 
 .button:hover {
-    -fx-background-color: primarySelectionColor;
+    -fx-background-color: secondarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
