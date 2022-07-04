@@ -25,6 +25,8 @@ public class Player {
     private MediaView mediaView ;
     private Integer index;
     private boolean loopMode;
+    private double unmuteVolumeValue=100;
+    private double rate=1;
     //END VARIABLES
 
     //PROPERTIES
@@ -50,6 +52,17 @@ public class Player {
     //VARIABLES GETTERS AND SETTERS
 
 
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public double getUnmuteVolumeValue() {
+        return unmuteVolumeValue;
+    }
+
+    public void setUnmuteVolumeValue(double unmuteVolumeValue) {
+        this.unmuteVolumeValue = unmuteVolumeValue;
+    }
 
     public boolean isMediaLoaded() {
         return mediaLoaded.get();
@@ -145,8 +158,12 @@ public class Player {
     public void playMedia(){
         if(media != null){
             mediaPlayer.setVolume(volume);
+            mediaPlayer.setRate(rate);
             mediaPlayer.play();
             isRunning.set(true);
+            if(rate!=1){
+                mediaPlayer.setRate(rate);
+            }
             ThreadManager.getInstance().beginTimer();
             Home.getInstance().addToRecentMedia(PlayQueue.getInstance().getQueue().get(index));
         }
@@ -157,6 +174,7 @@ public class Player {
     public void pauseMedia(){
         if(media != null){
             mediaPlayer.pause();
+
             isRunning.set(false);
             ThreadManager.getInstance().cancelTimer();
         }

@@ -67,13 +67,12 @@ public class MainController implements Initializable {
     private ToolBar toolbarMenu;
     @FXML
     private Button plsEquilizer, plsNext, plsPlayPause, plsPrevious, plsProperties,
-            plsScreenMode, plsSkipBack,  plsSkipForward, lightMode, darkMode, about;
+            plsScreenMode, plsSkipBack,  plsSkipForward, volumeButton,lightMode, darkMode, about;
     @FXML
     private ToggleButton plsShuffle;
     @FXML
     private ToggleButton plsRepeat;
-    @FXML
-    private MenuButton volumeButton;
+
     @FXML
     private FontIcon volumeIcon;
     @FXML
@@ -116,6 +115,8 @@ public class MainController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if(Player.getInstance().getMediaPlayer().isMute())
+                    Player.getInstance().getMediaPlayer().setMute(false);
                 if (volumeSlider.getValue() == 0) volumeIcon.setIconLiteral("fa-volume-off");
                 else if (volumeSlider.getValue() > 50) volumeIcon.setIconLiteral("fa-volume-up");
                 else volumeIcon.setIconLiteral("fa-volume-down");
@@ -282,9 +283,8 @@ public class MainController implements Initializable {
 
     //ACTION EVENT MEDIA CONTROLS BAR
     @FXML
-    void onVolume(ActionEvent event) {
-
-
+    void onVolumeButtonAction(ActionEvent event) {
+        muteUnmuteHandler();
     }
 
     @FXML
@@ -522,14 +522,23 @@ public class MainController implements Initializable {
     }
 
     public void changeSpeed(ActionEvent event){
-        if (speedComboBox.getValue()=="0.5 X")
+        if (speedComboBox.getValue()=="0.5 X") {
             Player.getInstance().getMediaPlayer().setRate(0.5);
-        else if(speedComboBox.getValue()=="1.0 X")
+            Player.getInstance().setRate(0.5);
+        }
+        else if(speedComboBox.getValue()=="1.0 X"){
             Player.getInstance().getMediaPlayer().setRate(1);
+            Player.getInstance().setRate(1.0);
+        }
+
         else{
             Player.getInstance().getMediaPlayer().setRate(2.0);
+            Player.getInstance().setRate(2.0);
 
         }
+
+
+
 
 
 
@@ -611,10 +620,12 @@ public class MainController implements Initializable {
         // TODO: 15/06/2022 Tenersi da parte una variabile con il volume corrente quando si preme il muto, così da ripristinarla in seguito
         if (Player.getInstance().getMediaPlayer().isMute()) {
             Player.getInstance().getMediaPlayer().setMute(false);
-            volumeSlider.setValue(100);
+            volumeSlider.setValue(Player.getInstance().getUnmuteVolumeValue());
         } else {
-            Player.getInstance().getMediaPlayer().setMute(true);
+            System.out.println(Player.getInstance().getMediaPlayer().getVolume());
+            Player.getInstance().setUnmuteVolumeValue(volumeSlider.getValue());
             volumeSlider.setValue(0);
+            Player.getInstance().getMediaPlayer().setMute(true);
         }
     }
 
