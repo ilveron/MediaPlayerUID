@@ -19,11 +19,12 @@ public class PlayListView extends Pane {
         try{
             AnchorPane root = loader.load();
             playlistTemplateController = loader.getController();
-            playlistTemplateController.init(playlist.getMyList(),playlist.getImage(), playlist.getName());
+            playlistTemplateController.init(playlist);
             this.getChildren().add(root);
             //root.prefWidthProperty().bind(this.widthProperty());
         }catch(Exception ignoredException){
-
+            ignoredException.printStackTrace();
+            return ;
         }
 
     }

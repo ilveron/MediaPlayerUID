@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.util.Objects;
+
 public class Playlist  {
 
     private ObservableList<MyMedia> list;
@@ -22,15 +24,15 @@ public class Playlist  {
         this.name=name;
     }
 
-    // TODO: 15/06/2022 image di default da gestire
 
-
+    public void addMedia(MyMedia myMedia){
+        list.add(myMedia);
+    }
     public ObservableList<MyMedia> getMyList(){return list;}
 
     public String getImage() {
         return image;
     }
-
     public void setImage(String image) {
         this.image = image;
     }
@@ -38,9 +40,16 @@ public class Playlist  {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Playlist playlist = (Playlist) o;
+        return Objects.equals(list, playlist.list) && Objects.equals(image, playlist.image) && Objects.equals(name, playlist.name);
     }
 }
 

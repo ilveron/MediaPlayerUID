@@ -121,8 +121,6 @@ public class Player {
     public void createMedia(Integer index){
         this.index = index;
 
-
-
         media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
@@ -131,6 +129,9 @@ public class Player {
             // TODO: 14/06/2022 se rimosso, problemi con lo slider 
 
             playMedia();
+            for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
+                mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
+
         });
         Platform.runLater(()->{
             mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());

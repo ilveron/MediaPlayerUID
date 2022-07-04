@@ -2,6 +2,8 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
 
+import java.awt.*;
+import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -158,6 +160,7 @@ public class DatabaseManager {
         return false;
     }
 
+
     public boolean setLibrary(String pathMedia,String nameLibrary){
         try {
             if(connection != null && pathMedia!=null &&checkLibrary(nameLibrary) &&!connection.isClosed()&&isPresent("Path",pathMedia,"MyMedia")) {
@@ -223,6 +226,42 @@ public class DatabaseManager {
 
     }
 
+
+    public boolean changePlaylist(String NewName,String OldName,String Image){
+        try {
+
+            if(connection != null && NewName!=null&&OldName!=null &&Image!=null&& !connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement
+                        ("UPDATE Playlist " +
+                        " SET Name=?, Image=?" +
+                                " WHERE Name=?");
+                stmt.setString(1, NewName);
+                stmt.setString(2,Image);
+                stmt.setString(3,OldName);
+                stmt.execute();
+                stmt.close();
+                return changMediaPlaylist(NewName,OldName);
+            }
+        }catch (SQLException e){}
+        return false;
+    }
+    private boolean changMediaPlaylist(String NewName,String OldName){
+        try {
+            if(connection != null && !connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement
+                        ("UPDATE MyMediaPlaylist " +
+                                " SET Name=?" +
+                                " WHERE Name=?");
+                stmt.setString(1, NewName);
+                stmt.setString(2,OldName);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e){}
+        return false;
+    }
+
     public ArrayList<MyMedia> receiveMyMedia(String filter){
         try {
             if(connection != null&&checkLibrary(filter)&&!connection.isClosed()) {
@@ -253,30 +292,45 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return null;
     }
-    public ArrayList<MyMedia> receiveMediaInPlaylist(String name){
+    public void  receiveMediaInPlaylist(String name){
         try {
-            if(connection != null&&!connection.isClosed() && isPresent("Name",name,"Playlist")) {
+            if(connection != null&&!connection.isClosed() && isPresent("Name",name,"Playlist")&&isPresent("Name",name,"MyMediaPlaylist")) {
                 String query = "select * " +
-                        "from MyMedia,Playlist,MyMediaPlaylist" +
-                        "where MyMedia.Path=MyMediaPlaylist.Path and MyMediaPlaylist.id=Playlist.id and Playlist.Name=?" +
+                        "from MyMedia,MyMediaPlaylist " +
+                        "where MyMedia.Path=MyMediaPlaylist.Path and MyMediaPlaylist.Name=?" +
                         ";";
                 PreparedStatement stmt = connection.prepareStatement(query);
                 stmt.setString(1,name);
                 ResultSet rs = stmt.executeQuery();
-                ArrayList<MyMedia> myMedia = new ArrayList<>();
                 while (rs.next()) {
-                    myMedia.add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
+                    Playlists.getInstance().getPlayListsCollections().get(Playlists.getInstance().returnPlaylist(name)).addMedia(
+                            (new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
-                            , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
+                            , rs.getString("Length"), rs.getString("Year"), rs.getString("Image"))));
                 }
                 stmt.close();
                 rs.close();
-                return myMedia;
             }
 
-        }catch (SQLException e){}
-        return null;
+        }catch (SQLException e){e.printStackTrace();}
     } // TODO: 15/06/2022  da controllare
+    public void receivePlaylist(){
+        try {
+            if(connection != null&&!connection.isClosed()) {
+                String query = "select * from Playlist;";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    String name=rs.getString("Name");
+                    Playlists.getInstance().addPlaylist(new Playlist(name,rs.getString("Image")));
+                    //receiveMediaInPlaylist(name);
+                }
+                stmt.close();
+                rs.close();
+            }
+
+        }catch (SQLException e){e.printStackTrace();}
+    }
     public ArrayList<MyMedia> receiveRecentMedia(){
         try {
             if(connection != null&&!connection.isClosed()) {
@@ -312,12 +366,21 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
+        return false;
+    }
+    public boolean deleteAllMedia(String path){
+        try {
+            if(connection != null&&path!=null && !connection.isClosed()){
+                return deleteMedia(path,"MyMedia")&deleteMedia(path,"RecentMedia")&deleteMedia(path,"MyMediaPlaylist");
+            }
+        }catch (SQLException e){ e.printStackTrace();}
         return false;
     }
     public boolean deleteMedia(String pathMymedia, String tab){
         try {
             if(connection != null&&checkTable(tab)&&pathMymedia!=null && !connection.isClosed()&&isPresent("Path",pathMymedia,tab)){
+                deleteMediaPlaylist(pathMymedia,"Path");
                 PreparedStatement stmt=connection.prepareStatement("DELETE FROM "+tab+" WHERE Path=?;");
                 stmt.setString(1,pathMymedia);
                 stmt.execute();
@@ -327,18 +390,33 @@ public class DatabaseManager {
         }catch (SQLException e){ e.printStackTrace();}
         return false;
     }
-    public boolean deletePlaylist(String name, String tab){
+    public boolean deletePlaylist(String name){
         try {
             if(connection != null&&name!=null && !connection.isClosed()){
-                PreparedStatement stmt=connection.prepareStatement("DELETE FROM ? WHERE Name=?;");
-                stmt.setString(1,tab);
-                stmt.setString(2,name);
+                deleteMediaPlaylist(name,"Name");
+                PreparedStatement stmt=connection.prepareStatement("DELETE FROM Playlist WHERE Name=?;");
+                stmt.setString(1,name);
+                stmt.execute();
+                stmt.close();
                 return true;
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
         return false;
-    } //// TODO: 15/06/2022 da controllare 
-    //creare pure un delete RecentMedia?
+    } //// TODO: 15/06/2022 da controllare
+
+    private  boolean deleteMediaPlaylist(String element,String Type){
+        try {
+            if(connection != null&&element!=null && !connection.isClosed()){
+
+                PreparedStatement stmt=connection.prepareStatement("DELETE FROM MyMediaPlaylist WHERE "+Type+"=?;");
+                stmt.setString(1,element);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e){e.printStackTrace();}
+        return false;
+    }
 
     //se non è presente la tabella finisce nel catch e non esegue il codice
 
@@ -401,10 +479,9 @@ public class DatabaseManager {
     public void createTablePlaylist(){
         try {
             String query =
-                    "CREATE TABLE IF NOT EXISTS Playlist(Id INT AUTO_INCREMENT," +
-                            "Name VARCHAR(100) NOT NULL," +
+                    "CREATE TABLE IF NOT EXISTS Playlist(Name VARCHAR(100) NOT NULL," +
                             "Image VARCHAR(255)," +
-                            "PRIMARY KEY (Id));";
+                            "PRIMARY KEY (Name));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -413,6 +490,107 @@ public class DatabaseManager {
         }
 
 
+    }
+
+
+
+    // Gestione Equalizer
+    public void createTableEqualizer(){
+        try {
+            String query =
+                    "CREATE TABLE IF NOT EXISTS Equalizer(" +
+                            "Hz32 INTEGER," +
+                            "Hz64 INTEGER," +
+                            "Hz125 INTEGER," +
+                            "Hz250 INTEGER," +
+                            "Hz500 INTEGER," +
+                            "Hz1000 INTEGER," +
+                            "Hz2000 INTEGER," +
+                            "Hz4000 INTEGER," +
+                            "Hz8000 INTEGER,"+
+                            "Hz16000 INTEGER," +
+                            "Key INTEGER);" ;
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            stmt.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public boolean initEqualizer(){
+        try {
+            if(connection != null &&!connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Equalizer VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                stmt.setInt(1,0);
+                stmt.setInt(2,0);
+                stmt.setInt(3,0);
+                stmt.setInt(4,0);
+                stmt.setInt(5,0);
+                stmt.setInt(6,0);
+                stmt.setInt(7,0);
+                stmt.setInt(8,0);
+                stmt.setInt(9,0);
+                stmt.setInt(10,0);
+                stmt.setInt(11,0);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {e.printStackTrace();}
+        return false;
+    }
+    public boolean setEqualizer(int []vett){
+        try {
+            if(connection != null &&!connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement("UPDATE Equalizer SET" +
+                        "Hz32=?," +
+                        "Hz64=?," +
+                        "Hz125=?," +
+                        "Hz250=?," +
+                        "Hz500=?," +
+                        "Hz1000=?," +
+                        "Hz2000=?," +
+                        "Hz4000=?," +
+                        "Hz8000=?," +
+                        "Hz16000=?  WHERE Key=0 ;");
+                stmt.setInt(1,vett[0]);
+                stmt.setInt(2,vett[1]);
+                stmt.setInt(3,vett[2]);
+                stmt.setInt(4,vett[3]);
+                stmt.setInt(5,vett[4]);
+                stmt.setInt(6,vett[5]);
+                stmt.setInt(7,vett[6]);
+                stmt.setInt(8,vett[7]);
+                stmt.setInt(9,vett[8]);
+                stmt.setInt(10,vett[9]);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {e.printStackTrace();}
+        return false;
+    }
+    public int[] getEqualizer(){
+        try {
+            String query = "select * from Equalizer where Key=0;";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            int []settings=new int[10];
+            if(rs.next()){
+                settings[0]=rs.getInt("Hz32");
+                settings[1]=rs.getInt("Hz64");
+                settings[2]=rs.getInt("Hz125");
+                settings[3]=rs.getInt("Hz250");
+                settings[4]=rs.getInt("Hz500");
+                settings[5]=rs.getInt("Hz1000");
+                settings[6]=rs.getInt("Hz2000");
+                settings[7]=rs.getInt("Hz4000");
+                settings[8]=rs.getInt("Hz8000");
+                settings[9]=rs.getInt("Hz16000");
+            }
+            return settings;
+        }catch (SQLException e){e.printStackTrace();}
+        return null;
     }
 
 

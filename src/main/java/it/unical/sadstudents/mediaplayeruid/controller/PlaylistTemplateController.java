@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -24,9 +25,7 @@ import javafx.stage.WindowEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class PlaylistTemplateController {
-    private  ObservableList<MyMedia> list;
-    private  String name="";
-    private String image="";
+    Playlist playlist;
     private boolean PlayPause=false;
 
     @FXML
@@ -70,9 +69,32 @@ public class PlaylistTemplateController {
     private TableColumn<MyMedia, Integer> year;
 
     @FXML
+    private Label LabelTime;
+    @FXML
+    private Label LabelBrani;
+
+    @FXML
+    void onDeletePlaylist(ActionEvent event) {
+        if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
+            playlist.getMyList().clear();
+            Playlists.getInstance().setDelete(findPlaylist());
+        }
+    }
+
+    @FXML
+    void onChange(ActionEvent event) {
+        CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
+        playlist.setImage(CreateNewPlaylist.getInstance().getImage());
+        playlist.setName(CreateNewPlaylist.getInstance().getName());
+
+        labelName.setText(playlist.getName());
+        imagePlaylist.setImage(new Image(playlist.getImage()));
+    }
+
+    @FXML
     void onPlayPlaylist(ActionEvent event) {
-        if(list.size()>0) {
-            if (Playlists.getInstance().getTypePlaylist() == name) {
+        if(playlist.getMyList().size()>0) {
+            if (Playlists.getInstance().getTypePlaylist() == playlist.getName()) {
                 refresh();
                 if(Playlists.getInstance().isPlaying()){
                     System.out.println("setto a false (sono nell if dentro if)");
@@ -84,18 +106,18 @@ public class PlaylistTemplateController {
                     Player.getInstance().playMedia();
                 }
             } else {
-                initList();
+                initListPlayQueue();
                 System.out.println("setto a true (sono nell else)");
                 Playlists.getInstance().setPlaying(true);
-                Playlists.getInstance().setTypePlaylist(name);
+                Playlists.getInstance().setTypePlaylist(playlist.getName());
             }
         }
     }
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        DataExchangePlaylist.getInstance().setImage(image);
-        DataExchangePlaylist.getInstance().setName(name);
-        DataExchangePlaylist.getInstance().setList(list);
+        DataExchangePlaylist.getInstance().setImage(playlist.getImage());
+        DataExchangePlaylist.getInstance().setName(playlist.getName());
+        DataExchangePlaylist.getInstance().setList(playlist.getMyList());
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("addMediaToPlaylist.fxml"));
         try{
            //Scene scene=new Scene(new AddMediaToPlaylist())
@@ -110,35 +132,29 @@ public class PlaylistTemplateController {
             //scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+ Settings.theme+".css")).toExternalForm());
             stage.setScene(scene);
             stage.showAndWait();
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    //gestisci dati da inviare
-                }
-            });
             //root.prefWidthProperty().bind(this.widthProperty());
-        }catch(Exception ignoredException){}
-        Playlists.getInstance().setUpdate(true);
+        }catch(Exception ignoredException){ignoredException.printStackTrace(); return;}
+        setLabel();
+        if(Playlists.getInstance().isPlaying()&&Playlists.getInstance().getTypePlaylist()== playlist.getName()) {
+            Playlists.getInstance().setUpdate(true);
+        }
     }
 
-    public void init(ObservableList<MyMedia> myMedia,String image,String name) {
+    public void init(Playlist playlist) {
+        this.playlist=playlist;
         // TODO: 02/07/2022 settare che non si resetta dopo lo switch di pagina , aggiornamento canzoni sbagliato
         //list= FXCollections.observableArrayList();
-
+        setLabel();
         if(Player.getInstance().getIsRunning()){
-            System.out.println("dio1");Playlists.getInstance().setPlaying(true);}
-        else {System.out.println("dio2");Playlists.getInstance().setPlaying(false);}
+            Playlists.getInstance().setPlaying(true);}
+        else {Playlists.getInstance().setPlaying(false);}
 
 
-
-        list=myMedia;
-        this.name=name;
-        if(image=="")
-            image="file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png";
-        this.image=image;
-        labelName.setText(name);
-        imagePlaylist.setImage(new Image(image));
-        tableViewPlaylist.setItems(myMedia);
+        if(playlist.getImage()=="")
+            playlist.setImage("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png");
+        labelName.setText(playlist.getName());
+        imagePlaylist.setImage(new Image(playlist.getImage()));
+        tableViewPlaylist.setItems(playlist.getMyList());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("title"));
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("artist"));
         album.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("album"));
@@ -156,8 +172,12 @@ public class PlaylistTemplateController {
         });
 
         Playlists.getInstance().updateProperty().addListener(observable -> {
-            if(Playlists.getInstance().getTypePlaylist()==name && Playlists.getInstance().isUpdate())
-                refresh();
+            if(Playlists.getInstance().getTypePlaylist()== playlist.getName() && Playlists.getInstance().isUpdate()) {
+                if(playlist.getMyList().size()>0)
+                    refresh();
+                else
+                    initListPlayQueue();
+            }
         });
 
         Playlists.getInstance().playingProperty().addListener(observable ->changeIcon());
@@ -174,33 +194,45 @@ public class PlaylistTemplateController {
         }
     }
 
-    private void initList(){
-        for(int i=0;i<list.size();i++){
+    private void initListPlayQueue(){
+        for(int i=0;i<playlist.getMyList().size();i++){
             if(i==0)
-                PlayQueue.getInstance().generateNewQueue(list.get(i));
+                PlayQueue.getInstance().generateNewQueue(playlist.getMyList().get(i));
             else
-                PlayQueue.getInstance().addFileToListFromOtherModel(list.get(i));
+                PlayQueue.getInstance().addFileToListFromOtherModel(playlist.getMyList().get(i));
         }
-    }
 
+    }
+    private void setLabel(){
+        LabelBrani.setText("Brani: "+playlist.getMyList().size());
+        LabelTime.setText("Time: 0"); // TODO: 04/07/2022  da fare
+    }
     private void refresh(){
-        for(int i=0;i<list.size();i++){
+        for(int i=0;i<playlist.getMyList().size();i++){
             boolean e=false;
             for(int j=0;j<PlayQueue.getInstance().getQueue().size();j++)
-                if(list.get(i)==PlayQueue.getInstance().getQueue().get(j))
+                if(playlist.getMyList().get(i)==PlayQueue.getInstance().getQueue().get(j))
                     e=true;
             if(!e)
-                PlayQueue.getInstance().addFileToListFromOtherModel(list.get(i));
+                PlayQueue.getInstance().addFileToListFromOtherModel(playlist.getMyList().get(i));
         }
         Playlists.getInstance().setUpdate(false);
     }
 
     private boolean exist(MyMedia myMedia){
-        for(int i=0;i<list.size();i++){
-            if(list.get(i)==myMedia)
+        for(int i=0;i<playlist.getMyList().size();i++){
+            if(playlist.getMyList().get(i)==myMedia)
                 return true;
         }
         return false;
+    }
+
+    private int findPlaylist(){
+        for(int pos=0;pos<Playlists.getInstance().getPlayListsCollections().size();pos++){
+            if(Playlists.getInstance().getPlayListsCollections().get(pos).equals(playlist))
+                return pos;
+        }
+        return -1;
     }
 
     public void setDim(double size){

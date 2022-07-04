@@ -13,7 +13,7 @@
    <children>
       <StackPane fx:id="stackPaneRecent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="recentMediaImageBg" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="recentMediaImage" />
+            <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="recentMediaImage" StackPane.alignment="CENTER" />
             <MediaView fx:id="mediaViewBis" fitHeight="200.0" fitWidth="200.0" StackPane.alignment="CENTER" />
             <AnchorPane fx:id="actionAnchorPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" visible="false">
                <children>

@@ -3,12 +3,16 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
+import it.unical.sadstudents.mediaplayeruid.model.Playlist;
+import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -23,6 +27,7 @@ public class SceneHandler {
     private Scene scene;
     private Stage stage;
     private Pane subScene;
+    private Alert alert;
     private SimpleBooleanProperty mediaLoadingInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty metadataLoadindagInProgess = new SimpleBooleanProperty(false);
 
@@ -30,7 +35,7 @@ public class SceneHandler {
 
     //SINGLETON
     private static SceneHandler instance = null;
-    private SceneHandler(){    }
+    private SceneHandler(){ alert = new Alert(Alert.AlertType.NONE);   }
     public static SceneHandler getInstance(){
         if (instance==null)
             instance = new SceneHandler();
@@ -88,6 +93,8 @@ public class SceneHandler {
     public void init(Stage mainStage) throws Exception {
         DatabaseManager.getInstance().createTableMyMedia();
         DatabaseManager.getInstance().createTableRecentMedia();
+        DatabaseManager.getInstance().createTablePlaylist();
+        DatabaseManager.getInstance().createTableMediaMyMediaPlaylist();
 
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
@@ -127,6 +134,9 @@ public class SceneHandler {
         DatabaseManager.getInstance().receiveMyMedia("MusicLibrary");
         DatabaseManager.getInstance().receiveMyMedia("VideoLibrary");
         DatabaseManager.getInstance().receiveRecentMedia();
+        DatabaseManager.getInstance().receivePlaylist();
+        for(Playlist s:Playlists.getInstance().getPlayListsCollections())
+            DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
 
 
 
@@ -136,7 +146,6 @@ public class SceneHandler {
     // TODO: 05/06/2022 RIVEDERE BENE SOTTO
     public Pane switchPane(){
         try{
-
             subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
         }catch(IOException e){}
 
@@ -158,6 +167,13 @@ public class SceneHandler {
 
     }
 
-
+    public boolean showConfirmationAlert(String text) {
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma");
+        alert.setHeaderText(text);
+        alert.setContentText(null);
+        alert.showAndWait();
+        return alert.getResult() != ButtonType.CANCEL;
+    }
 
 }

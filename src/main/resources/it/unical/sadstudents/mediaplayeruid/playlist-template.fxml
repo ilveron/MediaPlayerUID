@@ -36,15 +36,20 @@
                         <Insets />
                      </VBox.margin>
                   </AnchorPane>
-                  <Label fx:id="labelName" text="Label">
+                  <Label fx:id="labelName" text="...">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="141.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="LabelBrani" text="..." textAlignment="CENTER" />
+                        <Label fx:id="LabelTime" layoutX="80.0" layoutY="20.0" text="..." textAlignment="CENTER" />
+                     </children></HBox>
                   <Separator prefWidth="200.0" />
                   <HBox alignment="CENTER" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onDeletePlaylist">
                            <graphic>
                               <FontIcon iconLiteral="fa-trash" iconSize="14" />
                            </graphic>
@@ -52,6 +57,11 @@
                         <Button mnemonicParsing="false" onAction="#onAddToPlaylist">
                            <graphic>
                               <FontIcon iconLiteral="fa-plus" iconSize="14" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="72.0" layoutY="11.0" mnemonicParsing="false" onAction="#onChange">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-pencil" iconSize="14" />
                            </graphic>
                         </Button>
                      </children>

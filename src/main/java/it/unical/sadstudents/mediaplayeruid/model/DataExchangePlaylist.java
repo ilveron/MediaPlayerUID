@@ -23,6 +23,7 @@ public class DataExchangePlaylist {
                 return;
         }
         list.add(m);
+        DatabaseManager.getInstance().addMyMediaInPlaylist(m.getPath(),name);
     }
 
     public String getImage() {

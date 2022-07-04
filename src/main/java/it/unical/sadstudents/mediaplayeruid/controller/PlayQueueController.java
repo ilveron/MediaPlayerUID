@@ -168,6 +168,8 @@ public class PlayQueueController implements Initializable {
     //END TASK
 
     private void focusTableView(){
+
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

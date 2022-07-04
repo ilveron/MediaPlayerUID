@@ -6,6 +6,7 @@ import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 
 import javafx.animation.*;
@@ -13,7 +14,9 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +32,8 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javax.xml.stream.EventFilter;
+import javax.xml.stream.events.XMLEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -85,6 +90,12 @@ public class MainController implements Initializable {
     @FXML
     private StackPane centralStackPane;
 
+    @FXML
+    private AnchorPane infoMediaAnchor;
+
+    @FXML
+    private Pane mediaInfoPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
@@ -111,6 +122,7 @@ public class MainController implements Initializable {
         });
 
 
+
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
             @Override
@@ -129,7 +141,22 @@ public class MainController implements Initializable {
 
         // TODO: 07/06/2022 fixare tooltip plsPlayPause 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane());
-        Player.getInstance().mediaLoadedProperty().addListener(observable -> changeButtonEnabledStatus());
+        Player.getInstance().mediaLoadedProperty().addListener(observable -> {
+            changeButtonEnabledStatus();
+            MediaInfo mediaInfo= new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
+            mediaInfoPane.getChildren().add(mediaInfo);
+        });
+
+        plsProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+            if (newValue) {
+                if(!infoMediaAnchor.isVisible())
+                    infoMediaAnchor.setVisible(true);
+            }
+            else{
+                infoMediaAnchor.setVisible(false);
+            }
+        });
+
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
             plsPlayPause.setTooltip(new Tooltip("Pause"));
@@ -147,12 +174,8 @@ public class MainController implements Initializable {
             speedComboBox.getItems().add(speeds[i]);
         }
         speedComboBox.setOnAction(this::changeSpeed);
-/*        Player.getInstance().getMediaPlayer().rateProperty().addListener(observable -> {
-            if (speedComboBox.getValue()!=Player.getInstance().getMediaPlayer().getRate())
-                speedComboBox.setId("ciao");
-        });
 
-  */      mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
                 double curr = Player.getInstance().getCurrentMediaTime();
@@ -343,8 +366,10 @@ public class MainController implements Initializable {
 
     @FXML
     void onProperties(ActionEvent event) {
+        // TODO: 04/07/2022 eliminare , non serve più in quanto gestito con hover
 
     }
+
 
     @FXML
     void onRepeat(ActionEvent event) {

@@ -75,7 +75,7 @@ public class HomeController implements Initializable {
         tilePane.getChildren().clear();
         int size= Home.getInstance().getRecentMedia().size();
         for (int i= size-1; i>=0; --i){
-            RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i));
+            RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i),"home");
 
 
 

@@ -3,17 +3,25 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.Home;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
+import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
+import it.unical.sadstudents.mediaplayeruid.view.RightClickHandler;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotResult;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -23,6 +31,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Callback;
 import javafx.util.Duration;
+
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -55,13 +64,25 @@ public class RecentMediaTemplateController {
 
     @FXML
     void onDeleteAction(ActionEvent event) {
-        for (int i=0; i<Home.getInstance().getRecentMedia().size();i++){
-            if(myMedia.equals(Home.getInstance().getRecentMedia().get(i))){
-                Home.getInstance().getRecentMedia().remove(i);
-                Home.getInstance().setChangeHappened(true);
-                break;
+        if (source =="home"){
+            for (int i=0; i<Home.getInstance().getRecentMedia().size();i++){
+                if(myMedia.equals(Home.getInstance().getRecentMedia().get(i))){
+                    Home.getInstance().getRecentMedia().remove(i);
+                    Home.getInstance().setChangeHappened(true);
+                    break;
+                }
             }
         }
+        else{
+            for (int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
+                if(myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))){
+                    VideoLibrary.getInstance().getVideoLibrary().remove(i);
+                    VideoLibrary.getInstance().setChangeHappened(true);
+                    break;
+                }
+            }
+        }
+
     }
 
     @FXML
@@ -72,7 +93,9 @@ public class RecentMediaTemplateController {
 
 
     private MyMedia myMedia;
-    public void init(MyMedia myMedia){
+    private String source;
+    public void init(MyMedia myMedia, String source){
+        this.source=source;
         this.myMedia=myMedia;
         artistLabel.setText(myMedia.getArtist());
         nameLabel.setText(myMedia.getTitle());
@@ -100,11 +123,7 @@ public class RecentMediaTemplateController {
             mediaViewBis.setMediaPlayer(mediaPlayer);
 
             mediaPlayer.setOnReady(()->{
-                int width = (int)mediaViewBis.getFitWidth();
-                int height = (int)mediaViewBis.getFitHeight();
-                //System.out.println(width);
-                //System.out.println(height);
-                WritableImage wim = new WritableImage(width, height);
+
                 //System.out.println(mediaPlayer.getStatus());
                 // mediaPlayer.seek(Duration.seconds(15));
                 mediaViewBis.setVisible(true);
@@ -117,16 +136,28 @@ public class RecentMediaTemplateController {
                         return new Task<>() {
                             @Override
                             protected Void call() throws Exception {
-                                Thread.sleep(5000);
+                                Thread.sleep(2000);
                                 return null;
                             }
                         };
                     }
                 };
                 service.setOnSucceeded(event -> {
+                    double mediaWidth = mediaPlayer.getMedia().getWidth();
+                    double mediaHeight = mediaPlayer.getMedia().getHeight();
+                    double ratio = 200/mediaWidth;
+
+                    int width = 200;
+                    int height = (int) (mediaHeight*ratio);
+
+
+
+
+                    WritableImage wim = new WritableImage(width, height);
                     mediaViewBis.snapshot(new Callback<SnapshotResult, Void>() {
                         @Override
                         public Void call(SnapshotResult snapshotResult) {
+
                             //System.out.println("QUI");
                             //imageView.setImage(snapshotResult.getImage());
                             //saveToFile(snapshotResult.getImage());
@@ -136,7 +167,7 @@ public class RecentMediaTemplateController {
                         }
                     }, null, wim);
                     imageView.setImage(wim);
-                    //imageView.setFitHeight(200);
+
                     //imageView.setFitWidth(200);
                 });
                 service.start();
@@ -173,6 +204,8 @@ public class RecentMediaTemplateController {
         }
 
     }
+
+
 
     /*public void saveToFile(Image image) {
         File outputFile = new File("/Users/carmine/Desktop/prova.png");
