@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
@@ -241,23 +239,9 @@
                                     </ToggleButton>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" layoutX="790.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="231.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                              <HBox alignment="CENTER_RIGHT" layoutX="790.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="292.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                  <children>
-                                    <MenuButton fx:id="volumeButton" alignment="CENTER" contentDisplay="CENTER" disable="true" focusTraversable="false" mnemonicParsing="false" popupSide="TOP" prefWidth="20.0" style="-fx-background-color: transparent;" styleClass="secondaryTemplate">
-                                      <items>
-                                        <MenuItem mnemonicParsing="false" style="-fx-background-color: transparent;">
-                                             <graphic>
-                                                <Slider fx:id="volumeSlider" blockIncrement="5.0" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="100.0" />
-                                             </graphic>
-                                          </MenuItem>
-                                      </items>
-                                       <graphic>
-                                          <FontIcon fx:id="volumeIcon" iconLiteral="fa-volume-up" iconSize="15" styleClass="iconsOverBackground" />
-                                       </graphic>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </MenuButton>
+                                    <ComboBox fx:id="speedComboBox" disable="true" prefHeight="25.0" prefWidth="82.0" promptText="1.0 X" style="-fx-background-color: transparent;" />
                                     <Button fx:id="plsScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="iconsOverBackground" />
@@ -266,7 +250,6 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ComboBox fx:id="speedComboBox" disable="true" prefHeight="25.0" prefWidth="68.0" promptText="1.0 X" style="-fx-background-color: transparent;" />
                                     <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="iconsOverBackground" />
@@ -283,6 +266,16 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
+                                    <HBox alignment="CENTER" HBox.hgrow="NEVER">
+                                       <children>
+                                          <Button fx:id="volumeButton" disable="true" mnemonicParsing="false" onAction="#onVolumeButtonAction">
+                                             <graphic>
+                                                <FontIcon fx:id="volumeIcon" iconLiteral="fa-volume-up" iconSize="15" styleClass="iconsOverBackground" />
+                                             </graphic>
+                                          </Button>
+                                          <Slider fx:id="volumeSlider" blockIncrement="5.0" disable="true" prefHeight="20.0" prefWidth="90.0" style="-fx-background-color: transparent;" value="100.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
