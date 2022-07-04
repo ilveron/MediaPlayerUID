@@ -143,8 +143,15 @@ public class MainController implements Initializable {
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane());
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
             changeButtonEnabledStatus();
-            MediaInfo mediaInfo= new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
-            mediaInfoPane.getChildren().add(mediaInfo);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    MediaInfo mediaInfo= new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
+
+                    mediaInfoPane.getChildren().add(mediaInfo);
+                }
+            });
+
         });
 
         plsProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {

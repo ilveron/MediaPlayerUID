@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,6 +58,7 @@ public class CreateNewPlaylistController implements Initializable {
             CreateNewPlaylist.getInstance().setName(text);
             CreateNewPlaylist.getInstance().setImage(imageView.getImage().getUrl());
             DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
+            ((Node)(event.getSource())).getScene().getWindow().hide();
         }else
             labelErrore.setVisible(true);
     }
