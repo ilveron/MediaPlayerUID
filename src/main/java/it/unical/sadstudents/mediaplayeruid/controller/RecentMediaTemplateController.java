@@ -1,9 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.Home;
-import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
-import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
+import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.RightClickHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
@@ -14,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotResult;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
@@ -64,25 +62,27 @@ public class RecentMediaTemplateController {
 
     @FXML
     void onDeleteAction(ActionEvent event) {
-        if (source =="home"){
-            for (int i=0; i<Home.getInstance().getRecentMedia().size();i++){
-                if(myMedia.equals(Home.getInstance().getRecentMedia().get(i))){
-                    Home.getInstance().getRecentMedia().remove(i);
-                    Home.getInstance().setChangeHappened(true);
-                    break;
+        if(SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete the file?")) {
+            if (source == "home") {
+                for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
+                    if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
+                        Home.getInstance().getRecentMedia().remove(i);
+                        Home.getInstance().setChangeHappened(true);
+                        DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"RecentMedia");
+                        break;
+                    }
+                }
+            } else {
+                for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
+                    if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
+                        VideoLibrary.getInstance().getVideoLibrary().remove(i);
+                        VideoLibrary.getInstance().setChangeHappened(true);
+                        // TODO: 04/07/2022 se elimini da video library non dovrebber eliminare anche (casomai esiste) in home? 
+                        break;
+                    }
                 }
             }
         }
-        else{
-            for (int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
-                if(myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))){
-                    VideoLibrary.getInstance().getVideoLibrary().remove(i);
-                    VideoLibrary.getInstance().setChangeHappened(true);
-                    break;
-                }
-            }
-        }
-
     }
 
     @FXML
