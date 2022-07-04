@@ -266,7 +266,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <HBox alignment="CENTER" HBox.hgrow="NEVER">
+                                    <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="110.0" HBox.hgrow="NEVER">
                                        <children>
                                           <Button fx:id="volumeButton" disable="true" mnemonicParsing="false" onAction="#onVolumeButtonAction">
                                              <graphic>
