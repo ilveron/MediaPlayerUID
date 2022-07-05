@@ -63,10 +63,15 @@ public class PlayQueueController implements Initializable {
 
     @FXML
     void deleteQueue(ActionEvent event) {
-        PlayQueue.getInstance().getQueue().clear();
-        Player.getInstance().stop();
-        PlayQueue.getInstance().setCurrentMedia(0);
-        PlayQueue.getInstance().setIsAVideo(false);
+        if(PlayQueue.getInstance().getQueue().size()>0) {
+            if (Player.getInstance().getIsRunning())
+                Player.getInstance().stop();
+            System.out.println("qua ci sono XD");
+            PlayQueue.getInstance().getQueue().clear();
+            System.out.println("anche qua X/");
+            PlayQueue.getInstance().setIsAVideo(false);
+            System.out.println("allora non mi prendere per il culo X(");
+        }
     }
 
     @FXML

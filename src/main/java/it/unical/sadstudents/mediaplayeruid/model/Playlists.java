@@ -55,9 +55,9 @@ public class Playlists {
     public int createNewPlaylist(){
         String image="file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png";
         int pos=playListsCollections.size();
-        Playlist playlist = new Playlist("Playlist"+playListsCollections.size(),image);
+        Playlist playlist = new Playlist("Playlist"+playListsCollections.size(),image,0,"00:00:00");
         playListsCollections.add(playlist);
-        DatabaseManager.getInstance().createPlaylist(playlist.getName(),playlist.getImage());
+        DatabaseManager.getInstance().createPlaylist(playlist.getName(),playlist.getImage(),0,"00:00:00");
 
         return pos;
     }

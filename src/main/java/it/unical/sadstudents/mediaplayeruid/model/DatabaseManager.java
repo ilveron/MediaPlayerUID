@@ -1,6 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.application.Platform;
+import javafx.scene.media.EqualizerBand;
+import javafx.scene.media.Media;
 
 import java.awt.*;
 import java.nio.file.Path;
@@ -103,18 +109,20 @@ public class DatabaseManager {
         }catch (SQLException e) {e.printStackTrace();}
         return false;
     }
-    public boolean createPlaylist(String name,String image){
+    public boolean createPlaylist(String name,String image,Integer songs,String duration){
         try {
             if(connection != null && name!=null && !connection.isClosed()&&!isPresent("Name",name,"PlayList")) {
-                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Playlist VALUES(?,?);");
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Playlist VALUES(?,?,?,?);");
                 stmt.setString(1, name);
                 stmt.setString(2,image);
+                stmt.setInt(3,songs);
+                stmt.setString(4,duration);
                 stmt.execute();
                 return true;
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){e.printStackTrace();}
         return false;
-    } //// TODO: 15/06/2022  da controllare 
+    }
     public boolean addMyMediaInPlaylist(String pathMedia,String name){
         try {
             // TODO: 13/06/2022  controllare se esistono???
@@ -128,7 +136,7 @@ public class DatabaseManager {
             }
         }catch (SQLException e){}
         return false;
-    } //// TODO: 15/06/2022  da controllare 
+    }
     public boolean insertRecentMedia(MyMedia myMedia){
         try {
             if(connection != null&&myMedia!=null&&!connection.isClosed()) {
@@ -145,7 +153,45 @@ public class DatabaseManager {
             }
         }catch (SQLException e){e.printStackTrace();}
         return false;
-    } // TODO: 15/06/2022  da controllare
+    }
+    public boolean insertPlayQueue(String path){
+        try {
+            if(connection != null && path!=null  && !connection.isClosed()&&!isPresent("Path",path,"Playqueue")) {
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Playqueue VALUES(?);");
+                stmt.setString(1, path);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e){e.printStackTrace();}
+        return false;
+    }
+    /*
+    public boolean changeApplicationClosureData(){
+        try {
+            if(connection != null &&!connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement(
+                        "UPDATE ApplicationClosureData " +
+                            "SET Path=?, Position=?,Volume=?,CurrentTime=?,TypeEqualizer=?,Theme=? " +
+                                "WHERE Key=key;");
+
+                if(PlayQueue.getInstance().getQueue().size()!=0)
+                    stmt.setString(1,PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()).getPath() );
+                else
+                    stmt.setString(1,null);
+                stmt.setInt(2,PlayQueue.getInstance().getCurrentMedia());
+                stmt.setDouble(3,Player.getInstance().getCurrentMediaTime() );
+                stmt.setDouble(4,Player.getInstance().getVolume());
+                stmt.setInt(5,AudioEqualizer.getInstance().getCurrentPresetIndex());
+                stmt.setString(6, Settings.theme);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {e.printStackTrace();}
+        return false;
+    }
+    */
     public boolean changePosixRecentMedia(String Path){
         try {
             if(isPresent("Path",Path,"RecentMedia")&&connection != null&&Path!=null&&!connection.isClosed()) {
@@ -158,7 +204,7 @@ public class DatabaseManager {
             }
         }catch (SQLException e){e.printStackTrace();}
         return false;
-    }
+    } // TODO: 05/07/2022 da controllare
 
 
     public boolean setLibrary(String pathMedia,String nameLibrary){
@@ -226,7 +272,20 @@ public class DatabaseManager {
 
     }
 
-
+    public boolean setPlaylistSong(Integer songs,String duration,String name){
+        try {
+            if(connection != null && songs!=-1 &&duration!=null&&!connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement("UPDATE Playlist SET Songs=?,TotalDuration=? WHERE Name=?;");
+                stmt.setInt(1,songs);
+                stmt.setString(2,duration);
+                stmt.setString(3,name);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {e.printStackTrace();}
+        return false;
+    }
     public boolean changePlaylist(String NewName,String OldName,String Image){
         try {
 
@@ -313,7 +372,7 @@ public class DatabaseManager {
             }
 
         }catch (SQLException e){e.printStackTrace();}
-    } // TODO: 15/06/2022  da controllare
+    }
     public void receivePlaylist(){
         try {
             if(connection != null&&!connection.isClosed()) {
@@ -322,7 +381,7 @@ public class DatabaseManager {
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name=rs.getString("Name");
-                    Playlists.getInstance().addPlaylist(new Playlist(name,rs.getString("Image")));
+                    Playlists.getInstance().addPlaylist(new Playlist(name,rs.getString("Image"),rs.getInt("Songs"),rs.getString("TotalDuration")));
                     //receiveMediaInPlaylist(name);
                 }
                 stmt.close();
@@ -343,7 +402,6 @@ public class DatabaseManager {
                 ArrayList<MyMedia> myMedia = new ArrayList<>();
                 while (rs.next()) {
                     String t=rs.getString("Title");
-                    System.out.println(t);
                     Home.getInstance().addToRecentMediaBis(new MyMedia(t, rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                             , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
@@ -355,8 +413,82 @@ public class DatabaseManager {
 
         }catch (SQLException e){e.printStackTrace();}
         return null;
-    } //// TODO: 15/06/2022 da controllare
+    }
+    public void receivePlayqueue(){
+        try {
+            if(connection != null&&!connection.isClosed()) {
+                String query = "select * " +
+                        "from MyMedia,Playqueue " +
+                        "where MyMedia.Path=Playqueue.Path " +
+                        ";";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                ArrayList<MyMedia> myMedia = new ArrayList<>();
+                while (rs.next()) {
+                     PlayQueue.getInstance().setList(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
+                            rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
+                            , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
+                }
+                stmt.close();
+                rs.close();
+            }
 
+        }catch (SQLException e){e.printStackTrace();}
+        return ;
+    }
+    /*
+    public void receiveApplicationClosureData(){
+        try {
+            if(connection != null&&!connection.isClosed()) {
+                String query = "select * " +
+                        "from ApplicationClosureData " +
+                        "where Key=key " +
+                        ";";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    String path=rs.getString("Path");
+                    if(path!=""&&path!=null&&isPresent("Path",path,"MyMedia")) {
+                        PlayQueue.getInstance().setCurrentMedia(rs.getInt("Position"));
+                        //Player.getInstance().playMedia();
+                        //Player.getInstance().pauseMedia();
+                        double currentTime=rs.getDouble("CurrentTime");
+                        System.out.println(currentTime);
+                        Player.getInstance().setCurrentMediaTime(currentTime);
+                        Player.getInstance().skipTime();
+                    }
+                    Player.getInstance().setVolume(rs.getDouble("Volume"));
+                    int Equalizer=rs.getInt("TypeEqualizer");
+                    if(Equalizer!=-1)
+                        AudioEqualizer.getInstance().setCurrentPresetIndex(Equalizer);
+                    SceneHandler.getInstance().changeTheme(rs.getString("Theme"));// TODO: 05/07/2022 riselezionare
+                }
+                stmt.close();
+                rs.close();
+            }
+
+        }catch (SQLException e){e.printStackTrace();}
+        return ;
+    }
+    public boolean initApplicationClosureData(){
+        try {
+            if(connection != null && !connection.isClosed()&&!isPresent("Key","key","ApplicationClosureData")) {
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO ApplicationClosureData VALUES(?,?,?,?,?,?,?);");
+                stmt.setString(1,"key" );
+                stmt.setString(2,"" );
+                stmt.setInt(3,-1);
+                stmt.setDouble(4,Player.getInstance().getCurrentMediaTime() );
+                stmt.setDouble(5,Player.getInstance().getVolume());
+                stmt.setInt(6,AudioEqualizer.getInstance().getCurrentPresetIndex());
+                stmt.setString(7,"Dark" );
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e){e.printStackTrace();}
+        return false;
+    }
+    */
 
     public boolean deleteAll(String tab){
         try {
@@ -402,7 +534,7 @@ public class DatabaseManager {
             }
         }catch (SQLException e){e.printStackTrace();}
         return false;
-    } //// TODO: 15/06/2022 da controllare
+    }
 
     private  boolean deleteMediaPlaylist(String element,String Type){
         try {
@@ -481,6 +613,8 @@ public class DatabaseManager {
             String query =
                     "CREATE TABLE IF NOT EXISTS Playlist(Name VARCHAR(100) NOT NULL," +
                             "Image VARCHAR(255)," +
+                            "Songs INT,"+
+                            "TotalDuration VARCHAR(10),"+
                             "PRIMARY KEY (Name));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
@@ -491,8 +625,40 @@ public class DatabaseManager {
 
 
     }
-
-
+    public void createTablePlayqueue(){
+        try {
+            String query =
+                    "CREATE TABLE IF NOT EXISTS Playqueue(Path VARCHAR(255)," +
+                            "FOREIGN KEY (Path) REFERENCES MyMedia(path),"+
+                            "PRIMARY KEY (Path));";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            stmt.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    /*
+    public void createTableApplicationClosureData(){
+        try {
+            String query =
+                    "CREATE TABLE IF NOT EXISTS ApplicationClosureData(Key VARCHAR(3)," +
+                            "Path VARCHAR(255),"+
+                            "Position INTEGER,"+
+                            "Volume FLOAT(25),"+
+                            "CurrentTime FLOAT(25),"+
+                            "TypeEqualizer INTEGER,"+
+                            "Theme VARCHAR(100),"+
+                            "FOREIGN KEY (Path) REFERENCES MyMedia(path),"+
+                            "PRIMARY KEY (Key));";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            stmt.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    */
 
     // Gestione Equalizer
     public void createTableEqualizer(){
@@ -509,7 +675,7 @@ public class DatabaseManager {
                             "Hz4000 INTEGER," +
                             "Hz8000 INTEGER,"+
                             "Hz16000 INTEGER," +
-                            "Key INTEGER);" ;
+                            "Key VARCHAR(3);" ;
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -519,7 +685,7 @@ public class DatabaseManager {
     }
     public boolean initEqualizer(){
         try {
-            if(connection != null &&!connection.isClosed()) {
+            if(connection != null &&!connection.isClosed()&&isPresent("Key","key","Equalizer")) {
                 PreparedStatement stmt = connection.prepareStatement("INSERT INTO Equalizer VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
                 stmt.setInt(1,0);
                 stmt.setInt(2,0);
@@ -531,7 +697,7 @@ public class DatabaseManager {
                 stmt.setInt(8,0);
                 stmt.setInt(9,0);
                 stmt.setInt(10,0);
-                stmt.setInt(11,0);
+                stmt.setString(11,"key");
                 stmt.execute();
                 stmt.close();
                 return true;
@@ -552,7 +718,7 @@ public class DatabaseManager {
                         "Hz2000=?," +
                         "Hz4000=?," +
                         "Hz8000=?," +
-                        "Hz16000=?  WHERE Key=0 ;");
+                        "Hz16000=?  WHERE Key=key ;");
                 stmt.setInt(1,vett[0]);
                 stmt.setInt(2,vett[1]);
                 stmt.setInt(3,vett[2]);
@@ -572,7 +738,7 @@ public class DatabaseManager {
     }
     public int[] getEqualizer(){
         try {
-            String query = "select * from Equalizer where Key=0;";
+            String query = "select * from Equalizer where Key=key;";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             int []settings=new int[10];

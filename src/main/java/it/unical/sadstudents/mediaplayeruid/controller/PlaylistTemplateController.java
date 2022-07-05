@@ -115,9 +115,10 @@ public class PlaylistTemplateController {
     }
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        DataExchangePlaylist.getInstance().setImage(playlist.getImage());
-        DataExchangePlaylist.getInstance().setName(playlist.getName());
-        DataExchangePlaylist.getInstance().setList(playlist.getMyList());
+        DataExchangePlaylist.getInstance().setPlaylist(playlist);
+        //DataExchangePlaylist.getInstance().setImage(playlist.getImage());
+        //DataExchangePlaylist.getInstance().setName(playlist.getName());
+        //DataExchangePlaylist.getInstance().setList(playlist.getMyList());
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("addMediaToPlaylist.fxml"));
         try{
            //Scene scene=new Scene(new AddMediaToPlaylist())
@@ -204,8 +205,8 @@ public class PlaylistTemplateController {
 
     }
     private void setLabel(){
-        LabelBrani.setText("Brani: "+playlist.getMyList().size());
-        LabelTime.setText("Time: 0"); // TODO: 04/07/2022  da fare
+        LabelBrani.setText("Brani: "+playlist.getSongs());
+        LabelTime.setText("Time: "+playlist.getTotalDuration()); // TODO: 04/07/2022  da fare
     }
     private void refresh(){
         for(int i=0;i<playlist.getMyList().size();i++){

@@ -37,13 +37,9 @@
     -fx-text-fill: primaryBackgroundColor;
 }
 
-.toolBarButton:focused .iconsOverBackground {
-    -fx-icon-color: primaryBackgroundColor;
-}
+.toolBarButton:focused .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 
-.toolBarIcons {
-    -fx-icon-color: iconOverBackgroundColor;
-}
+.toolBarIcons { -fx-icon-color: iconOverBackgroundColor; }
 
 .text-field * {
     -fx-background-color: secondaryBackgroundColor;
@@ -57,14 +53,12 @@
 }
 
 .artistMediaLabel, .recentArtistMediaLabel {
-    -fx-text-fill: darkerTextColor;
+    -fx-text-fill: alternateTextColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
 }
 
-.videoBackGroundColor{
-    -fx-background-color: primaryBackGroundColor;
-}
+.videoBackGroundColor{ -fx-background-color: primaryBackGroundColor; }
 
 .largeMenuButton, .smallMenuButton {
     -fx-background-color: transparentBackgroundColor;
@@ -76,27 +70,16 @@
     -fx-font-family: "Montserrat Medium";
 }
 
-.smallMenuButton .label{
-    -fx-font-size: 14px;
-}
+.smallMenuButton .label{ -fx-font-size: 14px; }
 
-.largeMenuButton .label{
-    -fx-font-size: 16px;
-}
+.largeMenuButton .label{ -fx-font-size: 16px; }
 
-.largeMenuButton:hover, .smallMenuButton:hover{
-    -fx-background-color: primarySelectionColor;
+.largeMenuButton:hover, .smallMenuButton:hover{ -fx-background-color: primarySelectionColor; }
 
-}
-
-.largeMenuButton .label:hover, .smallMenuButton .label:hover{
-    -fx-text-fill: primaryBackgroundColor;
-}
+.largeMenuButton .label:hover, .smallMenuButton .label:hover{ -fx-text-fill: primaryBackgroundColor; }
 
 
-.largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground{
-    -fx-icon-color: primaryBackgroundColor;
-}
+.largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground{ -fx-icon-color: primaryBackgroundColor; }
 
 .menuItem {
     -fx-background-radius: 5px;
@@ -117,36 +100,31 @@
     -fx-font-size: 14px;
 }
 
+.button:disabled {
+    -fx-opacity: 0.3;
+}
+
+
 .toggleButton {
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
     -fx-font-size: 14px;
 }
 
-.toggleButton:selected{
-    -fx-background-color: tertiarySelectionColor;
-}
+.toggleButton:selected{ -fx-background-color: tertiarySelectionColor; }
 
-.toggleButton:hover{
-    -fx-background-color: primarySelectionColor;
-}
+.toggleButton:hover{ -fx-background-color: primarySelectionColor; }
 
-.toggleButton:selected:hover {
-    -fx-background-color: secondarySelectionColor;
-}
+.toggleButton:selected:hover { -fx-background-color: secondarySelectionColor; }
 
-.toggleButton:hover .iconsOverBackground{
-    -fx-icon-color: primaryBackgroundColor;
-}
+.toggleButton:hover .iconsOverBackground{ -fx-icon-color: primaryBackgroundColor; }
 
 .button:hover {
     -fx-background-color: secondarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
-.button:hover .iconsOverBackground {
-    -fx-icon-color: primaryBackgroundColor;
-}
+.button:hover .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 
 .lengthLabel{
     -fx-text-fill: textColor;
@@ -169,13 +147,9 @@
     -fx-font-size: 14px;
 }
 
-.table-row-cell * {
-    -fx-background-color: transparent;
-}
+.table-row-cell * { -fx-background-color: transparent; }
 
-.table-row-cell:hover:filled {
-    -fx-background-color: tertiarySelectionColor;
-}
+.table-row-cell:hover:filled { -fx-background-color: tertiarySelectionColor; }
 
 .table-row-cell:selected * {
     -fx-background-color: secondarySelectionColor;
@@ -232,9 +206,7 @@
     -fx-background-radius : 2.0em;
 }
 
-.iconsOverBackground {
-    -fx-icon-color: iconOverBackgroundColor;
-}
+.iconsOverBackground { -fx-icon-color: iconOverBackgroundColor; }
 
 .slider {
     /* default track color: */
@@ -242,22 +214,23 @@
     -slider-track-color: -slider-filled-track-color ;
 }
 
+.slider {
+    -track-color: sliderTrackColor;
+}
+.slider .track {
+    -fx-background-color: -track-color ;
+}
+
 .recentMedia {
     -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 5.0, 0.0);
     -fx-background-radius: 15px;
 }
 
-.recentMedia:hover{
-    -fx-background-color: primarySelectionColor;
-}
+.recentMedia:hover{ -fx-background-color: primarySelectionColor; }
 
-.recentMedia:hover > .recentArtistMediaLabel {
-    -fx-text-fill: primaryBackgroundColor;
-}
+.recentMedia:hover > .recentArtistMediaLabel { -fx-text-fill: primaryBackgroundColor; }
 
-.recentMedia:hover > .recentMediaNameLabel {
-    -fx-text-fill: secondaryBackgroundColor;
-}
+.recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
 
 .recentMediaImageBg {
     -fx-background-color: black;
@@ -270,18 +243,74 @@
     -fx-background-radius: 30px;
 }
 
-.recentMediaButton:hover {
-    -fx-background-color: primarySelectionColor;
-}
+.recentMediaButton:hover { -fx-background-color: primarySelectionColor; }
 
 .recentMediaOverlyingMenu{
     -fx-background-color: primarySelectionColor;
     -fx-opacity: 0.9;
 }
 
-.slider {
-    -track-color: sliderTrackColor;
+/* .equalizerSlider > .thumb{ -fx-background-image:url("https://i.imgur.com/SH1W4VQ.png"); } */
+
+.equalizerButton {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-opacity: 0.7;
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 12px;
 }
-.slider .track {
-    -fx-background-color: -track-color ;
+
+.equalizerButton:hover {
+    -fx-background-color: primarySelectionColor;
+    -fx-text-fill: primaryBackgroundColor;
+}
+
+.descriptionLabels {
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 12px;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-text-fill: textColor;
+
+}
+
+.choice-box .menu-item > .label { -fx-text-fill: textColor; }
+
+.choice-box .menu-item:focused > .label { -fx-text-fill: selectedTextColor; }
+
+.choice-box .menu-item:focused {
+    -fx-background-color: primarySelectionColor;
+    -fx-mark-color: textColor;
+}
+
+.choice-box {
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-mark-color: textColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 12px;
+}
+
+.choice-box > .label { -fx-text-fill: textColor; }
+
+.notification-bar>.pane {
+    -fx-background-color: primaryBackgroundColor,secondaryBackgroundColor;
+    -fx-padding: 8 8 8 8;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 5.0, 0.0, 5.0, 0.0);
+}
+
+.notification-bar>.pane .title {
+    -fx-text-fill: alternateTextColor;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-font-size: 16px;
+}
+
+.notification-bar>.pane .label {
+    -fx-text-fill: textColor;
+    -fx-alignment: top-left;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 14px;
 }

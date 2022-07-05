@@ -2,14 +2,13 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.AudioEqualizer;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +22,7 @@ public class AudioEqualizerController implements Initializable {
     private Button plsSave;
 
     @FXML
-    private ComboBox<String> presetComboBox;
+    private ChoiceBox<String> presetChoiceBox;
 
     @FXML
     private Slider slider32;
@@ -138,14 +137,14 @@ public class AudioEqualizerController implements Initializable {
         });
 
         for(String text:AudioEqualizer.getInstance().getPresetsNames())
-            presetComboBox.getItems().add(text);
-        presetComboBox.setValue(AudioEqualizer.getInstance().getPresetsNames().get(AudioEqualizer.getInstance().getCurrentPresetIndex()));
+            presetChoiceBox.getItems().add(text);
+        presetChoiceBox.setValue(AudioEqualizer.getInstance().getPresetsNames().get(AudioEqualizer.getInstance().getCurrentPresetIndex()));
         presetComboBoxHandler(new ActionEvent());
-        presetComboBox.setOnAction(this::presetComboBoxHandler);
+        presetChoiceBox.setOnAction(this::presetComboBoxHandler);
     }
 
     private void presetComboBoxHandler(ActionEvent event) {
-        switch (presetComboBox.getValue()){
+        switch (presetChoiceBox.getValue()){
             case "Flat":
                 AudioEqualizer.getInstance().setCurrentPresetIndex(0);
                 break;
@@ -175,7 +174,7 @@ public class AudioEqualizerController implements Initializable {
                 AudioEqualizer.getInstance().setCurrentPresetIndex(6);
                 break;
         }
-        if(presetComboBox.getValue() != "Custom")
+        if(presetChoiceBox.getValue() != "Custom")
             controlsDisable(true);
 
         changePreset(AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex()));
@@ -199,6 +198,7 @@ public class AudioEqualizerController implements Initializable {
     void onReset(ActionEvent event) {
         AudioEqualizer.getInstance().saveCustomPreset(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
         changePreset(AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex()));
+        MyNotification.notifyInfo("","Custom EQ preset reset",3);
     }
 
     @FXML
@@ -215,6 +215,7 @@ public class AudioEqualizerController implements Initializable {
         toSave[8] = (int)slider8k.getValue();
         toSave[9] = (int)slider16k.getValue();
         AudioEqualizer.getInstance().saveCustomPreset(toSave);
+        MyNotification.notifyInfo("","Custom EQ preset saved",3);
     }
 
     private void controlsDisable(Boolean status){

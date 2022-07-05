@@ -1,9 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.MusicLibrary;
-import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import it.unical.sadstudents.mediaplayeruid.model.DataExchangePlaylist;
-import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
+import it.unical.sadstudents.mediaplayeruid.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,8 @@ import java.util.ResourceBundle;
 
 public class AddMediaToPlaylistController implements Initializable {
 
-    ArrayList<Integer> PosizioniSelezionate;
+    private ArrayList<Integer> PosizioniSelezionate;
+    private String tabSelezionata="MusicLibrary";
 
     @FXML
     private TableColumn<MyMedia,String> title, artist, album, genre;
@@ -32,8 +32,6 @@ public class AddMediaToPlaylistController implements Initializable {
     @FXML
     private Button buttonMusicLibrary;
 
-    @FXML
-    private Button buttonSearch;
 
     @FXML
     private Button buttonVideoLibrary;
@@ -60,17 +58,15 @@ public class AddMediaToPlaylistController implements Initializable {
     @FXML
     void onMusicLibrary(ActionEvent event) {
         reset();
+        tabSelezionata="MusicLibrary";
         tableView.setItems(MusicLibrary.getInstance().getMusicLibrary());
     }
 
-    @FXML
-    void onSearch(ActionEvent event) {
-
-    }
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
         reset();
+        tabSelezionata="VideoLibrary";
         tableView.setItems(VideoLibrary.getInstance().getVideoLibrary());
     }
 
@@ -100,6 +96,19 @@ public class AddMediaToPlaylistController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,Double>("length"));
 
 
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(tabSelezionata=="MusicLibrary")
+                    tableView.setItems(SearchForFile.getInstance().getSearch(newValue, MusicLibrary.getInstance().getMusicLibrary()));
+                else
+                    tableView.setItems(SearchForFile.getInstance().getSearch(newValue, VideoLibrary.getInstance().getVideoLibrary()));
+
+            }
+        });
+
+
+
         tableView.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -109,7 +118,7 @@ public class AddMediaToPlaylistController implements Initializable {
                 if(event.getClickCount()==1 && !row.isEmpty()){
                     int index=presente(row.getIndex());
                     if(index!=-1){
-                        row.setStyle("-fx-background-color: white;"); // TODO: 02/07/2022  vedere che colore mettere
+                        row.setStyle(""); // TODO: 02/07/2022  vedere che colore mettere
                         row.setFocusTraversable(false);
                         PosizioniSelezionate.remove(index);
                     }else {

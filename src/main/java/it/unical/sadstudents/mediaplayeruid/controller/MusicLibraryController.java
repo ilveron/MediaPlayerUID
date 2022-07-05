@@ -2,6 +2,8 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +30,8 @@ public class MusicLibraryController implements Initializable {
     @FXML
     private TableColumn<MyMedia, String> length;
 
+    @FXML
+    private TextField TextField;
     @FXML
     private Button btnAddLibraryToQueue, btnAddSongToQueue, btnDelete;
     //END TABLEVIEW
@@ -76,17 +80,19 @@ public class MusicLibraryController implements Initializable {
     @FXML
     void onDeleteSong(ActionEvent event) {
         int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
-        if(myMedia!=-1&&!MusicLibrary.getInstance().isSelectionModeActive()){
+
+        if(myMedia!=-1){
             MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
             tableViewMusicLibrary.refresh();
-        }else if(MusicLibrary.getInstance().getSelection().size()>0&&MusicLibrary.getInstance().isSelectionModeActive()){
+        }
+        /*else if(MusicLibrary.getInstance().getSelection().size()>0&&MusicLibrary.getInstance().isSelectionModeActive()){
             for(int i=0;i<MusicLibrary.getInstance().getSelection().size();i++) {
                 System.out.println(MusicLibrary.getInstance().getMusicLibrary().get(i));
                 MusicLibrary.getInstance().getMusicLibrary().remove(MusicLibrary.getInstance().getSelection().get(i));
                 tableViewMusicLibrary.refresh();
             }
         }
-        if(MusicLibrary.getInstance().getMusicLibrary().size()==0) setObject(true);
+        if(MusicLibrary.getInstance().getMusicLibrary().size()==0) setObject(true);*/
     }
 
     //END ACTION EVENT
@@ -106,30 +112,45 @@ public class MusicLibraryController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
         //MusicLibrary.getInstance().sortList();
         beginTimer();
+        // TODO: 08/06/2022 aggiustare PlayQueue perche vuole un file come input ma io devo passare un MyMedia
 
-        /*tableViewMusicLibrary.setRowFactory(tableView ->{
+        tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if(event.getClickCount() > 1 && !row.isEmpty()&&!MusicLibrary.getInstance().isSelectionModeActive()){
-                    // TODO: 08/06/2022 aggiustare PlayQueue perche vuole un file come input ma io devo passare un MyMedia
-                    PlayQueue.getInstance().generateNewQueue(row.getItem());
-                }else if(MusicLibrary.getInstance().isSelectionModeActive()&&!row.isEmpty()){
-                    //int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
-                    int posix=MusicLibrary.getInstance().alreadySelect(row.getIndex());
-                    if(posix!=-1) {
-                        MusicLibrary.getInstance().getSelection().remove(posix);
-                        row.setStyle("-fx-background-color: transparent;");
-                    }else {
-                        System.out.println("Ci sono pos "+row.getIndex());
-                        MusicLibrary.getInstance().getSelection().add( row.getIndex());
-                        row.setStyle("-fx-background-color: RED;");
+                if(!row.isEmpty()) {
+                    MyMedia myMedia=row.getItem();
+                    if (event.getClickCount() > 1) {
+                        if(MusicLibrary.getInstance().isPresent(myMedia,MusicLibrary.getInstance().getSelection())!=-1)
+                            MusicLibrary.getInstance().getSelection().remove(myMedia);// TODO: 05/07/2022  baggato apre a caso un altro file pero video X/
+                        System.out.println(myMedia.getPath());
+                        PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+                    }/*else if (event.getClickCount() == 1 ) {
+                        if (MusicLibrary.getInstance().isPresent(myMedia,MusicLibrary.getInstance().getSelection())!=-1) {
+                            row.setStyle("");
+                            row.setFocusTraversable(false);
+                            MusicLibrary.getInstance().getSelection().remove(myMedia);
+                        } else {
+                            row.setFocusTraversable(false);
+                            MusicLibrary.getInstance().getSelection().add(myMedia);
+                            row.setStyle("-fx-background-color: RED;");
+                        }
+
+                    }*/ else if (row.isEmpty()) {
+                        row.setFocusTraversable(false);
+                        MusicLibrary.getInstance().getSelection().clear();
+
                     }
                 }
 
             });
             return row;
-        });*/
-
+        });
+        TextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                tableViewMusicLibrary.setItems(SearchForFile.getInstance().getSearch(newValue, MusicLibrary.getInstance().getMusicLibrary()));
+            }
+        });
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 
@@ -138,6 +159,8 @@ public class MusicLibraryController implements Initializable {
         btnAddLibraryToQueue.setTooltip(new Tooltip("Add entire library to queue"));
         btnDelete.setTooltip(new Tooltip("Delete selected music"));
         btnAddSongToQueue.setTooltip(new Tooltip("Add song to queue"));
+        TextField.setTooltip(new Tooltip("Research the Music"));
+
     }
 
     // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna

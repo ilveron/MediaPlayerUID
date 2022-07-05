@@ -4,11 +4,18 @@ import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotResult;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.sql.ResultSet;
@@ -17,6 +24,7 @@ import java.util.function.ToDoubleBiFunction;
 
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
+import static java.lang.Thread.sleep;
 
 public class ThreadManager {
     private Timer timer;
@@ -175,7 +183,7 @@ public class ThreadManager {
                  while(!next) {}
              }
             try {
-                Thread.sleep(2000);
+                sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -213,10 +221,7 @@ public class ThreadManager {
 
 
 
-
-    public void mediaPlayingNowDataDisplayedUpdate(){
-        // TODO: 05/06/2022
-    }
+    //public void startUpdateProgress(ProgressBar)
 
     public void progressBarUpdate(ProgressBar progressBar,String type) {
         Task task = new Task<Void>() {

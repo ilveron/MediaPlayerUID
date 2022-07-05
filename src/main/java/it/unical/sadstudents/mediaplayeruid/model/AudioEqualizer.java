@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.chart.PieChart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,9 @@ public class AudioEqualizer {
                                                         new int[]{5, 4, 3, 1, 0, -1, 1, 3, 4, 5},
                                                         new int[]{6, 5, 4, 3, 1, 0, 0, 0, 0, 0},
                                                         new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+
+        //presetsValues.add(DatabaseManager.getInstance().getEqualizer());
+
     }
     public static AudioEqualizer getInstance(){
         if (instance==null)
@@ -55,6 +59,7 @@ public class AudioEqualizer {
     }
 
     public void saveCustomPreset(int[] values){
+        //DatabaseManager.getInstance().setEqualizer(values);
         presetsValues.remove(presetsValues.size()-1);
         presetsValues.add(values);
     }

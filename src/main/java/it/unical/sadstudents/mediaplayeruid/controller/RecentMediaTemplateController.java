@@ -103,7 +103,7 @@ public class RecentMediaTemplateController {
         labelDuration.setText(myMedia.getLength());
 
 
-        if (!myMedia.getPath().toLowerCase().endsWith(".mp4")){
+        /*if (!myMedia.getPath().toLowerCase().endsWith(".mp4")){
             Media media = new Media(myMedia.getPath());
             media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
                 if(change.wasAdded()) {
@@ -180,13 +180,21 @@ public class RecentMediaTemplateController {
             });
 
 
-        }
+        }*/
 
 
         //imageView.setFitHeight(200);
         //imageView.setFitWidth(200);
 
 
+    }
+
+    public void setImage(Image image){
+        imageView.setImage(image);
+    }
+
+    public MediaView getMediaViewBis(){
+        return mediaViewBis;
     }
 
     public void onMouseOver(){

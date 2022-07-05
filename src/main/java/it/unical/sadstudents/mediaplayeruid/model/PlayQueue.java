@@ -120,6 +120,10 @@ public class PlayQueue implements DataListedModel{
             startMedia();
     }
 
+    public void setList(MyMedia myMedia){
+        queue.add(myMedia);
+    }
+
     @Override
     public void addFilesToList(List<File> files) {
         /*for(File file: files){

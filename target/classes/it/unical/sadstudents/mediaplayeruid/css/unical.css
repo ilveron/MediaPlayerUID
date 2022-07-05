@@ -8,9 +8,11 @@
   tertiarySelectionColor: #697b96;
   imagesColor: #dcdcdd;
   textColor: #121212;
-  darkerTextColor: #B0B0B0;
+  alternateTextColor: #313131;
   headersTextColor: #121212;
   selectedTextColor: #dcdcdd;
   lineColor: #b3b3b3;
   separatorColor: #7b90b0;
+  dropShadowColor: #121212;
+  sliderTrackColor: #EEEEEE;
 }

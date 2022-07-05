@@ -16,13 +16,18 @@ public class Playlist  {
     private ObservableList<MyMedia> list;
     private String image;
     private String name;
+    private Integer songs;
+    private String totalDuration;
 
 
-    public Playlist(String name, String image){
+    public Playlist(String name, String image,Integer songs,String totalDuration){
         list= FXCollections.observableArrayList();
         this.image=image;
         this.name=name;
+        this.songs=songs;
+        this.totalDuration=totalDuration;
     }
+    public Playlist(){}
 
 
     public void addMedia(MyMedia myMedia){
@@ -43,6 +48,13 @@ public class Playlist  {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public Integer getSongs() {return songs;}
+    public void setSongs(Integer songs) {this.songs = songs;}
+
+    public String getTotalDuration() {return totalDuration;}
+    public void setTotalDuration(String totalDuration) {this.totalDuration = totalDuration;}
 
     @Override
     public boolean equals(Object o) {

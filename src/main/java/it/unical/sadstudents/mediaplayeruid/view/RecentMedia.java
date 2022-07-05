@@ -6,10 +6,12 @@ import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 
 import java.io.IOException;
 
@@ -35,6 +37,14 @@ public class RecentMedia extends Pane {
 
     public void mouseOverAction(){
         controller.onMouseOver();
+    }
+
+    public void setImage(Image image){
+        controller.setImage(image);
+    }
+
+    public MediaView getMediaView(){
+        return controller.getMediaViewBis();
     }
 
 

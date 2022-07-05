@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
 import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
@@ -88,6 +89,9 @@ public class VideoLibraryController  implements Initializable {
         int size= VideoLibrary.getInstance().getVideoLibrary().size();
         for (int i= size-1; i>=0; --i){
             RecentMedia recentMedia = new RecentMedia(VideoLibrary.getInstance().getVideoLibrary().get(i),"video");
+            ImageCreator imageCreator = new ImageCreator();
+            imageCreator.setPane(recentMedia);
+            imageCreator.start();
             tilePane.getChildren().add(recentMedia);
             recentMedia.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {

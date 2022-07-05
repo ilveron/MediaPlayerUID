@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class Player {
     //VARIABLES
     private int skipMilliseconds = 10000;
-    private Double volume = 100.0 ;
+    private Double volume = 100.0 ; // TODO: 05/07/2022 transformare in property 
     private Timer timer;
     private TimerTask task;
     private boolean runningTimer;
@@ -215,6 +215,17 @@ public class Player {
     public void setVolume(double v) {
         volume=v;
         mediaPlayer.setVolume(v);
+    }
+
+    public Double getVolume(){
+        return volume;
+    }
+
+    public void skipTime(){
+        //mediaPlayer.play();
+        //ThreadManager.getInstance().beginTimer();
+        //mediaPlayer.seek(Duration.millis(getCurrentMediaTime()));
+        //mediaPlayer.pause();
     }
     //END BASIC CONTROLS
 

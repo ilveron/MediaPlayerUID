@@ -2,15 +2,14 @@ package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
-import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
-import it.unical.sadstudents.mediaplayeruid.model.Playlist;
-import it.unical.sadstudents.mediaplayeruid.model.Playlists;
+import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -30,6 +29,8 @@ public class SceneHandler {
     private Alert alert;
     private SimpleBooleanProperty mediaLoadingInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty metadataLoadindagInProgess = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty startingMediaPlayer = new SimpleBooleanProperty(true);
+
 
     private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
 
@@ -95,12 +96,15 @@ public class SceneHandler {
         DatabaseManager.getInstance().createTableRecentMedia();
         DatabaseManager.getInstance().createTablePlaylist();
         DatabaseManager.getInstance().createTableMediaMyMediaPlaylist();
+        DatabaseManager.getInstance().createTablePlayqueue();
+        //DatabaseManager.getInstance().createTableApplicationClosureData();
 
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
         stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
         System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
+
 
         scene = new Scene(loader.load(),1344,756);
 
@@ -124,19 +128,30 @@ public class SceneHandler {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
+                //DatabaseManager.getInstance().changeApplicationClosureData();
+                for(MyMedia myMedia: PlayQueue.getInstance().getQueue()) {
+                    DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
+                }
+                DatabaseManager.getInstance().disconnect();
                 Platform.exit();
                 System.exit(0);
-                DatabaseManager.getInstance().disconnect();
+                // TODO: 05/07/2022 modificare con thread pool
+
+
             }
         });
 
-
+        //DatabaseManager.getInstance().initApplicationClosureData();
         DatabaseManager.getInstance().receiveMyMedia("MusicLibrary");
         DatabaseManager.getInstance().receiveMyMedia("VideoLibrary");
         DatabaseManager.getInstance().receiveRecentMedia();
+        DatabaseManager.getInstance().receivePlayqueue();
+        //DatabaseManager.getInstance().receiveApplicationClosureData();
         DatabaseManager.getInstance().receivePlaylist();
         for(Playlist s:Playlists.getInstance().getPlayListsCollections())
             DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
+
+        HomeTilePaneHandler.getInstance().listCreator();
 
 
 
@@ -174,6 +189,12 @@ public class SceneHandler {
         alert.setContentText(null);
         alert.showAndWait();
         return alert.getResult() != ButtonType.CANCEL;
+    }
+    public void createErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setContentText(message);
+        alert.show();
     }
 
 }

@@ -1,16 +1,22 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
+import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
 import it.unical.sadstudents.mediaplayeruid.view.RightClickHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -19,11 +25,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -38,6 +43,10 @@ public class HomeController implements Initializable {
     private ImageView imageTest;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private Label loadingLabel;
+    @FXML
+    private ProgressIndicator loadingIndicator;
 
 
     // TODO: 06/06/2022 DECIDERE SE SWITCHARE IN PLAYQUEUE xd !!!
@@ -57,11 +66,31 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("inizializzazione");
         startToolTip();
 
+        Home.getInstance().loadingProperty().addListener(observable -> {
+            if(!Home.getInstance().isLoading()){
+                loadingIndicator.setVisible(false);
+                loadingLabel.setVisible(false);
+            }
+        });
+
+
+        HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
+            if(HomeTilePaneHandler.getInstance().getReadyInteger()==Home.getInstance().getRecentMedia().size()){
+                setContentTilePane();
+            }
+
+        });
+
+
         setContentTilePane();
-        Home.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
+
+
+
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
+
 
 
     }
@@ -71,82 +100,78 @@ public class HomeController implements Initializable {
         // TODO: 07/06/2022
     }
 
-    private void setContentTilePane(){
-        tilePane.getChildren().clear();
-        int size= Home.getInstance().getRecentMedia().size();
-        for (int i= size-1; i>=0; --i){
-            RecentMedia recentMedia = new RecentMedia(Home.getInstance().getRecentMedia().get(i),"home");
+
+    public void setContentTilePane(){
+        System.out.println("funzione");
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tilePane.getChildren().clear();
+
+                int size = HomeTilePaneHandler.getInstance().getRecentMedias().size();
+                for (int i = size-1; i>=0;  i--) {
 
 
+                    tilePane.getChildren().add(HomeTilePaneHandler.getInstance().getRecentMedias().get(i));
+                    /*tilePane.getChildren().get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent mouseEvent) {
+                                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                                    if(mouseEvent.getClickCount() == 2){
+                                        PlayQueue.getInstance().generateNewQueue(tilePane.getChildren().get(i).getMyMedia());
+                                    }
+                                    else if (mouseEvent.getClickCount()==1){
+                                            tilePane.getChildren().get(i).requestFocus();
 
-            //tasto destro e sinistro sul recentMedia
-            recentMedia.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-                        if(mouseEvent.getClickCount() == 1){
-                            Double x = mouseEvent.getSceneX()-270;
-                            Double y = mouseEvent.getSceneY();
-
-                            try {
-                                RightClickHandler rightClickHandler = new RightClickHandler(recentMedia.getMyMedia(),x,y,"Home");
-                                homeAnchorPane.getChildren().add(rightClickHandler);
-                                rightClickHandler.setLayoutX(x);
-                                rightClickHandler.setLayoutY(y);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                    }
+                                }
                             }
-
-                        }
-
-                    }
-                    else if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                        if(mouseEvent.getClickCount() == 2){
-                            PlayQueue.getInstance().generateNewQueue(recentMedia.getMyMedia());
-                        }
-                        else if (mouseEvent.getClickCount()==1){
-                            Platform.runLater(()->{
-                                recentMedia.requestFocus();
-                            });
+                        });
 
 
-                        }
-                    }
-                }
-            });
+                    tilePane.getChildren().get(i).hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                            if (newValue) {
+                                tilePane.getChildren().get(i).mouseOverAction();
 
-            recentMedia.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-                if (newValue) {
-                    recentMedia.mouseOverAction();
-
-                } else {
-                    recentMedia.mouseOverAction();
-                }
-            });
+                            } else {
+                                tilePane.getChildren().get(i).mouseOverAction();
+                            }
+                        });
 
 
 
 
 
-            recentMedia.setFocusTraversable(true);
-            recentMedia.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent keyEvent) {
-                    KeyCode key = keyEvent.getCode();
-                    if (key == KeyCode.ENTER && recentMedia.isFocused()) {
-                        PlayQueue.getInstance().generateNewQueue(recentMedia.getMyMedia());
-                    }
-                }
-            });
-            tilePane.getChildren().add(recentMedia);
+                    tilePane.getChildren().get(i).setFocusTraversable(true);
+
+                    tilePane.getChildren().get(i).setOnKeyPressed(new EventHandler<KeyEvent>() {
+                            @Override
+                            public void handle(KeyEvent keyEvent) {
+                                KeyCode key = keyEvent.getCode();
+                                if (key == KeyCode.ENTER && tilePane.getChildren().get(i).isFocused()) {
+                                    PlayQueue.getInstance().generateNewQueue(tilePane.getChildren().get(i).getMyMedia());
+                                    //RecentMedia tempRecentMedia = recentMedias.get(finalI);
+
+                                }
+                            }
+                        });
+
+
+                    if (i == 0) {
+                        loadingIndicator.setVisible(false);
+                        loadingLabel.setVisible(false);
+                    }*/
+
+
+
+
+            }
         }
 
 
 
-        if(Home.getInstance().isChangeHappened())
-            Home.getInstance().setChangeHappened(false);
-
-
+        });
 
     }
 

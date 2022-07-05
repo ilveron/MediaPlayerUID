@@ -1,8 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
+import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.keyCombo;
-import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
@@ -14,9 +14,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,15 +24,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import javax.xml.stream.EventFilter;
-import javax.xml.stream.events.XMLEvent;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -54,7 +51,7 @@ public class MainController implements Initializable {
     @FXML
     private VBox vBoxProgressBar;
     @FXML
-    private ComboBox<String> speedComboBox;
+    private ChoiceBox<String> speedChoiceBox;
 
     @FXML
     private FontIcon iconPlayPause;
@@ -126,7 +123,7 @@ public class MainController implements Initializable {
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
             @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
                 if(Player.getInstance().getMediaPlayer().isMute())
                     Player.getInstance().getMediaPlayer().setMute(false);
                 if (volumeSlider.getValue() == 0) volumeIcon.setIconLiteral("fa-volume-off");
@@ -134,6 +131,8 @@ public class MainController implements Initializable {
                 else volumeIcon.setIconLiteral("fa-volume-down");
                 Player.getInstance().setVolume(volumeSlider.getValue() * 0.01);
 
+                double percentage = 100.0 * (newValue.doubleValue() - volumeSlider.getMin()) / (volumeSlider.getMax() - volumeSlider.getMin());
+                volumeSlider.setStyle("-track-color: linear-gradient(to right, tertiarySelectionColor " + percentage + "%, white " + percentage + ("%);"));
             }
         });
 
@@ -176,11 +175,12 @@ public class MainController implements Initializable {
             }
         });
 
-        String[] speeds = {"0.5 X","1.0 X","2.0 X"};
+        String[] speeds = {"0.50x", "0.75x", "1.00x", "1.25x", "1.50x", "2.00x"};
         for(int i=0; i<speeds.length ; i++){
-            speedComboBox.getItems().add(speeds[i]);
+            speedChoiceBox.getItems().add(speeds[i]);
         }
-        speedComboBox.setOnAction(this::changeSpeed);
+        speedChoiceBox.setValue("1.00x");
+        speedChoiceBox.setOnAction(this::changeSpeed);
 
         mediaSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -219,8 +219,6 @@ public class MainController implements Initializable {
                     progressType.setText("LOADING METADATA IN PROGRESS");
                     ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"meta");
                 }
-
-
         });
 
 
@@ -239,7 +237,7 @@ public class MainController implements Initializable {
         // TODO: 07/06/2022 
         plsShuffle.setTooltip(new Tooltip("Shuffle mode"));
         plsScreenMode.setTooltip(new Tooltip("Screen mode"));
-        speedComboBox.setTooltip(new Tooltip("Speed play"));
+        speedChoiceBox.setTooltip(new Tooltip("Speed play"));
         plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
         plsSkipBack.setTooltip(new Tooltip("Skip back 10s"));
         volumeButton.setTooltip(new Tooltip("Volume"));
@@ -427,15 +425,25 @@ public class MainController implements Initializable {
     void onEquilizer(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("audioEqualizer-view.fxml"));
         try{
-            Scene scene = new Scene(loader.load(),400,225);
+            Scene scene = new Scene(loader.load(),484,280);
             Stage stage = new Stage();
+
+            for (String font : Settings.fonts) {
+                System.out.println();
+                Font.loadFont(Objects.requireNonNull(MainApplication.class.getResourceAsStream(font)), 10);
+            }
+
+            scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+ Settings.theme+".css")).toExternalForm());
+            System.out.println(Settings.theme);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("AUDIO EQUALIZER");
-            stage.setMinHeight(400);
-            stage.setMinWidth(225);
+            stage.setTitle("Audio Equalizer");
+            stage.setMinHeight(280);
+            stage.setMinWidth(484);
             stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
             stage.setScene(scene);
             stage.showAndWait();
+
             //stage.setOnCloseRequest
         }catch(Exception exception){
             exception.printStackTrace();}
@@ -554,25 +562,37 @@ public class MainController implements Initializable {
     }
 
     public void changeSpeed(ActionEvent event){
-        if (speedComboBox.getValue()=="0.5 X") {
-            Player.getInstance().getMediaPlayer().setRate(0.5);
-            Player.getInstance().setRate(0.5);
+        switch(speedChoiceBox.getValue()){
+            case "0.50x":
+                Player.getInstance().getMediaPlayer().setRate(0.5);
+                Player.getInstance().setRate(0.5);
+                break;
+
+            case "0.75x":
+                Player.getInstance().getMediaPlayer().setRate(0.75);
+                Player.getInstance().setRate(0.75);
+                break;
+
+            case "1.00x":
+                Player.getInstance().getMediaPlayer().setRate(1.0);
+                Player.getInstance().setRate(1.0);
+                break;
+
+            case "1.25x":
+                Player.getInstance().getMediaPlayer().setRate(1.25);
+                Player.getInstance().setRate(1.25);
+                break;
+
+            case "1.50x":
+                Player.getInstance().getMediaPlayer().setRate(1.5);
+                Player.getInstance().setRate(1.5);
+                break;
+
+            case "2.00x":
+                Player.getInstance().getMediaPlayer().setRate(2.0);
+                Player.getInstance().setRate(2.0);
+                break;
         }
-        else if(speedComboBox.getValue()=="1.0 X"){
-            Player.getInstance().getMediaPlayer().setRate(1);
-            Player.getInstance().setRate(1.0);
-        }
-
-        else{
-            Player.getInstance().getMediaPlayer().setRate(2.0);
-            Player.getInstance().setRate(2.0);
-
-        }
-
-
-
-
-
 
         //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue())*0.01);
         //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue().substring(0, speedComboBox.getValue().length() - 1)) * 0.01);
@@ -629,10 +649,11 @@ public class MainController implements Initializable {
         plsProperties.setDisable(status);
         plsRepeat.setDisable(status);
         plsShuffle.setDisable(status);
-        speedComboBox.setDisable(status);
+        speedChoiceBox.setDisable(status);
         volumeButton.setDisable(status);
         mediaSlider.setDisable(status);
         volumeSlider.setDisable(status);
+        speedChoiceBox.setDisable(status);
     }
 
     private void setMediaSlider() {

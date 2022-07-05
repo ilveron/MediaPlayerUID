@@ -13,8 +13,7 @@ public class MusicLibrary implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> Library;
     private Integer KMusic=0;
-    private ObservableList<Integer> Selection;
-    private boolean selectionModeActive=false;
+    private ObservableList<MyMedia> Selection;
     //public int sortTF=0;
 
     //SINGLETON AND CLASS DECLARATION
@@ -35,16 +34,8 @@ public class MusicLibrary implements DataListedModel{
         return Library;
     }
 
-    public ObservableList<Integer> getSelection() {
+    public ObservableList<MyMedia> getSelection() {
         return Selection;
-    }
-
-    public boolean isSelectionModeActive() {
-        return selectionModeActive;
-    }
-
-    public void setSelectionModeActive(boolean selectionModeActive) {
-        this.selectionModeActive = selectionModeActive;
     }
 
     public Integer getKMusic() {
@@ -99,14 +90,14 @@ public class MusicLibrary implements DataListedModel{
         }
 
     }
-
-
-    public int alreadySelect(int t){
-        for(int i =0;i<Selection.size();i++){
-            if(Selection.get(i)==t) return i;
+    public int isPresent(MyMedia m,ObservableList<MyMedia> list){
+        for(int i=0;i<list.size();i++){
+            if(m.equals(list.get(i))) return i;
         }
         return -1;
     }
+
+
     public void sortList(){
         Library.sort(Comparator.comparing(MyMedia::toString));
     }

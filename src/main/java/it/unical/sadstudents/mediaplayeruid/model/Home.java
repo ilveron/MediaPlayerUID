@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.chart.PieChart;
 
@@ -13,6 +14,7 @@ public class Home {
     //VARIABLES
     private ArrayList<MyMedia> recentMedia ;
     private SimpleBooleanProperty changeHappened = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty loading = new SimpleBooleanProperty(true);
 
     //SINGLETON AND CLASS DECLARATION
     private static Home instance = null;
@@ -27,6 +29,20 @@ public class Home {
     //END SINGLETON
 
     //GETTERS
+
+
+    public boolean isLoading() {
+        return loading.get();
+    }
+
+    public SimpleBooleanProperty loadingProperty() {
+        return loading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading.set(loading);
+    }
+
     public ArrayList<MyMedia> getRecentMedia() { return recentMedia; }
 
     public boolean isChangeHappened() {
@@ -72,7 +88,7 @@ public class Home {
             if (myMedia.equals(recentMedia.get(i))){
                 recentMedia.remove(i);
                 recentMedia.add(myMedia);
-                DatabaseManager.getInstance().changePosixRecentMedia(myMedia.getPath());
+                //DatabaseManager.getInstance().changePosixRecentMedia(myMedia.getPath());
                 added=true;
             }
         }
@@ -101,6 +117,8 @@ public class Home {
             }
         });
     }
+
+
 
     //END FUNCTIONS
 
