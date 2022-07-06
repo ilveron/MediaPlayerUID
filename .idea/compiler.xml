@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="MediaPlayerUID" />
         <module name="BackupProgetto3" />
+        <module name="MusicPlayerUID" />
       </profile>
     </annotationProcessing>
   </component>
