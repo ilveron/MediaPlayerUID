@@ -27,6 +27,7 @@ public class SceneHandler {
     private Stage stage;
     private Pane subScene;
     private Alert alert;
+    private boolean loadingFromDB =true;
     private SimpleBooleanProperty mediaLoadingInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty metadataLoadindagInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty startingMediaPlayer = new SimpleBooleanProperty(true);
@@ -46,6 +47,14 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
+
+    public boolean isLoadingFromDB() {
+        return loadingFromDB;
+    }
+
+    public void setLoadingFromDB(boolean loadingFromDB) {
+        this.loadingFromDB = loadingFromDB;
+    }
 
     public boolean isMetadataLoadindagInProgess() {
         return metadataLoadindagInProgess.get();
@@ -144,14 +153,18 @@ public class SceneHandler {
         //DatabaseManager.getInstance().initApplicationClosureData();
         DatabaseManager.getInstance().receiveMyMedia("MusicLibrary");
         DatabaseManager.getInstance().receiveMyMedia("VideoLibrary");
-        DatabaseManager.getInstance().receiveRecentMedia();
+
         DatabaseManager.getInstance().receivePlayqueue();
         //DatabaseManager.getInstance().receiveApplicationClosureData();
+
+        DatabaseManager.getInstance().receiveRecentMedia();
+        HomeTilePaneHandler.getInstance().listCreator();
+
         DatabaseManager.getInstance().receivePlaylist();
         for(Playlist s:Playlists.getInstance().getPlayListsCollections())
             DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
 
-        HomeTilePaneHandler.getInstance().listCreator();
+
         VideoGalleryTilePaneHandler.getInstance().listCreator();
 
 

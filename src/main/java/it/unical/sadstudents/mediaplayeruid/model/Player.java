@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.MapChangeListener;
@@ -119,28 +120,33 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
-        this.index = index;
 
-        media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-        mediaLoaded.set(true);
-        mediaPlayer.setOnReady(()->{
-            // TODO: 14/06/2022 se rimosso, problemi con lo slider 
+            this.index = index;
 
-            playMedia();
-            for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
-                mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
+            media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
+            mediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mediaPlayer);
+            mediaLoaded.set(true);
 
-        });
-        Platform.runLater(()->{
-            mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
-            artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
-        });
+                mediaPlayer.setOnReady(()->{
+                    // TODO: 14/06/2022 se rimosso, problemi con lo slider
+
+                    playMedia();
+                    for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
+                        mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
+
+                });
+
+            Platform.runLater(()->{
+                mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+                artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
+            });
 
 
         //TODO: REGEX per riproduzione *.mp4
     }
+
+
 
     //public void createMedia(Integer index){
     /*public void createMediaTest(MyMedia myMedia){
@@ -212,9 +218,12 @@ public class Player {
             loopMode = false;
     }
 
+
+
     public void setVolume(double v) {
         volume=v;
-        mediaPlayer.setVolume(v);
+
+            mediaPlayer.setVolume(v);
     }
 
     public Double getVolume(){
@@ -262,4 +271,6 @@ public class Player {
         });
 
     }
+
+
 }

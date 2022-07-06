@@ -33,7 +33,7 @@
 }
 
 .toolBarButton:focused {
-    -fx-background-color: primarySelectionColor;
+    -fx-background-color: secondarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
@@ -120,7 +120,7 @@
 .toggleButton:hover .iconsOverBackground{ -fx-icon-color: primaryBackgroundColor; }
 
 .button:hover {
-    -fx-background-color: secondarySelectionColor;
+    -fx-background-color: primarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
@@ -226,11 +226,15 @@
     -fx-background-radius: 15px;
 }
 
-.recentMedia:hover{ -fx-background-color: primarySelectionColor; }
+.recentMedia:hover { -fx-background-color: primarySelectionColor; }
+
+.recentMedia:focused { -fx-background-color: secondarySelectionColor; }
 
 .recentMedia:hover > .recentArtistMediaLabel { -fx-text-fill: primaryBackgroundColor; }
 
 .recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
+
+
 
 .recentMediaImageBg {
     -fx-background-color: black;

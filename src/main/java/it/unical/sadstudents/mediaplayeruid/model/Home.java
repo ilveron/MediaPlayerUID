@@ -86,14 +86,14 @@ public class Home {
     public void addToRecentMedia(MyMedia myMedia){
         boolean added=false;
         for(int i=0; i<recentMedia.size();i++){
-            if (myMedia.equals(recentMedia.get(i))){
+            if (myMedia.equals(recentMedia.get(i)) ){
                 recentMedia.remove(i);
                 recentMedia.add(myMedia);
                 added=true;
                 HomeTilePaneHandler.getInstance().moveWithIndex(i);
             }
         }
-        if(!added) {
+        if(!added ) {
             if(recentMedia.size()>=20){
                 DatabaseManager.getInstance().deleteMedia(recentMedia.get(0).getPath(),"RecentMedia");
                 recentMedia.remove(0);

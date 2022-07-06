@@ -69,7 +69,8 @@ public class MainController implements Initializable {
     private ToolBar toolbarMenu;
     @FXML
     private Button plsEquilizer, plsNext, plsPlayPause, plsPrevious, plsProperties,
-            plsScreenMode, plsSkipBack,  plsSkipForward, volumeButton,lightMode, darkMode, about;
+            plsScreenMode, plsSkipBack,  plsSkipForward, volumeButton,lightMode, darkMode, about,
+            btnHome, btnMusicLibrary, btnVideoLibrary, btnPlayQueue, btnPlaylists;
     @FXML
     private ToggleButton plsShuffle;
     @FXML
@@ -141,16 +142,20 @@ public class MainController implements Initializable {
         // TODO: 07/06/2022 fixare tooltip plsPlayPause 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane());
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
-            changeButtonEnabledStatus();
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    MediaInfo mediaInfo= new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
+            if(Player.getInstance().isMediaLoaded()) {
+                changeButtonEnabledStatus();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
 
-                    mediaInfoPane.getChildren().add(mediaInfo);
-                }
-            });
-
+                        mediaInfoPane.getChildren().add(mediaInfo);
+                    }
+                });
+            }
+            else {
+                changeButtonEnabledStatus();
+            }
         });
 
         plsProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
@@ -615,18 +620,28 @@ public class MainController implements Initializable {
 
         // TODO: 03/07/2022 CLIC RIPETUTI BUGGANO TUTTO
         if(centralStackPane.getChildren().size() == 2){
+            toolbarButtonDisable(true);
             //subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
-            centralStackPane.getChildren().get(1).translateYProperty().set(SceneHandler.getInstance().getScene().getHeight());
+            TranslateTransition translateTransitionOld = new TranslateTransition(Duration.seconds(0.75));
+            translateTransitionOld.setNode(centralStackPane.getChildren().get(0));
+            translateTransitionOld.setFromY(0);
+            translateTransitionOld.setToY(-SceneHandler.getInstance().getScene().getHeight());
+            translateTransitionOld.setInterpolator(Interpolator.EASE_BOTH);
 
-            KeyValue kv = new KeyValue(centralStackPane.getChildren().get(1).translateYProperty(), 0, Interpolator.EASE_BOTH);
-            KeyFrame kf = new KeyFrame(Duration.seconds(0.5), kv);
-            timeline.getKeyFrames().add(kf);
-            timeline.play();
-            //toolbarMenu.setDisable(true);
-            timeline.setOnFinished(event -> {
+            TranslateTransition translateTransitionNew = new TranslateTransition(Duration.seconds(0.75));
+            translateTransitionNew.setNode(centralStackPane.getChildren().get(1));
+            translateTransitionNew.setFromY(SceneHandler.getInstance().getScene().getHeight());
+            translateTransitionNew.setToY(0);
+            translateTransitionNew.setInterpolator(Interpolator.EASE_BOTH);
+
+            translateTransitionOld.play();
+            translateTransitionNew.play();
+
+            translateTransitionNew.setOnFinished(event -> {
                 centralStackPane.getChildren().remove(0);
-                //toolbarMenu.setDisable(false);
+                toolbarButtonDisable(false);
             });
+
 
         }
         //stackPane.getChildren().get()
@@ -654,6 +669,14 @@ public class MainController implements Initializable {
         mediaSlider.setDisable(status);
         volumeSlider.setDisable(status);
         speedChoiceBox.setDisable(status);
+    }
+
+    private void toolbarButtonDisable(boolean status){
+        btnHome.setDisable(status);
+        btnMusicLibrary.setDisable(status);
+        btnVideoLibrary.setDisable(status);
+        btnPlayQueue.setDisable(status);
+        btnPlaylists.setDisable(status);
     }
 
     private void setMediaSlider() {

@@ -114,10 +114,14 @@ public class VideoLibrary implements DataListedModel{
     }
 
     public void removeWithIndex(int i){
-        // TODO: 06/07/2022 rimozione da db
         DatabaseManager.getInstance().deleteMedia(videoLibrary.get(i).getPath(),"MyMedia");
         videoLibrary.remove(i);
         VideoGalleryTilePaneHandler.getInstance().removeWithIndex(i);
+        // TODO: 06/07/2022 delete su playqueue e su playlist 
+    }
+
+    public void clearAll(){
+        
     }
 
     public void notifyChangeHappened(){

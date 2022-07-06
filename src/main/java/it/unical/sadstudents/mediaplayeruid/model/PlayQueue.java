@@ -33,7 +33,7 @@ public class PlayQueue implements DataListedModel{
         currentMediaProperty().addListener(observable -> {
             if(queue.size()>0)
                 startMedia();
-        } );//verificare come usare più funzioni
+        } );
     }
 
     public static PlayQueue getInstance(){
@@ -171,6 +171,7 @@ public class PlayQueue implements DataListedModel{
 
         //Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
         Player.getInstance().createMedia(currentMedia.get());
+
 
     }
 

@@ -68,7 +68,7 @@ public class MyMediaSingleBox extends Pane {
            }
        });
 
-        this.setFocusTraversable(true);
+        //this.setFocusTraversable(true);
 
         this.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

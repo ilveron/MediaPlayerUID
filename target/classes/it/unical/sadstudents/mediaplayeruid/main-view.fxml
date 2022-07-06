@@ -40,7 +40,7 @@
                      <children>
                         <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
                           <items>
-                            <Button alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
+                            <Button fx:id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -51,7 +51,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
+                              <Button fx:id="btnMusicLibrary" alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -62,7 +62,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
+                              <Button fx:id="btnVideoLibrary" alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -74,7 +74,7 @@
                                  </cursor>
                               </Button>
                               <Separator prefWidth="200.0" />
-                              <Button alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
+                              <Button fx:id="btnPlayQueue" alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>
@@ -85,7 +85,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
+                              <Button fx:id="btnPlaylists" alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="iconsOverBackground" />
                                  </graphic>

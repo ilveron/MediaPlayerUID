@@ -12,4 +12,9 @@ public class Settings {
             "fonts/Montserrat-Regular.ttf",
     };
     public final static String style = "css/style.css";
+
+
+
+
+
 }

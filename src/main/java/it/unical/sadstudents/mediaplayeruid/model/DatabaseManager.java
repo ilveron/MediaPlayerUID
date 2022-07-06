@@ -1,5 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.Settings;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -156,7 +159,7 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return false;
     }
-    /*
+
     public boolean changeApplicationClosureData(){
         try {
             if(connection != null &&!connection.isClosed()) {
@@ -181,7 +184,7 @@ public class DatabaseManager {
         }catch (SQLException e) {e.printStackTrace();}
         return false;
     }
-    */
+
     public boolean changePosixRecentMedia(String Path){
         try {
             if(isPresent("Path",Path,"RecentMedia")&&connection != null&&Path!=null&&!connection.isClosed()) {
@@ -426,7 +429,7 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return ;
     }
-    /*
+
     public void receiveApplicationClosureData(){
         try {
             if(connection != null&&!connection.isClosed()) {
@@ -439,9 +442,10 @@ public class DatabaseManager {
                 if (rs.next()) {
                     String path=rs.getString("Path");
                     if(path!=""&&path!=null&&isPresent("Path",path,"MyMedia")) {
+
                         PlayQueue.getInstance().setCurrentMedia(rs.getInt("Position"));
-                        //Player.getInstance().playMedia();
-                        //Player.getInstance().pauseMedia();
+                        Player.getInstance().playMedia();
+                        Player.getInstance().pauseMedia();
                         double currentTime=rs.getDouble("CurrentTime");
                         System.out.println(currentTime);
                         Player.getInstance().setCurrentMediaTime(currentTime);
@@ -478,7 +482,7 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return false;
     }
-    */
+
 
     public boolean deleteAll(String tab){
         try {
@@ -628,7 +632,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-    /*
+
     public void createTableApplicationClosureData(){
         try {
             String query =
@@ -648,7 +652,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-    */
+
 
     // Gestione Equalizer
     public void createTableEqualizer(){

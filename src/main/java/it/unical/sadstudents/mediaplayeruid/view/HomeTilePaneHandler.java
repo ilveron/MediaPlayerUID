@@ -115,6 +115,7 @@ public class HomeTilePaneHandler {
                     }
                 });
 
+
                 myMediaSingleBoxes.add(myMediaSingleBox);
                 readyInteger.set(readyInteger.get()+1);
 
