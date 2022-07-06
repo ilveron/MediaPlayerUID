@@ -152,6 +152,7 @@ public class SceneHandler {
             DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
 
         HomeTilePaneHandler.getInstance().listCreator();
+        VideoGalleryTilePaneHandler.getInstance().listCreator();
 
 
 

@@ -1,15 +1,5 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.MainApplication;
-import it.unical.sadstudents.mediaplayeruid.Settings;
-import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
-import javafx.application.Platform;
-import javafx.scene.media.EqualizerBand;
-import javafx.scene.media.Media;
-
-import java.awt.*;
-import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
 

@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -78,17 +79,10 @@ public class VideoLibrary implements DataListedModel{
                 return;
         }
         videoLibrary.add(myMedia);
-        if (!changeHappened.get()){
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    setChangeHappened(true);
-                }
-            });
-        }
+        VideoGalleryTilePaneHandler.getInstance().addSingleItem();
 
-        /*DoubleProperty ciao = null;
-        ciao.bind(videoLibrary.size());*/
+
+
     }
 
     @Override
@@ -116,6 +110,13 @@ public class VideoLibrary implements DataListedModel{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void removeWithIndex(int i){
+        // TODO: 06/07/2022 rimozione da db
+        videoLibrary.remove(i);
+        VideoGalleryTilePaneHandler.getInstance().removeWithIndex(i);
 
     }
 

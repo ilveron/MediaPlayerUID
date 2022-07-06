@@ -1,13 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.thread;
 
-import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
+import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import javafx.collections.MapChangeListener;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.SnapshotResult;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -16,9 +15,9 @@ import javafx.util.Duration;
 
 
 public class ImageCreator extends Service<Boolean> {
-    RecentMedia recentMedia;
+    MyMediaSingleBox recentMedia;
 
-    public void setPane(RecentMedia recentMedia) {
+    public void setPane(MyMediaSingleBox recentMedia) {
         this.recentMedia = recentMedia;
     }
 

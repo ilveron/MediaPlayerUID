@@ -82,8 +82,15 @@ public class MusicLibraryController implements Initializable {
         int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
 
         if(myMedia!=-1){
+            for(int i=0;i<Home.getInstance().getRecentMedia().size();i++) {
+                if (MusicLibrary.getInstance().getMusicLibrary().get(myMedia).equals(Home.getInstance().getRecentMedia().get(i))){
+                    Home.getInstance().removeItem(i);
+                    break;
+                }
+            }
             MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
             tableViewMusicLibrary.refresh();
+
         }
         /*else if(MusicLibrary.getInstance().getSelection().size()>0&&MusicLibrary.getInstance().isSelectionModeActive()){
             for(int i=0;i<MusicLibrary.getInstance().getSelection().size();i++) {

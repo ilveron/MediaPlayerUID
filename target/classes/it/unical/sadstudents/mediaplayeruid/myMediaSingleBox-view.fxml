@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="mainRoot" maxHeight="250.0" maxWidth="210.0" minHeight="250.0" minWidth="210.0" prefHeight="250.0" prefWidth="210.0" styleClass="recentMedia" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.RecentMediaTemplateController">
+<AnchorPane fx:id="mainRoot" maxHeight="250.0" maxWidth="210.0" minHeight="250.0" minWidth="210.0" prefHeight="250.0" prefWidth="210.0" styleClass="recentMedia" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MyMediaSingleBoxController">
    <children>
       <StackPane fx:id="stackPaneRecent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="recentMediaImageBg" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

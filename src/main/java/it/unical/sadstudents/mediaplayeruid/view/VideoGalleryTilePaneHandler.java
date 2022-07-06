@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.model.Home;
+import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
 import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
@@ -9,18 +10,18 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
-public class HomeTilePaneHandler {
+public class VideoGalleryTilePaneHandler {
     private SimpleIntegerProperty readyInteger = new SimpleIntegerProperty(0);
     private ArrayList<MyMediaSingleBox> myMediaSingleBoxes = new ArrayList<>();
     private Thread thread;
 
 
     //SINGLETON
-    private static HomeTilePaneHandler instance = null;
-    private HomeTilePaneHandler(){    }
-    public static HomeTilePaneHandler getInstance(){
+    private static VideoGalleryTilePaneHandler instance = null;
+    private VideoGalleryTilePaneHandler(){    }
+    public static VideoGalleryTilePaneHandler getInstance(){
         if (instance==null)
-            instance = new HomeTilePaneHandler();
+            instance = new VideoGalleryTilePaneHandler();
         return instance;
     }
     //END SINGLETON
@@ -50,8 +51,8 @@ public class HomeTilePaneHandler {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i=0; i<Home.getInstance().getRecentMedia().size(); i++){
-                    MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(Home.getInstance().getRecentMedia().get(i),"home");
+                for (int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
+                    MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(i),"video");
                     myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
@@ -60,12 +61,8 @@ public class HomeTilePaneHandler {
                                     myMediaSingleBox.requestFocus();
                                 }
                             }
-
                         }
                     });
-
-
-
                     myMediaSingleBoxes.add(myMediaSingleBox);
                     readyInteger.set(readyInteger.get()+1);
                 }
@@ -103,7 +100,7 @@ public class HomeTilePaneHandler {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(Home.getInstance().getRecentMedia().get(Home.getInstance().getRecentMedia().size()-1),"home");
+                MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(VideoLibrary.getInstance().getVideoLibrary().size()-1),"video");
                 myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
@@ -130,5 +127,4 @@ public class HomeTilePaneHandler {
         thread.setDaemon(true);
         thread.start();
     }
-
 }

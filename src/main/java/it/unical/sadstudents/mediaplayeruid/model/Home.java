@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -88,16 +89,18 @@ public class Home {
             if (myMedia.equals(recentMedia.get(i))){
                 recentMedia.remove(i);
                 recentMedia.add(myMedia);
-                //DatabaseManager.getInstance().changePosixRecentMedia(myMedia.getPath());
                 added=true;
+                HomeTilePaneHandler.getInstance().moveWithIndex(i);
             }
         }
         if(!added) {
             if(recentMedia.size()>=20){
                 DatabaseManager.getInstance().deleteMedia(recentMedia.get(0).getPath(),"RecentMedia");
                 recentMedia.remove(0);
+                HomeTilePaneHandler.getInstance().removeWithIndex(0);
             }
             recentMedia.add(myMedia);
+            HomeTilePaneHandler.getInstance().addSingleItem();
             DatabaseManager.getInstance().insertRecentMedia(myMedia);
         }
         Platform.runLater(new Runnable() {
@@ -116,6 +119,14 @@ public class Home {
                 changeHappened.set(true);
             }
         });
+    }
+
+    public void removeItem(int i){
+        DatabaseManager.getInstance().deleteMedia(recentMedia.get(i).getPath(),"RecentMedia");
+        recentMedia.remove(i);
+        HomeTilePaneHandler.getInstance().removeWithIndex(i);
+
+
     }
 
 

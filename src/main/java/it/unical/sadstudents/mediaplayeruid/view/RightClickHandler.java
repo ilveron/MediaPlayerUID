@@ -1,28 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
-import it.unical.sadstudents.mediaplayeruid.Settings;
-import it.unical.sadstudents.mediaplayeruid.controller.RecentMediaTemplateController;
 import it.unical.sadstudents.mediaplayeruid.controller.RightClickController;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
-
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.Objects;
 
 public class RightClickHandler extends Pane {
     private MyMedia myMedia;

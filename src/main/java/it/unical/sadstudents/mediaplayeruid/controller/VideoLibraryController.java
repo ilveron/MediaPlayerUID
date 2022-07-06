@@ -1,14 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
-import it.unical.sadstudents.mediaplayeruid.view.RecentMedia;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
-import javafx.beans.value.ChangeListener;
+import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.TilePane;
@@ -63,19 +61,26 @@ public class VideoLibraryController  implements Initializable {
     @FXML
     void onDeleteVideo(ActionEvent event) {
 
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
-        setContentTilePane();
         if(VideoLibrary.getInstance().getVideoLibrary().size()>0)
             activeButton();
+        setContentTilePane();
 
+        VideoGalleryTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
+            if (VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()==VideoLibrary.getInstance().getVideoLibrary().size())
+                activeButton();
+                setContentTilePane();
+        });
+
+
+        //VideoLibrary.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
-        VideoLibrary.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
-        // TODO: 03/06/2022
     }
     
     public void startToolTip(){
@@ -85,27 +90,19 @@ public class VideoLibraryController  implements Initializable {
 
     public void setContentTilePane(){
 
-        tilePane.getChildren().clear();
-        int size= VideoLibrary.getInstance().getVideoLibrary().size();
-        for (int i= size-1; i>=0; --i){
-            RecentMedia recentMedia = new RecentMedia(VideoLibrary.getInstance().getVideoLibrary().get(i),"video");
-            ImageCreator imageCreator = new ImageCreator();
-            imageCreator.setPane(recentMedia);
-            imageCreator.start();
-            tilePane.getChildren().add(recentMedia);
-            recentMedia.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-                if (newValue) {
-                    recentMedia.mouseOverAction();
-
-                } else {
-                    recentMedia.mouseOverAction();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tilePane.getChildren().clear();
+                int size = VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
+                for (int i =0; i<size;  i++) {
+                    tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
                 }
-            });
-        }
+                //loadingIndicator.setVisible(false);
+                //loadingLabel.setVisible(false);
 
-
-        if(VideoLibrary.getInstance().isChangeHappened())
-            VideoLibrary.getInstance().setChangeHappened(false);
+            }
+        });
 
     }
 
