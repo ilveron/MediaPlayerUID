@@ -44,6 +44,7 @@ public class MyMediaSingleBox extends Pane {
         controller.setImage(image);
     }
 
+
     public MediaView getMediaView(){
         return controller.getMediaViewBis();
     }

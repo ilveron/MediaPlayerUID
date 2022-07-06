@@ -11,6 +11,7 @@ import javafx.scene.SnapshotResult;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -294,4 +295,6 @@ public class ThreadManager {
 
         return "00:00:00";
     }
+
+
 }

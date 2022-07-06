@@ -37,6 +37,7 @@
     -fx-text-fill: primaryBackgroundColor;
 }
 
+
 .toolBarButton:focused .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 
 .toolBarIcons { -fx-icon-color: iconOverBackgroundColor; }
@@ -228,13 +229,13 @@
 
 .recentMedia:hover { -fx-background-color: primarySelectionColor; }
 
-.recentMedia:focused { -fx-background-color: secondarySelectionColor; }
+/*.recentMedia:selected { -fx-background-color: secondarySelectionColor; }*/
 
 .recentMedia:hover > .recentArtistMediaLabel { -fx-text-fill: primaryBackgroundColor; }
 
 .recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
 
-
+.selectedRecentMedia {-fx-background-color: secondarySelectionColor;}
 
 .recentMediaImageBg {
     -fx-background-color: black;

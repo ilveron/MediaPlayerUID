@@ -6,6 +6,7 @@ import it.unical.sadstudents.mediaplayeruid.keyCombo;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 
@@ -13,6 +14,8 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
@@ -51,7 +55,11 @@ public class MainController implements Initializable {
     @FXML
     private VBox vBoxProgressBar;
     @FXML
+    private VBox controllePlayer;
+    @FXML
     private ChoiceBox<String> speedChoiceBox;
+    @FXML
+    private ImageView miniImageView;
 
     @FXML
     private FontIcon iconPlayPause;
@@ -150,6 +158,8 @@ public class MainController implements Initializable {
                         MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
 
                         mediaInfoPane.getChildren().add(mediaInfo);
+
+                        //miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
                     }
                 });
             }
@@ -272,6 +282,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
+
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
@@ -391,13 +402,46 @@ public class MainController implements Initializable {
         screenModeHandler();
     }
 
+    Service<Void> service = null;
     private void screenModeHandler() {
+
+
+
         if (!SceneHandler.getInstance().getStage().isFullScreen()) {
+            service = new Service<>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            Thread.sleep(3000);
+                            if(SceneHandler.getInstance().getStage().isFullScreen())
+                                controllePlayer.setVisible(false);
+                            return null;
+                        }
+                    };
+                }
+            };
+            service.start();
+
             leftItems.setVisible(false);
             AnchorPane.setLeftAnchor(containerView, 0.0);
             AnchorPane.setBottomAnchor(containerView, 0.0);
             SceneHandler.getInstance().getStage().setFullScreen(true);
             adjustVideoSize();
+
+            SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    controllePlayer.setVisible(true);
+                    if(!service.isRunning())
+                        service.restart();
+
+
+                }
+            });
+
+
             SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
@@ -406,7 +450,7 @@ public class MainController implements Initializable {
                         leftItems.setVisible(true);
                         AnchorPane.setLeftAnchor(containerView, 270.0);
                         AnchorPane.setBottomAnchor(containerView, 96.00);
-
+                        service.cancel();
                         adjustVideoSize();
                     }
                 }
@@ -417,6 +461,7 @@ public class MainController implements Initializable {
             AnchorPane.setLeftAnchor(containerView, 270.0);
             AnchorPane.setBottomAnchor(containerView, 96.00);
             SceneHandler.getInstance().getStage().setFullScreen(false);
+            service.cancel();
             adjustVideoSize();
         }
     }

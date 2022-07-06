@@ -44,7 +44,7 @@
         <content>
           <AnchorPane styleClass="primaryTemplate">
                <children>
-                  <TilePane fx:id="tilePane" focusTraversable="true" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <TilePane fx:id="tilePane" hgap="20.0" minWidth="440.0" tileAlignment="TOP_LEFT" vgap="30.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
         </content>

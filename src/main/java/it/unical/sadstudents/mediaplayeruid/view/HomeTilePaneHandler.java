@@ -56,8 +56,10 @@ public class HomeTilePaneHandler {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                                if(mouseEvent.getClickCount() == 1){
+                                if(mouseEvent.getClickCount() == 1 ){
+                                    getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
                                     myMediaSingleBox.requestFocus();
+                                    myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
                                 }
                             }
 
