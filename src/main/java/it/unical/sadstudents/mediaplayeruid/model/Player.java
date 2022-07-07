@@ -204,6 +204,7 @@ public class Player {
         //mediaPlayer.stop();
         mediaPlayer.dispose();
         mediaLoaded.set(false);
+        isRunning.set(false);
         mediaName.set("");
         artistName.set("");
         currentMediaTime.set(0);

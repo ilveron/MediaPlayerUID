@@ -1,9 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
@@ -80,10 +82,16 @@ public class MyMediaSingleBoxController {
         nameLabel.setText(myMedia.getTitle());
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
         labelDuration.setText(myMedia.getLength());
+
+
     }
 
     public void setImage(Image image){
         imageView.setImage(image);
+    }
+
+    public Image getImage(){
+        return imageView.getImage();
     }
 
     public MediaView getMediaViewBis(){

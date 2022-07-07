@@ -29,7 +29,7 @@ public class MediaInfoController  {
         yearLabel.setText(myMedia.getYear());
         durationLabel.setText(myMedia.getLength());
         imageView.setImage(new Image("file:" + "src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
-        try{
+        /*try{
             if (!myMedia.getPath().toLowerCase().endsWith(".mp4")) {
                 Media media = new Media(myMedia.getPath());
                 media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
@@ -43,7 +43,11 @@ public class MediaInfoController  {
                 });
             }
         }
-        catch(Exception exception){}
+        catch(Exception exception){}*/
+    }
+
+    public void setImage(Image image) {
+        imageView.setImage(image);
     }
 
 

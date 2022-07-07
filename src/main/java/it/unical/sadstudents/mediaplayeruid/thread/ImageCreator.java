@@ -15,10 +15,10 @@ import javafx.util.Duration;
 
 
 public class ImageCreator extends Service<Boolean> {
-    MyMediaSingleBox recentMedia;
+    MyMediaSingleBox myMediaSingleBox;
 
-    public void setPane(MyMediaSingleBox recentMedia) {
-        this.recentMedia = recentMedia;
+    public void setPane(MyMediaSingleBox myMediaSingleBox) {
+        this.myMediaSingleBox = myMediaSingleBox;
     }
 
     @Override
@@ -26,23 +26,23 @@ public class ImageCreator extends Service<Boolean> {
         return new Task<Boolean>(){
         @Override
         protected Boolean call() throws Exception{
-            if (!recentMedia.getMyMedia().getPath().toLowerCase().endsWith(".mp4")){
-                Media media = new Media(recentMedia.getMyMedia().getPath());
+            if (!myMediaSingleBox.getMyMedia().getPath().toLowerCase().endsWith(".mp4")){
+                Media media = new Media(myMediaSingleBox.getMyMedia().getPath());
                 media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
                     if(change.wasAdded()) {
                         if (media.getMetadata().get("image") != null){
                             Object newImage = (media.getMetadata().get("image"));
                             Image image = ((Image)newImage);
-                            recentMedia.setImage(image);
+                            myMediaSingleBox.setImage(image);
                         }
                     }
                 });
             }
             else{
-                Media media = new Media(recentMedia.getMyMedia().getPath());
+                Media media = new Media(myMediaSingleBox.getMyMedia().getPath());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
 
-                MediaView mediaViewBis = recentMedia.getMediaView();
+                MediaView mediaViewBis = myMediaSingleBox.getMediaView();
                 mediaViewBis.setMediaPlayer(mediaPlayer);
 
                 mediaPlayer.setOnReady(()->{
@@ -89,7 +89,7 @@ public class ImageCreator extends Service<Boolean> {
                                 return null;
                             }
                         }, null, wim);
-                        recentMedia.setImage(wim);
+                        myMediaSingleBox.setImage(wim);
 
                         //imageView.setFitWidth(200);
                     });

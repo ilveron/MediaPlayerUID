@@ -4,6 +4,7 @@ import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.controller.MediaInfoController;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -35,6 +36,11 @@ public class MediaInfo extends Pane {
     public void setShowed(boolean showed) {
         this.showed = showed;
     }
+
+    public void setImage(Image image){
+        mediaInfoController.setImage(image);
+    }
+
 }
 
 
