@@ -27,7 +27,7 @@
          <children>
             <AnchorPane>
                <children>
-                  <StackPane fx:id="containerView" minWidth="480.0" styleClass="videoBackGroundColor" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane fx:id="containerView" minWidth="480.0" styleClass="primaryTemplate" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" visible="false" StackPane.alignment="CENTER" />
                      </children>

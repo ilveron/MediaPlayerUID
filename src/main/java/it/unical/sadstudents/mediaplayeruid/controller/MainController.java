@@ -247,7 +247,13 @@ public class MainController implements Initializable {
 
 
         Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
-        PlayQueue.getInstance().isAVideoProperty().addListener(observable -> activeVideoView());
+        PlayQueue.getInstance().isAVideoProperty().addListener(observable -> {
+            containerView.getStyleClass().remove("primaryTemplate");
+
+            containerView.getStyleClass().add("videoBackgroundColor");
+
+            activeVideoView();
+        });
         // TODO: 15/06/2022 why??
         Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
@@ -271,13 +277,18 @@ public class MainController implements Initializable {
         plsPrevious.setTooltip(new Tooltip("Previous"));
     }
 
-
+    public void changeBackgroundMediaView(){
+        containerView.getStyleClass().remove("videoBackgroundColor");
+        containerView.getStyleClass().add("primaryTemplate");
+    }
 
 
     //ACTION EVENT MENU
 
     @FXML
     void onHome(ActionEvent event) {
+        changeBackgroundMediaView();
+
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("home-view.fxml");
@@ -285,6 +296,8 @@ public class MainController implements Initializable {
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
+        changeBackgroundMediaView();
+
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
@@ -292,6 +305,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
+        changeBackgroundMediaView();
 
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
@@ -300,6 +314,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onPlayQueue(ActionEvent event) {
+        changeBackgroundMediaView();
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
@@ -307,6 +322,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onPlayLists(ActionEvent event) {
+        changeBackgroundMediaView();
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
@@ -314,6 +330,9 @@ public class MainController implements Initializable {
 
     @FXML
     void onVideoView(ActionEvent event) {
+        containerView.getStyleClass().remove("primaryTemplate");
+        containerView.getStyleClass().add("videoBackgroundColor");
+
         btnVideoView.setVisible(true);
         mediaView.setVisible(true);
         myBorderPane.getCenter().setVisible(false);
@@ -418,6 +437,9 @@ public class MainController implements Initializable {
 
 
         if (!SceneHandler.getInstance().getStage().isFullScreen()) {
+            btnVideoView.setVisible(true);
+            mediaView.setVisible(true);
+            myBorderPane.getCenter().setVisible(false);
             service = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {

@@ -59,7 +59,7 @@
     -fx-font-size: 12px;
 }
 
-.videoBackGroundColor{ -fx-background-color: black; }
+.videoBackgroundColor{ -fx-background-color: black; }
 
 .largeMenuButton, .smallMenuButton {
     -fx-background-color: transparentBackgroundColor;

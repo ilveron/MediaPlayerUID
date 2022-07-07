@@ -4,8 +4,6 @@ import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
@@ -21,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class PlaylistTemplateController {
@@ -95,7 +92,7 @@ public class PlaylistTemplateController {
     void onPlayPlaylist(ActionEvent event) {
         if(playlist.getMyList().size()>0) {
             if (Playlists.getInstance().getTypePlaylist() == playlist.getName()) {
-                refresh();
+                refreshPlayQueue();
                 if(Playlists.getInstance().isPlaying()){
                     System.out.println("setto a false (sono nell if dentro if)");
                     Playlists.getInstance().setPlaying(false);
@@ -137,7 +134,7 @@ public class PlaylistTemplateController {
         }catch(Exception ignoredException){ignoredException.printStackTrace(); return;}
         setLabel();
         if(Playlists.getInstance().isPlaying()&&Playlists.getInstance().getTypePlaylist()== playlist.getName()) {
-            Playlists.getInstance().setUpdate(true);
+            Playlists.getInstance().setUpdatePlayQueue(true);
         }
     }
 
@@ -172,10 +169,10 @@ public class PlaylistTemplateController {
                 setButtonPlay(newValue);
         });
 
-        Playlists.getInstance().updateProperty().addListener(observable -> {
-            if(Playlists.getInstance().getTypePlaylist()== playlist.getName() && Playlists.getInstance().isUpdate()) {
+        Playlists.getInstance().updatePlayQueueProperty().addListener(observable -> {
+            if(Playlists.getInstance().getTypePlaylist()== playlist.getName() && Playlists.getInstance().getUpdatePlayQueue()) {
                 if(playlist.getMyList().size()>0)
-                    refresh();
+                    refreshPlayQueue();
                 else
                     initListPlayQueue();
             }
@@ -184,6 +181,7 @@ public class PlaylistTemplateController {
         Playlists.getInstance().playingProperty().addListener(observable ->changeIcon());
 
         Player.getInstance().isRunningProperty().addListener(observable -> Playlists.getInstance().setPlaying(Player.getInstance().getIsRunning()));
+
     }
     private void changeIcon(){
         System.out.println("cambio icona");
@@ -208,7 +206,8 @@ public class PlaylistTemplateController {
         LabelBrani.setText("Brani: "+playlist.getSongs());
         LabelTime.setText("Time: "+playlist.getTotalDuration()); // TODO: 04/07/2022  da fare
     }
-    private void refresh(){
+
+    private void refreshPlayQueue(){
         for(int i=0;i<playlist.getMyList().size();i++){
             boolean e=false;
             for(int j=0;j<PlayQueue.getInstance().getQueue().size();j++)
@@ -217,7 +216,7 @@ public class PlaylistTemplateController {
             if(!e)
                 PlayQueue.getInstance().addFileToListFromOtherModel(playlist.getMyList().get(i));
         }
-        Playlists.getInstance().setUpdate(false);
+        Playlists.getInstance().setUpdatePlayQueue(false);
     }
 
     private boolean exist(MyMedia myMedia){

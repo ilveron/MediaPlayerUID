@@ -80,7 +80,6 @@ public class MusicLibraryController implements Initializable {
     @FXML
     void onDeleteSong(ActionEvent event) {
         int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
-
         if(myMedia!=-1){
             for(int i=0;i<Home.getInstance().getRecentMedia().size();i++) {
                 if (MusicLibrary.getInstance().getMusicLibrary().get(myMedia).equals(Home.getInstance().getRecentMedia().get(i))){
@@ -88,6 +87,9 @@ public class MusicLibraryController implements Initializable {
                     break;
                 }
             }
+            Playlists.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath());
+            //PlayQueue.getInstance().getQueue().remove(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath());
+            DatabaseManager.getInstance().deleteMedia(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath(),"MyMedia");
             MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
             tableViewMusicLibrary.refresh();
 
@@ -119,7 +121,6 @@ public class MusicLibraryController implements Initializable {
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
         //MusicLibrary.getInstance().sortList();
         beginTimer();
-        // TODO: 08/06/2022 aggiustare PlayQueue perche vuole un file come input ma io devo passare un MyMedia
 
         tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();

@@ -24,39 +24,12 @@ public class DataExchangePlaylist {
             if (m.equals(myMedia1))
                 return;
         }
-        durationCalculation(m.getLength());
-        playlist.setSongs(playlist.getSongs()+1);
+        playlist.addMedia(m);
         DatabaseManager.getInstance().setPlaylistSong(playlist.getSongs(), playlist.getTotalDuration(), playlist.getName());
-        playlist.getMyList().add(m);
         //System.out.println("salvo : "+playlist.getName()+" il path :"+m.getPath());
         DatabaseManager.getInstance().addMyMediaInPlaylist(m.getPath(), playlist.getName());
     }
-    private void durationCalculation(String duration){
 
-
-
-        int hour=Integer.parseInt(duration.substring(0,2));
-        int minute=Integer.parseInt(duration.substring(3,5));
-        int second=Integer.parseInt(duration.substring(6,8));
-
-        int h=Integer.parseInt(playlist.getTotalDuration().substring(0,2));
-        int m=Integer.parseInt(playlist.getTotalDuration().substring(3,5));
-        int s=Integer.parseInt(playlist.getTotalDuration().substring(6,8));
-
-
-        int ts=(s+second)%60;
-        int tm=(m+minute+((s+second)/60))%60;
-        int to=(h+hour+((m+minute+((s+second)/60)))/60);
-
-        /*if(to>=100)
-            playlist.setTotalDuration(format("+%02d:%02d:%02d",to,tm,ts));
-        else
-            playlist.setTotalDuration(format("%02d:%02d:%02d",to,tm,ts));
-
-         */
-        playlist.setTotalDuration(format("%02d:%02d:%02d",to,tm,ts));
-
-    }
 
 
 
