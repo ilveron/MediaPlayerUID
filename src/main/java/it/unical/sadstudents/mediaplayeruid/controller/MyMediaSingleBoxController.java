@@ -2,18 +2,22 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
+import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaView;
+import javafx.stage.WindowEvent;
 
 public class MyMediaSingleBoxController {
     @FXML
@@ -41,38 +45,16 @@ public class MyMediaSingleBoxController {
 
     @FXML
     void onDeleteAction(ActionEvent event) {
-        if(SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete the file?")) {
-            if (source == "home") {
-                for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
-                    if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
-                        Home.getInstance().removeItem(i);
-                        break;
-                    }
-                }
-            } else {
-                for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
-                    if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
-
-                        for (int j=0; j<Home.getInstance().getRecentMedia().size();j++){
-                            if (myMedia.equals(Home.getInstance().getRecentMedia().get(j))){
-                                Home.getInstance().removeItem(j);
-                            }
-                        }
-                        VideoLibrary.getInstance().removeWithIndex(i);
-                        break;
-                    }
-                }
-            }
-        }
+        deleteMedia();
     }
 
     @FXML
     void onPlayAction(ActionEvent event) {
-        PlayQueue.getInstance().generateNewQueue(myMedia);
+        playMedia();
     }
 
 
-
+    private ContextMenu contextMenu;
     private MyMedia myMedia;
     private String source;
     public void init(MyMedia myMedia, String source){
@@ -82,6 +64,10 @@ public class MyMediaSingleBoxController {
         nameLabel.setText(myMedia.getTitle());
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
         labelDuration.setText(myMedia.getLength());
+
+        createContextMenu();
+
+
 
 
     }
@@ -111,4 +97,96 @@ public class MyMediaSingleBoxController {
 
     }
 
+    public void playMedia(){
+        PlayQueue.getInstance().generateNewQueue(myMedia);
+
+    }
+
+    public void deleteMedia(){
+        if(SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete the file?")) {
+            if (source == "home") {
+                for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
+                    if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
+                        Home.getInstance().removeItem(i);
+                        break;
+                    }
+                }
+            } else {
+                for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
+                    if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
+
+                        for (int j=0; j<Home.getInstance().getRecentMedia().size();j++){
+                            if (myMedia.equals(Home.getInstance().getRecentMedia().get(j))){
+                                Home.getInstance().removeItem(j);
+                            }
+                        }
+                        if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
+                            Player.getInstance().stop();
+                        PlayQueue.getInstance().deleteFromOtherController(myMedia);
+                        VideoLibrary.getInstance().removeWithIndex(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void createContextMenu(){
+        contextMenu = new ContextMenu();
+        MenuItem menuItem = new MenuItem("Play");
+        menuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                playMedia();
+            }
+        });
+
+        MenuItem menuItem1 = new MenuItem("Delete");
+        menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                deleteMedia();
+            }
+        });
+
+        MenuItem menuItem2 = new MenuItem("Add To Queue");
+        menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+            }
+        });
+
+        MenuItem menuItem3 = new MenuItem("Add To Playlist");
+        menuItem3.setDisable(true);
+
+
+        contextMenu.getItems().add(menuItem);
+        contextMenu.getItems().add(menuItem1);
+        contextMenu.getItems().add(menuItem2);
+        contextMenu.getItems().add(menuItem3);
+        contextMenu.getItems().add(new SeparatorMenuItem());
+
+        for(int i= 0; i< Playlists.getInstance().getPlayListsCollections().size();i++){
+            MenuItem temp = new MenuItem(Playlists.getInstance().getPlayListsCollections().get(i).getName());
+            int finalI = i;
+            temp.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    Playlists.getInstance().getPlayListsCollections().get(finalI).addMedia(myMedia);
+
+                }
+            });
+            contextMenu.getItems().add(temp);
+        }
+
+    }
+
+    public void contextMenuHandle(Node node,double x, double y) {
+                if(contextMenu.isShowing())
+                    contextMenu.hide();
+                else
+                    contextMenu.show(node,x,y);
+    }
 }

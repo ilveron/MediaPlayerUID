@@ -7,6 +7,7 @@ import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -72,7 +73,6 @@ public class MyMediaSingleBox extends Pane {
        });
 
         //this.setFocusTraversable(true);
-
         this.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -80,23 +80,27 @@ public class MyMediaSingleBox extends Pane {
                 if (key == KeyCode.ENTER ) {
                     PlayQueue.getInstance().generateNewQueue(myMedia);
                 }
+                else if(key == KeyCode.DELETE){
+                    controller.deleteMedia();
+                }
             }
         });
 
 
-        this.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            @Override
-            public void handle(ContextMenuEvent contextMenuEvent) {
-                /*ContextMenu contextMenu = new ContextMenu();
-                MenuItem menuItem = new MenuItem("Play");
-                MenuItem menuItem1 = new MenuItem("Delete");
-                MenuItem menuItem2 = new MenuItem("Add To Queue");
-                MenuItem menuItem3 = new MenuItem("Add To Playlist")  */
-                RightClick rightClick = new RightClick();
 
-            }
-        });
+
+    }
+
+    public void playMedia(){
+        controller.playMedia();
+    }
+
+    public void deleteMedia(){
+        controller.deleteMedia();
     }
 
 
+    public void contextMenu(Node node, double x, double y) {
+        controller.contextMenuHandle(node,x,y);
+    }
 }

@@ -276,24 +276,7 @@ public class DatabaseManager {
         }catch (SQLException e) {e.printStackTrace();}
         return false;
     }
-    public boolean changeMediaPlaylist(int numSong, String lenght,String name){
-        try {
 
-            if(connection != null && lenght!=null&&numSong!=-1&&name!=null&& !connection.isClosed()) {
-                PreparedStatement stmt = connection.prepareStatement
-                        ("UPDATE Playlist " +
-                                " SET Songs=?, TotalDuration=?" +
-                                " WHERE Name=?");
-                stmt.setInt(1,numSong );
-                stmt.setString(2,lenght);
-                stmt.setString(3,name);
-                stmt.execute();
-                stmt.close();
-                return true;
-            }
-        }catch (SQLException e){}
-        return false;
-    }
     public boolean changePlaylist(String NewName,String OldName,String Image){
         try {
 
@@ -370,7 +353,7 @@ public class DatabaseManager {
                 stmt.setString(1,name);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    Playlists.getInstance().getPlayListsCollections().get(Playlists.getInstance().returnPlaylist(name)).addMedia(
+                    Playlists.getInstance().getPlayListsCollections().get(Playlists.getInstance().returnPlaylist(name)).add(
                             (new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                             , rs.getString("Length"), rs.getString("Year"), rs.getString("Image"))));

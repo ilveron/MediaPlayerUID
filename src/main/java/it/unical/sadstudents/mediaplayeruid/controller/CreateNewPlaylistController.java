@@ -51,16 +51,15 @@ public class CreateNewPlaylistController implements Initializable {
 
     @FXML
     void onSave(ActionEvent event) {
-        // TODO: 04/07/2022 non far inserire caratteri speciali 
-        String text=textTitle.getText();
+        // TODO: 04/07/2022 non far inserire caratteri speciali?
+        String text=textTitle.getText().trim();
         if(findName(text)) {
-            labelErrore.setVisible(false);
             CreateNewPlaylist.getInstance().setName(text);
             CreateNewPlaylist.getInstance().setImage(imageView.getImage().getUrl());
             DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
             ((Node)(event.getSource())).getScene().getWindow().hide();
-        }else
-            labelErrore.setVisible(true);
+            return ;
+        }
     }
 
     @Override
@@ -86,20 +85,26 @@ public class CreateNewPlaylistController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldValue, String newValue) {
-                if(!findName(newValue)){labelErrore.setVisible(true);}
+                if(!findName(newValue.trim())){ error();}
                 else {labelErrore.setVisible(false);}
             }
         });
 
     }
 
+    private void error(){
+        labelErrore.setText("Playlist name already in use");
+        labelErrore.setVisible(true);
+    }
+
     private boolean findName(String name){
-        //if(Pattern.matches("\S.+\S", name))
-        //    return false;
+
         // TODO: 04/07/2022  utilizzare regex per i spazi vuoti 
         for(int pos=0;pos<Playlists.getInstance().getPlayListsCollections().size();pos++){
-            if(Playlists.getInstance().getPlayListsCollections().get(pos).getName().equals(name)&&!previousName.equals(name))
+            if(Playlists.getInstance().getPlayListsCollections().get(pos).getName().equals(name)&&!previousName.equals(name)) {
+                error();
                 return false;
+            }
         }
         return true;
     }

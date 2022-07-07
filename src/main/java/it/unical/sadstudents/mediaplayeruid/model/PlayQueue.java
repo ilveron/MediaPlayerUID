@@ -230,4 +230,16 @@ public class PlayQueue implements DataListedModel{
         }
     }
 
+    public void deleteFromOtherController(MyMedia myMedia){
+        for(MyMedia myMedia1: queue){
+            if(myMedia.equals(myMedia1)){
+                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia1.getPath())
+                    Player.getInstance().stop();
+                queue.remove(myMedia1);
+                break;
+            }
+        }
+
+    }
+
 }

@@ -4,11 +4,16 @@ import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 
 import java.net.URL;
@@ -54,7 +59,12 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
+        System.out.println("ciao");
+        if(index!= -1){
 
+            //PlayQueue.getInstance().addFileToListFromOtherModel(tilePane.getChildren().get(index));
+            //selectedIndex=-1;
+        }
 
     }
 
@@ -64,6 +74,7 @@ public class VideoLibraryController  implements Initializable {
 
     }
 
+    private int index=-1;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
@@ -71,11 +82,14 @@ public class VideoLibraryController  implements Initializable {
             activeButton();
         setContentTilePane();
 
+
         VideoGalleryTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
             if (VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()==VideoLibrary.getInstance().getVideoLibrary().size())
                 activeButton();
                 setContentTilePane();
         });
+
+
 
 
         //VideoLibrary.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());

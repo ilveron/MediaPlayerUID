@@ -5,6 +5,7 @@ import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
 import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
@@ -14,6 +15,7 @@ public class VideoGalleryTilePaneHandler {
     private SimpleIntegerProperty readyInteger = new SimpleIntegerProperty(0);
     private ArrayList<MyMediaSingleBox> myMediaSingleBoxes = new ArrayList<>();
     private Thread thread;
+    private int selected=-1;
 
 
     //SINGLETON
@@ -26,6 +28,14 @@ public class VideoGalleryTilePaneHandler {
     }
     //END SINGLETON
 
+
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
 
     public int getReadyInteger() {
         return readyInteger.get();
@@ -57,12 +67,25 @@ public class VideoGalleryTilePaneHandler {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                                if(mouseEvent.getClickCount() == 1){
+                                if(mouseEvent.getClickCount() == 1 ){
+                                    getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
                                     myMediaSingleBox.requestFocus();
+
+                                    myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
+
                                 }
                             }
+
                         }
                     });
+
+                    myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                        @Override
+                        public void handle(ContextMenuEvent contextMenuEvent) {
+                            myMediaSingleBox.contextMenu(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
+                        }
+                    });
+
                     myMediaSingleBoxes.add(myMediaSingleBox);
                     readyInteger.set(readyInteger.get()+1);
                 }
@@ -105,10 +128,20 @@ public class VideoGalleryTilePaneHandler {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 1){
+                            if(mouseEvent.getClickCount() == 1 ){
+                                getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
                                 myMediaSingleBox.requestFocus();
+                                myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
                             }
                         }
+
+                    }
+                });
+
+                myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                    @Override
+                    public void handle(ContextMenuEvent contextMenuEvent) {
+                        myMediaSingleBox.contextMenu(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
                     }
                 });
 
@@ -127,4 +160,6 @@ public class VideoGalleryTilePaneHandler {
         thread.setDaemon(true);
         thread.start();
     }
+
+
 }

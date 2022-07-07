@@ -1,7 +1,12 @@
 package it.unical.sadstudents.mediaplayeruid.thread;
 
+import javafx.geometry.Pos;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
+import javax.print.attribute.standard.DialogOwner;
+import javax.swing.text.Position;
 
 public class MyNotification {
     public MyNotification instance = null;
@@ -28,6 +33,12 @@ public class MyNotification {
 
     public static void notifyWarning(String title, String text, Integer seconds){
         Notifications.create().title(title).text(text).hideAfter(Duration.seconds(seconds)).showWarning();
+    }
+
+    public static boolean notifyConfirm(String title,String text){
+        // TODO: 07/07/2022  da vedere
+        Notifications.create().title(title).text(text).position(Pos.CENTER).showConfirm();
+        return true;
     }
 
     //A questa funzione potremmo passare l'immagine da mostrare all'interno della modifica

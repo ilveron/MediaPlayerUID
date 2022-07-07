@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -73,6 +74,7 @@ public class PlaylistTemplateController {
     @FXML
     void onDeletePlaylist(ActionEvent event) {
         if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
+        //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
             playlist.getMyList().clear();
             Playlists.getInstance().setDelete(findPlaylist());
         }

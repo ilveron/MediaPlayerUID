@@ -71,6 +71,7 @@
     -fx-font-family: "Montserrat Medium";
 }
 
+
 .smallMenuButton .label{ -fx-font-size: 14px; }
 
 .largeMenuButton .label{ -fx-font-size: 16px; }

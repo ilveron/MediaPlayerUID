@@ -246,7 +246,14 @@ public class MainController implements Initializable {
 
 
 
-        Player.getInstance().mediaNameProperty().addListener(observable -> mediaNameLabel.setText(Player.getInstance().getMediaName()));
+        Player.getInstance().mediaNameProperty().addListener(observable -> {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    mediaNameLabel.setText(Player.getInstance().getMediaName());
+                }
+            });
+        });
         PlayQueue.getInstance().isAVideoProperty().addListener(observable -> {
             containerView.getStyleClass().remove("primaryTemplate");
 

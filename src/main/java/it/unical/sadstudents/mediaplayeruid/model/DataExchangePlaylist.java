@@ -25,9 +25,6 @@ public class DataExchangePlaylist {
                 return;
         }
         playlist.addMedia(m);
-        DatabaseManager.getInstance().setPlaylistSong(playlist.getSongs(), playlist.getTotalDuration(), playlist.getName());
-        //System.out.println("salvo : "+playlist.getName()+" il path :"+m.getPath());
-        DatabaseManager.getInstance().addMyMediaInPlaylist(m.getPath(), playlist.getName());
     }
 
 

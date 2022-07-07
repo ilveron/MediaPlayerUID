@@ -36,6 +36,12 @@ public class Playlist  {
         songs++;
         durationCalculation(myMedia.getLength());
         list.add(myMedia);
+        DatabaseManager.getInstance().setPlaylistSong(getSongs(), getTotalDuration(),getName());
+        DatabaseManager.getInstance().addMyMediaInPlaylist(myMedia.getPath(), getName());
+
+    }
+    public void add(MyMedia myMedia){
+        list.add(myMedia);
     }
     public ObservableList<MyMedia> getMyList(){return list;}
 
@@ -77,7 +83,8 @@ public class Playlist  {
                     totalDuration="00:00:00";
                 else
                     durationCalculationRemove(list.get(i).getLength());
-                DatabaseManager.getInstance().changeMediaPlaylist(songs,totalDuration,name);
+                System.out.println("Playlist echenage Aggiungo song++ "+getSongs());
+                DatabaseManager.getInstance().setPlaylistSong(songs,totalDuration,name);
                 list.remove(i);
                 //Playlists.getInstance().setRefresh(1);
             }
