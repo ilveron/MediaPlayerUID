@@ -102,17 +102,18 @@ public class MainController implements Initializable {
     @FXML
     private Pane mediaInfoPane;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //FIRST SETUP OF ITEMS
         startToolTip();
-
-        //INITIALIZE AN INVISIBLE MEDIAVIEW
+        double percentage = 100.0;// * (newValue.doubleValue() - volumeSlider.getMin()) / (volumeSlider.getMax() - volumeSlider.getMin());
+        volumeSlider.setStyle("-track-color: linear-gradient(to right, tertiarySelectionColor " + percentage + "%, white " + percentage + ("%);"));
         Player.getInstance().setMediaView(mediaView);
-
-        //AFTER THE LOAD CONTROL IN SCENE HANDLER, THE FUNCTION SET THE CORRECT PANE IN MIDDLE OF BORDER PANE
         switchMidPane();
-
         setKeyEvent();
+        //END FIRST SETUP
 
         //speedComboBox.butt
 
@@ -152,16 +153,7 @@ public class MainController implements Initializable {
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
             if(Player.getInstance().isMediaLoaded()) {
                 changeButtonEnabledStatus();
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
 
-                        mediaInfoPane.getChildren().add(mediaInfo);
-
-                        //miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
-                    }
-                });
             }
             else {
                 changeButtonEnabledStatus();
@@ -181,6 +173,21 @@ public class MainController implements Initializable {
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
             plsPlayPause.setTooltip(new Tooltip("Pause"));
+            if(Player.getInstance().getIsRunning() && Player.getInstance().isMediaLoaded()){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
+
+                        mediaInfoPane.getChildren().add(mediaInfo);
+                        int index= HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()-1;
+                        mediaInfo.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
+                        miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
+                    }
+                });
+            }
+
+
         });
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
             setMediaSlider();
@@ -262,6 +269,8 @@ public class MainController implements Initializable {
         plsNext.setTooltip(new Tooltip("Next"));
         plsPrevious.setTooltip(new Tooltip("Previous"));
     }
+
+
 
 
     //ACTION EVENT MENU
@@ -434,8 +443,11 @@ public class MainController implements Initializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     controllePlayer.setVisible(true);
-                    if(!service.isRunning())
+                    if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
+                        System.out.println("restart");
                         service.restart();
+                    }
+
 
 
                 }
