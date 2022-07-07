@@ -177,6 +177,7 @@ public class MainController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+
                         MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
 
                         mediaInfoPane.getChildren().add(mediaInfo);
@@ -489,9 +490,9 @@ public class MainController implements Initializable {
         try{
             Scene scene = new Scene(loader.load(),484,280);
             Stage stage = new Stage();
+            stage.setResizable(false);
 
             for (String font : Settings.fonts) {
-                System.out.println();
                 Font.loadFont(Objects.requireNonNull(MainApplication.class.getResourceAsStream(font)), 10);
             }
 
