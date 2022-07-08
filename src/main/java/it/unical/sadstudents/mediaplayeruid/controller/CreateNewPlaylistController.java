@@ -1,6 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.CreateNewPlaylist;
+import it.unical.sadstudents.mediaplayeruid.view.CreateNewPlaylist;
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import javafx.beans.value.ChangeListener;
@@ -17,11 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class CreateNewPlaylistController implements Initializable {
     private String previousName="";

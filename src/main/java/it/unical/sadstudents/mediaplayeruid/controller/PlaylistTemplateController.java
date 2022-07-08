@@ -1,18 +1,15 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
+import it.unical.sadstudents.mediaplayeruid.view.CreateNewPlaylist;
+import it.unical.sadstudents.mediaplayeruid.view.PlaylistMedia;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -22,8 +19,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class PlaylistTemplateController {
@@ -101,7 +96,6 @@ public class PlaylistTemplateController {
     void onPlayPlaylist(ActionEvent event) {
         if(playlist.getMyList().size()>0) {
             if (Playlists.getInstance().getTypePlaylist() == playlist.getName()) {
-                refreshPlayQueue();
                 if(Playlists.getInstance().isPlaying()){
                     System.out.println("setto a false (sono nell if dentro if)");
                     Playlists.getInstance().setPlaying(false);
@@ -121,30 +115,8 @@ public class PlaylistTemplateController {
     }
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        DataExchangePlaylist.getInstance().setPlaylist(playlist);
-        //DataExchangePlaylist.getInstance().setImage(playlist.getImage());
-        //DataExchangePlaylist.getInstance().setName(playlist.getName());
-        //DataExchangePlaylist.getInstance().setList(playlist.getMyList());
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("addMediaToPlaylist.fxml"));
-        try{
-           //Scene scene=new Scene(new AddMediaToPlaylist())
-            Scene scene= new Scene(loader.load(),700,400);
-            Stage stage=new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Create Playlist");
-            stage.setMinHeight(700);
-            stage.setMinWidth(400);
-            stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
-            //scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
-            //scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+ Settings.theme+".css")).toExternalForm());
-            stage.setScene(scene);
-            stage.showAndWait();
-            //root.prefWidthProperty().bind(this.widthProperty());
-        }catch(Exception ignoredException){ignoredException.printStackTrace(); return;}
+        PlaylistMedia.getInstance().changePlaylistMedia(playlist);
         setLabel();
-        if(Playlists.getInstance().isPlaying()&&Playlists.getInstance().getTypePlaylist()== playlist.getName()) {
-            Playlists.getInstance().setUpdatePlayQueue(true);
-        }
     }
 
     private ContextMenuHandler contextMenuHandler;
@@ -206,7 +178,7 @@ public class PlaylistTemplateController {
             if(ButtonAzione.isVisible())
                 setButtonPlay(newValue);
         });
-
+        /*
         Playlists.getInstance().updatePlayQueueProperty().addListener(observable -> {
             if(Playlists.getInstance().getTypePlaylist()== playlist.getName() && Playlists.getInstance().getUpdatePlayQueue()) {
                 if(playlist.getMyList().size()>0)
@@ -215,10 +187,10 @@ public class PlaylistTemplateController {
                     initListPlayQueue();
             }
         });
+        */
+        //Playlists.getInstance().playingProperty().addListener(observable ->changeIcon());
 
-        Playlists.getInstance().playingProperty().addListener(observable ->changeIcon());
-
-        Player.getInstance().isRunningProperty().addListener(observable -> Playlists.getInstance().setPlaying(Player.getInstance().getIsRunning()));
+        //Player.getInstance().isRunningProperty().addListener(observable -> Playlists.getInstance().setPlaying(Player.getInstance().getIsRunning()));
 
     }
     private void changeIcon(){
@@ -245,17 +217,7 @@ public class PlaylistTemplateController {
         LabelTime.setText("Time: "+playlist.getTotalDuration()); // TODO: 04/07/2022  da fare
     }
 
-    private void refreshPlayQueue(){
-        for(int i=0;i<playlist.getMyList().size();i++){
-            boolean e=false;
-            for(int j=0;j<PlayQueue.getInstance().getQueue().size();j++)
-                if(playlist.getMyList().get(i)==PlayQueue.getInstance().getQueue().get(j))
-                    e=true;
-            if(!e)
-                PlayQueue.getInstance().addFileToListFromOtherModel(playlist.getMyList().get(i));
-        }
-        Playlists.getInstance().setUpdatePlayQueue(false);
-    }
+
 
     private boolean exist(MyMedia myMedia){
         for(int i=0;i<playlist.getMyList().size();i++){

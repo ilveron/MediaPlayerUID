@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.PlaylistMedia;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -73,8 +74,11 @@ public class AddMediaToPlaylistController implements Initializable {
     @FXML
     void onAddToPlaylist(ActionEvent event) {
         for(int i=0;i<PosizioniSelezionate.size();i++){
-            DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
+            PlaylistMedia.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
+            //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
         }
+        Playlists.getInstance().setUpdatePlayQueue(true);
+        //Playlists.getInstance().setTypePlaylist();
     }
 
     @Override
@@ -82,10 +86,12 @@ public class AddMediaToPlaylistController implements Initializable {
         PosizioniSelezionate=new ArrayList<Integer>(); //se pos >0  allora il pulsante diventa cliccabile
         //start tooltip
         setButtonAdd(true);
-        String image= DataExchangePlaylist.getInstance().getImage();
+        //String image= DataExchangePlaylist.getInstance().getImage();
+        String image= PlaylistMedia.getInstance().getPlaylist().getImage();
         if(image!=null&&image!="")
             imageMedia.setImage(new Image(image));
-        labelTitle.setText(DataExchangePlaylist.getInstance().getName());
+        //labelTitle.setText(DataExchangePlaylist.getInstance().getName());
+        labelTitle.setText(PlaylistMedia.getInstance().getPlaylist().getName());
 
         tableView.setItems(MusicLibrary.getInstance().getMusicLibrary());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
@@ -103,7 +109,6 @@ public class AddMediaToPlaylistController implements Initializable {
                     tableView.setItems(SearchForFile.getInstance().getSearch(newValue, MusicLibrary.getInstance().getMusicLibrary()));
                 else
                     tableView.setItems(SearchForFile.getInstance().getSearch(newValue, VideoLibrary.getInstance().getVideoLibrary()));
-
             }
         });
 

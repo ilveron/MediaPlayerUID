@@ -1,15 +1,14 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.CreateNewPlaylist;
 import it.unical.sadstudents.mediaplayeruid.view.PlayListView;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.TilePane;
 
 import java.net.URL;

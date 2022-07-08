@@ -32,6 +32,6 @@ public class GlobalFocusAndSelection {
             previous.getStyleClass().remove("focusedToolBarButton");
 
         current.getStyleClass().add("focusedToolBarButton");
-        System.out.println("ci entro");
+
     }
 }

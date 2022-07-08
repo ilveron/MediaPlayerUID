@@ -28,9 +28,24 @@ public class Playlist  {
         this.name=name;
         this.songs=songs;
         this.totalDuration=totalDuration;
-    }
-    public Playlist(){}
+        listenerRefresh();
 
+    }
+    public Playlist(){
+        listenerRefresh();
+    }
+
+    private void listenerRefresh(){
+        System.out.println("CI SONO");
+        Playlists.getInstance().updatePlayQueueProperty().addListener(observable -> {
+            if(Playlists.getInstance().getTypePlaylist()== getName() && Playlists.getInstance().getUpdatePlayQueue()) {
+                if(getMyList().size()>0) {
+                    refreshPlayQueue();
+                    System.out.println("OK");
+                }
+            }
+        });
+    }
 
     public void addMedia(MyMedia myMedia){
         songs++;
@@ -74,7 +89,6 @@ public class Playlist  {
         return Objects.equals(list, playlist.list) && Objects.equals(image, playlist.image) && Objects.equals(name, playlist.name);
     }
 
-
     public void deleteMyMedia(String path){
         for(int i=0;i<list.size();i++){
             if(path.equals(list.get(i).getPath())) {
@@ -89,6 +103,14 @@ public class Playlist  {
                 //Playlists.getInstance().setRefresh(1);
             }
         }
+    }
+
+    public int indexMedia(MyMedia myMedia){
+        for(int i=0;i<list.size();i++){
+            if(myMedia.equals(list.get(i)))
+                return i;
+        }
+        return -1;
     }
 
     private void durationCalculation(String duration){
@@ -155,6 +177,27 @@ public class Playlist  {
 
          */
 
+    }
+
+    private void addToPlayQueue(MyMedia myMedia){
+        int index=indexMedia(myMedia);
+        PlayQueue.getInstance().clearList();
+        for(int i=0;i<list.size();i++){
+            PlayQueue.getInstance().addFileToListFromOtherModel(list.get(index));
+            index=(index+1)%list.size();
+        }
+    }
+
+    private void refreshPlayQueue(){
+        for(int i=0;i<getMyList().size();i++){
+            boolean e=false;
+            for(int j=0;j<PlayQueue.getInstance().getQueue().size();j++)
+                if(getMyList().get(i)==PlayQueue.getInstance().getQueue().get(j))
+                    e=true;
+            if(!e)
+                PlayQueue.getInstance().addFileToListFromOtherModel(getMyList().get(i));
+        }
+        Playlists.getInstance().setUpdatePlayQueue(false);
     }
 }
 

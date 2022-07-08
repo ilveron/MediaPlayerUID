@@ -167,8 +167,8 @@ public class ContextMenuHandler extends ContextMenu {
             menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    //call the function
-                    // TODO: 08/07/2022 funzione di add-remove
+                    int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
+                    PlaylistMedia.getInstance().changePlaylistMedia(Playlists.getInstance().getPlayListsCollections().get(index));
                 }
             });
 
