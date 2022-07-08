@@ -32,18 +32,12 @@
     -fx-text-fill: textColor;
 }
 
-.focusedToolBarButton .button {
+.focusedToolBarButton {
     -fx-background-color: secondarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
-.focusedToolBarButton:hover{
-    -fx-background-color: primarySelectionColor;
-    -fx-text-fill: primaryBackgroundColor;
-
-}
-
-.focusedToolBarButton .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
+.focusedToolBarButton .iconsOverBackground { -fx-icon-color: iconOverBackgroundColor; }
 
 .toolBarIcons { -fx-icon-color: iconOverBackgroundColor; }
 
@@ -353,4 +347,12 @@
     -fx-alignment: top-left;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 14px;
+}
+
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to right, primarySelectionColor, tertiarySelectionColor);
+}
+
+.progress-bar .track {
+    -fx-background-color: secondaryBackgroundColor;
 }

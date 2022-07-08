@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane minHeight="600.0" minWidth="750.0" prefHeight="756.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
+<AnchorPane minHeight="600.0" minWidth="750.0" prefHeight="756.0" prefWidth="1344.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
    <children>
       <StackPane fx:id="stackPane" minWidth="750.0" prefWidth="1344.0" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -38,7 +38,7 @@
                <left>
                   <VBox fx:id="leftItems" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="270.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                      <children>
-                        <ToolBar fx:id="toolbarMenu" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
+                        <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
                           <items>
                             <Button fx:id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
                                  <graphic>
@@ -114,9 +114,9 @@
                         </ToolBar>
                         <VBox fx:id="vBoxProgressBar" spacing="5.0" visible="false" VBox.vgrow="NEVER">
                            <children>
-                              <Label fx:id="progressType" text="LOADING  MEDIA IN PROGRESS" textFill="#f2eeee" />
+                              <Label fx:id="progressType" text="Media loading in progress..." textFill="#f2eeee" />
                               <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
-                              <Label text="Don't close the Media Player" textFill="#da0909" />
+                              <Label text="Please DO NOT close the Media Player" textFill="#da0909" />
                            </children>
                            <VBox.margin>
                               <Insets right="10.0" />
