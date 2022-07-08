@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.SettingsController">
+   <children>
+      <Label minWidth="450.0" styleClass="sceneHeaders" text="SETTINGS" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Label styleClass="settingsParagraphLabel" text="Personalization" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="70.0" />
+      <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="littleSettingsPane" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <FontIcon iconLiteral="fa-paint-brush" iconSize="20" styleClass="alternateIcon" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <Label text="App theme" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0" />
+            <ToolBar prefHeight="40.0" prefWidth="100.0" styleClass="secondaryTemplate" AnchorPane.rightAnchor="0.0">
+               <items>
+                  <Button fx:id="lightMode" mnemonicParsing="false" onAction="#onLightMode" prefHeight="29.0" prefWidth="40.0" styleClass="toolBarButton">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-sun-o" iconSize="19" styleClass="iconsOverBackground" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="darkMode" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDarkMode" prefWidth="40.0" styleClass="toolBarButton">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-moon-o" iconSize="19" styleClass="iconsOverBackground" />
+                     </graphic>
+                  </Button>
+               </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+      <Label layoutX="25.0" layoutY="90.0" styleClass="settingsParagraphLabel" text="About Media Player UID" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="5.0" />
+      <AnchorPane layoutX="15.0" layoutY="210.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" styleClass="littleSettingsPane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <children>
+            <Label fx:id="lblCredits" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+         </children>
+      </AnchorPane>
+      <Label styleClass="settingsParagraphLabel" text="App" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" />
+      <Button mnemonicParsing="false" onAction="#onHotkeysGuide" text="Hotkeys guide" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+   </children>
+</AnchorPane>
