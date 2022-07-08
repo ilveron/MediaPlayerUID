@@ -57,7 +57,7 @@
             </MenuButton>
          </children>
       </HBox>
-      <TableView fx:id="tableViewQueue" style="-fx-background-color: transparent; -fx-font-size: 14px;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
+      <TableView fx:id="tableViewQueue" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
         <columns>
           <TableColumn fx:id="title" editable="false" minWidth="50.0" prefWidth="163.20001524686813" sortable="false" text="Title" />
           <TableColumn fx:id="artist" editable="false" minWidth="50.0" prefWidth="78.4000244140625" sortable="false" text="Artist" />

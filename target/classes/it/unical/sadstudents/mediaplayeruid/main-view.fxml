@@ -123,23 +123,19 @@
                            </VBox.margin>
                         </VBox>
                         <ToolBar prefHeight="40.0" prefWidth="245.0" styleClass="primaryTemplate">
-                          <items>
-                            <Button fx:id="lightMode" mnemonicParsing="false" onAction="#onLightMode" prefHeight="29.0" prefWidth="80.0" styleClass="toolBarButton">
+                           <items>
+                              <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings">
                                  <graphic>
-                                    <FontIcon iconLiteral="fa-sun-o" iconSize="19" styleClass="iconsOverBackground" />
+                                    <FontIcon iconLiteral="fa-cog" iconSize="22" styleClass="iconsOverBackground" />
                                  </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
-                              <Button fx:id="darkMode" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDarkMode" prefWidth="80.0" styleClass="toolBarButton">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-moon-o" iconSize="19" styleClass="iconsOverBackground" />
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="about" layoutX="94.0" layoutY="11.0" mnemonicParsing="false" onAction="#onAbout" prefWidth="80.0" styleClass="toolBarButton">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-info-circle" iconSize="19" styleClass="iconsOverBackground" />
-                                 </graphic>
-                              </Button>
-                          </items>
+                           </items>
                         </ToolBar>
                      </children>
                      <padding>
