@@ -8,7 +8,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -40,39 +39,35 @@
             <FontIcon iconLiteral="fa-film" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
-      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="507.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
-         <children>
-            <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteVideo" text="Delete">
-               <graphic>
-                  <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" text="Add entire library to play queue">
-               <graphic>
-                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <TextField focusTraversable="false" maxWidth="250.0" prefWidth="250.0" promptText="Search" styleClass="secondaryTemplate">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Button fx:id="btnAddVideoToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add video to play queue">
-               <graphic>
-                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <TextField focusTraversable="false" maxWidth="166.0" minWidth="-Infinity" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="62.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Button fx:id="btnAddLibraryToQueue" disable="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefWidth="95.0" text="Play All" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="62.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAddVideoToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add to queue" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="62.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDelete" alignment="CENTER_RIGHT" disable="true" mnemonicParsing="false" onAction="#onDeleteVideo" text="Clear All" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="62.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="primaryTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <content>
           <AnchorPane styleClass="primaryTemplate">

@@ -123,6 +123,7 @@ public class MusicLibraryController implements Initializable {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
+        //iconColumn.setCellFactory() .setCellValueFactory(new PropertyValueFactory<MyMedia,String>("delete") );
         //MusicLibrary.getInstance().sortList();
 
         tableViewMusicLibrary.setRowFactory(tableView ->{

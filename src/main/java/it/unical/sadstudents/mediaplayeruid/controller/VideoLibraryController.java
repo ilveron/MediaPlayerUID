@@ -70,8 +70,8 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onDeleteVideo(ActionEvent event) {
-
-
+        for (int i=0; i<VideoLibrary.getInstance().getVideoLibrary().size(); i++)
+            VideoLibrary.getInstance().removeWithIndex(i);
     }
 
     private int index=-1;
@@ -103,6 +103,7 @@ public class VideoLibraryController  implements Initializable {
 
 
     public void setContentTilePane(){
+        //VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getMyMedia().getPath();
 
         Platform.runLater(new Runnable() {
             @Override

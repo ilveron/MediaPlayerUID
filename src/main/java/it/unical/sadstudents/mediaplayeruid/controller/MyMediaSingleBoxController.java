@@ -109,15 +109,14 @@ public class MyMediaSingleBoxController {
     }
 
     public void deleteMedia(){
-        if(SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete the file?")) {
-            if (source == "home") {
+            if (source == "home" && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
                 for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
                     if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
                         Home.getInstance().removeItem(i);
                         break;
                     }
                 }
-            } else {
+            } else if (SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
                 for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
                     if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
 
@@ -134,7 +133,7 @@ public class MyMediaSingleBoxController {
                     }
                 }
             }
-        }
+
 
     }
 

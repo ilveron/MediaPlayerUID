@@ -187,8 +187,10 @@ public class MainController implements Initializable {
 
                         mediaInfoPane.getChildren().add(mediaInfo);
                         int index= HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()-1;
-                        mediaInfo.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
-                        miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
+                        if(index!=-1){
+                            mediaInfo.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
+                            miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
+                        }
                     }
                 });
             }

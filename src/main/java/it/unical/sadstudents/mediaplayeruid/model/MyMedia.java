@@ -24,6 +24,7 @@ public class MyMedia  {
     private String length="00:00:00";
     private String year="N/A";
     private String imageUrl="";
+    private String delete="fa-close";
 
 
     // TODO: 03/06/2022 funzioni per ordinamento nelle varie liste/library 
@@ -71,6 +72,14 @@ public class MyMedia  {
     public String getAlbum() { return album; }
     public String getLength() { return length; }
     public String getYear() { return year; }
+
+    public String getDelete() {
+        return delete;
+    }
+
+    public void setDelete(String delete) {
+        this.delete = delete;
+    }
 
     public String getImageUrl() {
         return imageUrl;

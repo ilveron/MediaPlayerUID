@@ -17,14 +17,6 @@
    <children>
       <HBox prefHeight="50.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="51.0" prefWidth="54.0">
-               <graphic>
-                  <FontIcon iconLiteral="fa-play" iconSize="39" styleClass="iconsOverBackground" text="" wrappingWidth="30.64285659790039" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
             <Label minWidth="470.0" prefHeight="58.0" prefWidth="470.0" styleClass="sceneHeaders" text="MUSIC LIBRARY" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="39.0" />
@@ -76,9 +68,17 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add song to queue">
+            <Button fx:id="btnAddLibraryToQueue" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="30.0" prefWidth="95.0" text="Play All">
                <graphic>
-                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" />
+                  <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add to queue">
+               <graphic>
+                  <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
                <font>
                   <Font size="14.0" />
