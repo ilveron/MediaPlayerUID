@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.GlobalFocusAndSelection;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.keyCombo;
@@ -113,6 +114,7 @@ public class MainController implements Initializable {
         Player.getInstance().setMediaView(mediaView);
         switchMidPane();
         setKeyEvent();
+        GlobalFocusAndSelection.getInstance().setStyle(null,btnHome);
         //END FIRST SETUP
 
         //speedComboBox.butt
@@ -327,10 +329,15 @@ public class MainController implements Initializable {
     @FXML
     void onHome(ActionEvent event) {
         changeBackgroundMediaView();
-
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
+
         SceneHandler.getInstance().setCurrentMidPane("home-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("home");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnHome);
+
+
     }
 
     @FXML
@@ -340,6 +347,11 @@ public class MainController implements Initializable {
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("music-library-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("music");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnMusicLibrary);
+
+
     }
 
     @FXML
@@ -349,6 +361,9 @@ public class MainController implements Initializable {
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("video-library-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("video");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnVideoLibrary);
     }
 
     @FXML
@@ -357,6 +372,9 @@ public class MainController implements Initializable {
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("play-queue-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("play");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnPlayQueue);
     }
 
     @FXML
@@ -365,6 +383,9 @@ public class MainController implements Initializable {
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("playlist-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("playlist");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnPlaylists);
     }
 
     @FXML
@@ -375,6 +396,9 @@ public class MainController implements Initializable {
         btnVideoView.setVisible(true);
         mediaView.setVisible(true);
         myBorderPane.getCenter().setVisible(false);
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("videoView");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnVideoView);
     }
 
     @FXML
@@ -383,6 +407,28 @@ public class MainController implements Initializable {
         mediaView.setVisible(false);
         myBorderPane.getCenter().setVisible(true);
         SceneHandler.getInstance().setCurrentMidPane("settings-view.fxml");
+
+        GlobalFocusAndSelection.getInstance().setAllNameButton("settings");
+        GlobalFocusAndSelection.getInstance().setStyle(whoIsThePrevious(),btnSettings);
+    }
+
+    private Button whoIsThePrevious(){
+        String temp = GlobalFocusAndSelection.getInstance().getPreviousMenu();
+        if(temp=="home")
+            return btnHome;
+        else if (temp == "music")
+            return btnMusicLibrary;
+        else if(temp == "video")
+            return btnVideoLibrary;
+        else if(temp == "play")
+            return btnPlayQueue;
+        else if(temp == "playlist")
+            return btnPlaylists;
+        else if(temp == "settings")
+            return btnSettings;
+        else if(temp== "videoView")
+            return btnVideoView;
+        return null;
     }
 
     @FXML
