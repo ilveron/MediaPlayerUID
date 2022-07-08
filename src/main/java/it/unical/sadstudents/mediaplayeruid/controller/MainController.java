@@ -11,6 +11,7 @@ import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 
+import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -595,6 +596,7 @@ public class MainController implements Initializable {
 
     @FXML
     void onEquilizer(ActionEvent event) {
+        /*
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("audioEqualizer-view.fxml"));
         try{
             Scene scene = new Scene(loader.load(),484,280);
@@ -618,7 +620,8 @@ public class MainController implements Initializable {
 
             //stage.setOnCloseRequest
         }catch(Exception exception){
-            exception.printStackTrace();}
+            exception.printStackTrace();}*/
+        SubStageHandler.getInstance().init("audioEqualizer-view.fxml",484,280,"Audio Equalizer",false);
 
 
 

@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +52,8 @@ public class SettingsController implements Initializable {
     }
 
     private void hotkeysGuide(){
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("hotkeys-guide-view.fxml"));
+        SubStageHandler.getInstance().init("hotkeys-guide-view.fxml",500,470,"Hotkeys Guide",false);
+        /*FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("hotkeys-guide-view.fxml"));
         try{
             Scene scene = new Scene(loader.load(),500,470);
             Stage stage = new Stage();
@@ -74,6 +76,6 @@ public class SettingsController implements Initializable {
 
             //stage.setOnCloseRequest
         }catch(Exception exception){
-            exception.printStackTrace();}
+            exception.printStackTrace();}*/
     }
 }
