@@ -131,29 +131,10 @@ public class MusicLibraryController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if(!row.isEmpty() && !event.getButton().equals(MouseButton.SECONDARY)) {
                     MyMedia myMedia=row.getItem();
-                    if (event.getClickCount() > 1) {
-                        if(MusicLibrary.getInstance().isPresent(myMedia,MusicLibrary.getInstance().getSelection())!=-1)
-                            MusicLibrary.getInstance().getSelection().remove(myMedia);// TODO: 05/07/2022  baggato apre a caso un altro file pero video X/
-                        System.out.println(myMedia.getPath());
+                    if (event.getClickCount() == 2) {
                         PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
-                    }/*else if (event.getClickCount() == 1 ) {
-                        if (MusicLibrary.getInstance().isPresent(myMedia,MusicLibrary.getInstance().getSelection())!=-1) {
-                            row.setStyle("");
-                            row.setFocusTraversable(false);
-                            MusicLibrary.getInstance().getSelection().remove(myMedia);
-                        } else {
-                            row.setFocusTraversable(false);
-                            MusicLibrary.getInstance().getSelection().add(myMedia);
-                            row.setStyle("-fx-background-color: RED;");
-                        }
-
-                    }*/ else if (row.isEmpty()) {
-                        row.setFocusTraversable(false);
-                        MusicLibrary.getInstance().getSelection().clear();
-
                     }
-                }
-                else if(event.getButton().equals(MouseButton.SECONDARY)){
+                } else if(event.getButton().equals(MouseButton.SECONDARY)){
                             if(!row.isEmpty()){
                                 MyMedia myMedia=row.getItem();
                                 contextMenuHandler = new ContextMenuHandler(myMedia,"","musicLibrary");

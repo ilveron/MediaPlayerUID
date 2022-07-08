@@ -178,6 +178,7 @@ public class PlayQueue implements DataListedModel{
     public void changeMedia(Integer direction){
         // TODO: 07/06/2022 vedere se vale la pena di fare in modo che non richiami canzoni già suonate
         alreadyPlayed.add(getCurrentMedia());
+        System.out.println("change media");
 
         if(Player.getInstance().isLoopMode())
             setCurrentMedia(getCurrentMedia());
@@ -187,9 +188,11 @@ public class PlayQueue implements DataListedModel{
                 shuffleQueueCurrentIndex = 0;
             setCurrentMedia(shuffleQueueIndexes.get(shuffleQueueCurrentIndex));
         }
-        else
-            // TODO: 11/06/2022 SISTEMARE PASSAGGIO DA SHUFFLE A SEQUENZIALE E VICEVERSA 
+        else{
+            // TODO: 11/06/2022 SISTEMARE PASSAGGIO DA SHUFFLE A SEQUENZIALE E VICEVERSA
+            System.out.println(direction);
             setCurrentMedia(getCurrentMedia()+direction);
+        }
     }
     //END LIST-ITEM SELECTION AND SEND TO PLAYER
 

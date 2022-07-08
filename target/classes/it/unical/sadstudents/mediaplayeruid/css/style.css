@@ -281,7 +281,7 @@
 
 }
 
-.choice-box .menu-item > .label { -fx-text-fill: textColor; }
+.choice-box .menu-item > .label { -fx-text-fill: imagesColor; }
 
 .choice-box .menu-item:focused > .label { -fx-text-fill: selectedTextColor; }
 
@@ -292,7 +292,7 @@
 
 .choice-box {
     -fx-background-color: secondaryBackgroundColor;
-    -fx-mark-color: textColor;
+    -fx-mark-color: imagesColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
 }
@@ -327,7 +327,7 @@
     -fx-icon-color: settingsIconHoverColor;
 }
 
-.choice-box > .label { -fx-text-fill: textColor; }
+.choice-box > .label { -fx-text-fill: imagesColor; }
 
 .notification-bar>.pane {
     -fx-background-color: primaryBackgroundColor,secondaryBackgroundColor;
@@ -356,3 +356,50 @@
 .progress-bar .track {
     -fx-background-color: secondaryBackgroundColor;
 }
+
+.hotkeysHeader {
+    -fx-font-size: 40px;
+    -fx-font-family: "Montserrat ExtraBold";
+    -fx-text-fill: textColor;
+}
+
+.hotkeysElement {
+    -fx-font-size: 16px;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-text-fill: textColor;
+}
+
+.hotkeysDescription {
+    -fx-font-size: 16px;
+    -fx-font-family: "Montserrat Medium";
+    -fx-text-fill: textColor;
+}
+
+.cautionLabel {
+    -fx-font-size: 12px;
+    -fx-font-family: "Montserrat Medium";
+    -fx-text-fill: alternateTextColor;
+}
+
+.inProgressLabel {
+    -fx-font-size: 12px;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-text-fill: textColor;
+}
+
+.playButton {
+    -fx-background-radius: 30px;
+    -fx-background-color: secondaryBackgroundColor;
+    -fx-border-radius: 30px;
+    -fx-border-width: 3px;
+    -fx-border-color: linear-gradient(to right, primarySelectionColor, tertiarySelectionColor);
+}
+
+.playButton .iconsOverBackground { -fx-icon-color: imagesColor; }
+
+.playButton:hover {
+    -fx-background-color: linear-gradient(to right, primarySelectionColor, tertiarySelectionColor);
+    -fx-text-fill: primaryBackgroundColor;
+}
+
+.playButton:hover .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }

@@ -1,8 +1,13 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 
+import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
+import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
+import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 public class SearchForFile {
 
@@ -32,6 +37,29 @@ public class SearchForFile {
                 add=true;
             if(add)
                 Search.add(table.get(i));
+        }
+        return Search;
+    }
+
+    public ArrayList<MyMediaSingleBox> getSearchVideo(String find){
+        ArrayList<MyMediaSingleBox> Search=new ArrayList<>();
+        ArrayList<MyMediaSingleBox> Video=VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes();
+        for(int i=0;i< Video.size();i++){
+            boolean add=false;
+            if(Video.get(i).getMyMedia().getTitle().toLowerCase().indexOf(find.toLowerCase())!=-1)
+                add=true;
+            else if (Video.get(i).getMyMedia().getArtist().toLowerCase().indexOf(find.toLowerCase())!=-1)
+                add=true;
+            else if(Video.get(i).getMyMedia().getGenre().toLowerCase().indexOf(find.toLowerCase())!=-1)
+                add=true;
+            else if(Video.get(i).getMyMedia().getAlbum().toLowerCase().indexOf(find.toLowerCase())!=-1)
+                add=true;
+            else if(Video.get(i).getMyMedia().getYear().toString().indexOf(find)!=-1)
+                add=true;
+            else if(Video.get(i).getMyMedia().getLength().toString().indexOf(find)!=-1)
+                add=true;
+            if(add)
+                Search.add(Video.get(i));
         }
         return Search;
     }

@@ -19,7 +19,7 @@
             <Font size="39.0" />
          </font>
       </Label>
-      <MenuButton graphicTextGap="5.0" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <MenuButton fx:id="menuButtonAdd" graphicTextGap="5.0" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to video library">
                <graphic>
@@ -39,7 +39,7 @@
             <FontIcon iconLiteral="fa-film" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
-      <TextField focusTraversable="false" maxWidth="166.0" minWidth="-Infinity" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="62.0">
+      <TextField fx:id="textFieldSearch" focusTraversable="false" maxWidth="166.0" minWidth="-Infinity" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="62.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>

@@ -152,6 +152,7 @@ public class MainController implements Initializable {
 
         // TODO: 07/06/2022 fixare tooltip plsPlayPause 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> switchMidPane());
+
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
             if(Player.getInstance().isMediaLoaded()) {
                 changeButtonEnabledStatus();
@@ -213,7 +214,8 @@ public class MainController implements Initializable {
                 public void run() {
                     setMediaSlider();
                     currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
-                    if (Player.getInstance().getCurrentMediaTime() == Player.getInstance().getEndMediaTime()) {
+                    if ((Player.getInstance().getCurrentMediaTime() == Player.getInstance().getEndMediaTime()) && Player.getInstance().getEndMediaTime()!=0.0) {
+
                         PlayQueue.getInstance().changeMedia(1);
                     }
                 }

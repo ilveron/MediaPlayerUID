@@ -111,15 +111,15 @@ public class SceneHandler {
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
         stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
-        System.setProperty("prism.lcdtext", "false");
+        //System.setProperty("prism.lcdtext", "false");
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
 
 
         scene = new Scene(loader.load(),1344,756);
 
         stage.setTitle("MediaPlayer UID");
-        stage.setMinHeight(600);
-        stage.setMinWidth(806);
+        stage.setMinHeight(655);
+        stage.setMinWidth(880);
 
 
         for (String font : Settings.fonts) {

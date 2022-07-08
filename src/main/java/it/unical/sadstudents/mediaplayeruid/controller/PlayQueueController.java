@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -51,14 +53,12 @@ public class PlayQueueController implements Initializable {
     void addFilesToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(0));
         colorSelectedRow();
-        beginTimer();
     }
 
     @FXML
     void addFolderToQueue(ActionEvent event) {
         PlayQueue.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(0));
         colorSelectedRow();
-        beginTimer();
     }
 
     @FXML
@@ -66,11 +66,8 @@ public class PlayQueueController implements Initializable {
         if(PlayQueue.getInstance().getQueue().size()>0) {
             if (Player.getInstance().getIsRunning())
                 Player.getInstance().stop();
-            System.out.println("qua ci sono XD");
             PlayQueue.getInstance().getQueue().clear();
-            System.out.println("anche qua X/");
             PlayQueue.getInstance().setIsAVideo(false);
-            System.out.println("allora non mi prendere per il culo X(");
         }
     }
 
@@ -86,6 +83,7 @@ public class PlayQueueController implements Initializable {
 
     //END ACTION EVENT
 
+    private ContextMenuHandler contextMenuHandler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -115,14 +113,26 @@ public class PlayQueueController implements Initializable {
         tableViewQueue.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if(!row.isEmpty())
-                    PlayQueue.getInstance().setCurrentMedia(row.getIndex());
+                if(!row.isEmpty() && !event.getButton().equals(MouseButton.SECONDARY)) {
+                    MyMedia myMedia=row.getItem();
+                    if (event.getClickCount() == 2) {
+                        PlayQueue.getInstance().setCurrentMedia(row.getIndex());
+                    }
+                }
+                else if(event.getButton().equals(MouseButton.SECONDARY)){
+                    if(!row.isEmpty()){
+                        MyMedia myMedia=row.getItem();
+                        contextMenuHandler = new ContextMenuHandler(myMedia,"","playqueue");
+                        row.setContextMenu(contextMenuHandler);
+                        row.getContextMenu();
+                    }
+                }
             });
 
-            row.setOnMouseDragged(event ->{
+            /*row.setOnMouseDragged(event ->{
                 if(!row.isEmpty())
                     PlayQueue.getInstance().setCurrentMedia(row.getIndex());
-            });
+            });*/
             return row;
         });
 
@@ -146,31 +156,6 @@ public class PlayQueueController implements Initializable {
         // TODO: 07/06/2022
         delete.setTooltip(new Tooltip("Delete all the elements from the queue"));
     }
-
-    //TASK
-    public void beginTimer(){
-
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                runningTimer = true;
-                tableViewQueue.refresh();
-
-                if (PlayQueue.getInstance().getQueue().size()==0 /*|| PlayQueue.getInstance().getQueue().size() == tableViewQueue.getItems().size()*/){
-                    cancelTimer();
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task,0,500);
-
-    }
-
-    public void cancelTimer(){
-        runningTimer = false;
-        timer.cancel();
-    }
-    //END TASK
 
     private void focusTableView(){
 

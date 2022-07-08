@@ -35,13 +35,16 @@
             </ToolBar>
          </children>
       </AnchorPane>
-      <Label layoutX="25.0" layoutY="90.0" styleClass="settingsParagraphLabel" text="About Media Player UID" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="5.0" />
-      <AnchorPane layoutX="15.0" layoutY="210.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" styleClass="littleSettingsPane" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <Label layoutX="25.0" layoutY="90.0" styleClass="settingsParagraphLabel" text="About Media Player UID" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="5.0" />
+      <AnchorPane layoutX="15.0" layoutY="210.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" styleClass="littleSettingsPane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
             <Label fx:id="lblCredits" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
          </children>
       </AnchorPane>
-      <Label styleClass="settingsParagraphLabel" text="App" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" />
-      <Button mnemonicParsing="false" onAction="#onHotkeysGuide" text="Hotkeys guide" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <Label styleClass="settingsParagraphLabel" text="App" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="160.0" />
+      <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHotkeysGuide" text="Hotkeys guide" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="190.0">
+         <graphic>
+            <FontIcon iconLiteral="fa-keyboard-o" iconSize="25" styleClass="iconsOverBackground" />
+         </graphic></Button>
    </children>
 </AnchorPane>

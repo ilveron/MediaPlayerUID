@@ -25,7 +25,20 @@ public class ContextMenuHandler extends ContextMenu {
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    PlayQueue.getInstance().generateNewQueue(myMedia);
+                    if(source != "playqueue")
+                        PlayQueue.getInstance().generateNewQueue(myMedia);
+                    else{
+                        int index;
+                        for (int i=0; i<PlayQueue.getInstance().getQueue().size(); i++){
+                            if(myMedia.equals(PlayQueue.getInstance().getQueue().get(i))){
+                                System.out.println(myMedia);
+                                System.out.println(PlayQueue.getInstance().getQueue().get(i));
+                                PlayQueue.getInstance().setCurrentMedia(i);
+                                break;
+                            }
+                        }
+
+                    }
                 }
             });
 
@@ -66,6 +79,9 @@ public class ContextMenuHandler extends ContextMenu {
                                 }
                             }
 
+                        }
+                        else if(source == "playqueue" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to remove from queue?")){
+                            PlayQueue.getInstance().getQueue().remove(myMedia);
                         }
 
 
@@ -179,6 +195,7 @@ public class ContextMenuHandler extends ContextMenu {
 
         this.getItems().add(menuItem);
         this.getItems().add(menuItem1);
+        if(source!="playqueue")
         this.getItems().add(menuItem2);
         this.getItems().add(menuItem3);
 

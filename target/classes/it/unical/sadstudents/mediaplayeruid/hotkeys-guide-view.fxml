@@ -3,9 +3,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="500.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="256.0" layoutY="39.0" text="Hotkeys Guide" />
+      <Label alignment="CENTER" layoutX="256.0" layoutY="39.0" styleClass="hotkeysHeader" text="Hotkeys Guide" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="126.0" layoutY="94.0" styleClass="hotkeysElement" text="Space:" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="94.0" />
+      <Label layoutX="166.0" layoutY="124.0" styleClass="hotkeysElement" text="S:" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="124.0" />
+      <Label layoutX="163.0" layoutY="154.0" styleClass="hotkeysElement" text="N:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="154.0" />
+      <Label layoutX="164.0" layoutY="184.0" styleClass="hotkeysElement" text="P:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="184.0" />
+      <Label layoutX="166.0" layoutY="214.0" styleClass="hotkeysElement" text="L:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="214.0" />
+      <Label layoutX="166.0" layoutY="244.0" styleClass="hotkeysElement" text="T:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="244.0" />
+      <Label layoutX="160.0" layoutY="274.0" styleClass="hotkeysElement" text="M:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="274.0" />
+      <Label layoutX="95.0" layoutY="304.0" styleClass="hotkeysElement" text="ALT + Left:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="304.0" />
+      <Label layoutX="82.0" layoutY="334.0" styleClass="hotkeysElement" text="ALT + Right:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="334.0" />
+      <Label layoutX="92.0" layoutY="364.0" styleClass="hotkeysElement" text="CTRL + Up:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="364.0" />
+      <Label layoutX="67.0" layoutY="394.0" styleClass="hotkeysElement" text="CTRL + Down:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="394.0" />
+      <Label layoutX="102.0" layoutY="424.0" styleClass="hotkeysElement" text="CTRL + Q:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="424.0" />
+      <Label layoutX="227.0" layoutY="94.0" styleClass="hotkeysDescription" text="Play/Pause" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="124.0" styleClass="hotkeysDescription" text="Stop" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="154.0" styleClass="hotkeysDescription" text="Next track" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="184.0" styleClass="hotkeysDescription" text="Previous track" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="214.0" styleClass="hotkeysDescription" text="Loop toggle" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="244.0" styleClass="hotkeysDescription" text="Shuffle" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="274.0" styleClass="hotkeysDescription" text="Mute" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="304.0" styleClass="hotkeysDescription" text="Skip back (10 seconds)" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="334.0" styleClass="hotkeysDescription" text="Skip forward (10 seconds)" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="364.0" styleClass="hotkeysDescription" text="Volume +10%" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="394.0" styleClass="hotkeysDescription" text="Volume -10%" AnchorPane.leftAnchor="227.0" />
+      <Label layoutX="227.0" layoutY="424.0" styleClass="hotkeysDescription" text="Exit application" AnchorPane.leftAnchor="227.0" />
    </children>
 </AnchorPane>

@@ -239,39 +239,7 @@ public class Player {
     }
     //END BASIC CONTROLS
 
-    public void metadataUpdate(int index){
-        mediaPlayer.getMedia().getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            if(change.wasAdded()) {
-                //System.out.println(media.getMetadata());
-                if ("title".equals(change.getKey())) {
-                    if (mediaPlayer.getMedia().getMetadata().get("title").toString() != null){
-                        PlayQueue.getInstance().getQueue().get(index).setTitle(mediaPlayer.getMedia().getMetadata().get("title").toString());
-                        setMediaName(media.getMetadata().get("title").toString());
 
-                    }
-                }
-                else if ("artist".equals(change.getKey())) {
-                    PlayQueue.getInstance().getQueue().get(index).setArtist(mediaPlayer.getMedia().getMetadata().get("artist").toString());
-                    setArtistName(media.getMetadata().get("artist").toString());
-
-                }
-                else if ("album".equals(change.getKey())) {
-                    PlayQueue.getInstance().getQueue().get(index).setAlbum(mediaPlayer.getMedia().getMetadata().get("album").toString());
-                }
-                else if ("genre".equals(change.getKey())) {
-                    PlayQueue.getInstance().getQueue().get(index).setGenre(mediaPlayer.getMedia().getMetadata().get("genre").toString());
-                }
-                else if ("year".equals(change.getKey())) {
-                    PlayQueue.getInstance().getQueue().get(index).setYear((mediaPlayer.getMedia().getMetadata().get("year").toString()));
-                }
-                else if (media.getMetadata().get("length") != null){
-                    PlayQueue.getInstance().getQueue().get(index).setLength(ThreadManager.getInstance().formatTime((Double) mediaPlayer.getMedia().getMetadata().get("length")));
-                }
-
-            }
-        });
-
-    }
 
 
 }

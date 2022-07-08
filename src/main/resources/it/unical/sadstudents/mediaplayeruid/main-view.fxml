@@ -114,9 +114,9 @@
                         </ToolBar>
                         <VBox fx:id="vBoxProgressBar" spacing="5.0" visible="false" VBox.vgrow="NEVER">
                            <children>
-                              <Label fx:id="progressType" text="Media loading in progress..." textFill="#f2eeee" />
+                              <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" />
                               <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
-                              <Label text="Please DO NOT close the Media Player" textFill="#da0909" />
+                              <Label styleClass="cautionLabel" text="Please DO NOT close the Media Player" textFill="#da0909" />
                            </children>
                            <VBox.margin>
                               <Insets right="10.0" />
@@ -184,12 +184,12 @@
                               </HBox>
                               <HBox alignment="CENTER" layoutX="420.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="270.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="537.0" AnchorPane.rightAnchor="537.0">
                                  <children>
-                                    <ToggleButton fx:id="plsShuffle" disable="true" mnemonicParsing="false" onAction="#onShuffle" prefWidth="20.0" styleClass="toggleButton">
+                                    <ToggleButton fx:id="plsShuffle" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShuffle" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
                                     </ToggleButton>
-                                    <Button fx:id="plsPrevious" disable="true" layoutX="312.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPrevious" prefWidth="20.0">
+                                    <Button fx:id="plsPrevious" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="312.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPrevious" prefHeight="28.0" prefWidth="32.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
@@ -197,7 +197,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="plsSkipBack" disable="true" layoutX="309.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipBack" prefWidth="20.0">
+                                    <Button fx:id="plsSkipBack" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="309.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipBack" prefHeight="28.0" prefWidth="32.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
@@ -205,7 +205,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="plsPlayPause" disable="true" layoutX="284.0" layoutY="35.0" mnemonicParsing="false" onAction="#onPlayPause" prefWidth="20.0">
+                                    <Button fx:id="plsPlayPause" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="284.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPlayPause" prefHeight="50.0" prefWidth="50.0" styleClass="playButton">
                                        <graphic>
                                           <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="iconsOverBackground" />
                                        </graphic>
@@ -213,7 +213,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="plsSkipForward" disable="true" layoutX="347.0" layoutY="36.0" mnemonicParsing="false" onAction="#onSkipForward" prefWidth="20.0">
+                                    <Button fx:id="plsSkipForward" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="347.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipForward" prefHeight="28.0" prefWidth="32.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
@@ -221,7 +221,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="plsNext" disable="true" layoutX="256.0" layoutY="35.0" mnemonicParsing="false" onAction="#onNext" prefWidth="20.0">
+                                    <Button fx:id="plsNext" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="256.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNext" prefHeight="28.0" prefWidth="32.0">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
@@ -229,7 +229,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ToggleButton fx:id="plsRepeat" disable="true" layoutX="32.0" layoutY="24.0" mnemonicParsing="false" onAction="#onRepeat" prefWidth="20.0" styleClass="toggleButton">
+                                    <ToggleButton fx:id="plsRepeat" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="32.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRepeat" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
                                        <graphic>
                                           <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="iconsOverBackground" />
                                        </graphic>
