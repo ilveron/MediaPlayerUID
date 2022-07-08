@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
@@ -65,7 +66,12 @@ public class MyMediaSingleBoxController {
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
         labelDuration.setText(myMedia.getLength());
 
-        createContextMenu();
+        //createContextMenu();
+        //contextMenu = new ContextMenuHandler(myMedia,"",source);
+
+
+
+
 
 
 
@@ -132,7 +138,7 @@ public class MyMediaSingleBoxController {
 
     }
 
-    public void createContextMenu(){
+   /* public void createContextMenu(){
         contextMenu = new ContextMenu();
         MenuItem menuItem = new MenuItem("Play");
         menuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -181,12 +187,15 @@ public class MyMediaSingleBoxController {
             contextMenu.getItems().add(temp);
         }
 
-    }
+    }*/
 
     public void contextMenuHandle(Node node,double x, double y) {
-                if(contextMenu.isShowing())
-                    contextMenu.hide();
-                else
-                    contextMenu.show(node,x,y);
+        if(contextMenu!=null && contextMenu.isShowing())
+            contextMenu.hide();
+
+        contextMenu = new ContextMenuHandler(myMedia,"",source);
+        contextMenu.show(node,x,y);
+
+
     }
 }

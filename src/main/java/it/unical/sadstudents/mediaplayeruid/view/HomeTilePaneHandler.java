@@ -65,8 +65,12 @@ public class HomeTilePaneHandler {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                                 if(mouseEvent.getClickCount() == 1 ){
                                     getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
+
                                     myMediaSingleBox.requestFocus();
                                     myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
+
+
+
                                 }
                             }
 
@@ -75,6 +79,7 @@ public class HomeTilePaneHandler {
                     myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                         @Override
                         public void handle(ContextMenuEvent contextMenuEvent) {
+                            //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(myMediaSingleBox.getMyMedia());
                             myMediaSingleBox.contextMenu(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
                         }
                     });

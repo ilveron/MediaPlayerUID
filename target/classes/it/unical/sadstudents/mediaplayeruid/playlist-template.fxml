@@ -17,7 +17,7 @@
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_CENTER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" spacing="10.0">
+            <VBox fx:id="summaryVBox" alignment="TOP_CENTER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" spacing="10.0">
                <children>
                   <AnchorPane fx:id="AnchorPanAzione">
                      <children>
@@ -45,6 +45,11 @@
                      <children>
                         <Label fx:id="LabelBrani" text="..." textAlignment="CENTER" />
                         <Label fx:id="LabelTime" layoutX="80.0" layoutY="20.0" text="..." textAlignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#onChange">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-pencil" iconSize="14" />
+                           </graphic>
+                        </Button>
                      </children></HBox>
                   <Separator prefWidth="200.0" />
                   <HBox alignment="CENTER" spacing="20.0">
@@ -57,11 +62,6 @@
                         <Button mnemonicParsing="false" onAction="#onAddToPlaylist">
                            <graphic>
                               <FontIcon iconLiteral="fa-plus" iconSize="14" />
-                           </graphic>
-                        </Button>
-                        <Button layoutX="72.0" layoutY="11.0" mnemonicParsing="false" onAction="#onChange">
-                           <graphic>
-                              <FontIcon iconLiteral="fa-pencil" iconSize="14" />
                            </graphic>
                         </Button>
                      </children>

@@ -5,7 +5,9 @@ import it.unical.sadstudents.mediaplayeruid.MainApplication;
 
 import it.unical.sadstudents.mediaplayeruid.controller.PlaylistTemplateController;
 import it.unical.sadstudents.mediaplayeruid.model.Playlist;
+import javafx.event.EventTarget;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -36,5 +38,7 @@ public class PlayListView extends Pane {
     public void setDim(double size){
      playlistTemplateController.setDim(size);
     }
+
+
 
 }

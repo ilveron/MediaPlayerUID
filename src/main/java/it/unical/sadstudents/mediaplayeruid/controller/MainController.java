@@ -78,7 +78,7 @@ public class MainController implements Initializable {
     @FXML
     private Button plsEquilizer, plsNext, plsPlayPause, plsPrevious, plsProperties,
             plsScreenMode, plsSkipBack,  plsSkipForward, volumeButton,lightMode, darkMode, about,
-            btnHome, btnMusicLibrary, btnVideoLibrary, btnPlayQueue, btnPlaylists;
+            btnHome, btnMusicLibrary, btnVideoLibrary, btnPlayQueue, btnPlaylists, btnSettings;;
     @FXML
     private ToggleButton plsShuffle;
     @FXML
@@ -170,6 +170,7 @@ public class MainController implements Initializable {
             }
         });
 
+        // TODO: 07/07/2022 Gestire scomparsa miniImage ad ogni pausa
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
             plsPlayPause.setTooltip(new Tooltip("Pause"));
@@ -177,8 +178,10 @@ public class MainController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-
                         MediaInfo mediaInfo = new MediaInfo(PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia()));
+
+                        if(mediaInfoPane.getChildren().size() > 0)
+                            mediaInfoPane.getChildren().remove(0);
 
                         mediaInfoPane.getChildren().add(mediaInfo);
                         int index= HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()-1;
@@ -187,15 +190,31 @@ public class MainController implements Initializable {
                     }
                 });
             }
+            else{
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        mediaInfoPane.getChildren().remove(0);
+                        miniImageView.setImage(null);
+                    }
+                });
+
+            }
 
 
         });
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
-            setMediaSlider();
-            currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
-            if (Player.getInstance().getCurrentMediaTime() == Player.getInstance().getEndMediaTime()) {
-                PlayQueue.getInstance().changeMedia(1);
-            }
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    setMediaSlider();
+                    currentMediaTimeLabel.setText(formatTime(Player.getInstance().getCurrentMediaTime()));
+                    if (Player.getInstance().getCurrentMediaTime() == Player.getInstance().getEndMediaTime()) {
+                        PlayQueue.getInstance().changeMedia(1);
+                    }
+                }
+            });
+
         });
 
         String[] speeds = {"0.50x", "0.75x", "1.00x", "1.25x", "1.50x", "2.00x"};
@@ -221,8 +240,14 @@ public class MainController implements Initializable {
         });
 
         Player.getInstance().endMediaTimeProperty().addListener(observable -> {
-            setMediaSliderEnd();
-            endMediaTimeLabel.setText(formatTime(Player.getInstance().getEndMediaTime()));
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    setMediaSliderEnd();
+                    endMediaTimeLabel.setText(formatTime(Player.getInstance().getEndMediaTime()));
+                }
+            });
+
         });
 
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
@@ -246,7 +271,7 @@ public class MainController implements Initializable {
 
 
 
-        Player.getInstance().mediaNameProperty().addListener(observable -> {
+        Player.getInstance().mediaNameProperty().addListener(observable ->{
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -262,7 +287,14 @@ public class MainController implements Initializable {
             activeVideoView();
         });
         // TODO: 15/06/2022 why??
-        Player.getInstance().artistNameProperty().addListener(observable -> artistNameLabel.setText(Player.getInstance().getArtistName()));
+        Player.getInstance().artistNameProperty().addListener(observable ->{
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            artistNameLabel.setText(Player.getInstance().getArtistName());
+                        }
+                    });
+                });
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
         //END LISTENER VARI
 
@@ -346,13 +378,11 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void onLightMode(ActionEvent event) {
-        SceneHandler.getInstance().changeTheme("unical");
-    }
-
-    @FXML
-    void onDarkMode(ActionEvent event) {
-        SceneHandler.getInstance().changeTheme("dark");
+    void onSettings(ActionEvent event) {
+        changeBackgroundMediaView();
+        mediaView.setVisible(false);
+        myBorderPane.getCenter().setVisible(true);
+        SceneHandler.getInstance().setCurrentMidPane("settings-view.fxml");
     }
 
     @FXML
@@ -848,5 +878,8 @@ public class MainController implements Initializable {
         });
         //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     }
+
+    //private void changeMenuCssStyleClass();
+
 
 }

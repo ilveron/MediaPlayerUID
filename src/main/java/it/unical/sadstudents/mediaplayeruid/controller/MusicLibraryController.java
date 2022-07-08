@@ -1,14 +1,19 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +45,6 @@ public class MusicLibraryController implements Initializable {
     @FXML
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(1));
-        beginTimer();
         tableViewMusicLibrary.refresh();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
@@ -50,7 +54,6 @@ public class MusicLibraryController implements Initializable {
     @FXML
     void onAddMedia(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(1));
-        beginTimer();
         tableViewMusicLibrary.refresh();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
             setObject(false);
@@ -79,8 +82,10 @@ public class MusicLibraryController implements Initializable {
     }
     @FXML
     void onDeleteSong(ActionEvent event) {
-        int myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
-        if(myMedia!=-1){
+        int index=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
+        MusicLibrary.getInstance().deleteWithIndex(index);
+        tableViewMusicLibrary.refresh();
+        /*if(myMedia!=-1){
             for(int i=0;i<Home.getInstance().getRecentMedia().size();i++) {
                 if (MusicLibrary.getInstance().getMusicLibrary().get(myMedia).equals(Home.getInstance().getRecentMedia().get(i))){
                     Home.getInstance().removeItem(i);
@@ -93,23 +98,22 @@ public class MusicLibraryController implements Initializable {
             MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
             tableViewMusicLibrary.refresh();
 
-        }
-        /*else if(MusicLibrary.getInstance().getSelection().size()>0&&MusicLibrary.getInstance().isSelectionModeActive()){
-            for(int i=0;i<MusicLibrary.getInstance().getSelection().size();i++) {
-                System.out.println(MusicLibrary.getInstance().getMusicLibrary().get(i));
-                MusicLibrary.getInstance().getMusicLibrary().remove(MusicLibrary.getInstance().getSelection().get(i));
-                tableViewMusicLibrary.refresh();
-            }
-        }
-        if(MusicLibrary.getInstance().getMusicLibrary().size()==0) setObject(true);*/
+        }*/
     }
 
     //END ACTION EVENT
 
-
+    private ContextMenuHandler contextMenuHandler;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0) setObject(false);
+
+        /*tableViewMusicLibrary.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+            @Override
+            public void handle(ContextMenuEvent contextMenuEvent) {
+               // tableViewMusicLibrary.(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
+            }
+        });*/
         // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
@@ -120,12 +124,11 @@ public class MusicLibraryController implements Initializable {
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
         //MusicLibrary.getInstance().sortList();
-        beginTimer();
 
         tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if(!row.isEmpty()) {
+                if(!row.isEmpty() && !event.getButton().equals(MouseButton.SECONDARY)) {
                     MyMedia myMedia=row.getItem();
                     if (event.getClickCount() > 1) {
                         if(MusicLibrary.getInstance().isPresent(myMedia,MusicLibrary.getInstance().getSelection())!=-1)
@@ -149,8 +152,16 @@ public class MusicLibraryController implements Initializable {
 
                     }
                 }
-
+                else if(event.getButton().equals(MouseButton.SECONDARY)){
+                            if(!row.isEmpty()){
+                                MyMedia myMedia=row.getItem();
+                                contextMenuHandler = new ContextMenuHandler(myMedia,"","musicLibrary");
+                                row.setContextMenu(contextMenuHandler);
+                                row.getContextMenu();
+                            }
+                }
             });
+
             return row;
         });
         TextField.textProperty().addListener(new ChangeListener<String>() {
@@ -171,19 +182,20 @@ public class MusicLibraryController implements Initializable {
 
     }
 
+
     // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna
     //TASK
-    public void beginTimer(){
+    /*public void beginTimer(){
 
         timer = new Timer();
         task = new TimerTask() {
             @Override
             public void run() {
                 runningTimer = true;
-                /*if(MusicLibrary.getInstance().sortTF>0&&MusicLibrary.getInstance().getMusicLibrary().size()>0){
+                if(MusicLibrary.getInstance().sortTF>0&&MusicLibrary.getInstance().getMusicLibrary().size()>0){
                     MusicLibrary.getInstance().sortList();
                     MusicLibrary.getInstance().sortTF--;
-                }*/
+                }
                 tableViewMusicLibrary.refresh();
                 if (MusicLibrary.getInstance().getMusicLibrary().size() == 0) {
                     cancelTimer();
@@ -196,7 +208,7 @@ public class MusicLibraryController implements Initializable {
     public void cancelTimer(){
         runningTimer = false;
         timer.cancel();
-    }
+    }*/
     //END TASK
 
 

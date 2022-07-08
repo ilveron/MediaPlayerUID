@@ -32,13 +32,12 @@
     -fx-text-fill: textColor;
 }
 
-.toolBarButton:focused {
+.focusedToolBarButton {
     -fx-background-color: secondarySelectionColor;
     -fx-text-fill: primaryBackgroundColor;
 }
 
-
-.toolBarButton:focused .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
+.focusedToolBarButton .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 
 .toolBarIcons { -fx-icon-color: iconOverBackgroundColor; }
 
@@ -70,7 +69,6 @@
     -fx-text-fill: textColor;
     -fx-font-family: "Montserrat Medium";
 }
-
 
 .smallMenuButton .label{ -fx-font-size: 14px; }
 
@@ -297,6 +295,36 @@
     -fx-mark-color: textColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 12px;
+}
+
+.settingsParagraphLabel {
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-font-size: 20px;
+    -fx-text-fill: textColor
+}
+
+.littleSettingsPane {
+    -fx-background-color: secondaryBackgroundColor;
+    /*-fx-opacity: 0.7;*/
+    -fx-background-radius: 10px;
+}
+
+.littleSettingsPane .label {
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 14px;
+    -fx-text-fill: imagesColor;
+}
+
+.littleSettingsPane .alternateIcon {
+    -fx-icon-color: imagesColor;
+}
+
+.littleSettingsPane .toolBarButton .iconsOverBackground {
+    -fx-icon-color: imagesColor;
+}
+
+.littleSettingsPane .toolBarButton:hover .iconsOverBackground {
+    -fx-icon-color: settingsIconHoverColor;
 }
 
 .choice-box > .label { -fx-text-fill: textColor; }

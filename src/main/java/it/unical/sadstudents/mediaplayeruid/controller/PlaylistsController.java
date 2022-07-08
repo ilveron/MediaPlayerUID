@@ -3,11 +3,13 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.PlayListView;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.TilePane;
 
 import java.net.URL;
@@ -61,6 +63,7 @@ public class PlaylistsController implements Initializable {
         for (int i= 0; i<size; ++i){
             //System.out.println("creato");
             PlayListView playList = new PlayListView(Playlists.getInstance().getPlayListsCollections().get(i));
+
             playList.setFocusTraversable(true);
             playList.setDim(setDimTilePane());
             tilePane.getChildren().add(playList);

@@ -3,21 +3,25 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -65,6 +69,9 @@ public class PlaylistTemplateController {
 
     @FXML
     private TableColumn<MyMedia, Integer> year;
+
+    @FXML
+    private VBox summaryVBox;
 
     @FXML
     private Label LabelTime;
@@ -140,6 +147,7 @@ public class PlaylistTemplateController {
         }
     }
 
+    private ContextMenuHandler contextMenuHandler;
     public void init(Playlist playlist) {
         this.playlist=playlist;
         // TODO: 02/07/2022 settare che non si resetta dopo lo switch di pagina , aggiornamento canzoni sbagliato
@@ -161,6 +169,34 @@ public class PlaylistTemplateController {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia, Integer>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia, Double>("length"));
+
+        summaryVBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+            @Override
+            public void handle(ContextMenuEvent contextMenuEvent) {
+                //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(null,playlist.getName(),"playlist");
+                setOnContextMenuHandler(summaryVBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY(),null);
+            }
+        });
+
+        tableViewPlaylist.setRowFactory(tableView ->{
+            final TableRow<MyMedia> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if(event.getButton().equals(MouseButton.SECONDARY)){
+                    if(!row.isEmpty()){
+                        MyMedia myMedia=row.getItem();
+                        contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(),"playlist");
+                        row.setContextMenu(contextMenuHandler);
+                        row.getContextMenu();
+                    }
+
+                }
+            });
+
+            return row;
+        });
+
+
+
 
         imagePlaylist.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
             if(!ButtonAzione.isVisible())
@@ -244,6 +280,13 @@ public class PlaylistTemplateController {
     public void  setButtonPlay(boolean visible){ButtonAzione.setVisible(visible);}
 
 
+    public void setOnContextMenuHandler(Node node, double x, double y, MyMedia myMedia) {
 
+        if(contextMenuHandler!=null && contextMenuHandler.isShowing())
+            contextMenuHandler.hide();
 
+        contextMenuHandler=new ContextMenuHandler(null, playlist.getName(), "playlist");
+        contextMenuHandler.show(node,x,y);
+
+    }
 }
