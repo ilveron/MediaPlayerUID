@@ -139,19 +139,20 @@ public class Player {
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 
-                mediaPlayer.setOnReady(()->{
+                /*mediaPlayer.setOnReady(()->{
                     // TODO: 14/06/2022 se rimosso, problemi con lo slider
 
-                    playMedia();
+                    //playMedia();
                     for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
                         mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
 
-                });
+                });*/
 
             Platform.runLater(()->{
                 mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
                 artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
             });
+            playMedia();
 
 
         //TODO: REGEX per riproduzione *.mp4
@@ -180,6 +181,8 @@ public class Player {
             mediaPlayer.setRate(rate);
             mediaPlayer.play();
             isRunning.set(true);
+            for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
+                mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
             if(rate!=1){
                 mediaPlayer.setRate(rate);
             }

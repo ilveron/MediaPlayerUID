@@ -200,12 +200,7 @@ public class PlayerController implements Initializable {
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
             plsPlayPause.setTooltip(new Tooltip("Pause"));
-            if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded())
-                miniImageView.setImage(null);
-            else{
-                int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
-                miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index-1).getImage());
-            }
+
         });
 
         HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
@@ -213,8 +208,9 @@ public class PlayerController implements Initializable {
                 if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded())
                     miniImageView.setImage(null);
                 else{
-                    int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
-                    miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index-1).getImage());
+                    int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()-1;
+                    if(index!=-1)
+                        miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
                 }
             }
 
@@ -394,9 +390,10 @@ public class PlayerController implements Initializable {
     @FXML
     void onScreenMode(ActionEvent event) {
         if(SceneHandler.getInstance().getStage().isFullScreen())
-            SceneHandler.getInstance().getStage().setFullScreen(false);
+            SceneHandler.getInstance().setFullScreenRequested(false);
         else
-            SceneHandler.getInstance().getStage().setFullScreen(true);
+            SceneHandler.getInstance().setFullScreenRequested(true);
+        // TODO: 09/07/2022 thread per la barra
     }
 
 
@@ -587,6 +584,71 @@ public class PlayerController implements Initializable {
             }
         });
         //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
+    }
+
+     private void screenModeHandler() {
+
+        if (!SceneHandler.getInstance().getStage().isFullScreen()) {
+            mediaView.setVisible(true);
+            myBorderPane.getCenter().setVisible(false);
+            service = new Service<>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            Thread.sleep(3000);
+                            //if(SceneHandler.getInstance().getStage().isFullScreen())
+
+                                //controllePlayer.setVisible(false);
+                            return null;
+                        }
+                    };
+                }
+            };
+            service.start();
+
+
+            AnchorPane.setLeftAnchor(containerView, 0.0);
+            AnchorPane.setBottomAnchor(containerView, 0.0);
+            SceneHandler.getInstance().getStage().setFullScreen(true);
+            adjustVideoSize();
+
+            SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    //controllePlayer.setVisible(true);
+                    if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
+                        System.out.println("restart");
+                        service.restart();
+                    }
+
+
+
+                }
+            });
+
+
+            SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
+                    KeyCode key = keyEvent.getCode();
+                    if (key == KeyCode.ESCAPE) {
+                        AnchorPane.setLeftAnchor(containerView, 270.0);
+                        AnchorPane.setBottomAnchor(containerView, 96.00);
+                        service.cancel();
+                        adjustVideoSize();
+                    }
+                }
+            });
+
+        } else {
+            AnchorPane.setLeftAnchor(containerView, 270.0);
+            AnchorPane.setBottomAnchor(containerView, 96.00);
+            SceneHandler.getInstance().getStage().setFullScreen(false);
+            service.cancel();
+            adjustVideoSize();
+        }
     }*/
 }
 

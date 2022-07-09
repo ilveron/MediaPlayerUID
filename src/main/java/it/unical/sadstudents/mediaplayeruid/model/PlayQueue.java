@@ -165,6 +165,7 @@ public class PlayQueue implements DataListedModel{
     public void startMedia(){
 
         if(Player.getInstance().isMediaLoaded()){
+            System.out.println("per caso entro qui");
             Player.getInstance().stop();
         }
 
@@ -238,8 +239,10 @@ public class PlayQueue implements DataListedModel{
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(myMedia1.getPath())) {
                     Player.getInstance().stop();
                 }
-                queue.remove(myMedia1);
+
                 DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
+                queue.remove(myMedia1);
+                currentMedia.set(currentMedia.get()-1);
             }
         }
 
@@ -247,6 +250,7 @@ public class PlayQueue implements DataListedModel{
 
     public void clearQueue(){
         queue.clear();
+        currentMedia.set(0);
         DatabaseManager.getInstance().deleteAll("Playqueue");
         shuffleActive.set(false);
         shuffleQueueIndexesGenerated = false;
@@ -263,14 +267,17 @@ public class PlayQueue implements DataListedModel{
             Player.getInstance().stop();
             DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
+            currentMedia.set(currentMedia.get()-1);
             if(i<queue.size())
                 startMedia();
-            else
-                currentMedia.set(1);
+            /*else
+                currentMedia.set(1);*/
         }
         else {
             DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
+            currentMedia.set(currentMedia.get()-1);
+
         }
     }
 

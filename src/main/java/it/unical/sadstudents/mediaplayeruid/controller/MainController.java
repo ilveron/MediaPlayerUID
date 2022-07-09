@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -147,6 +148,13 @@ public class MainController implements Initializable {
 
         });
 
+        SceneHandler.getInstance().fullScreenRequestedProperty().addListener(observable -> {
+            screenModeHandler(SceneHandler.getInstance().isFullScreenRequested());
+
+
+        });
+
+
         SceneHandler.getInstance().requestedVideoViewProperty().addListener(observable -> activeVideoView());
 
 
@@ -180,59 +188,22 @@ public class MainController implements Initializable {
 
 
 
-    Service<Void> service = null;
-    private void screenModeHandler() {
+    private void screenModeHandler(boolean fullScreen) {
+        SceneHandler.getInstance().getStage().setFullScreen(fullScreen);
 
-        if (!SceneHandler.getInstance().getStage().isFullScreen()) {
+        if (SceneHandler.getInstance().getStage().isFullScreen()) {
             mediaView.setVisible(true);
             myBorderPane.getCenter().setVisible(false);
-            service = new Service<>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            Thread.sleep(3000);
-                            //if(SceneHandler.getInstance().getStage().isFullScreen())
-
-                                //controllePlayer.setVisible(false);
-                            return null;
-                        }
-                    };
-                }
-            };
-            service.start();
-
-
             AnchorPane.setLeftAnchor(containerView, 0.0);
             AnchorPane.setBottomAnchor(containerView, 0.0);
-            SceneHandler.getInstance().getStage().setFullScreen(true);
             adjustVideoSize();
-
-            SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    //controllePlayer.setVisible(true);
-                    if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
-                        System.out.println("restart");
-                        service.restart();
-                    }
-
-
-
-                }
-            });
-
 
             SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent keyEvent) {
                     KeyCode key = keyEvent.getCode();
                     if (key == KeyCode.ESCAPE) {
-                        AnchorPane.setLeftAnchor(containerView, 270.0);
-                        AnchorPane.setBottomAnchor(containerView, 96.00);
-                        service.cancel();
-                        adjustVideoSize();
+                        SceneHandler.getInstance().setFullScreenRequested(false);
                     }
                 }
             });
@@ -240,8 +211,6 @@ public class MainController implements Initializable {
         } else {
             AnchorPane.setLeftAnchor(containerView, 270.0);
             AnchorPane.setBottomAnchor(containerView, 96.00);
-            SceneHandler.getInstance().getStage().setFullScreen(false);
-            service.cancel();
             adjustVideoSize();
         }
     }

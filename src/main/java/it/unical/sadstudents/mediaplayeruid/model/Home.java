@@ -85,11 +85,14 @@ public class Home {
 
     public void addToRecentMedia(MyMedia myMedia){
         boolean added=false;
-        for(int i=0; i<recentMedia.size();i++){
+        for(int i=0; i<recentMedia.size() && !added;i++){
             if (myMedia.equals(recentMedia.get(i)) ){
+                System.out.println("finded "+recentMedia.get(i));
+
                 recentMedia.remove(i);
                 recentMedia.add(myMedia);
                 added=true;
+                System.out.println("calling "+myMedia);
                 HomeTilePaneHandler.getInstance().moveWithIndex(i);
             }
         }
@@ -101,8 +104,9 @@ public class Home {
             }
             recentMedia.add(myMedia);
             HomeTilePaneHandler.getInstance().addSingleItem();
-            DatabaseManager.getInstance().insertRecentMedia(myMedia);
         }
+        DatabaseManager.getInstance().insertRecentMedia(myMedia);
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

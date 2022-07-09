@@ -225,7 +225,7 @@ public class ThreadManager {
     //public void startUpdateProgress(ProgressBar)
 
     public void progressBarUpdate(ProgressBar progressBar,String type) {
-        Task task = new Task<Void>() {
+       Task task = new Task<Void>() {
             @Override
             public Void call() {
                 if(type=="media"){

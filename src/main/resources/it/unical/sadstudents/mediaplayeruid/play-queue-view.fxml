@@ -21,7 +21,7 @@
       </Label>
       <HBox spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteQueue" text="Delete" HBox.hgrow="ALWAYS">
+            <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteQueue" styleClass="withinPaneButton" text="Delete" HBox.hgrow="ALWAYS">
                <graphic>
                   <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>

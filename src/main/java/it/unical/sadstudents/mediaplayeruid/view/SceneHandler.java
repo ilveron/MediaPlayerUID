@@ -32,6 +32,7 @@ public class SceneHandler {
     private SimpleBooleanProperty startingMediaPlayer = new SimpleBooleanProperty(true);
     private SimpleBooleanProperty switchingCurrentMidPane = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty infoMediaPropertyHover = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty fullScreenRequested = new SimpleBooleanProperty(false);
 
 
     private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml");//aggiunto per switchautomatico
@@ -49,6 +50,18 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
+
+    public boolean isFullScreenRequested() {
+        return fullScreenRequested.get();
+    }
+
+    public void setFullScreenRequested(boolean fullScreenRequested) {
+        this.fullScreenRequested.set(fullScreenRequested);
+    }
+
+    public SimpleBooleanProperty fullScreenRequestedProperty() {
+        return fullScreenRequested;
+    }
 
     public boolean isInfoMediaPropertyHover() {
         return infoMediaPropertyHover.get();
