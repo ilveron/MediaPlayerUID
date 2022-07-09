@@ -55,7 +55,7 @@
 
 .videoBackgroundColor{ -fx-background-color: black; }
 
-.largeMenuButton, .smallMenuButton {
+.largeMenuButton, .smallMenuButton, .withinPaneButton {
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
@@ -442,5 +442,5 @@
 .playlistTemplate {
     -fx-background-color: secondaryBackgroundColor;
     -fx-background-radius: 30px;
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 5, 5);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 5, 5);
 }

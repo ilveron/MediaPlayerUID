@@ -15,32 +15,40 @@
 
 <AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MusicLibraryController">
    <children>
-      <Label minWidth="470.0" prefWidth="470.0" styleClass="sceneHeaders" text="MUSIC LIBRARY" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font size="39.0" />
-         </font>
-      </Label>
-      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to music library">
-               <graphic>
-                  <FontIcon iconLiteral="fa-file" iconSize="15" />
-               </graphic>
-            </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#onAddFolder" styleClass="menuItem" text="Add folder(s) to music library">
-               <graphic>
-                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
-               </graphic>
-            </MenuItem>
-         </items>
-         <font>
-            <Font size="14.0" />
-         </font>
-         <graphic>
-            <FontIcon iconLiteral="fa-music" iconSize="15" styleClass="iconsOverBackground" />
-         </graphic>
-      </MenuButton>
-      <TableView fx:id="tableViewMusicLibrary" minWidth="470.0" style="-fx-font-size: 14px; -fx-background-color: transparent;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="92.0">
+      <HBox prefHeight="50.0" prefWidth="200.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label minWidth="470.0" prefHeight="58.0" prefWidth="470.0" styleClass="sceneHeaders" text="MUSIC LIBRARY" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_RIGHT" prefHeight="62.0" prefWidth="67.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to music library">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-file" iconSize="15" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onAddFolder" styleClass="menuItem" text="Add folder(s) to music library">
+                           <graphic>
+                              <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-music" iconSize="15" styleClass="iconsOverBackground" />
+                     </graphic>
+                  </MenuButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <TableView fx:id="tableViewMusicLibrary" minWidth="470.0" style="-fx-font-size: 14px; -fx-background-color: transparent;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="120.0">
          <columns>
             <TableColumn fx:id="title" editable="false" prefWidth="163.20001524686813" text="Title" />
             <TableColumn fx:id="artist" editable="false" minWidth="4.7999267578125" prefWidth="78.4000244140625" text="Artist" />
@@ -53,14 +61,14 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER_LEFT" minWidth="387.0" prefHeight="30.0" prefWidth="387.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="62.0">
+      <HBox alignment="CENTER_LEFT" minWidth="387.0" prefHeight="30.0" prefWidth="387.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="90.0">
          <children>
             <TextField fx:id="TextField" focusTraversable="false" maxWidth="328.0" prefHeight="26.0" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="30.0" prefWidth="95.0" text="Play All">
+            <Button fx:id="btnAddLibraryToQueue" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="30.0" prefWidth="95.0" styleClass="withinPaneButton" text="Play All">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
                </graphic>
@@ -68,7 +76,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" text="Add to queue">
+            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" styleClass="withinPaneButton" text="Add to queue">
                <graphic>
                   <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
@@ -78,7 +86,7 @@
             </Button>
             <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="75.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteSong" text="Delete">
+                  <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteSong" styleClass="withinPaneButton" text="Delete">
                      <graphic>
                         <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
