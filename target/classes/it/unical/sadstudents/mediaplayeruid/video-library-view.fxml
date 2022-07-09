@@ -19,7 +19,7 @@
             <Font size="39.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuButtonAdd" graphicTextGap="5.0" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <MenuButton fx:id="menuButtonAdd" graphicTextGap="5.0" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to video library">
                <graphic>

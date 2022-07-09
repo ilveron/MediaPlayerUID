@@ -12,12 +12,12 @@
 
 <AnchorPane fx:id="homeAnchorPane" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController">
    <children>
-      <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="HOME" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <Label maxHeight="-Infinity" minWidth="450.0" styleClass="sceneHeaders" text="HOME" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
          </font>
       </Label>
-      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addFiles" styleClass="menuItem" text="Media(s)">
                <graphic>

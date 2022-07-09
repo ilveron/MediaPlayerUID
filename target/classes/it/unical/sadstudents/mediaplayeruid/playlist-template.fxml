@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="anchorPanePlaylist" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistSingleViewController">
+<AnchorPane fx:id="anchorPanePlaylist" styleClass="playlistTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistSingleViewController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,14 +21,10 @@
                <children>
                   <AnchorPane fx:id="AnchorPanAzione">
                      <children>
-                        <HBox fx:id="hBoxAzione" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <ImageView fx:id="imagePlaylist" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="ButtonAzione" mnemonicParsing="false" onAction="#onPlayPlaylist" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="imagePlaylist" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="ButtonAzione" mnemonicParsing="false" onAction="#onPlayPlaylist" style="-fx-background-color: transparent;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                            <graphic>
-                              <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="50" />
+                              <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="50" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
                      </children>
@@ -36,18 +32,18 @@
                         <Insets />
                      </VBox.margin>
                   </AnchorPane>
-                  <Label fx:id="labelName" text="...">
+                  <Label fx:id="labelName" styleClass="recentMediaNameLabel" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="36.0" prefWidth="141.0" spacing="10.0">
                      <children>
-                        <Label fx:id="LabelBrani" text="..." textAlignment="CENTER" />
-                        <Label fx:id="LabelTime" layoutX="80.0" layoutY="20.0" text="..." textAlignment="CENTER" />
+                        <Label fx:id="LabelBrani" styleClass="infoDescriptionLabel" textAlignment="CENTER" />
+                        <Label fx:id="LabelTime" layoutX="80.0" layoutY="20.0" styleClass="infoDescriptionLabel" textAlignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#onChange">
                            <graphic>
-                              <FontIcon iconLiteral="fa-pencil" iconSize="14" />
+                              <FontIcon iconLiteral="fa-pencil" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
                      </children></HBox>
@@ -56,12 +52,12 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#onDeletePlaylist">
                            <graphic>
-                              <FontIcon iconLiteral="fa-trash" iconSize="14" />
+                              <FontIcon iconLiteral="fa-trash" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onAddToPlaylist">
                            <graphic>
-                              <FontIcon iconLiteral="fa-plus" iconSize="14" />
+                              <FontIcon iconLiteral="fa-plus" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
                      </children>

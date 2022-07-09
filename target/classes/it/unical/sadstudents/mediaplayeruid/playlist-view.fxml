@@ -6,18 +6,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlaylistCollectionController">
    <children>
-      <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="PlayList" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <Label maxHeight="-Infinity" minHeight="-Infinity" minWidth="450.0" prefHeight="56.0" styleClass="sceneHeaders" text="Playlist" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font size="39.0" />
          </font>
       </Label>
-      <Button fx:id="ButtonCreatePlaylist" mnemonicParsing="false" onAction="#onCreatePlaylist" styleClass="largeMenuButton" text="Create playlists" textAlignment="CENTER" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="17.0">
+      <Button fx:id="ButtonCreatePlaylist" graphicTextGap="5.0" mnemonicParsing="false" onAction="#onCreatePlaylist" styleClass="largeMenuButton" text="Create playlists" textAlignment="CENTER" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="17.0">
          <font>
             <Font size="14.0" />
          </font>
+         <graphic>
+            <FontIcon iconLiteral="fa-list-ul" iconSize="15" styleClass="iconsOverBackground" />
+         </graphic>
       </Button>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" styleClass="primaryTemplate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <content>
