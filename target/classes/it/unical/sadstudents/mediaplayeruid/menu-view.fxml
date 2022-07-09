@@ -1,14 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unical.sadstudents.mediaplayeruid.controller.HomeController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<VBox fx:id="mainBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="270.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
+   <children>
+      <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
+         <items>
+            <Button fx:id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
+               <graphic>
+                  <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnMusicLibrary" alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
+               <graphic>
+                  <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnVideoLibrary" alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
+               <graphic>
+                  <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Separator prefWidth="200.0" />
+            <Button fx:id="btnPlayQueue" alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
+               <graphic>
+                  <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnPlaylists" alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
+               <graphic>
+                  <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" text="VIDEO VIEW" visible="false">
+               <graphic>
+                  <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="icons" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </items>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ToolBar>
+      <VBox fx:id="vBoxProgressBar" spacing="5.0" visible="false" VBox.vgrow="NEVER">
+         <children>
+            <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" />
+            <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
+            <Label styleClass="cautionLabel" text="Please DO NOT close the Media Player" textFill="#da0909" />
+         </children>
+         <VBox.margin>
+            <Insets right="10.0" />
+         </VBox.margin>
+      </VBox>
+      <ToolBar prefHeight="40.0" prefWidth="245.0" styleClass="primaryTemplate">
+         <items>
+            <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings">
+               <graphic>
+                  <FontIcon iconLiteral="fa-cog" iconSize="22" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </items>
+      </ToolBar>
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</VBox>

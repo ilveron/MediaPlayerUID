@@ -17,7 +17,6 @@ public class PlayQueue implements DataListedModel{
     private ObservableList<MyMedia> queue;
     private ArrayList<Integer> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
-    private SimpleBooleanProperty isAVideo = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty shuffleActive = new SimpleBooleanProperty(false);
     private boolean shuffleQueueIndexesGenerated = false;
     private Integer shuffleQueueCurrentIndex;
@@ -44,9 +43,7 @@ public class PlayQueue implements DataListedModel{
     //END SINGLETON CLASS
 
     //GETTERS AND SETTERS
-    public boolean getIsAVideo() { return isAVideo.get(); }
-    public SimpleBooleanProperty isAVideoProperty() { return isAVideo; }
-    public void setIsAVideo(boolean isAVideo) { this.isAVideo.set(isAVideo); }
+
 
     public int getCurrentMedia() {
         return currentMedia.get();
@@ -165,10 +162,7 @@ public class PlayQueue implements DataListedModel{
 
     //FUNCTIONS LIST-ITEM SELECTION AND SEND TO PLAYER
     public void startMedia(){
-        if (queue.get(currentMedia.get()).getPath().toLowerCase().endsWith(".mp4")){
-            isAVideo.set(true);
-        }
-        else isAVideo.set(false);
+
         if(Player.getInstance().isMediaLoaded()){
             Player.getInstance().stop();
         }

@@ -37,6 +37,11 @@ public class Player {
     private SimpleStringProperty mediaName = new SimpleStringProperty();
     private SimpleBooleanProperty mediaLoaded = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty isRunning = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty isAVideo = new SimpleBooleanProperty(false);
+    public boolean getIsAVideo() { return isAVideo.get(); }
+    public SimpleBooleanProperty isAVideoProperty() { return isAVideo; }
+    public void setIsAVideo(boolean isAVideo) { this.isAVideo.set(isAVideo); }
+
     //END PROPERTIES
 
     //SINGLETON
@@ -122,8 +127,16 @@ public class Player {
     public void createMedia(Integer index){
 
             this.index = index;
-
+            mediaLoaded.set(false);
             media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
+            if (media.getSource().toLowerCase().endsWith(".mp4")){
+                isAVideo.set(true);
+            }else{
+                isAVideo.set(false);
+                SceneHandler.getInstance().setRequestedVideoView(false);
+            }
+
+
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
             mediaLoaded.set(true);
@@ -205,6 +218,7 @@ public class Player {
         mediaPlayer.dispose();
         mediaLoaded.set(false);
         isRunning.set(false);
+        isAVideo.set(false);
         mediaName.set("");
         artistName.set("");
         currentMediaTime.set(0);

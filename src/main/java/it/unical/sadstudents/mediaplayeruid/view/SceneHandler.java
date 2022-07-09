@@ -30,9 +30,12 @@ public class SceneHandler {
     private SimpleBooleanProperty mediaLoadingInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty metadataLoadindagInProgess = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty startingMediaPlayer = new SimpleBooleanProperty(true);
+    private SimpleBooleanProperty switchingCurrentMidPane = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty infoMediaPropertyHover = new SimpleBooleanProperty(false);
 
 
-    private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml"); //aggiunto per switchautomatico
+    private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml");//aggiunto per switchautomatico
+    private SimpleBooleanProperty requestedVideoView = new SimpleBooleanProperty(false);
 
     //SINGLETON
     private static SceneHandler instance = null;
@@ -46,6 +49,42 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
+
+    public boolean isInfoMediaPropertyHover() {
+        return infoMediaPropertyHover.get();
+    }
+
+    public SimpleBooleanProperty infoMediaPropertyHoverProperty() {
+        return infoMediaPropertyHover;
+    }
+
+    public void setInfoMediaPropertyHover(boolean infoMediaPropertyHover) {
+        this.infoMediaPropertyHover.set(infoMediaPropertyHover);
+    }
+
+    public boolean isSwitchingCurrentMidPane() {
+        return switchingCurrentMidPane.get();
+    }
+
+    public SimpleBooleanProperty switchingCurrentMidPaneProperty() {
+        return switchingCurrentMidPane;
+    }
+
+    public void setSwitchingCurrentMidPane(boolean switchingCurrentMidPane) {
+        this.switchingCurrentMidPane.set(switchingCurrentMidPane);
+    }
+
+    public boolean isRequestedVideoView() {
+        return requestedVideoView.get();
+    }
+
+    public SimpleBooleanProperty requestedVideoViewProperty() {
+        return requestedVideoView;
+    }
+
+    public void setRequestedVideoView(boolean requestedVideoView) {
+        this.requestedVideoView.set(requestedVideoView);
+    }
 
     public boolean isLoadingFromDB() {
         return loadingFromDB;

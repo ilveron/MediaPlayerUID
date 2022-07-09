@@ -67,7 +67,6 @@ public class PlayQueueController implements Initializable {
             if (Player.getInstance().getIsRunning())
                 Player.getInstance().stop();
             PlayQueue.getInstance().clearQueue();
-            PlayQueue.getInstance().setIsAVideo(false);
         }
     }
 
