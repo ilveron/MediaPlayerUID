@@ -105,7 +105,8 @@ public class MusicLibrary implements DataListedModel{
         if(index!=-1){
             Home.getInstance().removeItem(Library.get(index));
             PlaylistCollection.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath());
-            PlayQueue.getInstance().deleteFromOtherController(MusicLibrary.getInstance().getMusicLibrary().get(index));
+            MyMedia temp=MusicLibrary.getInstance().getMusicLibrary().get(index);
+            PlayQueue.getInstance().deleteFromOtherController(temp);
             DatabaseManager.getInstance().deleteMedia(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath(),"MyMedia");
             MusicLibrary.getInstance().getMusicLibrary().remove(index);
         }

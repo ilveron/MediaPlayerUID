@@ -113,6 +113,7 @@ public class PlayQueue implements DataListedModel{
     @Override
     public void addFileToListFromOtherModel(MyMedia myMedia) {
         queue.add(myMedia);
+        DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
         if(shuffleActive.get()){
             shuffleQueueIndexes.add(queue.size()-1);
         }
@@ -234,9 +235,11 @@ public class PlayQueue implements DataListedModel{
     public void deleteFromOtherController(MyMedia myMedia){
         for(MyMedia myMedia1: queue){
             if(myMedia.equals(myMedia1)){
-                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia1.getPath())
+                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(myMedia1.getPath())) {
                     Player.getInstance().stop();
+                }
                 queue.remove(myMedia1);
+                DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
             }
         }
 
@@ -244,6 +247,7 @@ public class PlayQueue implements DataListedModel{
 
     public void clearQueue(){
         queue.clear();
+        DatabaseManager.getInstance().deleteAll("Playqueue");
         shuffleActive.set(false);
         shuffleQueueIndexesGenerated = false;
         shuffleQueueCurrentIndex = 0;
@@ -257,14 +261,17 @@ public class PlayQueue implements DataListedModel{
     public void removeMedia(int i){
         if(getCurrentMedia()==i){
             Player.getInstance().stop();
+            DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
             if(i<queue.size())
                 startMedia();
             else
                 currentMedia.set(1);
         }
-        else
+        else {
+            DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
+        }
     }
 
 

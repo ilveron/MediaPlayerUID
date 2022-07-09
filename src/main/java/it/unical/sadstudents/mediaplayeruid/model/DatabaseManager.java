@@ -47,8 +47,10 @@ public class DatabaseManager {
         return  false;
     } //gestisco se è presente o meno solo per non far apparire errore
     private boolean checkTable(String table){
-        if(table=="MyMedia"||table=="Playlist"||table=="Settings"||table=="RecentMedia") return true;
-        return false;
+        if(table=="MyMedia"||table=="Playlist"||table=="Settings"||
+           table=="RecentMedia"||table=="Playqueue"||table=="MyMediaPlaylist"||table=="Equalizer")
+            return true;
+        else  return false;
     }
     //  end function private
 
