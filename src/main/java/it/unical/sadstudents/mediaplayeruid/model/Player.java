@@ -127,7 +127,6 @@ public class Player {
     public void createMedia(Integer index){
 
             this.index = index;
-            mediaLoaded.set(false);
             media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
             if (media.getSource().toLowerCase().endsWith(".mp4")){
                 isAVideo.set(true);
@@ -139,7 +138,6 @@ public class Player {
 
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
-            mediaLoaded.set(true);
 
                 mediaPlayer.setOnReady(()->{
                     // TODO: 14/06/2022 se rimosso, problemi con lo slider
@@ -177,6 +175,7 @@ public class Player {
 
     public void playMedia(){
         if(media != null){
+            mediaLoaded.set(true);
             mediaPlayer.setVolume(volume);
             mediaPlayer.setRate(rate);
             mediaPlayer.play();

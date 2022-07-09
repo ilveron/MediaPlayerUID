@@ -181,7 +181,6 @@ public class PlayerController implements Initializable {
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
             if(Player.getInstance().isMediaLoaded()) {
                 changeButtonEnabledStatus();
-
             }
             else {
                 changeButtonEnabledStatus();
@@ -190,11 +189,10 @@ public class PlayerController implements Initializable {
 
         plsProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
             if (newValue) {
-                if(!SceneHandler.getInstance().isInfoMediaPropertyHover())
-                    SceneHandler.getInstance().setInfoMediaPropertyHover(false);
+                SceneHandler.getInstance().setInfoMediaPropertyHover(true);
             }
             else{
-                SceneHandler.getInstance().setInfoMediaPropertyHover(true);
+                SceneHandler.getInstance().setInfoMediaPropertyHover(false);
             }
         });
 
@@ -202,6 +200,24 @@ public class PlayerController implements Initializable {
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
             plsPlayPause.setTooltip(new Tooltip("Pause"));
+            if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded())
+                miniImageView.setImage(null);
+            else{
+                int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
+                miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index-1).getImage());
+            }
+        });
+
+        HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
+            if (HomeTilePaneHandler.getInstance().getReadyInteger() == HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()){
+                if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded())
+                    miniImageView.setImage(null);
+                else{
+                    int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
+                    miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index-1).getImage());
+                }
+            }
+
         });
 
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {

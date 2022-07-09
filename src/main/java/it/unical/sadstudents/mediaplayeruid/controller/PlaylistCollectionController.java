@@ -28,9 +28,12 @@ public class PlaylistCollectionController implements Initializable {
 
     @FXML
     void onCreatePlaylist(ActionEvent event) {
-        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,300,"Create Playlist",false,"");
-        //int posPlaylist=Playlists.getInstance().createNewPlaylist();
+        int pos=PlaylistCollection.getInstance().createNewPlaylist();
         setContentTilePane();
+        String name=PlaylistCollection.getInstance().getPlayListsCollections().get(pos).getName();
+        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,240,"Playlist editor",false,name);
+        setContentTilePane();
+        //int posPlaylist=Playlists.getInstance().createNewPlaylist();
        /* CreateNewPlaylist.getInstance().createPlaylist(Playlists.getInstance().getPlayListsCollections().get(posPlaylist).getImage(),Playlists.getInstance().getPlayListsCollections().get(posPlaylist).getName());
         Playlists.getInstance().getPlayListsCollections().get(posPlaylist).setImage(CreateNewPlaylist.getInstance().getImage());
         Playlists.getInstance().getPlayListsCollections().get(posPlaylist).setName(CreateNewPlaylist.getInstance().getName());
@@ -47,10 +50,10 @@ public class PlaylistCollectionController implements Initializable {
         setContentTilePane();
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setContentTilePane());
         PlaylistCollection.getInstance().updatePlaylistProperty().addListener(observable -> {
-            if (PlaylistCollection.getInstance().isUpdatePlaylist())
+            if (PlaylistCollection.getInstance().isUpdatePlaylist()) {
                 setContentTilePane();
-
-
+                PlaylistCollection.getInstance().setUpdatePlaylist(false);
+            }
         });
 
         PlaylistCollection.getInstance().deleteProperty().addListener(observable -> {
@@ -68,7 +71,6 @@ public class PlaylistCollectionController implements Initializable {
         for (int i= 0; i<size; ++i){
             //System.out.println("creato");
             SinglePlaylistView playList = new SinglePlaylistView(PlaylistCollection.getInstance().getPlayListsCollections().get(i));
-
             playList.setFocusTraversable(true);
             playList.setDim(setDimTilePane());
             tilePane.getChildren().add(playList);

@@ -80,8 +80,7 @@ public class PlaylistSingleViewController {
 
     @FXML
     void onChange(ActionEvent event) {
-        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,300,"Create Playlist",false, playlist.getName());
-
+        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
         /*CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
         playlist.setImage(CreateNewPlaylist.getInstance().getImage());
         playlist.setName(CreateNewPlaylist.getInstance().getName());
@@ -145,11 +144,9 @@ public class PlaylistSingleViewController {
             PlaylistCollection.getInstance().setPlaying(false);}
 
 
-
-        playlist.setImage("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png");
         labelName.setText(playlist.getName());
-
         imagePlaylist.setImage(new Image(playlist.getImage()));
+
         tableViewPlaylist.setItems(playlist.getMyList());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("title"));
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("artist"));

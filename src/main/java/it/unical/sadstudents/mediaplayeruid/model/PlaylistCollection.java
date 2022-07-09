@@ -66,7 +66,7 @@ public class PlaylistCollection {
         this.playListsCollections = playListsCollections;
     }
 
-    /*public int createNewPlaylist(){
+    public int createNewPlaylist(){
         String image="file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png";
         int pos=playListsCollections.size()+1;
         String name="Playlist"+pos;
@@ -81,7 +81,7 @@ public class PlaylistCollection {
         playListsCollections.add(playlist);
         DatabaseManager.getInstance().createPlaylist(playlist.getName(),playlist.getImage(),0,"00:00:00");
         return pos;
-    }*/
+    }
 
     public void deletePlaylist(int position){
 

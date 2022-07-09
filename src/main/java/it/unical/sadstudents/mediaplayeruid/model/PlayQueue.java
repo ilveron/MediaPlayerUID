@@ -265,13 +265,6 @@ public class PlayQueue implements DataListedModel{
         }
         else
             getQueue().remove(i);
-
-
-
-
-
-
-
     }
 
 
