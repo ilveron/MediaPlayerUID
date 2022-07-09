@@ -5,22 +5,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MediaInfoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="200.0" styleClass="infoBox" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MediaInfoController">
    <children>
       <ImageView fx:id="imageView" fitHeight="120.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Separator layoutY="128.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="190.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="140.0" />
-      <Label layoutX="6.0" layoutY="150.0" text="Title:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="150.0" />
-      <Label fx:id="titleLabel" text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
-      <Label layoutX="20.0" layoutY="160.0" text="Artist:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="165.0" />
-      <Label fx:id="artistLabel" layoutX="52.0" layoutY="160.0" text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="165.0" />
-      <Label layoutX="30.0" layoutY="170.0" text="Album:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="180.0" />
-      <Label fx:id="albumLabel" layoutX="62.0" layoutY="170.0" text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="180.0" />
-      <Label layoutX="40.0" layoutY="180.0" text="Genre:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="195.0" />
-      <Label fx:id="genreLabel" layoutX="72.0" layoutY="180.0" text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="195.0" />
-      <Label layoutX="50.0" layoutY="190.0" text="Year:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="210.0" />
-      <Label fx:id="yearLabel" layoutX="82.0" layoutY="190.0" text="Label" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="210.0" />
-      <Label layoutX="60.0" layoutY="200.0" text="Duration:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="225.0" />
-      <Label fx:id="durationLabel" layoutX="92.0" layoutY="200.0" text="Label" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="225.0" />
+      <Label layoutX="6.0" layoutY="150.0" styleClass="infoElementLabel" text="Title:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="150.0" />
+      <Label fx:id="titleLabel" layoutX="59.0" layoutY="150.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="150.0" />
+      <Label layoutX="20.0" layoutY="160.0" styleClass="infoElementLabel" text="Artist:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="165.0" />
+      <Label fx:id="artistLabel" layoutX="59.0" layoutY="165.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="165.0" />
+      <Label layoutX="30.0" layoutY="170.0" styleClass="infoElementLabel" text="Album:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="180.0" />
+      <Label fx:id="albumLabel" layoutX="59.0" layoutY="180.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="180.0" />
+      <Label layoutX="40.0" layoutY="180.0" styleClass="infoElementLabel" text="Genre:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="195.0" />
+      <Label fx:id="genreLabel" layoutX="59.0" layoutY="195.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="195.0" />
+      <Label layoutX="50.0" layoutY="190.0" styleClass="infoElementLabel" text="Year:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="210.0" />
+      <Label fx:id="yearLabel" layoutX="59.0" layoutY="210.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="210.0" />
+      <Label layoutX="60.0" layoutY="200.0" styleClass="infoElementLabel" text="Duration:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="225.0" />
+      <Label fx:id="durationLabel" layoutX="74.0" layoutY="225.0" styleClass="infoDescriptionLabel" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="225.0" />
    </children>
 </AnchorPane>

@@ -9,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -161,7 +160,7 @@ public class SceneHandler {
         HomeTilePaneHandler.getInstance().listCreator();
 
         DatabaseManager.getInstance().receivePlaylist();
-        for(Playlist s:Playlists.getInstance().getPlayListsCollections())
+        for(Playlist s: PlaylistCollection.getInstance().getPlayListsCollections())
             DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
 
 

@@ -16,6 +16,7 @@ public class SubStageHandler {
     private Stage stage;
     private Scene scene;
     private Alert alert;
+    private String playlistName;
 
     //SINGLETON
     private static SubStageHandler instance = null;
@@ -27,7 +28,17 @@ public class SubStageHandler {
     }
     //END SINGLETON
 
-    public void init(String source,double width, double height,String title,boolean resizable){
+
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
+    public void setPlaylistName(String playlistName) {
+        this.playlistName = playlistName;
+    }
+
+    public void init(String source, double width, double height, String title, boolean resizable, String playlistName){
+        this.playlistName = playlistName;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(source));
         try{
             scene = new Scene(loader.load(),width,height);
@@ -42,8 +53,8 @@ public class SubStageHandler {
             scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+ Settings.theme+".css")).toExternalForm());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
-            stage.setMinHeight(280);
-            stage.setMinWidth(484);
+            stage.setMinWidth(width);
+            stage.setMinHeight(height);
             stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
             stage.setScene(scene);
             stage.showAndWait();

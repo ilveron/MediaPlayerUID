@@ -66,7 +66,7 @@ public class PlayQueueController implements Initializable {
         if(PlayQueue.getInstance().getQueue().size()>0) {
             if (Player.getInstance().getIsRunning())
                 Player.getInstance().stop();
-            PlayQueue.getInstance().getQueue().clear();
+            PlayQueue.getInstance().clearQueue();
             PlayQueue.getInstance().setIsAVideo(false);
         }
     }
@@ -122,7 +122,7 @@ public class PlayQueueController implements Initializable {
                 else if(event.getButton().equals(MouseButton.SECONDARY)){
                     if(!row.isEmpty()){
                         MyMedia myMedia=row.getItem();
-                        contextMenuHandler = new ContextMenuHandler(myMedia,"","playqueue");
+                        contextMenuHandler = new ContextMenuHandler(myMedia,"","playqueue",row.getIndex());
                         row.setContextMenu(contextMenuHandler);
                         row.getContextMenu();
                     }

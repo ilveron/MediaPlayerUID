@@ -69,7 +69,6 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
-        System.out.println("ciao");
         if(index!= -1){
 
             //PlayQueue.getInstance().addFileToListFromOtherModel(tilePane.getChildren().get(index));
@@ -80,8 +79,7 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onDeleteVideo(ActionEvent event) {
-        for (int i=0; i<VideoLibrary.getInstance().getVideoLibrary().size(); i++)
-            VideoLibrary.getInstance().removeWithIndex(i);
+        VideoLibrary.getInstance().clearAll();
         activeButton(false);
     }
 
@@ -116,7 +114,7 @@ public class VideoLibraryController  implements Initializable {
         textFieldSearch.setTooltip(new Tooltip("Search for a video"));
         menuButtonAdd.setTooltip(new Tooltip("Insert video"));
         btnDelete.setTooltip(new Tooltip("Clear all videos"));
-        btnAddVideoToQueue.setTooltip(new Tooltip("Add the video in the queue"));
+        btnAddVideoToQueue.setTooltip(new Tooltip("Add video to queue"));
         btnAddLibraryToQueue.setTooltip(new Tooltip("Add video library to queue"));
     }
 

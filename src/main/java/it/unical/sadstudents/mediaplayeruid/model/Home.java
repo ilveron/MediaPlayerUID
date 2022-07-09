@@ -121,10 +121,16 @@ public class Home {
         });
     }
 
-    public void removeItem(int i){
-        DatabaseManager.getInstance().deleteMedia(recentMedia.get(i).getPath(),"RecentMedia");
-        recentMedia.remove(i);
-        HomeTilePaneHandler.getInstance().removeWithIndex(i);
+    public void removeItem(MyMedia myMedia){
+        for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
+            if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
+                DatabaseManager.getInstance().deleteMedia(recentMedia.get(i).getPath(),"RecentMedia");
+                recentMedia.remove(i);
+                HomeTilePaneHandler.getInstance().removeWithIndex(i);
+                break;
+            }
+        }
+
 
 
     }

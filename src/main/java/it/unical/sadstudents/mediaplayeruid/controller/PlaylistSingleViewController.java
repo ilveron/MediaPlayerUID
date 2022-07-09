@@ -1,10 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
-import it.unical.sadstudents.mediaplayeruid.view.CreateNewPlaylist;
-import it.unical.sadstudents.mediaplayeruid.view.PlaylistMedia;
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import it.unical.sadstudents.mediaplayeruid.view.*;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,9 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class PlaylistTemplateController {
-    Playlist playlist;
-    private boolean PlayPause=false;
+public class PlaylistSingleViewController {
+
 
     @FXML
     private AnchorPane AnchorPanAzione;
@@ -77,48 +73,66 @@ public class PlaylistTemplateController {
     void onDeletePlaylist(ActionEvent event) {
         if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
         //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
-            playlist.getMyList().clear();
-            Playlists.getInstance().setDelete(findPlaylist());
+            int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlist.getName());
+            PlaylistCollection.getInstance().deletePlaylist(index);
         }
     }
 
     @FXML
     void onChange(ActionEvent event) {
-        CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
+        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,300,"Create Playlist",false, playlist.getName());
+
+        /*CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
         playlist.setImage(CreateNewPlaylist.getInstance().getImage());
         playlist.setName(CreateNewPlaylist.getInstance().getName());
 
         labelName.setText(playlist.getName());
-        imagePlaylist.setImage(new Image(playlist.getImage()));
+        imagePlaylist.setImage(new Image(playlist.getImage()));*/
     }
 
     @FXML
     void onPlayPlaylist(ActionEvent event) {
+        if(!playlist.isPlaying()){
+            playlist.setPlaying(true);
+            playlist.playAll(false);
+        }
+
+
+
+
+
+
+
+        /*
         if(playlist.getMyList().size()>0) {
-            if (Playlists.getInstance().getTypePlaylist() == playlist.getName()) {
-                if(Playlists.getInstance().isPlaying()){
+            if (PlaylistCollection.getInstance().getTypePlaylist() == playlist.getName()) {
+                if(PlaylistCollection.getInstance().isPlaying()){
                     System.out.println("setto a false (sono nell if dentro if)");
-                    Playlists.getInstance().setPlaying(false);
+                    PlaylistCollection.getInstance().setPlaying(false);
                     Player.getInstance().pauseMedia();
                 }else{
                     System.out.println("setto a true (sono nell else dentro if)");
-                    Playlists.getInstance().setPlaying(true);
+                    PlaylistCollection.getInstance().setPlaying(true);
                     Player.getInstance().playMedia();
                 }
             } else {
                 initListPlayQueue();
                 System.out.println("setto a true (sono nell else)");
-                Playlists.getInstance().setPlaying(true);
-                Playlists.getInstance().setTypePlaylist(playlist.getName());
+                PlaylistCollection.getInstance().setPlaying(true);
+                PlaylistCollection.getInstance().setTypePlaylist(playlist.getName());
             }
-        }
+        }*/
     }
+
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        PlaylistMedia.getInstance().changePlaylistMedia(playlist);
+        SubStageHandler.getInstance().init("addMediaToPlaylist.fxml",700,400,"Edit Playlist",true, playlist.getName());
+        //PlaylistMedia.getInstance().changePlaylistMedia(playlist);
         setLabel();
     }
 
+    Playlist playlist;
+    private boolean PlayPause=false;
     private ContextMenuHandler contextMenuHandler;
     public void init(Playlist playlist) {
         this.playlist=playlist;
@@ -126,13 +140,15 @@ public class PlaylistTemplateController {
         //list= FXCollections.observableArrayList();
         setLabel();
         if(Player.getInstance().getIsRunning()){
-            Playlists.getInstance().setPlaying(true);}
-        else {Playlists.getInstance().setPlaying(false);}
+            PlaylistCollection.getInstance().setPlaying(true);}
+        else {
+            PlaylistCollection.getInstance().setPlaying(false);}
 
 
-        if(playlist.getImage()=="")
-            playlist.setImage("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png");
+
+        playlist.setImage("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png");
         labelName.setText(playlist.getName());
+
         imagePlaylist.setImage(new Image(playlist.getImage()));
         tableViewPlaylist.setItems(playlist.getMyList());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia, String>("title"));
@@ -146,7 +162,7 @@ public class PlaylistTemplateController {
             @Override
             public void handle(ContextMenuEvent contextMenuEvent) {
                 //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(null,playlist.getName(),"playlist");
-                setOnContextMenuHandler(summaryVBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY(),null);
+                setOnContextMenuHandler(summaryVBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY(),null,0);
             }
         });
 
@@ -156,7 +172,7 @@ public class PlaylistTemplateController {
                 if(event.getButton().equals(MouseButton.SECONDARY)){
                     if(!row.isEmpty()){
                         MyMedia myMedia=row.getItem();
-                        contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(),"playlist");
+                        contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(),"playlist",row.getIndex());
                         row.setContextMenu(contextMenuHandler);
                         row.getContextMenu();
                     }
@@ -195,7 +211,7 @@ public class PlaylistTemplateController {
     }
     private void changeIcon(){
         System.out.println("cambio icona");
-        if(Playlists.getInstance().isPlaying()) {
+        if(PlaylistCollection.getInstance().isPlaying()) {
             iconPlayPause.setIconLiteral("fa-pause");
         }
         else {
@@ -228,8 +244,8 @@ public class PlaylistTemplateController {
     }
 
     private int findPlaylist(){
-        for(int pos=0;pos<Playlists.getInstance().getPlayListsCollections().size();pos++){
-            if(Playlists.getInstance().getPlayListsCollections().get(pos).equals(playlist))
+        for(int pos = 0; pos< PlaylistCollection.getInstance().getPlayListsCollections().size(); pos++){
+            if(PlaylistCollection.getInstance().getPlayListsCollections().get(pos).equals(playlist))
                 return pos;
         }
         return -1;
@@ -242,12 +258,12 @@ public class PlaylistTemplateController {
     public void  setButtonPlay(boolean visible){ButtonAzione.setVisible(visible);}
 
 
-    public void setOnContextMenuHandler(Node node, double x, double y, MyMedia myMedia) {
+    public void setOnContextMenuHandler(Node node, double x, double y, MyMedia myMedia,int row) {
 
         if(contextMenuHandler!=null && contextMenuHandler.isShowing())
             contextMenuHandler.hide();
 
-        contextMenuHandler=new ContextMenuHandler(null, playlist.getName(), "playlist");
+        contextMenuHandler=new ContextMenuHandler(null, playlist.getName(), "playlist",row);
         contextMenuHandler.show(node,x,y);
 
     }

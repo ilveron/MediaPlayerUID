@@ -110,28 +110,14 @@ public class MyMediaSingleBoxController {
 
     public void deleteMedia(){
             if (source == "home" && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
-                for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
-                    if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
-                        Home.getInstance().removeItem(i);
-                        break;
-                    }
-                }
+                Home.getInstance().removeItem(myMedia);
             } else if (SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
-                for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
-                    if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
+                Home.getInstance().removeItem(myMedia);
+                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
+                    Player.getInstance().stop();
+                PlayQueue.getInstance().deleteFromOtherController(myMedia);
+                VideoLibrary.getInstance().removeWithIndex(myMedia);
 
-                        for (int j=0; j<Home.getInstance().getRecentMedia().size();j++){
-                            if (myMedia.equals(Home.getInstance().getRecentMedia().get(j))){
-                                Home.getInstance().removeItem(j);
-                            }
-                        }
-                        if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
-                            Player.getInstance().stop();
-                        PlayQueue.getInstance().deleteFromOtherController(myMedia);
-                        VideoLibrary.getInstance().removeWithIndex(i);
-                        break;
-                    }
-                }
             }
 
 
@@ -192,7 +178,7 @@ public class MyMediaSingleBoxController {
         if(contextMenu!=null && contextMenu.isShowing())
             contextMenu.hide();
 
-        contextMenu = new ContextMenuHandler(myMedia,"",source);
+        contextMenu = new ContextMenuHandler(myMedia,"",source,0);
         contextMenu.show(node,x,y);
 
 

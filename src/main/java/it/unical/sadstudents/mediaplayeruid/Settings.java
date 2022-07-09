@@ -10,6 +10,7 @@ public class Settings {
             "fonts/Montserrat-Light.ttf",
             "fonts/Montserrat-Medium.ttf",
             "fonts/Montserrat-Regular.ttf",
+            "fonts/Montserrat-SemiBold.ttf",
     };
     public final static String style = "css/style.css";
 

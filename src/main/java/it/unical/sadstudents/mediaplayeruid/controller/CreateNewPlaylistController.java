@@ -1,10 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.view.CreateNewPlaylist;
-import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
-import it.unical.sadstudents.mediaplayeruid.model.Playlists;
+import it.unical.sadstudents.mediaplayeruid.model.Playlist;
+import it.unical.sadstudents.mediaplayeruid.model.PlaylistCollection;
+import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +26,7 @@ public class CreateNewPlaylistController implements Initializable {
     private Button ButtonImageChange;
 
     @FXML
-    private Button ButtonSave;
+    private Button btnSave;
     @FXML
     private Label labelErrore;
 
@@ -39,33 +38,77 @@ public class CreateNewPlaylistController implements Initializable {
 
     @FXML
     void onImageChange(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose the file to add");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image File","*.png","*.jpg");
-        fileChooser.getExtensionFilters().add(extFilter);
-        imageView.setImage(new Image(fileChooser.showOpenDialog(new Stage()).getPath()));
+        try{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose the Cover");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image File","*.png","*.jpg");
+            fileChooser.getExtensionFilters().add(extFilter);
+            imageView.setImage(new Image(fileChooser.showOpenDialog(new Stage()).getPath()));
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+
     }
 
     @FXML
     void onSave(ActionEvent event) {
         // TODO: 04/07/2022 non far inserire caratteri speciali?
         String text=textTitle.getText().trim();
-        if(findName(text)) {
-            CreateNewPlaylist.getInstance().setName(text);
-            CreateNewPlaylist.getInstance().setImage(imageView.getImage().getUrl());
-            DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
+        //if(findName(text)) {
+
+        if(previousName!=""){
+
+                int index= PlaylistCollection.getInstance().getPlaylistWidthName(previousName);
+                PlaylistCollection.getInstance().getPlayListsCollections().get(index).setName(text);
+                PlaylistCollection.getInstance().getPlayListsCollections().get(index).setImage(imageView.getImage().getUrl());
+                PlaylistCollection.getInstance().setUpdatePlaylist(true);
+        }
+        else
+        {
+            Playlist playlist = new Playlist(text,imageView.getImage().getUrl(),0,"0");
+            PlaylistCollection.getInstance().getPlayListsCollections().add(playlist);
+        }
+
+            //CreateNewPlaylist.getInstance().setImage(imageView.getImage().getUrl());
+            //DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
+
             ((Node)(event.getSource())).getScene().getWindow().hide();
             return ;
-        }
+        //}
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String image=CreateNewPlaylist.getInstance().getImage();
+        //String image=CreateNewPlaylist.getInstance().getImage();
         //if(image=="") System.out.println("->"+image);
-        imageView.setImage(new Image(image));
-        previousName=CreateNewPlaylist.getInstance().getName();
-        textTitle.setText(previousName);
+        /*int lastIndex=0;
+        if(Playlists.getInstance().getPlayListsCollections().size()>0)
+            lastIndex = Playlists.getInstance().getPlayListsCollections().size()-1;
+        imageView.setImage(new Image(Playlists.getInstance().getPlayListsCollections().get(lastIndex).getImage()));
+
+        textTitle.setText("default"+(lastIndex+2));*/
+
+        if(SubStageHandler.getInstance().getPlaylistName()!=""){
+            textTitle.setText(SubStageHandler.getInstance().getPlaylistName());
+            previousName=textTitle.getText();
+        }
+
+
+        textTitle.textProperty().addListener(observable -> {
+            if (textTitle.getText()!="Insert name"){
+                boolean error= false;
+                for (int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){
+                    if (textTitle.getText().equals(PlaylistCollection.getInstance().getPlayListsCollections().get(i).getName())){
+                        error=true;
+                        // TODO: 08/07/2022 gestire errore
+                    }
+                }
+                if(!error)
+                    btnSave.setDisable(false);
+            }
+
+        });
         textTitle.setFocusTraversable(false);
 
         imageView.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
@@ -78,14 +121,16 @@ public class CreateNewPlaylistController implements Initializable {
                 setButtonChange(newValue);
         });
 
-        textTitle.textProperty().addListener(new ChangeListener<String>() {
+        /*textTitle.textProperty().addListener(new ChangeListener<String>() {//che fa qui?
             @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!findName(newValue.trim())){ error();}
-                else {labelErrore.setVisible(false);}
+                else {
+
+                    labelErrore.setVisible(false);
+                }
             }
-        });
+        });*/
 
     }
 
@@ -94,7 +139,7 @@ public class CreateNewPlaylistController implements Initializable {
         labelErrore.setVisible(true);
     }
 
-    private boolean findName(String name){
+   /* private boolean findName(String name){
 
         // TODO: 04/07/2022  utilizzare regex per i spazi vuoti 
         for(int pos=0;pos<Playlists.getInstance().getPlayListsCollections().size();pos++){
@@ -104,7 +149,7 @@ public class CreateNewPlaylistController implements Initializable {
             }
         }
         return true;
-    }
+    }*/
 
     private void setButtonChange(boolean visible){
         ButtonImageChange.setVisible(visible);

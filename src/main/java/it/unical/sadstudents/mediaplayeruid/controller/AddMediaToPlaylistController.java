@@ -1,10 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import it.unical.sadstudents.mediaplayeruid.view.PlaylistMedia;
+import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -73,13 +72,17 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onAddToPlaylist(ActionEvent event) {
+        int index = PlaylistCollection.getInstance().getPlaylistWidthName(SubStageHandler.getInstance().getPlaylistName());
         for(int i=0;i<PosizioniSelezionate.size();i++){
-            PlaylistMedia.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
-            //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
+
+            PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableView.getItems().get(PosizioniSelezionate.get(i)));
+
+                //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
         }
-        Playlists.getInstance().setUpdatePlayQueue(true);
+        PlaylistCollection.getInstance().setUpdatePlayQueue(true);
         //Playlists.getInstance().setTypePlaylist();
     }
+    private int indexPlaylist;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,11 +90,14 @@ public class AddMediaToPlaylistController implements Initializable {
         //start tooltip
         setButtonAdd(true);
         //String image= DataExchangePlaylist.getInstance().getImage();
-        String image= PlaylistMedia.getInstance().getPlaylist().getImage();
+        indexPlaylist = PlaylistCollection.getInstance().returnPlaylist(SubStageHandler.getInstance().getPlaylistName());
+        System.out.println(indexPlaylist);
+        String image = PlaylistCollection.getInstance().getPlayListsCollections().get(indexPlaylist).getImage();
+        //String image= PlaylistMedia.getInstance().getPlaylist().getImage();
         if(image!=null&&image!="")
             imageMedia.setImage(new Image(image));
         //labelTitle.setText(DataExchangePlaylist.getInstance().getName());
-        labelTitle.setText(PlaylistMedia.getInstance().getPlaylist().getName());
+        labelTitle.setText(SubStageHandler.getInstance().getPlaylistName());
 
         tableView.setItems(MusicLibrary.getInstance().getMusicLibrary());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));

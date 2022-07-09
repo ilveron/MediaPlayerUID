@@ -1,9 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.GlobalFocusAndSelection;
-import it.unical.sadstudents.mediaplayeruid.MainApplication;
-import it.unical.sadstudents.mediaplayeruid.Settings;
-import it.unical.sadstudents.mediaplayeruid.keyCombo;
+import it.unical.sadstudents.mediaplayeruid.KeyCombo;
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
@@ -21,23 +19,16 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
-import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -303,6 +294,20 @@ public class MainController implements Initializable {
                     });
                 });
         Player.getInstance().isRunningProperty().addListener(observable -> formatTime(Player.getInstance().getCurrentMediaTime()));
+
+        PlayQueue.getInstance().shuffleActiveProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
+                if(oldValue && !newValue){
+                    if(plsShuffle.isDisabled()) {
+                        plsShuffle.setDisable(false);
+                        plsShuffle.fire();
+                        plsShuffle.setDisable(true);
+                    }
+                }
+
+            }
+        });
         //END LISTENER VARI
 
 
@@ -451,10 +456,10 @@ public class MainController implements Initializable {
     @FXML
     void onShuffle(ActionEvent event) {
         // TODO: 07/06/2022  se stai facendo girare un video in full screen e attivi onShuffle e skippi si bagga tutto X/
-        if (PlayQueue.getInstance().isShuffleActive()) {
-            PlayQueue.getInstance().setShuffleActive(false);
+        if (PlayQueue.getInstance().shuffleActiveProperty().get()) {
+            PlayQueue.getInstance().shuffleActiveProperty().set(false);
         } else {
-            PlayQueue.getInstance().setShuffleActive(true);
+            PlayQueue.getInstance().shuffleActiveProperty().set(true);
         }
 
         if (!PlayQueue.getInstance().isShuffleQueueIndexesGenerated()) {
@@ -621,7 +626,7 @@ public class MainController implements Initializable {
             //stage.setOnCloseRequest
         }catch(Exception exception){
             exception.printStackTrace();}*/
-        SubStageHandler.getInstance().init("audioEqualizer-view.fxml",484,280,"Audio Equalizer",false);
+        SubStageHandler.getInstance().init("audioEqualizer-view.fxml",484,280,"Audio Equalizer",false,"");
 
 
 
@@ -912,15 +917,15 @@ public class MainController implements Initializable {
                     plsShuffle.fire();
                 } else if (key == KeyCode.M) {//M	Mute
                     muteUnmuteHandler();
-                } else if (keyCombo.skipBack.match(keyEvent)) {//ALT + LEFT  Skip back 10s
+                } else if (KeyCombo.skipBack.match(keyEvent)) {//ALT + LEFT  Skip back 10s
                     skipBack();
-                } else if (keyCombo.skipForward.match(keyEvent)) {//ALT + RIGHT  Skip forward 10s
+                } else if (KeyCombo.skipForward.match(keyEvent)) {//ALT + RIGHT  Skip forward 10s
                     skipForward();
-                } else if (keyCombo.volumeUp.match(keyEvent)) {//CTRL + UP  Volume up 10%
+                } else if (KeyCombo.volumeUp.match(keyEvent)) {//CTRL + UP  Volume up 10%
                     volumeChange(10);
-                } else if (keyCombo.volumeDown.match(keyEvent)) {//CTRL + DOWN  Volume down 10%
+                } else if (KeyCombo.volumeDown.match(keyEvent)) {//CTRL + DOWN  Volume down 10%
                     volumeChange(-10);
-                } else if (keyCombo.quit.match(keyEvent)) {//CTRL + Q  Quit application
+                } else if (KeyCombo.quit.match(keyEvent)) {//CTRL + Q  Quit application
                     quit();
                 }
 

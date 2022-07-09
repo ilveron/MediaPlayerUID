@@ -3,7 +3,6 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
@@ -11,10 +10,12 @@ import javafx.scene.control.SeparatorMenuItem;
 public class ContextMenuHandler extends ContextMenu {
     private String source;
     private String playlistName;
-    public ContextMenuHandler(MyMedia myMedia,String playlistName,String  source) {
+    private int row;
+    public ContextMenuHandler(MyMedia myMedia,String playlistName,String  source,int row) {
         super ();
         this.source = source;
         this.playlistName = playlistName;
+        this.row = row;
         MenuItem menuItem = new MenuItem();
         MenuItem menuItem1 = new MenuItem();
         MenuItem menuItem2 = new MenuItem();
@@ -28,15 +29,8 @@ public class ContextMenuHandler extends ContextMenu {
                     if(source != "playqueue")
                         PlayQueue.getInstance().generateNewQueue(myMedia);
                     else{
-                        int index;
-                        for (int i=0; i<PlayQueue.getInstance().getQueue().size(); i++){
-                            if(myMedia.equals(PlayQueue.getInstance().getQueue().get(i))){
-                                System.out.println(myMedia);
-                                System.out.println(PlayQueue.getInstance().getQueue().get(i));
-                                PlayQueue.getInstance().setCurrentMedia(i);
-                                break;
-                            }
-                        }
+                        PlayQueue.getInstance().setCurrentMedia(row);
+
 
                     }
                 }
@@ -48,40 +42,21 @@ public class ContextMenuHandler extends ContextMenu {
                 public void handle(ActionEvent actionEvent) {
 
                         if (source == "home"  && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
-                            for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
-                                if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
-                                    Home.getInstance().removeItem(i);
-                                    break;
-                                }
-                            }
-                        } else if(source == "video" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
-                            for (int i = 0; i < VideoLibrary.getInstance().getVideoLibrary().size(); i++) {
-                                if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
+                            Home.getInstance().removeItem(myMedia);
 
-                                    for (int j = 0; j < Home.getInstance().getRecentMedia().size(); j++) {
-                                        if (myMedia.equals(Home.getInstance().getRecentMedia().get(j))) {
-                                            Home.getInstance().removeItem(j);
-                                        }
-                                    }
-                                    if (Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
-                                        Player.getInstance().stop();
-                                    PlayQueue.getInstance().deleteFromOtherController(myMedia);
-                                    VideoLibrary.getInstance().removeWithIndex(i);
-                                    break;
-                                }
-                            }
+                        } else if(source == "video" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
+                            Home.getInstance().removeItem(myMedia);
+                            if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
+                                Player.getInstance().stop();
+                            PlayQueue.getInstance().deleteFromOtherController(myMedia);
+                            VideoLibrary.getInstance().removeWithIndex(myMedia);
                         }
                         else if(source == "musicLibrary" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Song?") ){
-                            for (int i=0; i<MusicLibrary.getInstance().getMusicLibrary().size(); i++){
-                                if(myMedia.equals(MusicLibrary.getInstance().getMusicLibrary().get(i))){
-                                    MusicLibrary.getInstance().deleteWithIndex(i);
-                                    break;
-                                }
-                            }
+                            MusicLibrary.getInstance().deleteStandard(myMedia);
 
                         }
                         else if(source == "playqueue" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to remove from queue?")){
-                            PlayQueue.getInstance().getQueue().remove(myMedia);
+                            PlayQueue.getInstance().removeMedia(row);
                         }
 
 
@@ -106,14 +81,12 @@ public class ContextMenuHandler extends ContextMenu {
                 menuItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
-                        for (int i = 0; i<Playlists.getInstance().getPlayListsCollections().get(index).getMyList().size(); i++){
-                            MyMedia temp = Playlists.getInstance().getPlayListsCollections().get(index).getMyList().get(i);
-                            if(i==0)
-                                PlayQueue.getInstance().generateNewQueue(temp);
-                            else
-                                PlayQueue.getInstance().addFileToListFromOtherModel(temp);
+                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
+                        if(!PlaylistCollection.getInstance().getPlayListsCollections().get(index).isPlaying()){
+                            PlaylistCollection.getInstance().getPlayListsCollections().get(index).setPlaying(true);
+                            PlaylistCollection.getInstance().getPlayListsCollections().get(index).playAll(false);
                         }
+
                     }
                 });
             }
@@ -122,14 +95,9 @@ public class ContextMenuHandler extends ContextMenu {
                 menuItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
-                        for (int i = 0; i<Playlists.getInstance().getPlayListsCollections().get(index).getMyList().size(); i++){
-                            MyMedia temp = Playlists.getInstance().getPlayListsCollections().get(index).getMyList().get(i);
-                            if(i==0)
-                                PlayQueue.getInstance().generateNewQueue(temp);
-                            else
-                                PlayQueue.getInstance().addFileToListFromOtherModel(temp);
-                        }
+                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
+
+                        PlaylistCollection.getInstance().getPlayListsCollections().get(index).addToPlayQueue(myMedia);
                     }
                 });
             }
@@ -139,9 +107,11 @@ public class ContextMenuHandler extends ContextMenu {
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
-
-                        Playlists.getInstance().deletePlaylist(index);
+                        if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlistName+"' ?")) {
+                            //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
+                            int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
+                            PlaylistCollection.getInstance().deletePlaylist(index);
+                        }
                     }
                 });
             }
@@ -150,9 +120,9 @@ public class ContextMenuHandler extends ContextMenu {
                 menuItem3.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
+                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
 
-                        Playlists.getInstance().getPlayListsCollections().get(index).getMyList().clear();
+                        PlaylistCollection.getInstance().getPlayListsCollections().get(index).getMyList().clear();
                     }
                 });
             }
@@ -171,11 +141,8 @@ public class ContextMenuHandler extends ContextMenu {
                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
-                        for (int i = 0; i<Playlists.getInstance().getPlayListsCollections().get(index).getMyList().size(); i++){
-                            MyMedia temp = Playlists.getInstance().getPlayListsCollections().get(index).getMyList().get(i);
-                            PlayQueue.getInstance().addFileToListFromOtherModel(temp);
-                        }
+                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
+                        PlaylistCollection.getInstance().getPlayListsCollections().get(index).playAll(true);
                     }
                 });
             }
@@ -183,8 +150,8 @@ public class ContextMenuHandler extends ContextMenu {
             menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    int index = Playlists.getInstance().getPlaylistWidthName(playlistName);
-                    PlaylistMedia.getInstance().changePlaylistMedia(Playlists.getInstance().getPlayListsCollections().get(index));
+                    SubStageHandler.getInstance().init("addMediaToPlaylist.fxml",700,400,"Edit Playlist",true, playlistName);
+
                 }
             });
 
@@ -196,19 +163,19 @@ public class ContextMenuHandler extends ContextMenu {
         this.getItems().add(menuItem);
         this.getItems().add(menuItem1);
         if(source!="playqueue")
-        this.getItems().add(menuItem2);
+            this.getItems().add(menuItem2);
         this.getItems().add(menuItem3);
 
         if(source!="playlist"){
             this.getItems().add(new SeparatorMenuItem());
 
-            for(int i = 0; i< Playlists.getInstance().getPlayListsCollections().size(); i++){
-                MenuItem temp = new MenuItem(Playlists.getInstance().getPlayListsCollections().get(i).getName());
+            for(int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){
+                MenuItem temp = new MenuItem(PlaylistCollection.getInstance().getPlayListsCollections().get(i).getName());
                 int finalI = i;
                 temp.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        Playlists.getInstance().getPlayListsCollections().get(finalI).addMedia(myMedia);
+                        PlaylistCollection.getInstance().getPlayListsCollections().get(finalI).addMedia(myMedia);
 
                     }
                 });

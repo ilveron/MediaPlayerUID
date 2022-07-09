@@ -353,7 +353,7 @@ public class DatabaseManager {
                 stmt.setString(1,name);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    Playlists.getInstance().getPlayListsCollections().get(Playlists.getInstance().returnPlaylist(name)).add(
+                    PlaylistCollection.getInstance().getPlayListsCollections().get(PlaylistCollection.getInstance().returnPlaylist(name)).add(
                             (new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                             rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                             , rs.getString("Length"), rs.getString("Year"), rs.getString("Image"))));
@@ -372,7 +372,7 @@ public class DatabaseManager {
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name=rs.getString("Name");
-                    Playlists.getInstance().addPlaylist(new Playlist(name,rs.getString("Image"),rs.getInt("Songs"),rs.getString("TotalDuration")));
+                    PlaylistCollection.getInstance().addPlaylist(new Playlist(name,rs.getString("Image"),rs.getInt("Songs"),rs.getString("TotalDuration")));
                     //receiveMediaInPlaylist(name);
                 }
                 stmt.close();

@@ -2,6 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.application.Platform;
@@ -113,14 +114,23 @@ public class VideoLibrary implements DataListedModel{
 
     }
 
-    public void removeWithIndex(int i){
-        DatabaseManager.getInstance().deleteMedia(videoLibrary.get(i).getPath(),"MyMedia");
-        videoLibrary.remove(i);
-        VideoGalleryTilePaneHandler.getInstance().removeWithIndex(i);
+    public void removeWithIndex(MyMedia myMedia){
+        for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
+            if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
+                DatabaseManager.getInstance().deleteMedia(videoLibrary.get(i).getPath(),"MyMedia");
+                videoLibrary.remove(i);
+                VideoGalleryTilePaneHandler.getInstance().removeWithIndex(i);
+                break;
+            }
+        }
+
         // TODO: 06/07/2022 delete su playqueue e su playlist 
     }
 
     public void clearAll(){
+        videoLibrary.clear();
+        VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().clear();
+        VideoGalleryTilePaneHandler.getInstance().setReadyInteger(0);
         
     }
 

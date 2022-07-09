@@ -6,19 +6,19 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Playlists {
+public class PlaylistCollection {
 
     private ObservableList<Playlist> playListsCollections;
 
 
     //SINGLETON
-    private static Playlists instance = null;
-    private Playlists (){
+    private static PlaylistCollection instance = null;
+    private PlaylistCollection(){
         playListsCollections = FXCollections.observableArrayList();
     }
-    public static Playlists getInstance(){
+    public static PlaylistCollection getInstance(){
         if (instance==null)
-            instance = new Playlists();
+            instance = new PlaylistCollection();
         return instance;
     }
     //END SINGLETON
@@ -27,13 +27,24 @@ public class Playlists {
     private SimpleBooleanProperty playing=new SimpleBooleanProperty(false);
     private SimpleStringProperty typePlaylist=new SimpleStringProperty("");
     private SimpleBooleanProperty updatePlayQueue =new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty updatePlaylist = new SimpleBooleanProperty(false);
 
     public ObservableList<Playlist> getPlayListsCollections() {
         return playListsCollections;
     }
 
 
+    public boolean isUpdatePlaylist() {
+        return updatePlaylist.get();
+    }
 
+    public SimpleBooleanProperty updatePlaylistProperty() {
+        return updatePlaylist;
+    }
+
+    public void setUpdatePlaylist(boolean updatePlaylist) {
+        this.updatePlaylist.set(updatePlaylist);
+    }
 
     public boolean isPlaying() {return playing.get();}
     public SimpleBooleanProperty playingProperty() {return playing;}
@@ -55,7 +66,7 @@ public class Playlists {
         this.playListsCollections = playListsCollections;
     }
 
-    public int createNewPlaylist(){
+    /*public int createNewPlaylist(){
         String image="file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png";
         int pos=playListsCollections.size()+1;
         String name="Playlist"+pos;
@@ -70,11 +81,13 @@ public class Playlists {
         playListsCollections.add(playlist);
         DatabaseManager.getInstance().createPlaylist(playlist.getName(),playlist.getImage(),0,"00:00:00");
         return pos;
-    }
+    }*/
 
     public void deletePlaylist(int position){
+
         DatabaseManager.getInstance().deletePlaylist(playListsCollections.get(position).getName());
         playListsCollections.remove(position);
+        updatePlaylist.set(true);
     }
 
     public int getPlaylistWidthName(String name){
@@ -89,18 +102,22 @@ public class Playlists {
         playListsCollections.add(playlist);
     }
     public int returnPlaylist(String name){
-        for(int i=0;i<playListsCollections.size();i++)
+        for(int i=0;i<playListsCollections.size();i++){
             if(playListsCollections.get(i).getName().equals(name))
                 return i;
+        }
+
         return -1;
     }
 
     public void deleteMediaCompletely(String Path){
-        for(int i=0;i<Playlists.getInstance().getPlayListsCollections().size();i++){
-            Playlists.getInstance().getPlayListsCollections().get(i).deleteMyMedia(Path);
+        for(int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){
+            PlaylistCollection.getInstance().getPlayListsCollections().get(i).deleteMyMedia(Path);
         }
         //setRefresh(1);
     }
+
+
 
 
 

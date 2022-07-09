@@ -403,3 +403,20 @@
 }
 
 .playButton:hover .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
+
+.infoBox {
+    -fx-background-color: primaryBackgroundColor;
+    -fx-effect: dropshadow(three-pass-box,dropShadowColor, 10.0, 0.0, 5.0, 0.0);
+}
+
+.infoElementLabel {
+    -fx-font-size: 12px;
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-text-fill: textColor;
+}
+
+.infoDescriptionLabel {
+    -fx-font-size: 12px;
+    -fx-font-family: "Montserrat Medium";
+    -fx-text-fill: textColor;
+}

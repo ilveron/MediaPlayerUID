@@ -1,14 +1,10 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.MainApplication;
-import it.unical.sadstudents.mediaplayeruid.controller.PlaylistTemplateController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.String.format;
@@ -20,9 +16,22 @@ public class Playlist  {
     private String name;
     private Integer songs;
     private String totalDuration;
+    private SimpleBooleanProperty playing=new SimpleBooleanProperty(false);
 
 
-    public Playlist(String name, String image,Integer songs,String totalDuration){
+    public boolean isPlaying() {
+        return playing.get();
+    }
+
+    public SimpleBooleanProperty playingProperty() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing.set(playing);
+    }
+
+    public Playlist(String name, String image, Integer songs, String totalDuration){
         list= FXCollections.observableArrayList();
         this.image=image;
         this.name=name;
@@ -36,9 +45,8 @@ public class Playlist  {
     }
 
     private void listenerRefresh(){
-        System.out.println("CI SONO");
-        Playlists.getInstance().updatePlayQueueProperty().addListener(observable -> {
-            if(Playlists.getInstance().getTypePlaylist()== getName() && Playlists.getInstance().getUpdatePlayQueue()) {
+        PlaylistCollection.getInstance().updatePlayQueueProperty().addListener(observable -> {
+            if(PlaylistCollection.getInstance().getTypePlaylist()== getName() && PlaylistCollection.getInstance().getUpdatePlayQueue()) {
                 if(getMyList().size()>0) {
                     refreshPlayQueue();
                     System.out.println("OK");
@@ -49,8 +57,10 @@ public class Playlist  {
 
     public void addMedia(MyMedia myMedia){
         songs++;
-        durationCalculation(myMedia.getLength());
+        //durationCalculation(myMedia.getLength());
         list.add(myMedia);
+        if(isPlaying())
+            PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
         DatabaseManager.getInstance().setPlaylistSong(getSongs(), getTotalDuration(),getName());
         DatabaseManager.getInstance().addMyMediaInPlaylist(myMedia.getPath(), getName());
 
@@ -179,7 +189,7 @@ public class Playlist  {
 
     }
 
-    private void addToPlayQueue(MyMedia myMedia){
+    public void addToPlayQueue(MyMedia myMedia){
         int index=indexMedia(myMedia);
         PlayQueue.getInstance().clearList();
         for(int i=0;i<list.size();i++){
@@ -197,7 +207,24 @@ public class Playlist  {
             if(!e)
                 PlayQueue.getInstance().addFileToListFromOtherModel(getMyList().get(i));
         }
-        Playlists.getInstance().setUpdatePlayQueue(false);
+        PlaylistCollection.getInstance().setUpdatePlayQueue(false);
     }
+
+    public void playAll(boolean simpleAdd){
+        for(int i=0; i<list.size(); i++){
+            if(!simpleAdd && i==0 && !playing.get())
+                PlayQueue.getInstance().generateNewQueue(list.get(i));
+
+            else
+                PlayQueue.getInstance().addFileToListFromOtherModel(list.get(i));
+        }
+
+    }
+
+
+
+
+
+
 }
 

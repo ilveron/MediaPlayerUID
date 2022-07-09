@@ -18,7 +18,7 @@ public class PlayQueue implements DataListedModel{
     private ArrayList<Integer> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
     private SimpleBooleanProperty isAVideo = new SimpleBooleanProperty(false);
-    private boolean shuffleActive=false;
+    private SimpleBooleanProperty shuffleActive = new SimpleBooleanProperty(false);
     private boolean shuffleQueueIndexesGenerated = false;
     private Integer shuffleQueueCurrentIndex;
     private ArrayList<Integer> shuffleQueueIndexes;
@@ -47,9 +47,6 @@ public class PlayQueue implements DataListedModel{
     public boolean getIsAVideo() { return isAVideo.get(); }
     public SimpleBooleanProperty isAVideoProperty() { return isAVideo; }
     public void setIsAVideo(boolean isAVideo) { this.isAVideo.set(isAVideo); }
-
-    public boolean isShuffleActive() { return shuffleActive; }
-    public void setShuffleActive(boolean shuffleActive) {  this.shuffleActive = shuffleActive; }
 
     public int getCurrentMedia() {
         return currentMedia.get();
@@ -103,6 +100,10 @@ public class PlayQueue implements DataListedModel{
         this.shuffleQueueCurrentIndex = shuffleQueueCurrentIndex;
     }
 
+    public SimpleBooleanProperty shuffleActiveProperty() {
+        return shuffleActive;
+    }
+
     //END GETTERS AND SETTERS
 
     //FUNCTIONS LIST MANIPULATION
@@ -115,6 +116,9 @@ public class PlayQueue implements DataListedModel{
     @Override
     public void addFileToListFromOtherModel(MyMedia myMedia) {
         queue.add(myMedia);
+        if(shuffleActive.get()){
+            shuffleQueueIndexes.add(queue.size()-1);
+        }
         if(!Player.getInstance().isMediaLoaded())
             //Player.getInstance().createMedia(currentMedia.get());
             startMedia();
@@ -182,7 +186,7 @@ public class PlayQueue implements DataListedModel{
 
         if(Player.getInstance().isLoopMode())
             setCurrentMedia(getCurrentMedia());
-        else if(shuffleActive) {
+        else if(shuffleActive.get()) {
             shuffleQueueCurrentIndex += direction;
             if(shuffleQueueCurrentIndex < 0 || shuffleQueueCurrentIndex >= shuffleQueueIndexes.size())
                 shuffleQueueCurrentIndex = 0;
@@ -239,10 +243,43 @@ public class PlayQueue implements DataListedModel{
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia1.getPath())
                     Player.getInstance().stop();
                 queue.remove(myMedia1);
-                break;
             }
         }
 
     }
+
+    public void clearQueue(){
+        queue.clear();
+        shuffleActive.set(false);
+        shuffleQueueIndexesGenerated = false;
+        shuffleQueueCurrentIndex = 0;
+        if(shuffleQueueIndexes != null && shuffleQueueIndexes.size() > 0)
+            shuffleQueueIndexes.clear();
+
+        if(shuffleQueueIndexes != null && alreadyPlayed.size() > 0)
+            alreadyPlayed.clear();
+    }
+
+    public void removeMedia(int i){
+        if(getCurrentMedia()==i){
+            Player.getInstance().stop();
+            getQueue().remove(i);
+            if(i<queue.size())
+                startMedia();
+            else
+                currentMedia.set(1);
+        }
+        else
+            getQueue().remove(i);
+
+
+
+
+
+
+
+    }
+
+
 
 }

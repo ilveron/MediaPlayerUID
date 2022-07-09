@@ -1,15 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.model.Home;
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
-import it.unical.sadstudents.mediaplayeruid.model.Playlists;
 import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;

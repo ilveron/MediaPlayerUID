@@ -3,19 +3,17 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 
 
-import it.unical.sadstudents.mediaplayeruid.controller.PlaylistTemplateController;
+import it.unical.sadstudents.mediaplayeruid.controller.PlaylistSingleViewController;
 import it.unical.sadstudents.mediaplayeruid.model.Playlist;
-import javafx.event.EventTarget;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class PlayListView extends Pane {
+public class SinglePlaylistView extends Pane {
     private Playlist playlist;
-    private PlaylistTemplateController playlistTemplateController;
+    private PlaylistSingleViewController playlistTemplateController;
 
-    public PlayListView(Playlist playlist){
+    public SinglePlaylistView(Playlist playlist){
         this.playlist = playlist;
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("playlist-template.fxml"));
         try{

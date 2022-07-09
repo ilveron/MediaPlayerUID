@@ -1,7 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -104,19 +103,21 @@ public class MusicLibrary implements DataListedModel{
 
     public void deleteWithIndex(int index){
         if(index!=-1){
-            for(int i=0;i<Home.getInstance().getRecentMedia().size();i++) {
-                if (MusicLibrary.getInstance().getMusicLibrary().get(index).equals(Home.getInstance().getRecentMedia().get(i))){
-                    Home.getInstance().removeItem(i);
-                    break;
-                }
-            }
-            Playlists.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath());
+            Home.getInstance().removeItem(Library.get(index));
+            PlaylistCollection.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath());
             PlayQueue.getInstance().deleteFromOtherController(MusicLibrary.getInstance().getMusicLibrary().get(index));
             DatabaseManager.getInstance().deleteMedia(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath(),"MyMedia");
             MusicLibrary.getInstance().getMusicLibrary().remove(index);
         }
     }
 
+    public void deleteStandard(MyMedia myMedia){
+        Home.getInstance().removeItem(myMedia);
+        PlaylistCollection.getInstance().deleteMediaCompletely(myMedia.getPath());
+        PlayQueue.getInstance().deleteFromOtherController(myMedia);
+        DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"MyMedia");
+        MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
+    }
 
 
 

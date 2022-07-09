@@ -116,6 +116,7 @@ public class MusicLibraryController implements Initializable {
         });*/
         // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
+
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
@@ -132,12 +133,12 @@ public class MusicLibraryController implements Initializable {
                 if(!row.isEmpty() && !event.getButton().equals(MouseButton.SECONDARY)) {
                     MyMedia myMedia=row.getItem();
                     if (event.getClickCount() == 2) {
-                        PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+                        PlayQueue.getInstance().generateNewQueue(myMedia);
                     }
                 } else if(event.getButton().equals(MouseButton.SECONDARY)){
                             if(!row.isEmpty()){
                                 MyMedia myMedia=row.getItem();
-                                contextMenuHandler = new ContextMenuHandler(myMedia,"","musicLibrary");
+                                contextMenuHandler = new ContextMenuHandler(myMedia,"","musicLibrary", row.getIndex());
                                 row.setContextMenu(contextMenuHandler);
                                 row.getContextMenu();
                             }
