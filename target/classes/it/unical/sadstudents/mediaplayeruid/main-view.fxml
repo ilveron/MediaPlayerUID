@@ -9,11 +9,11 @@
 
 <AnchorPane minHeight="600.0" minWidth="750.0" prefHeight="756.0" prefWidth="1344.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MainController">
    <children>
-      <StackPane fx:id="stackPane" minWidth="750.0" prefWidth="1344.0" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="stackPane" minWidth="750.0" prefWidth="1344.0" styleClass="primaryTemplate" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane>
+            <AnchorPane styleClass="primaryTemplate">
                <children>
-                  <StackPane fx:id="containerView" minWidth="480.0" styleClass="primaryTemplate" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane fx:id="containerView" minWidth="480.0" styleClass="primaryTemplate" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" visible="false" StackPane.alignment="CENTER" />
                      </children>
@@ -22,7 +22,10 @@
             </AnchorPane>
             <BorderPane fx:id="myBorderPane" minWidth="750.0">
                <center>
-                  <StackPane fx:id="centralStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <StackPane fx:id="centralStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets left="15.0" />
+                     </BorderPane.margin></StackPane>
                </center>
             </BorderPane>
             <AnchorPane fx:id="infoMediaAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="200.0" visible="false" StackPane.alignment="BOTTOM_RIGHT">
