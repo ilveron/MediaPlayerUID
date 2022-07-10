@@ -17,7 +17,7 @@
             <MediaView fx:id="mediaViewBis" fitHeight="200.0" fitWidth="200.0" StackPane.alignment="CENTER" />
             <AnchorPane fx:id="actionAnchorPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" visible="false">
                <children>
-                  <Button alignment="CENTER" graphicTextGap="20.0" layoutY="42.0" mnemonicParsing="false" onAction="#onPlayAction" prefHeight="60.0" prefWidth="60.0" styleClass="recentMediaButton" textFill="#a10202" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="70.0">
+                  <Button fx:id="btnPlay" alignment="CENTER" graphicTextGap="20.0" layoutY="42.0" mnemonicParsing="false" onAction="#onPlayAction" prefHeight="60.0" prefWidth="60.0" styleClass="recentMediaButton" textFill="#a10202" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="70.0">
                      <graphic>
                         <FontIcon iconColor="#a10202" iconLiteral="fa-play" iconSize="30" styleClass="iconsOverBackground" />
                      </graphic>
@@ -25,7 +25,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onDeleteAction" prefHeight="30.0" prefWidth="30.0" styleClass="recentMediaButton" textFill="#a10202" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDeleteAction" prefHeight="30.0" prefWidth="30.0" styleClass="recentMediaButton" textFill="#a10202" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <graphic>
                         <FontIcon iconColor="#a10202" iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
