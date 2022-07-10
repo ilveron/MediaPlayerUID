@@ -162,7 +162,6 @@ public class MainController implements Initializable {
         SceneHandler.getInstance().requestedVideoViewProperty().addListener(observable -> {
             changeBackgroundMediaView();
         });
-        // TODO: 15/06/2022 why??
 
         //END LISTENER VARI
 
@@ -190,8 +189,8 @@ public class MainController implements Initializable {
 
     private void screenModeHandler(boolean fullScreen) {
         SceneHandler.getInstance().getStage().setFullScreen(fullScreen);
-
         if (SceneHandler.getInstance().getStage().isFullScreen()) {
+            SceneHandler.getInstance().setRequestedVideoView(true);
             mediaView.setVisible(true);
             myBorderPane.getCenter().setVisible(false);
             AnchorPane.setLeftAnchor(containerView, 0.0);
@@ -213,6 +212,8 @@ public class MainController implements Initializable {
             AnchorPane.setBottomAnchor(containerView, 96.00);
             adjustVideoSize();
         }
+
+
     }
 
    /* @FXML

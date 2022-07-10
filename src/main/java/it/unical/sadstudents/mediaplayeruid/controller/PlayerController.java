@@ -134,6 +134,9 @@ public class PlayerController implements Initializable {
 
     }
 
+
+    private Service<Void> service;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
@@ -299,6 +302,14 @@ public class PlayerController implements Initializable {
         });
 
 
+
+        SceneHandler.getInstance().getStage().fullScreenProperty().addListener(observable -> {
+            controlBarHandlerFullScreen();
+        });
+
+
+
+
     }
 
 
@@ -395,6 +406,40 @@ public class PlayerController implements Initializable {
             SceneHandler.getInstance().setFullScreenRequested(true);
         // TODO: 09/07/2022 thread per la barra
     }
+
+    private void controlBarHandlerFullScreen() {
+        if (SceneHandler.getInstance().getStage().isFullScreen()) {
+            service = new Service<>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            Thread.sleep(3000);
+                            if(SceneHandler.getInstance().getStage().isFullScreen())
+                                controllePlayer.setVisible(false);
+                            return null;
+                        }
+                    };
+                }
+            };
+            SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    controllePlayer.setVisible(true);
+                    if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
+                        service.restart();
+                    }
+                }
+            });
+
+
+            service.start();
+        } else {
+            service.cancel();
+        }
+    }
+
 
 
 
@@ -539,10 +584,7 @@ public class PlayerController implements Initializable {
             volumeSlider.setValue(volumeSlider.getValue() + offset);
     }
 
-    private void quit() {
-        // TODO: 15/06/2022 Controlli prima di uscire dall'applicazione
-        Platform.exit();
-    }
+
 
     /*public void setKeyEvent() {
 
@@ -586,69 +628,6 @@ public class PlayerController implements Initializable {
         //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     }
 
-     private void screenModeHandler() {
-
-        if (!SceneHandler.getInstance().getStage().isFullScreen()) {
-            mediaView.setVisible(true);
-            myBorderPane.getCenter().setVisible(false);
-            service = new Service<>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            Thread.sleep(3000);
-                            //if(SceneHandler.getInstance().getStage().isFullScreen())
-
-                                //controllePlayer.setVisible(false);
-                            return null;
-                        }
-                    };
-                }
-            };
-            service.start();
-
-
-            AnchorPane.setLeftAnchor(containerView, 0.0);
-            AnchorPane.setBottomAnchor(containerView, 0.0);
-            SceneHandler.getInstance().getStage().setFullScreen(true);
-            adjustVideoSize();
-
-            SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    //controllePlayer.setVisible(true);
-                    if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
-                        System.out.println("restart");
-                        service.restart();
-                    }
-
-
-
-                }
-            });
-
-
-            SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent keyEvent) {
-                    KeyCode key = keyEvent.getCode();
-                    if (key == KeyCode.ESCAPE) {
-                        AnchorPane.setLeftAnchor(containerView, 270.0);
-                        AnchorPane.setBottomAnchor(containerView, 96.00);
-                        service.cancel();
-                        adjustVideoSize();
-                    }
-                }
-            });
-
-        } else {
-            AnchorPane.setLeftAnchor(containerView, 270.0);
-            AnchorPane.setBottomAnchor(containerView, 96.00);
-            SceneHandler.getInstance().getStage().setFullScreen(false);
-            service.cancel();
-            adjustVideoSize();
-        }
-    }*/
+    */
 }
 
