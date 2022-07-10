@@ -119,7 +119,7 @@ public class PlaylistSingleViewController {
 
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        SubStageHandler.getInstance().init("addMediaToPlaylist-view.fxml",700,400,"Edit Playlist",true, playlist.getName());
+        SubStageHandler.getInstance().init("addMediaToPlaylist-view.fxml",700,761,"Edit Playlist",true, playlist.getName());
         //PlaylistMedia.getInstance().changePlaylistMedia(playlist);
         setLabel();
         PlaylistCollection.getInstance().setUpdatePlaylist(true);

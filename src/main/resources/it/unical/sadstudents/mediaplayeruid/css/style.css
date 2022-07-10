@@ -20,7 +20,7 @@
 }
 
 .sceneSubHeaders {
-    -fx-font-family: "Montserrat Bold";
+    -fx-font-family: "Montserrat Medium";
     -fx-text-fill: headersTextColor;
     -fx-font-size: 20px;
     -fx-text-alignment: center;
@@ -44,7 +44,7 @@
 .mediaNameLabel, .recentMediaNameLabel {
     -fx-text-fill: textColor;
     -fx-font-size: 18px;
-    -fx-font-family: "Montserrat Bold";
+    -fx-font-family: "Montserrat ExtraBold";
 }
 
 .artistMediaLabel, .recentArtistMediaLabel {
@@ -72,23 +72,37 @@
 
 .largeMenuButton .label{ -fx-font-size: 16px; }
 
-.largeMenuButton:hover, .smallMenuButton:hover{ -fx-background-color: primarySelectionColor; }
-
-.largeMenuButton .label:hover, .smallMenuButton .label:hover{ -fx-text-fill: primaryBackgroundColor; }
-
+.largeMenuButton:hover, .smallMenuButton:hover { -fx-background-color: primarySelectionColor; }
 
 .largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground{ -fx-icon-color: primaryBackgroundColor; }
+.largeMenuButton:hover .label, .smallMenuButton:hover .label{ -fx-text-fill: primaryBackgroundColor; }
 
-.menuItem {
-    -fx-background-radius: 5px;
-    -fx-icon-color: primaryBackgroundColor;
+.context-menu {
+    -fx-background-color: primaryBackgroundColor;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
 }
 
-.menuItem .label {
-    -fx-font-family: "Montserrat Regular";
-    -fx-text-fill: primaryBackgroundColor;
+.context-menu .menu-item .label { -fx-text-fill: textColor; }
+.context-menu .menu-item .iconsOverBackground { -fx-icon-color: textColor; }
+
+.menu-item { -fx-background-radius: 5px; }
+
+.menu-item .label {
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
     -fx-font-size: 14px;
 }
+
+.menu-item .iconsOverBackground { -fx-icon-color: textColor; }
+
+.menu-item:hover { -fx-background-color: primarySelectionColor; }
+
+.menu-item:focused .label, .context-menu .menu-item:focused .label{ -fx-text-fill: primaryBackgroundColor; }
+
+.menu-item:focused .iconsOverBackground, .context-menu .menu-item:focused .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
+
+.menu-item:focused { -fx-background-color: primarySelectionColor; }
 
 .button {
     -fx-text-fill: textColor;
@@ -219,8 +233,8 @@
     -fx-background-color: -track-color ;
 }
 
-.recentMedia {
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 5.0, 0.0);
+.recentMedia, .selectedRecentMedia {
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 2.0, 1.0);
     -fx-background-radius: 15px;
 }
 
@@ -232,7 +246,7 @@
 
 .recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
 
-.selectedRecentMedia {-fx-background-color: secondarySelectionColor;}
+.selectedRecentMedia { -fx-background-color: secondarySelectionColor; }
 
 .recentMediaImageBg {
     -fx-background-color: black;
@@ -259,7 +273,7 @@
     -fx-opacity: 0.7;
     -fx-text-fill: textColor;
     -fx-font-family: "Montserrat Medium";
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .equalizerButton:hover {
@@ -267,16 +281,15 @@
     -fx-text-fill: primaryBackgroundColor;
 }
 
-.descriptionLabels {
+.descriptionLabel {
     -fx-text-fill: textColor;
     -fx-font-family: "Montserrat Medium";
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .choice-box .context-menu {
     -fx-background-color: secondaryBackgroundColor;
     -fx-text-fill: textColor;
-
 }
 
 .choice-box .menu-item > .label { -fx-text-fill: imagesColor; }
@@ -292,7 +305,7 @@
     -fx-background-color: secondaryBackgroundColor;
     -fx-mark-color: imagesColor;
     -fx-font-family: "Montserrat Medium";
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
 }
 
 .settingsParagraphLabel {
@@ -331,7 +344,7 @@
     -fx-background-color: primaryBackgroundColor,secondaryBackgroundColor;
     -fx-padding: 8 8 8 8;
     -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 5.0, 0.0, 5.0, 0.0);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 5.0, 0.0, 2.0, 1.0);
 }
 
 .notification-bar>.pane .title {
@@ -404,7 +417,7 @@
 
 .infoBox {
     -fx-background-color: primaryBackgroundColor;
-    -fx-effect: dropshadow(three-pass-box,dropShadowColor, 10.0, 0.0, 5.0, 0.0);
+    -fx-effect: dropshadow(three-pass-box,dropShadowColor, 10.0, 0.0, 2.0, 1.0);
 }
 
 .infoElementLabel {
@@ -442,5 +455,9 @@
 .playlistTemplate {
     -fx-background-color: secondaryBackgroundColor;
     -fx-background-radius: 30px;
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 5, 5);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 2, 1);
+}
+
+.withinPaneButton:hover, .largeMenuButton:hover, .smallMenuButton:hover {
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 2, 1);
 }

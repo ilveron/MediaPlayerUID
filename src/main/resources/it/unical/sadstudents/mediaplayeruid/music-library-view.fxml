@@ -28,12 +28,12 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#onAddMedia" styleClass="menuItem" text="Add file(s) to music library">
                            <graphic>
-                              <FontIcon iconLiteral="fa-file" iconSize="15" />
+                              <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="iconsOverBackground" />
                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#onAddFolder" styleClass="menuItem" text="Add folder(s) to music library">
                            <graphic>
-                              <FontIcon iconLiteral="fa-folder-open" iconSize="15" />
+                              <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="iconsOverBackground" />
                            </graphic>
                         </MenuItem>
                      </items>
