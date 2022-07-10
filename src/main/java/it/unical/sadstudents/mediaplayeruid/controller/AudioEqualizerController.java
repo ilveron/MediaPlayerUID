@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.AudioEqualizer;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -140,6 +141,9 @@ public class AudioEqualizerController implements Initializable {
         presetChoiceBox.setValue(AudioEqualizer.getInstance().getPresetsNames().get(AudioEqualizer.getInstance().getCurrentPresetIndex()));
         presetComboBoxHandler(new ActionEvent());
         presetChoiceBox.setOnAction(this::presetComboBoxHandler);
+
+        SceneHandler.getInstance().scaleTransition(plsReset);
+        SceneHandler.getInstance().scaleTransition(plsSave);
     }
 
     private void presetComboBoxHandler(ActionEvent event) {

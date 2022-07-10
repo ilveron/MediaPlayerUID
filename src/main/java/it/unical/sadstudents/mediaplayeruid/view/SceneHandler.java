@@ -3,19 +3,24 @@ package it.unical.sadstudents.mediaplayeruid.view;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.Settings;
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -267,6 +272,31 @@ public class SceneHandler {
         alert.setTitle("Errore");
         alert.setContentText(message);
         alert.show();
+    }
+
+    public void resizeAnchorPaneTransition(AnchorPane anchorPane, int startX, int startY, int stopX, int stopY, double secondsOfTransition){
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(anchorPane.maxWidthProperty(), startX, Interpolator.EASE_BOTH),
+                        new KeyValue(anchorPane.maxHeightProperty(), startY, Interpolator.EASE_BOTH)),
+
+                new KeyFrame(Duration.seconds(secondsOfTransition),
+                        new KeyValue(anchorPane.maxWidthProperty(), stopX, Interpolator.EASE_BOTH),
+                        new KeyValue(anchorPane.maxHeightProperty(), stopY, Interpolator.EASE_BOTH)));
+
+        timeline.play();
+    }
+
+    public void scaleTransition(Node node){
+        ScaleTransition onEnter = new ScaleTransition(new Duration(40.0), node);
+        onEnter.setToX(1.10);   onEnter.setToY(1.10);
+
+        ScaleTransition onExit = new ScaleTransition(new Duration(40.0), node);
+        onExit.setToX(1);   onExit.setToY(1);
+
+        node.setOnMouseEntered(mouseEvent -> onEnter.play());
+        node.setOnMouseExited(mouseEvent -> onExit.play());
     }
 
 }

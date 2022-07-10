@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -22,8 +23,6 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
 
-
-
     @FXML
     private AnchorPane homeAnchorPane;
     @FXML
@@ -36,6 +35,8 @@ public class HomeController implements Initializable {
     private Label loadingLabel;
     @FXML
     private ProgressIndicator loadingIndicator;
+    @FXML
+    private MenuButton mbtAdd;
 
 
     // TODO: 06/06/2022 DECIDERE SE SWITCHARE IN PLAYQUEUE xd !!!
@@ -66,6 +67,8 @@ public class HomeController implements Initializable {
 
         setContentTilePane();
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
+        SceneHandler.getInstance().scaleTransition(mbtAdd);
+
     }
 
 

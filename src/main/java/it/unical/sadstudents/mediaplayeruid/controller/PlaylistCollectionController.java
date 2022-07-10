@@ -31,7 +31,7 @@ public class PlaylistCollectionController implements Initializable {
         int pos=PlaylistCollection.getInstance().createNewPlaylist();
         setContentTilePane();
         String name=PlaylistCollection.getInstance().getPlayListsCollections().get(pos).getName();
-        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,240,"Playlist editor",false,name);
+        SubStageHandler.getInstance().init("new-playlist-view.fxml",400,240,"Playlist editor",false,name);
         setContentTilePane();
         //int posPlaylist=Playlists.getInstance().createNewPlaylist();
        /* CreateNewPlaylist.getInstance().createPlaylist(Playlists.getInstance().getPlayListsCollections().get(posPlaylist).getImage(),Playlists.getInstance().getPlayListsCollections().get(posPlaylist).getName());
@@ -63,6 +63,8 @@ public class PlaylistCollectionController implements Initializable {
                     setContentTilePane();
                 }
         });
+
+        SceneHandler.getInstance().scaleTransition(ButtonCreatePlaylist);
     }
 
     private void setContentTilePane(){

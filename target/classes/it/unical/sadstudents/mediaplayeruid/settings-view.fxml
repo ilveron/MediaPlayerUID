@@ -20,7 +20,7 @@
          <children>
             <FontIcon iconLiteral="fa-paint-brush" iconSize="20" styleClass="alternateIcon" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Label text="App theme" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0" />
-            <ToolBar prefHeight="40.0" prefWidth="100.0" styleClass="secondaryTemplate" AnchorPane.rightAnchor="0.0">
+            <ToolBar prefHeight="40.0" prefWidth="140.0" styleClass="secondaryTemplate" AnchorPane.rightAnchor="10.0">
                <items>
                   <Button fx:id="lightMode" mnemonicParsing="false" onAction="#onLightMode" prefHeight="29.0" prefWidth="40.0" styleClass="toolBarButton">
                      <graphic>
@@ -30,6 +30,11 @@
                   <Button fx:id="darkMode" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#onDarkMode" prefWidth="40.0" styleClass="toolBarButton">
                      <graphic>
                         <FontIcon iconLiteral="fa-moon-o" iconSize="19" styleClass="iconsOverBackground" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="colorBlindMode" mnemonicParsing="false" onAction="#onColorBlind" prefWidth="40.0" styleClass="toolBarButton">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-eye-slash" iconSize="19" styleClass="iconsOverBackground" />
                      </graphic>
                   </Button>
                </items>
@@ -44,7 +49,7 @@
          </children>
       </AnchorPane>
       <Label styleClass="settingsParagraphLabel" text="App" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="160.0" />
-      <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHotkeysGuide" styleClass="withinPaneButton" text="Hotkeys guide" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="190.0">
+      <Button fx:id="btnHotkeysGuide" graphicTextGap="10.0" mnemonicParsing="false" onAction="#onHotkeysGuide" styleClass="withinPaneButton" text="Hotkeys guide" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="190.0">
          <graphic>
             <FontIcon iconLiteral="fa-keyboard-o" iconSize="25" styleClass="iconsOverBackground" />
          </graphic></Button>

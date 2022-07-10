@@ -39,6 +39,18 @@ public class AddMediaToPlaylistController implements Initializable {
     private Button ButtonAddToPlayList;
 
     @FXML
+    private Button btnAddToPlaylist;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnMoveDown;
+
+    @FXML
+    private Button btnMoveUp;
+
+    @FXML
     private ImageView imageMedia;
 
     @FXML
@@ -227,7 +239,7 @@ public class AddMediaToPlaylistController implements Initializable {
                         setButtonAdd(false);
                         row.setFocusTraversable(false);
                         PosizioniSelezionate.add(row.getIndex());
-                        row.setStyle("-fx-background-color: RED;");
+                        row.setStyle("-fx-background-color: tertiarySelectionColor;");
                     }
 
                 }else if(row.isEmpty()){
@@ -264,6 +276,12 @@ public class AddMediaToPlaylistController implements Initializable {
             });
             return row;
         });
+
+        SceneHandler.getInstance().scaleTransition(btnAddToPlaylist);
+        SceneHandler.getInstance().scaleTransition(btnDelete);
+        SceneHandler.getInstance().scaleTransition(btnMoveDown);
+        SceneHandler.getInstance().scaleTransition(btnMoveUp);
+        SceneHandler.getInstance().scaleTransition(ButtonAddToPlayList);
     }
     public void setButtonAdd(boolean enable){
         ButtonAddToPlayList.setDisable(enable);

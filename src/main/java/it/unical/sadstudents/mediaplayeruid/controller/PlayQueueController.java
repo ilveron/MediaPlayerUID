@@ -39,6 +39,12 @@ public class PlayQueueController implements Initializable {
     //END TABLEVIEW
 
     @FXML
+    private MenuButton mbtAdd;
+
+    @FXML
+    private MenuButton mbtAddSelectedTo;
+
+    @FXML
     private Button delete;
 
     @FXML
@@ -143,6 +149,10 @@ public class PlayQueueController implements Initializable {
                     PlayQueue.getInstance().setCurrentMedia(tableViewQueue.getSelectionModel().getSelectedIndex());
             }
         });
+
+        SceneHandler.getInstance().scaleTransition(mbtAdd);
+        SceneHandler.getInstance().scaleTransition(mbtAddSelectedTo);
+        SceneHandler.getInstance().scaleTransition(delete);
     }
 
     //aggiunta come fix
@@ -154,17 +164,9 @@ public class PlayQueueController implements Initializable {
     public void startToolTip(){
         // TODO: 07/06/2022
         delete.setTooltip(new Tooltip("Delete all the elements from the queue"));
+        mbtAdd.setTooltip(new Tooltip("Add media(s) to the queue"));
+        mbtAddSelectedTo.setTooltip(new Tooltip("Add selected media to"));
     }
 
-    private void focusTableView(){
-
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                tableViewQueue.requestFocus();
-            }
-        });
-    }
-
+    private void focusTableView(){ Platform.runLater(() -> tableViewQueue.requestFocus()); }
 }

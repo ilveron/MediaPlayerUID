@@ -30,7 +30,7 @@ public class CreateNewPlaylist {
     public void createPlaylist(String image,String name){
         this.image=image;
         this.name=name;
-        loader = new FXMLLoader(MainApplication.class.getResource("newPlaylist-view.fxml"));
+        loader = new FXMLLoader(MainApplication.class.getResource("new-playlist-view.fxml"));
         try{
             //Scene scene=new Scene(new AddMediaToPlaylist())
             scene= new Scene(loader.load(),300,400);

@@ -29,7 +29,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <MenuButton mnemonicParsing="false" styleClass="smallMenuButton" text="Add selected file to" HBox.hgrow="ALWAYS">
+            <MenuButton fx:id="mbtAddSelectedTo" mnemonicParsing="false" styleClass="smallMenuButton" text="Add selected file to" HBox.hgrow="ALWAYS">
               <items>
                 <MenuItem fx:id="addFileToMusicLibrary" mnemonicParsing="false" onAction="#onAddFileToMusicLibrary" styleClass="menuItem" text="Music library">
                      <graphic>
@@ -70,7 +70,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <MenuButton graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
+      <MenuButton fx:id="mbtAdd" graphicTextGap="5.0" layoutX="335.0" layoutY="13.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addFilesToQueue" styleClass="menuItem" text="Add file(s) to play queue">
                <graphic>

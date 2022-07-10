@@ -63,6 +63,12 @@
     -fx-border-width: 1px;
 }
 
+.toolBarMenuButton {
+    -fx-background-color: transparentBackgroundColor;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
 .largeMenuButton .label, .smallMenuButton .label{
     -fx-text-fill: textColor;
     -fx-font-family: "Montserrat Medium";
@@ -72,9 +78,9 @@
 
 .largeMenuButton .label{ -fx-font-size: 16px; }
 
-.largeMenuButton:hover, .smallMenuButton:hover { -fx-background-color: primarySelectionColor; }
+.largeMenuButton:hover, .smallMenuButton:hover, .toolBarMenuButton:hover { -fx-background-color: primarySelectionColor; }
 
-.largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground{ -fx-icon-color: primaryBackgroundColor; }
+.largeMenuButton:hover .iconsOverBackground, .smallMenuButton:hover .iconsOverBackground, .toolBarMenuButton:hover .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 .largeMenuButton:hover .label, .smallMenuButton:hover .label{ -fx-text-fill: primaryBackgroundColor; }
 
 .context-menu {

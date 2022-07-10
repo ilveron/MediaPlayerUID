@@ -66,8 +66,10 @@ public class MyMediaSingleBox extends Pane {
 
        this.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
            if (newValue) {
+               SceneHandler.getInstance().scaleTransition(this);
                controller.onMouseOver();
            } else {
+               SceneHandler.getInstance().scaleTransition(this);
                controller.onMouseOver();
            }
        });

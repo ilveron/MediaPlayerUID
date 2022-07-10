@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
 import it.unical.sadstudents.mediaplayeruid.model.Playlist;
 import it.unical.sadstudents.mediaplayeruid.model.PlaylistCollection;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -142,6 +143,8 @@ public class CreateNewPlaylistController implements Initializable {
 
             }
         });
+
+        SceneHandler.getInstance().scaleTransition(btnSave);
     }
 
     private void error(){

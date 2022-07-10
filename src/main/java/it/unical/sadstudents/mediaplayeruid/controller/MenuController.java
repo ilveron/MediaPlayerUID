@@ -98,7 +98,7 @@ public class MenuController implements Initializable {
         SceneHandler.getInstance().metadataLoadindagInProgessProperty().addListener(observable -> {
             if(SceneHandler.getInstance().isMetadataLoadindagInProgess())
             {
-                progressType.setText("LOADING METADATA IN PROGRESS");
+                progressType.setText("METADATA LOADING IN PROGRESS");
                 ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"meta");
             }
         });
@@ -106,7 +106,7 @@ public class MenuController implements Initializable {
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
             if (SceneHandler.getInstance().getMediaLoadingInProgess()){
                 vBoxProgressBar.setVisible(true);
-                progressType.setText("LOADING MEDIA IN PROGRESS");
+                progressType.setText("MEDIA LOADING IN PROGRESS");
                 ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"media");
             }
             else{
@@ -129,8 +129,13 @@ public class MenuController implements Initializable {
         });
 
 
-
-        //mainBox.setOnMouseClicked(new );
+        SceneHandler.getInstance().scaleTransition(btnHome);
+        SceneHandler.getInstance().scaleTransition(btnMusicLibrary);
+        SceneHandler.getInstance().scaleTransition(btnPlaylists);
+        SceneHandler.getInstance().scaleTransition(btnSettings);
+        SceneHandler.getInstance().scaleTransition(btnPlayQueue);
+        SceneHandler.getInstance().scaleTransition(btnVideoLibrary);
+        SceneHandler.getInstance().scaleTransition(btnVideoView);
     }
 
 

@@ -19,7 +19,7 @@ import javafx.scene.layout.TilePane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VideoLibraryController  implements Initializable {
+public class VideoLibraryController implements Initializable {
     @FXML
     private Button btnAddLibraryToQueue;
 
@@ -35,7 +35,7 @@ public class VideoLibraryController  implements Initializable {
     @FXML
     private TilePane tilePane;
     @FXML
-    private MenuButton menuButtonAdd;
+    private MenuButton mbtAdd;
     @FXML
     private TextField textFieldSearch;
 
@@ -125,13 +125,15 @@ public class VideoLibraryController  implements Initializable {
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
 
-
-
+        SceneHandler.getInstance().scaleTransition(btnAddLibraryToQueue);
+        SceneHandler.getInstance().scaleTransition(btnAddVideoToQueue);
+        SceneHandler.getInstance().scaleTransition(btnDelete);
+        SceneHandler.getInstance().scaleTransition(mbtAdd);
     }
     
     public void startToolTip(){
         textFieldSearch.setTooltip(new Tooltip("Search for a video"));
-        menuButtonAdd.setTooltip(new Tooltip("Insert video"));
+        mbtAdd.setTooltip(new Tooltip("Add video(s) to the library"));
         btnDelete.setTooltip(new Tooltip("Clear all videos"));
         btnAddVideoToQueue.setTooltip(new Tooltip("Add video to queue"));
         btnAddLibraryToQueue.setTooltip(new Tooltip("Add video library to queue"));

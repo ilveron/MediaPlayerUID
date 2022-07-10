@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +19,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class PlaylistSingleViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PlaylistSingleViewController implements Initializable {
 
 
     @FXML
@@ -70,6 +74,22 @@ public class PlaylistSingleViewController {
     private Label LabelBrani;
 
     @FXML
+    private Button btnAdd;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnEdit;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().scaleTransition(btnAdd);
+        SceneHandler.getInstance().scaleTransition(btnEdit);
+        SceneHandler.getInstance().scaleTransition(btnDelete);
+    }
+
+    @FXML
     void onDeletePlaylist(ActionEvent event) {
         if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
         //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
@@ -81,7 +101,7 @@ public class PlaylistSingleViewController {
 
     @FXML
     void onChange(ActionEvent event) {
-        SubStageHandler.getInstance().init("newPlaylist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
+        SubStageHandler.getInstance().init("new-playlist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
         /*CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
         playlist.setImage(CreateNewPlaylist.getInstance().getImage());
         playlist.setName(CreateNewPlaylist.getInstance().getName());

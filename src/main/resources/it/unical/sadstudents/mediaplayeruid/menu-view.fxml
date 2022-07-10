@@ -106,9 +106,9 @@
             <Insets />
          </VBox.margin>
       </VBox>
-      <ToolBar minWidth="50.0" prefHeight="40.0" styleClass="primaryTemplate">
+      <ToolBar maxHeight="-Infinity" minHeight="-Infinity" minWidth="50.0" orientation="VERTICAL" prefHeight="45.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
          <items>
-            <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings">
+            <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-cog" iconSize="22" styleClass="iconsOverBackground" />
                </graphic>

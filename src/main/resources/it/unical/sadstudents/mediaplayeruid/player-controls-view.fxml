@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="controllePlayer" alignment="CENTER" minWidth="750.0" prefWidth="1344.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlayerController">
+<VBox fx:id="controlsBox" alignment="CENTER" minWidth="750.0" prefWidth="1344.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.PlayerController">
    <children>
       <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="750.0" prefHeight="30.0" prefWidth="1344.0" VBox.vgrow="ALWAYS">
          <children>
@@ -22,7 +22,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Slider fx:id="mediaSlider" disable="true" layoutX="74.0" layoutY="8.0" minWidth="590.0" onDragDetected="#dragDetected" onDragDropped="#dragDropped" onDragOver="#dragOver" onMouseDragEntered="#mouseDragEntered" onMouseDragExited="#mouseDragExited" onMouseDragOver="#mouseDragOver" onMouseDragReleased="#mouseDragReleased" prefWidth="1184.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="8.0">
+            <Slider fx:id="mediaSlider" disable="true" layoutX="74.0" layoutY="8.0" minWidth="590.0" prefWidth="1184.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="8.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -53,12 +53,12 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="420.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="270.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="537.0" AnchorPane.rightAnchor="537.0">
                <children>
-                  <ToggleButton fx:id="plsShuffle" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShuffle" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
+                  <ToggleButton fx:id="btnShuffle" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShuffle" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
                      <graphic>
                         <FontIcon iconLiteral="fa-random" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
                   </ToggleButton>
-                  <Button fx:id="plsPrevious" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="312.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPrevious" prefHeight="28.0" prefWidth="32.0">
+                  <Button fx:id="btnPrevious" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="312.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPrevious" prefHeight="28.0" prefWidth="32.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-fast-backward" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -66,7 +66,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsSkipBack" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="309.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipBack" prefHeight="28.0" prefWidth="32.0">
+                  <Button fx:id="btnSkipBack" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="309.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipBack" prefHeight="28.0" prefWidth="32.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-backward" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -74,7 +74,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsPlayPause" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="284.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPlayPause" prefHeight="50.0" prefWidth="50.0" styleClass="playButton">
+                  <Button fx:id="btnPlayPause" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="284.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onPlayPause" prefHeight="50.0" prefWidth="50.0" styleClass="playButton">
                      <graphic>
                         <FontIcon fx:id="iconPlayPause" iconLiteral="fa-play" iconSize="25" styleClass="iconsOverBackground" />
                      </graphic>
@@ -82,7 +82,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsSkipForward" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="347.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipForward" prefHeight="28.0" prefWidth="32.0">
+                  <Button fx:id="btnSkipForward" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="347.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSkipForward" prefHeight="28.0" prefWidth="32.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-forward" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -90,7 +90,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsNext" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="256.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNext" prefHeight="28.0" prefWidth="32.0">
+                  <Button fx:id="btnNext" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="256.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNext" prefHeight="28.0" prefWidth="32.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-fast-forward" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -98,7 +98,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ToggleButton fx:id="plsRepeat" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="32.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRepeat" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
+                  <ToggleButton fx:id="btnRepeat" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="32.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRepeat" prefHeight="28.0" prefWidth="32.0" styleClass="toggleButton">
                      <graphic>
                         <FontIcon iconLiteral="fa-repeat" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -108,7 +108,7 @@
             <HBox alignment="CENTER_RIGHT" layoutX="790.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="292.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                <children>
                   <ChoiceBox fx:id="speedChoiceBox" disable="true" prefWidth="150.0" />
-                  <Button fx:id="plsScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
+                  <Button fx:id="btnScreenMode" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onScreenMode" prefWidth="20.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-expand" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -116,7 +116,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsEquilizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEquilizer" prefWidth="20.0">
+                  <Button fx:id="btnEqualizer" disable="true" layoutX="200.0" layoutY="36.0" mnemonicParsing="false" onAction="#onEqualizer" prefWidth="20.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-sliders" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>
@@ -124,7 +124,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="plsProperties" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
+                  <Button fx:id="btnProperties" disable="true" layoutX="240.0" layoutY="36.0" mnemonicParsing="false" onAction="#onProperties" prefWidth="20.0">
                      <graphic>
                         <FontIcon iconLiteral="fa-info-circle" iconSize="15" styleClass="iconsOverBackground" />
                      </graphic>

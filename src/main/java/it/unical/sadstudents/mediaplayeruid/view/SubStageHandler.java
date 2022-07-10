@@ -70,7 +70,7 @@ public class SubStageHandler {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
-                   if(source=="newPlaylist-view.fxml" ){
+                   if(source=="new-playlist-view.fxml" ){
                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
                        if(PlaylistCollection.getInstance().getPlayListsCollections().get(index).isInitialized()){
                            if(!SceneHandler.getInstance().showConfirmationAlert("Discard changes?")) {

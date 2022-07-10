@@ -17,7 +17,7 @@
             <Font size="39.0" />
          </font>
       </Label>
-      <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
+      <MenuButton fx:id="mbtAdd" graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#addFiles" text="Media(s)">
                <graphic>

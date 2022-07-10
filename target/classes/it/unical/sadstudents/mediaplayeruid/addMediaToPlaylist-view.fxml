@@ -24,23 +24,23 @@
         </items>
       </ToolBar>
       <Label layoutX="134.0" layoutY="27.0" styleClass="descriptionLabel" text="Edit playlist: " AnchorPane.leftAnchor="135.0" AnchorPane.topAnchor="26.0" />
-      <Button layoutX="201.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUpOrderAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="21.0">
+      <Button fx:id="btnMoveUp" layoutX="201.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onUpOrderAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="21.0">
          <graphic>
             <FontIcon iconLiteral="fa-arrow-circle-o-up" iconSize="18" styleClass="iconsOverBackground" />
          </graphic>
       </Button>
-      <Button layoutX="221.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDownOrderAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="21.0">
+      <Button fx:id="btnMoveDown" layoutX="221.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDownOrderAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="21.0">
          <graphic>
             <FontIcon iconLiteral="fa-arrow-circle-o-down" iconSize="18" styleClass="iconsOverBackground" />
          </graphic>
       </Button>
-      <Button layoutX="241.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="21.0">
+      <Button fx:id="btnDelete" layoutX="241.0" layoutY="21.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="21.0">
          <graphic>
             <FontIcon iconLiteral="fa-remove" iconSize="18" styleClass="iconsOverBackground" />
          </graphic>
       </Button>
       <Label layoutX="190.0" layoutY="311.0" styleClass="descriptionLabel" text="Add selected to playlist: " AnchorPane.bottomAnchor="273.0" AnchorPane.leftAnchor="10.0" />
-      <Button layoutX="320.0" layoutY="305.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddToPlayListNewAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.bottomAnchor="269.0" AnchorPane.leftAnchor="185.0">
+      <Button fx:id="btnAddToPlaylist" layoutX="320.0" layoutY="305.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddToPlayListNewAction" prefHeight="25.0" prefWidth="25.0" styleClass="withinPaneButton" AnchorPane.bottomAnchor="269.0" AnchorPane.leftAnchor="185.0">
          <graphic>
             <FontIcon iconLiteral="fa-arrow-circle-o-up" iconSize="18" styleClass="iconsOverBackground" />
          </graphic>

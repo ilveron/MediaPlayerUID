@@ -34,6 +34,8 @@ public class MusicLibraryController implements Initializable {
     private TableColumn<MyMedia, String> year;
     @FXML
     private TableColumn<MyMedia, String> length;
+    @FXML
+    private MenuButton mbtAdd;
 
     @FXML
     private TextField TextField;
@@ -149,6 +151,11 @@ public class MusicLibraryController implements Initializable {
                 MusicLibrary.getInstance().setRefreshButton(false);
             }
         });
+
+        SceneHandler.getInstance().scaleTransition(btnAddLibraryToQueue);
+        SceneHandler.getInstance().scaleTransition(btnAddSongToQueue);
+        SceneHandler.getInstance().scaleTransition(btnDelete);
+        SceneHandler.getInstance().scaleTransition(mbtAdd);
 
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
@@ -68,7 +69,7 @@ public class MainController implements Initializable {
             anchorPane.setMinHeight(400);
             myBorderPane.setLeft(anchorPane);
 
-            Parent parent1 = (new FXMLLoader(MainApplication.class.getResource("playerController-view.fxml"))).load();
+            Parent parent1 = (new FXMLLoader(MainApplication.class.getResource("player-controls-view.fxml"))).load();
 
             AnchorPane anchorPane1 = new AnchorPane(parent1);
             AnchorPane.setLeftAnchor(parent1,0.0);
@@ -82,12 +83,20 @@ public class MainController implements Initializable {
 
             anchorPane.hoverProperty().addListener(observable -> {
                 if(anchorPane.isHover()){
-                    anchorPane.setMaxWidth(270);
-                    System.out.println("ciao");
-                }
+                    int startValue = 50;
 
+
+                    if(anchorPane.widthProperty().get() != 50)
+                        startValue = (int)anchorPane.widthProperty().get();
+
+                    SceneHandler.getInstance().resizeAnchorPaneTransition(anchorPane, startValue, (int)anchorPane.maxHeightProperty().get(), 270, (int)anchorPane.maxHeightProperty().get(), 0.5);
+                }
                 else{
-                    anchorPane.setMaxWidth(50);
+                    int startValue = 270;
+                    if(anchorPane.widthProperty().get() != 270)
+                        startValue = (int)anchorPane.widthProperty().get();
+
+                    SceneHandler.getInstance().resizeAnchorPaneTransition(anchorPane, startValue,(int)anchorPane.maxHeightProperty().get(), 50, (int)anchorPane.maxHeightProperty().get(), 0.5);
                 }
             });
 
@@ -283,7 +292,6 @@ public class MainController implements Initializable {
     private void switchMidPane() {
         System.out.println("ci arrivo");
 
-        Timeline timeline = new Timeline();
         if(centralStackPane.getChildren().size() <= 1){
             centralStackPane.getChildren().add(SceneHandler.getInstance().switchPane());
         }

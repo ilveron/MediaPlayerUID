@@ -5,6 +5,7 @@ import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
@@ -15,7 +16,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaView;
 
-public class MyMediaSingleBoxController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MyMediaSingleBoxController implements Initializable {
     @FXML
     private Label labelDuration;
     @FXML
@@ -38,6 +42,12 @@ public class MyMediaSingleBoxController {
     private AnchorPane mainRoot;
     @FXML
     private Pane onActionPane;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnPlay;
 
     @FXML
     void onDeleteAction(ActionEvent event) {
@@ -63,14 +73,12 @@ public class MyMediaSingleBoxController {
 
         //createContextMenu();
         //contextMenu = new ContextMenuHandler(myMedia,"",source);
+    }
 
-
-
-
-
-
-
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().scaleTransition(btnDelete);
+        SceneHandler.getInstance().scaleTransition(btnPlay);
     }
 
     public void setImage(Image image){

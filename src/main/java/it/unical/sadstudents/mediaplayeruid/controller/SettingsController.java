@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,10 +21,7 @@ public class SettingsController implements Initializable {
     private Label lblCredits;
 
     @FXML
-    private Button darkMode;
-
-    @FXML
-    private Button lightMode;
+    private Button colorBlindMode, darkMode, lightMode, btnHotkeysGuide;
 
     @FXML
     private ImageView imvLogo;
@@ -39,6 +37,12 @@ public class SettingsController implements Initializable {
                             "Dedicated to Mina & Celentano.");
 
         imvLogo.setImage(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-125x125px.png")));
+        setTooltips();
+
+        SceneHandler.getInstance().scaleTransition(colorBlindMode);
+        SceneHandler.getInstance().scaleTransition(darkMode);
+        SceneHandler.getInstance().scaleTransition(lightMode);
+        SceneHandler.getInstance().scaleTransition(btnHotkeysGuide);
     }
 
 
@@ -54,11 +58,20 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
+    void onColorBlind(ActionEvent event) { SceneHandler.getInstance().changeTheme("color-blind"); }
+
+    @FXML
     void onHotkeysGuide(ActionEvent event) {
         hotkeysGuide();
     }
 
     private void hotkeysGuide(){
         SubStageHandler.getInstance().init("hotkeys-guide-view.fxml",500,470,"Hotkeys Guide",false,"");
+    }
+
+    private void setTooltips(){
+        darkMode.setTooltip(new Tooltip("Dark mode"));
+        lightMode.setTooltip(new Tooltip("Light mode (alt. Unical Mode)"));
+        colorBlindMode.setTooltip(new Tooltip("Color blind mode (Okabe Ito palette)"));
     }
 }

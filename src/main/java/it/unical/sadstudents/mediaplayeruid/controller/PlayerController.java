@@ -30,7 +30,37 @@ public class PlayerController implements Initializable {
     private Label artistNameLabel;
 
     @FXML
-    private VBox controllePlayer;
+    private Button btnEqualizer;
+
+    @FXML
+    private Button btnNext;
+
+    @FXML
+    private Button btnPlayPause;
+
+    @FXML
+    private Button btnPrevious;
+
+    @FXML
+    private Button btnProperties;
+
+    @FXML
+    private ToggleButton btnRepeat;
+
+    @FXML
+    private Button btnScreenMode;
+
+    @FXML
+    private ToggleButton btnShuffle;
+
+    @FXML
+    private Button btnSkipBack;
+
+    @FXML
+    private Button btnSkipForward;
+
+    @FXML
+    private VBox controlsBox;
 
     @FXML
     private Label currentMediaTimeLabel;
@@ -51,36 +81,6 @@ public class PlayerController implements Initializable {
     private ImageView miniImageView;
 
     @FXML
-    private Button plsEquilizer;
-
-    @FXML
-    private Button plsNext;
-
-    @FXML
-    private Button plsPlayPause;
-
-    @FXML
-    private Button plsPrevious;
-
-    @FXML
-    private Button plsProperties;
-
-    @FXML
-    private ToggleButton plsRepeat;
-
-    @FXML
-    private Button plsScreenMode;
-
-    @FXML
-    private ToggleButton plsShuffle;
-
-    @FXML
-    private Button plsSkipBack;
-
-    @FXML
-    private Button plsSkipForward;
-
-    @FXML
     private ChoiceBox<String> speedChoiceBox;
 
     @FXML
@@ -92,42 +92,6 @@ public class PlayerController implements Initializable {
     @FXML
     private Slider volumeSlider;
 
-    @FXML
-    void dragDetected(MouseEvent event) {
-
-    }
-
-    @FXML
-    void dragDropped(DragEvent event) {
-
-    }
-
-    @FXML
-    void dragOver(DragEvent event) {
-
-    }
-
-    @FXML
-    void mouseDragEntered(MouseDragEvent event) {
-
-    }
-
-    @FXML
-    void mouseDragExited(MouseDragEvent event) {
-
-    }
-
-    @FXML
-    void mouseDragOver(MouseDragEvent event) {
-
-    }
-
-    @FXML
-    void mouseDragReleased(MouseDragEvent event) {
-
-    }
-
-
     private Service<Void> service;
 
     @Override
@@ -137,9 +101,9 @@ public class PlayerController implements Initializable {
 
         Player.getInstance().isAVideoProperty().addListener(observable -> {
             if(Player.getInstance().getIsAVideo())
-                plsScreenMode.setDisable(false);
+                btnScreenMode.setDisable(false);
             else
-                plsScreenMode.setDisable(true);
+                btnScreenMode.setDisable(true);
         });
         volumeSlider.setStyle("-track-color: linear-gradient(to right, tertiarySelectionColor " + percentage + "%, white " + percentage + ("%);"));
 
@@ -185,7 +149,7 @@ public class PlayerController implements Initializable {
             }
         });
 
-        plsProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+        btnProperties.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
             if (newValue) {
                 SceneHandler.getInstance().setInfoMediaPropertyHover(true);
             }
@@ -197,7 +161,7 @@ public class PlayerController implements Initializable {
         // TODO: 07/07/2022 Gestire scomparsa miniImage ad ogni pausa
         Player.getInstance().isRunningProperty().addListener(observable -> {
             switchPlayPauseIcon();
-            plsPlayPause.setTooltip(new Tooltip("Pause"));
+            btnPlayPause.setTooltip(new Tooltip("Pause"));
 
         });
 
@@ -297,41 +261,47 @@ public class PlayerController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
                 if(oldValue && !newValue){
-                    if(plsShuffle.isDisabled()) {
-                        plsShuffle.setDisable(false);
-                        plsShuffle.fire();
-                        plsShuffle.setDisable(true);
+                    if(btnShuffle.isDisabled()) {
+                        btnShuffle.setDisable(false);
+                        btnShuffle.fire();
+                        btnShuffle.setDisable(true);
                     }
                 }
 
             }
         });
 
-
-
         SceneHandler.getInstance().getStage().fullScreenProperty().addListener(observable -> {
             controlBarHandlerFullScreen();
         });
 
-
-
-
+        SceneHandler.getInstance().scaleTransition(btnPlayPause);
+        SceneHandler.getInstance().scaleTransition(btnEqualizer);
+        SceneHandler.getInstance().scaleTransition(btnNext);
+        SceneHandler.getInstance().scaleTransition(btnPrevious);
+        SceneHandler.getInstance().scaleTransition(btnProperties);
+        SceneHandler.getInstance().scaleTransition(btnRepeat);
+        SceneHandler.getInstance().scaleTransition(btnScreenMode);
+        SceneHandler.getInstance().scaleTransition(btnShuffle);
+        SceneHandler.getInstance().scaleTransition(btnSkipBack);
+        SceneHandler.getInstance().scaleTransition(btnSkipForward);
+        SceneHandler.getInstance().scaleTransition(volumeButton);
     }
 
 
     public void startToolTip() {
         // TODO: 07/06/2022
-        plsShuffle.setTooltip(new Tooltip("Shuffle mode"));
-        plsScreenMode.setTooltip(new Tooltip("Screen mode"));
+        btnShuffle.setTooltip(new Tooltip("Shuffle mode"));
+        btnScreenMode.setTooltip(new Tooltip("Screen mode"));
         speedChoiceBox.setTooltip(new Tooltip("Speed play"));
-        plsSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
-        plsSkipBack.setTooltip(new Tooltip("Skip back 10s"));
+        btnSkipForward.setTooltip(new Tooltip("Skip forward 10s"));
+        btnSkipBack.setTooltip(new Tooltip("Skip back 10s"));
         volumeButton.setTooltip(new Tooltip("Volume"));
-        plsRepeat.setTooltip(new Tooltip("Repeat"));
-        plsEquilizer.setTooltip(new Tooltip("Equilizer"));
-        plsProperties.setTooltip(new Tooltip("Info"));
-        plsNext.setTooltip(new Tooltip("Next"));
-        plsPrevious.setTooltip(new Tooltip("Previous"));
+        btnRepeat.setTooltip(new Tooltip("Repeat"));
+        btnEqualizer.setTooltip(new Tooltip("Equilizer"));
+        btnProperties.setTooltip(new Tooltip("Info"));
+        btnNext.setTooltip(new Tooltip("Next"));
+        btnPrevious.setTooltip(new Tooltip("Previous"));
     }
 
     @FXML
@@ -398,7 +368,6 @@ public class PlayerController implements Initializable {
 
     }
 
-
     @FXML
     void onRepeat(ActionEvent event) {
         Player.getInstance().repeat();
@@ -423,7 +392,7 @@ public class PlayerController implements Initializable {
                         protected Void call() throws Exception {
                             Thread.sleep(3000);
                             if(SceneHandler.getInstance().getStage().isFullScreen())
-                                controllePlayer.setVisible(false);
+                                controlsBox.setVisible(false);
                             return null;
                         }
                     };
@@ -432,7 +401,7 @@ public class PlayerController implements Initializable {
             SceneHandler.getInstance().getScene().setOnMouseMoved(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    controllePlayer.setVisible(true);
+                    controlsBox.setVisible(true);
                     if(!service.isRunning() && SceneHandler.getInstance().getStage().isFullScreen()){
                         service.restart();
                     }
@@ -446,16 +415,9 @@ public class PlayerController implements Initializable {
         }
     }
 
-
-
-   /* @FXML
-    void onSpeedPlay(ActionEvent event) {
-
-    }*/
-
     @FXML
-    void onEquilizer(ActionEvent event) {
-        SubStageHandler.getInstance().init("audioEqualizer-view.fxml",484,280,"Audio Equalizer",false,"");
+    void onEqualizer(ActionEvent event) {
+        SubStageHandler.getInstance().init("audio-equalizer-view.fxml",484,280,"Audio Equalizer",false,"");
     }
 
 
@@ -542,15 +504,15 @@ public class PlayerController implements Initializable {
         }
 
 
-        plsPrevious.setDisable(status);
-        plsEquilizer.setDisable(status);
-        plsSkipBack.setDisable(status);
-        plsSkipForward.setDisable(status);
-        plsNext.setDisable(status);
-        plsPlayPause.setDisable(status);
-        plsProperties.setDisable(status);
-        plsRepeat.setDisable(status);
-        plsShuffle.setDisable(status);
+        btnPrevious.setDisable(status);
+        btnEqualizer.setDisable(status);
+        btnSkipBack.setDisable(status);
+        btnSkipForward.setDisable(status);
+        btnNext.setDisable(status);
+        btnPlayPause.setDisable(status);
+        btnProperties.setDisable(status);
+        btnRepeat.setDisable(status);
+        btnShuffle.setDisable(status);
         speedChoiceBox.setDisable(status);
         volumeButton.setDisable(status);
         mediaSlider.setDisable(status);
