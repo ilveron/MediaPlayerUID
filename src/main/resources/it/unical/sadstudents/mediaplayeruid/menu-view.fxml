@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="mainBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="270.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
+<VBox fx:id="mainBox" minWidth="50.0" prefHeight="660.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
    <children>
-      <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
+      <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" minWidth="50.0" orientation="VERTICAL" prefHeight="190.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
          <items>
-            <Button fx:id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home">
+            <Button fx:id="btnHome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onHome" prefWidth="245.0" styleClass="toolBarButton" text="Home" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-home" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -26,7 +26,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnMusicLibrary" alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library">
+            <Button fx:id="btnMusicLibrary" alignment="TOP_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onMusicLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Music Library" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-music" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -37,7 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnVideoLibrary" alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library">
+            <Button fx:id="btnVideoLibrary" alignment="TOP_LEFT" graphicTextGap="19.0" layoutX="10.0" layoutY="39.0" mnemonicParsing="false" onAction="#onVideoLibrary" prefWidth="245.0" styleClass="toolBarButton" text="Video Library" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-film" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -49,7 +49,7 @@
                </cursor>
             </Button>
             <Separator prefWidth="200.0" />
-            <Button fx:id="btnPlayQueue" alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue">
+            <Button fx:id="btnPlayQueue" alignment="TOP_LEFT" graphicTextGap="24.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayQueue" prefWidth="245.0" styleClass="toolBarButton" text="Play Queue" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -60,7 +60,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnPlaylists" alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists">
+            <Button fx:id="btnPlaylists" alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#onPlayLists" prefWidth="245.0" styleClass="toolBarButton" text="Playlists" textOverrun="CLIP">
                <graphic>
                   <FontIcon iconLiteral="fa-list-ul" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -71,7 +71,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="21.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" styleClass="toolBarButton" text="Video View" visible="false">
+            <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="21.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" styleClass="toolBarButton" text="Video View" textOverrun="CLIP" visible="false">
                <graphic>
                   <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
@@ -87,17 +87,26 @@
             <Insets />
          </VBox.margin>
       </ToolBar>
-      <VBox fx:id="vBoxProgressBar" spacing="5.0" visible="false" VBox.vgrow="NEVER">
+      <VBox fx:id="vBoxProgressBar" minWidth="50.0" spacing="5.0" visible="false" VBox.vgrow="NEVER">
          <children>
-            <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" />
-            <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
-            <Label styleClass="errorLabel" text="Please DO NOT close the Media Player" textFill="#da0909" />
+            <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin></Label>
+            <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin></ProgressBar>
+            <Label styleClass="errorLabel" text="Please DO NOT close the Media Player" textFill="#da0909">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin></Label>
          </children>
          <VBox.margin>
-            <Insets right="10.0" />
+            <Insets />
          </VBox.margin>
       </VBox>
-      <ToolBar prefHeight="40.0" prefWidth="245.0" styleClass="primaryTemplate">
+      <ToolBar minWidth="50.0" prefHeight="40.0" styleClass="primaryTemplate">
          <items>
             <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings">
                <graphic>

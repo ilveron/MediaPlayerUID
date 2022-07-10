@@ -61,7 +61,7 @@ public class MenuController implements Initializable {
 
     @FXML
     void onVideoView(ActionEvent event) {
-        activeVideo();
+        activeVideo(Player.getInstance().getIsAVideo());
     }
 
     @FXML
@@ -74,14 +74,21 @@ public class MenuController implements Initializable {
         startToolTip();
         
         Player.getInstance().isAVideoProperty().addListener(observable -> {
-            activeVideo();
+                activeVideo(Player.getInstance().getIsAVideo());
+
+
+            // TODO: 10/07/2022 maybe some damage
         });
 
         SceneHandler.getInstance().getStage().fullScreenProperty().addListener(observable -> {
-            if(SceneHandler.getInstance().getStage().isFullScreen())
+            if(SceneHandler.getInstance().getStage().isFullScreen()){
                 mainBox.setVisible(false);
-            else
+            }
+
+            else{
                 mainBox.setVisible(true);
+            }
+
         });
 
         SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> {
@@ -121,6 +128,8 @@ public class MenuController implements Initializable {
                 toolbarButtonDisable(false);
         });
 
+
+
         //mainBox.setOnMouseClicked(new );
     }
 
@@ -139,8 +148,8 @@ public class MenuController implements Initializable {
         SceneHandler.getInstance().setRequestedVideoView(videoRequested);
     }
 
-    private void activeVideo(){
-        SceneHandler.getInstance().setRequestedVideoView(true);
+    private void activeVideo(boolean status){
+        SceneHandler.getInstance().setRequestedVideoView(status);
     }
 
     private void buttonVideoTab(boolean status){

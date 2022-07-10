@@ -78,9 +78,23 @@ public class MainController implements Initializable {
             anchorPane1.setPrefWidth(1344);
             myBorderPane.setBottom(anchorPane1);
 
+
+
+            anchorPane.hoverProperty().addListener(observable -> {
+                if(anchorPane.isHover()){
+                    anchorPane.setMaxWidth(270);
+                    System.out.println("ciao");
+                }
+
+                else{
+                    anchorPane.setMaxWidth(50);
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         switchMidPane();
         activeVideoView();
@@ -140,6 +154,16 @@ public class MainController implements Initializable {
 
 
         });
+        Player.getInstance().isAVideoProperty().addListener(observable -> {
+            if(SceneHandler.getInstance().getStage().isFullScreen() && !Player.getInstance().getIsAVideo()){
+                //screenModeHandler(false);
+                SceneHandler.getInstance().setRequestedVideoView(false);
+                SceneHandler.getInstance().setFullScreenRequested(false);
+            }
+
+        });
+
+
 
 
         SceneHandler.getInstance().requestedVideoViewProperty().addListener(observable -> activeVideoView());
@@ -148,7 +172,10 @@ public class MainController implements Initializable {
 
         SceneHandler.getInstance().requestedVideoViewProperty().addListener(observable -> {
             changeBackgroundMediaView();
+
         });
+
+
 
         //END LISTENER VARI
 
@@ -195,7 +222,7 @@ public class MainController implements Initializable {
             });
 
         } else {
-            AnchorPane.setLeftAnchor(containerView, 270.0);
+            AnchorPane.setLeftAnchor(containerView, 50.0);
             AnchorPane.setBottomAnchor(containerView, 96.00);
             adjustVideoSize();
         }
@@ -237,7 +264,7 @@ public class MainController implements Initializable {
             double currentWidth;
             double currentHeight;
             double controllBar = 96.0;
-            double menuSize = 270.0;
+            double menuSize = 50.0;
             if (SceneHandler.getInstance().getStage().isFullScreen()) {
                 currentWidth = SceneHandler.getInstance().getStage().getWidth();
                 currentHeight = SceneHandler.getInstance().getStage().getHeight();
