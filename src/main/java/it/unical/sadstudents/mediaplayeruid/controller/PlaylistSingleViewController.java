@@ -75,6 +75,7 @@ public class PlaylistSingleViewController {
         //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
             int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlist.getName());
             PlaylistCollection.getInstance().deletePlaylist(index);
+            PlaylistCollection.getInstance().setUpdatePlaylist(true);
         }
     }
 
@@ -87,6 +88,7 @@ public class PlaylistSingleViewController {
 
         labelName.setText(playlist.getName());
         imagePlaylist.setImage(new Image(playlist.getImage()));*/
+
     }
 
     @FXML
@@ -95,14 +97,7 @@ public class PlaylistSingleViewController {
             playlist.setPlaying(true);
             playlist.playAll(false);
         }
-
-
-
-
-
-
-
-        /*
+       /*
         if(playlist.getMyList().size()>0) {
             if (PlaylistCollection.getInstance().getTypePlaylist() == playlist.getName()) {
                 if(PlaylistCollection.getInstance().isPlaying()){
@@ -128,6 +123,7 @@ public class PlaylistSingleViewController {
         SubStageHandler.getInstance().init("addMediaToPlaylist.fxml",700,400,"Edit Playlist",true, playlist.getName());
         //PlaylistMedia.getInstance().changePlaylistMedia(playlist);
         setLabel();
+        PlaylistCollection.getInstance().setUpdatePlaylist(true);
     }
 
     Playlist playlist;

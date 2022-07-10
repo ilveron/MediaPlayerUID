@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -81,6 +82,7 @@ public class AddMediaToPlaylistController implements Initializable {
         }
         PlaylistCollection.getInstance().setUpdatePlayQueue(true);
         //Playlists.getInstance().setTypePlaylist();
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     private int indexPlaylist;
 
