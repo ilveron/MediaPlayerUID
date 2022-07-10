@@ -79,7 +79,6 @@ public class CreateNewPlaylistController implements Initializable {
         ((Node)(event.getSource())).getScene().getWindow().hide();
         return ;
         //}
-
          */
     }
 

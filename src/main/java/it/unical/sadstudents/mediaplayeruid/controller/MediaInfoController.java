@@ -50,7 +50,6 @@ public class MediaInfoController  {
         imageView.setImage(image);
     }
 
-
     /*public Image getImage (MyMedia myMedia) {
 
 

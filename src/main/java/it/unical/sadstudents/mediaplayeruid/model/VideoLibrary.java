@@ -111,7 +111,6 @@ public class VideoLibrary implements DataListedModel{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     public void removeWithIndex(MyMedia myMedia){

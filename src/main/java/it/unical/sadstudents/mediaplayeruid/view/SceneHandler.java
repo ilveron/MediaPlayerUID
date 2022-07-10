@@ -50,7 +50,6 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
-
     public boolean isFullScreenRequested() {
         return fullScreenRequested.get();
     }

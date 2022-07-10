@@ -86,6 +86,5 @@ public class PlaylistCollectionController implements Initializable {
         //int numberOfColumns = ((int)tilePaneSize)/600;
         //tilePane.setPrefColumns(numberOfColumns);
     }
-
 }
 

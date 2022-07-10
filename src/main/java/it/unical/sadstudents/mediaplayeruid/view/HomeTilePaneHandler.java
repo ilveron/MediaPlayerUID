@@ -90,7 +90,6 @@ public class HomeTilePaneHandler {
                     imageCreator.start();
                 }
 
-
             }
         });
 

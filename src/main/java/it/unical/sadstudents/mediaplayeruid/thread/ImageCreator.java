@@ -102,7 +102,6 @@ public class ImageCreator extends Service<Boolean> {
                     //               imageView.setImage(wim);
                 });
 
-
             }
             return true;
         }

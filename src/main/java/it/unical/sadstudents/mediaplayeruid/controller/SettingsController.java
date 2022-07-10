@@ -23,6 +23,7 @@ public class SettingsController implements Initializable {
                             "    > Andrea Tocci" + System.lineSeparator() +
                             "As User Interfaces Design's final project." + System.lineSeparator() +
                             "Dedicated to Mina & Celentano.");
+
     }
 
     @FXML

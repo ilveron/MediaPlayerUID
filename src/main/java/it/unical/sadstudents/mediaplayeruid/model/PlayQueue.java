@@ -239,7 +239,6 @@ public class PlayQueue implements DataListedModel{
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(myMedia1.getPath())) {
                     Player.getInstance().stop();
                 }
-
                 DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
                 queue.remove(myMedia1);
                 currentMedia.set(currentMedia.get()-1);

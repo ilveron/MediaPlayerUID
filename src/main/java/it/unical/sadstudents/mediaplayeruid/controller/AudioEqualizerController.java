@@ -17,7 +17,6 @@ public class AudioEqualizerController implements Initializable {
 
     @FXML
     private Button plsReset;
-
     @FXML
     private Button plsSave;
 

@@ -26,7 +26,6 @@ public class SinglePlaylistView extends Pane {
             ignoredException.printStackTrace();
             return ;
         }
-
     }
 
     public Playlist getPlaylist() {

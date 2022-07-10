@@ -88,7 +88,6 @@ public class MyMediaSingleBox extends Pane {
 
 
 
-
     }
 
     public void playMedia(){

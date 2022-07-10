@@ -77,7 +77,6 @@ public class AddMediaToPlaylistController implements Initializable {
         for(int i=0;i<PosizioniSelezionate.size();i++){
 
             PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableView.getItems().get(PosizioniSelezionate.get(i)));
-
                 //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
         }
         PlaylistCollection.getInstance().setUpdatePlayQueue(true);

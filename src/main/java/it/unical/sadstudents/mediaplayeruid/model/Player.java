@@ -135,7 +135,6 @@ public class Player {
                 SceneHandler.getInstance().setRequestedVideoView(false);
             }
 
-
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 

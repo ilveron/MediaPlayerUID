@@ -40,7 +40,6 @@ public class MyNotification {
         Notifications.create().title(title).text(text).position(Pos.CENTER).showConfirm();
         return true;
     }
-
     //A questa funzione potremmo passare l'immagine da mostrare all'interno della modifica
     //public static void notifyCustom(String title, String text, Integer seconds)
 }

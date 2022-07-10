@@ -18,7 +18,6 @@ public class GlobalFocusAndSelection {
     //END SINGLETON
 
     public void setAllNameButton(String current){
-
         previousMenu=currentMenu;
         currentMenu=current;
     }

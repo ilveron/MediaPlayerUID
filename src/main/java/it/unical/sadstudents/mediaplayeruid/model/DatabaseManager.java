@@ -529,7 +529,7 @@ public class DatabaseManager {
         return false;
     }
 
-    private  boolean deleteMediaPlaylist(String element,String Type){
+    public  boolean deleteMediaPlaylist(String element,String Type){
         try {
             if(connection != null&&element!=null && !connection.isClosed()){
 

@@ -276,7 +276,6 @@ public class ThreadManager {
         };
         timer.scheduleAtFixedRate(timerTask,0,1000);
 
-
     }
 
     public void cancelTimer(){

@@ -10,4 +10,5 @@ public class KeyCombo {
     public static final KeyCombination volumeUp = new KeyCodeCombination(KeyCode.UP, KeyCombination.CONTROL_DOWN);
     public static final KeyCombination volumeDown = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.CONTROL_DOWN);
     public static final KeyCombination quit = new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN);
+
 }

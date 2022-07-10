@@ -30,7 +30,6 @@ public class RetrievingEngine {
     //END SINGLETON
 
 
-
     //SINGLE FILE SELECTION
     public List<File> retrieveFile(int type){
         Stage stage = new Stage();

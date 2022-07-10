@@ -442,7 +442,6 @@ public class PlayerController implements Initializable {
 
 
 
-
    /* @FXML
     void onSpeedPlay(ActionEvent event) {
 

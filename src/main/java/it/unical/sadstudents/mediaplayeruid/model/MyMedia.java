@@ -31,7 +31,6 @@ public class MyMedia  {
     // TODO:
 
     //CLASS CONSTRUCTOR
-
     public MyMedia(String title, String artist, String album, String genre, String path, String length, String year, String imageUrl) {
         this.title = title;
         this.artist = artist;

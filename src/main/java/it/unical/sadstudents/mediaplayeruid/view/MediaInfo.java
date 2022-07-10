@@ -26,7 +26,6 @@ public class MediaInfo extends Pane {
             ignoredException.printStackTrace();
         }
 
-
     }
 
     public boolean isShowed() {

@@ -122,7 +122,8 @@ public class ContextMenuHandler extends ContextMenu {
                     public void handle(ActionEvent actionEvent) {
                         int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
 
-                        PlaylistCollection.getInstance().getPlayListsCollections().get(index).getMyList().clear();
+                        //PlaylistCollection.getInstance().getPlayListsCollections().get(index).getMyList().clear();
+                        PlaylistCollection.getInstance().getPlayListsCollections().get(index).clearMyList();
                     }
                 });
             }

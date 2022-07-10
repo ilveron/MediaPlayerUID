@@ -165,7 +165,6 @@ public class MusicLibraryController implements Initializable {
 
     }
 
-
     // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna
     //TASK
     /*public void beginTimer(){

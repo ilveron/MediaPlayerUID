@@ -10,4 +10,5 @@ public interface DataListedModel {
     public void addFileToListFromOtherModel(MyMedia myMedia);
 
     public void addFilesToList(List<File> files);
+
 }

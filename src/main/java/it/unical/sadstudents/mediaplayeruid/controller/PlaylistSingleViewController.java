@@ -88,7 +88,6 @@ public class PlaylistSingleViewController {
 
         labelName.setText(playlist.getName());
         imagePlaylist.setImage(new Image(playlist.getImage()));*/
-
     }
 
     @FXML

@@ -73,7 +73,6 @@ public class HomeController implements Initializable {
         // TODO: 07/06/2022
     }
 
-
     public void setContentTilePane(){
         Platform.runLater(new Runnable() {
             @Override

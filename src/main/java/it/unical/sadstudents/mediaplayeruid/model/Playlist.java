@@ -221,6 +221,11 @@ public class Playlist  {
 
     }
 
+    public void clearMyList(){
+        DatabaseManager.getInstance().deleteMediaPlaylist(name,"Name");
+        list.clear();
+    }
+
 
 
 

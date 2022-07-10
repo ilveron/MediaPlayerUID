@@ -58,7 +58,6 @@ public class SubStageHandler {
             stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
             stage.setScene(scene);
             stage.showAndWait();
-
             //stage.setOnCloseRequest
         }catch(Exception exception){
             exception.printStackTrace();}

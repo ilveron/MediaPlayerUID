@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
-
     @FXML
     private Button btnHome,btnMusicLibrary,btnPlayQueue,btnPlaylists,btnSettings,btnVideoLibrary,btnVideoView;
 

@@ -120,7 +120,6 @@ public class MyMediaSingleBoxController {
 
             }
 
-
     }
 
    /* public void createContextMenu(){

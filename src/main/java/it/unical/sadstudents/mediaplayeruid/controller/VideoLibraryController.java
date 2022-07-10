@@ -66,7 +66,6 @@ public class VideoLibraryController  implements Initializable {
     }
 
 
-
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
         if(index!= -1){

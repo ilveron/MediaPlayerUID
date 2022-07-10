@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 public class ShortCutController implements Initializable {
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

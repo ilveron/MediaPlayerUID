@@ -21,7 +21,6 @@ public class AudioEqualizer {
                                                         new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
 
         //presetsValues.add(DatabaseManager.getInstance().getEqualizer());
-
     }
     public static AudioEqualizer getInstance(){
         if (instance==null)
