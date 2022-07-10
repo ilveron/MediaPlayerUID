@@ -151,7 +151,7 @@ public class ContextMenuHandler extends ContextMenu {
             menuItem2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    SubStageHandler.getInstance().init("addMediaToPlaylist.fxml",700,400,"Edit Playlist",true, playlistName);
+                    SubStageHandler.getInstance().init("addMediaToPlaylist-view.fxml",700,400,"Edit Playlist",true, playlistName);
 
                 }
             });

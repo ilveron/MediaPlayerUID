@@ -111,7 +111,7 @@ public class MyMediaSingleBoxController {
     public void deleteMedia(){
             if (source == "home" && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
                 Home.getInstance().removeItem(myMedia);
-            } else if (SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
+            } else if (source!="home" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
                 Home.getInstance().removeItem(myMedia);
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
                     Player.getInstance().stop();

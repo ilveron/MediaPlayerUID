@@ -85,7 +85,6 @@ public class HomeController implements Initializable {
                 }
                 loadingIndicator.setVisible(false);
                 loadingLabel.setVisible(false);
-
             }
         });
     }

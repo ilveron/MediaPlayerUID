@@ -107,6 +107,9 @@ public class VideoLibraryController  implements Initializable {
         //VideoLibrary.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
+
+
+
     }
     
     public void startToolTip(){

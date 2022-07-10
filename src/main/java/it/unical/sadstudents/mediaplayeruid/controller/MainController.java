@@ -81,7 +81,7 @@ public class MainController implements Initializable {
             anchorPane.setMinHeight(400);
             myBorderPane.setLeft(anchorPane);
 
-            Parent parent1 = (new FXMLLoader(MainApplication.class.getResource("playerController.fxml"))).load();
+            Parent parent1 = (new FXMLLoader(MainApplication.class.getResource("playerController-view.fxml"))).load();
 
             AnchorPane anchorPane1 = new AnchorPane(parent1);
             AnchorPane.setLeftAnchor(parent1,0.0);
