@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
 <VBox fx:id="mainBox" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="270.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
    <children>
       <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" orientation="VERTICAL" prefHeight="190.0" prefWidth="255.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
@@ -72,9 +71,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" text="VIDEO VIEW" visible="false">
+            <Button fx:id="btnVideoView" alignment="TOP_LEFT" graphicTextGap="21.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onVideoView" prefWidth="245.0" styleClass="toolBarButton" text="Video View" visible="false">
                <graphic>
-                  <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="icons" />
+                  <FontIcon iconLiteral="fa-video-camera" iconSize="19" styleClass="iconsOverBackground" />
                </graphic>
                <font>
                   <Font size="14.0" />
