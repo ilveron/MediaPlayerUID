@@ -2,23 +2,18 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
-import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
-import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaView;
-import javafx.stage.WindowEvent;
 
 public class MyMediaSingleBoxController {
     @FXML
@@ -112,12 +107,7 @@ public class MyMediaSingleBoxController {
             if (source == "home" && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
                 Home.getInstance().removeItem(myMedia);
             } else if (source!="home" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
-                Home.getInstance().removeItem(myMedia);
-                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
-                    Player.getInstance().stop();
-                PlayQueue.getInstance().deleteFromOtherController(myMedia);
-                VideoLibrary.getInstance().removeWithIndex(myMedia);
-
+                VideoLibrary.getInstance().removeSafe(myMedia);
             }
 
     }

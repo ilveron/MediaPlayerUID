@@ -46,6 +46,19 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return  false;
     } //gestisco se è presente o meno solo per non far apparire errore
+    private boolean isPresentInt(String object,Integer key, String tab){
+        try {
+            if (connection != null && !connection.isClosed()) {
+                String query = "select * from "+tab+" where "+object+"=?;";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                stmt.setInt(1,key);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {return  true;}
+                stmt.close();
+            }
+        }catch (SQLException e){e.printStackTrace();}
+        return  false;
+    }
     private boolean checkTable(String table){
         if(table=="MyMedia"||table=="Playlist"||table=="Settings"||
            table=="RecentMedia"||table=="Playqueue"||table=="MyMediaPlaylist"||table=="Equalizer")
@@ -146,11 +159,14 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return false;
     }
-    public boolean insertPlayQueue(String path){
+    public boolean insertPlayQueue(String path,int Key){
         try {
-            if(connection != null && path!=null  && !connection.isClosed()&&!isPresent("Path",path,"Playqueue")) {
-                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Playqueue VALUES(?);");
-                stmt.setString(1, path);
+            if(connection != null && path!=null && Key!=-1 && !connection.isClosed()){
+                while(isPresentInt("Key",Key,"Playqueue"))
+                    Key++;
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO Playqueue VALUES(?,?);");
+                stmt.setInt(1,Key);
+                stmt.setString(2, path);
                 stmt.execute();
                 stmt.close();
                 return true;
@@ -314,7 +330,7 @@ public class DatabaseManager {
         return false;
     }
 
-    public ArrayList<MyMedia> receiveMyMedia(String filter){
+    public void receiveMyMedia(String filter){
         try {
             if(connection != null&&checkLibrary(filter)&&!connection.isClosed()) {
                 String query = "select * from MyMedia;";
@@ -323,7 +339,6 @@ public class DatabaseManager {
                 }
                 PreparedStatement stmt = connection.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
-                //ArrayList<MyMedia> myMedia = new ArrayList<>();
                 while (rs.next()) {
                     if(filter=="MusicLibrary") {
                         MusicLibrary.getInstance().getMusicLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
@@ -338,13 +353,12 @@ public class DatabaseManager {
                 }
                 stmt.close();
                 rs.close();
-                return null;
+                return ;
             }
 
         }catch (SQLException e){e.printStackTrace();}
-        return null;
     }
-    public void  receiveMediaInPlaylist(String name){
+    public void receiveMediaInPlaylist(String name){
         try {
             if(connection != null&&!connection.isClosed() && isPresent("Name",name,"Playlist")&&isPresent("Name",name,"MyMediaPlaylist")) {
                 String query = "select * " +
@@ -383,7 +397,7 @@ public class DatabaseManager {
 
         }catch (SQLException e){e.printStackTrace();}
     }
-    public ArrayList<MyMedia> receiveRecentMedia(){
+    public void receiveRecentMedia(){
         try {
             if(connection != null&&!connection.isClosed()) {
                 String query = "select * " +
@@ -392,7 +406,6 @@ public class DatabaseManager {
                         ";";
                 PreparedStatement stmt = connection.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
-                ArrayList<MyMedia> myMedia = new ArrayList<>();
                 while (rs.next()) {
                     String t=rs.getString("Title");
                     Home.getInstance().addToRecentMediaBis(new MyMedia(t, rs.getString("Artist"),
@@ -401,11 +414,10 @@ public class DatabaseManager {
                 }
                 stmt.close();
                 rs.close();
-                return myMedia;
+                return ;
             }
 
         }catch (SQLException e){e.printStackTrace();}
-        return null;
     }
     public void receivePlayqueue(){
         try {
@@ -497,7 +509,10 @@ public class DatabaseManager {
     public boolean deleteAllMedia(String path){
         try {
             if(connection != null&&path!=null && !connection.isClosed()){
-                return deleteMedia(path,"MyMedia")&deleteMedia(path,"RecentMedia")&deleteMedia(path,"MyMediaPlaylist");
+                return deleteMedia(path,"MyMedia")
+                        &deleteMedia(path,"RecentMedia")
+                        &deleteMedia(path,"MyMediaPlaylist")
+                        &deleteMedia(path,"Playqueue");
             }
         }catch (SQLException e){ e.printStackTrace();}
         return false;
@@ -505,9 +520,21 @@ public class DatabaseManager {
     public boolean deleteMedia(String pathMymedia, String tab){
         try {
             if(connection != null&&checkTable(tab)&&pathMymedia!=null && !connection.isClosed()&&isPresent("Path",pathMymedia,tab)){
-                deleteMediaPlaylist(pathMymedia,"Path");
+                //deleteMediaPlaylist(pathMymedia,"Path");
                 PreparedStatement stmt=connection.prepareStatement("DELETE FROM "+tab+" WHERE Path=?;");
                 stmt.setString(1,pathMymedia);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e){ e.printStackTrace();}
+        return false;
+    }
+
+    public boolean deleteAllLibrary(String Library){
+        try {
+            if(connection != null&&checkLibrary(Library)){
+                PreparedStatement stmt=connection.prepareStatement("DELETE FROM MyMedia WHERE "+Library+"=1");
                 stmt.execute();
                 stmt.close();
                 return true;
@@ -621,9 +648,9 @@ public class DatabaseManager {
     public void createTablePlayqueue(){
         try {
             String query =
-                    "CREATE TABLE IF NOT EXISTS Playqueue(Path VARCHAR(255)," +
+                    "CREATE TABLE IF NOT EXISTS Playqueue(Key INTEGER, Path VARCHAR(255)," +
                             "FOREIGN KEY (Path) REFERENCES MyMedia(path),"+
-                            "PRIMARY KEY (Path));";
+                            "PRIMARY KEY (Key));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -668,7 +695,7 @@ public class DatabaseManager {
                             "Hz4000 INTEGER," +
                             "Hz8000 INTEGER,"+
                             "Hz16000 INTEGER," +
-                            "Key VARCHAR(3);" ;
+                            "Key VARCHAR(3));" ;
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -678,7 +705,7 @@ public class DatabaseManager {
     }
     public boolean initEqualizer(){
         try {
-            if(connection != null &&!connection.isClosed()&&isPresent("Key","key","Equalizer")) {
+            if(connection != null &&!connection.isClosed()&&!isPresent("Key","key","Equalizer")) {
                 PreparedStatement stmt = connection.prepareStatement("INSERT INTO Equalizer VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
                 stmt.setInt(1,0);
                 stmt.setInt(2,0);
@@ -701,7 +728,7 @@ public class DatabaseManager {
     public boolean setEqualizer(int []vett){
         try {
             if(connection != null &&!connection.isClosed()) {
-                PreparedStatement stmt = connection.prepareStatement("UPDATE Equalizer SET" +
+                PreparedStatement stmt = connection.prepareStatement("UPDATE Equalizer SET " +
                         "Hz32=?," +
                         "Hz64=?," +
                         "Hz125=?," +
@@ -729,7 +756,7 @@ public class DatabaseManager {
         }catch (SQLException e) {e.printStackTrace();}
         return false;
     }
-    public int[] getEqualizer(){
+    public boolean getEqualizer(){
         try {
             String query = "select * from Equalizer where Key=key;";
             PreparedStatement stmt = connection.prepareStatement(query);
@@ -747,9 +774,11 @@ public class DatabaseManager {
                 settings[8]=rs.getInt("Hz8000");
                 settings[9]=rs.getInt("Hz16000");
             }
-            return settings;
+            AudioEqualizer.getInstance().getPresetsValues().remove(AudioEqualizer.getInstance().getPresetsNames().size()-1);
+            AudioEqualizer.getInstance().getPresetsValues().add(settings);
+            return true;
         }catch (SQLException e){e.printStackTrace();}
-        return null;
+        return false;
     }
 
 

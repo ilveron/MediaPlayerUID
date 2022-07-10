@@ -90,9 +90,10 @@ public class VideoLibraryController  implements Initializable {
 
 
         VideoGalleryTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
-            if (VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()==VideoLibrary.getInstance().getVideoLibrary().size())
+            if (VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()>0)
                 setContentTilePane();
         });
+
 
 
         textFieldSearch.textProperty().addListener(new ChangeListener<String>() {
@@ -135,6 +136,7 @@ public class VideoLibraryController  implements Initializable {
                     activeButton(false);
 
                 for (int i =0; i<size;  i++) {
+
                     tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
                 }
                 //loadingIndicator.setVisible(false);

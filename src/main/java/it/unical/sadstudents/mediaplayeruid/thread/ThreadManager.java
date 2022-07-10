@@ -150,10 +150,14 @@ public class ThreadManager {
                      boolean tooTime=false;
                      double current=System.currentTimeMillis();
                      while(!tooTime && finalMediaPlayer.getStatus()!= MediaPlayer.Status.READY ){
-                         if(System.currentTimeMillis()-current>50) //con 100 solo 3 persi
+                         if(myMedia.getPath().toLowerCase().endsWith(".mp3") && System.currentTimeMillis()-current>50) //con 100 solo 3 persi
+                             tooTime=true;
+                         else if(myMedia.getPath().toLowerCase().endsWith(".mp4") && System.currentTimeMillis()-current>5000)
                              tooTime=true;
 
                      }
+
+                     //finalMediaPlayer.ready
 
                      //System.out.println(String.format(("%d %d"),files.size(),++cont));
 

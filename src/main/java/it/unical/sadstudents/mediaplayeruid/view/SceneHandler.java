@@ -156,6 +156,7 @@ public class SceneHandler {
         DatabaseManager.getInstance().createTablePlaylist();
         DatabaseManager.getInstance().createTableMediaMyMediaPlaylist();
         DatabaseManager.getInstance().createTablePlayqueue();
+        DatabaseManager.getInstance().createTableEqualizer();
         //DatabaseManager.getInstance().createTableApplicationClosureData();
 
         stage = mainStage;
@@ -188,9 +189,14 @@ public class SceneHandler {
             @Override
             public void handle(WindowEvent windowEvent) {
                 //DatabaseManager.getInstance().changeApplicationClosureData();
+                DatabaseManager.getInstance().deleteAll("Playqueue");
+                for(int i=0;i<PlayQueue.getInstance().getQueue().size();i++) {
+                    DatabaseManager.getInstance().insertPlayQueue(PlayQueue.getInstance().getQueue().get(i).getPath(),i);
+                }
+                /*
                 for(MyMedia myMedia: PlayQueue.getInstance().getQueue()) {
                     DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
-                }
+                }*/
                 DatabaseManager.getInstance().disconnect();
                 Platform.exit();
                 System.exit(0);
@@ -214,6 +220,8 @@ public class SceneHandler {
         for(Playlist s: PlaylistCollection.getInstance().getPlayListsCollections())
             DatabaseManager.getInstance().receiveMediaInPlaylist(s.getName());
 
+        DatabaseManager.getInstance().initEqualizer();
+        DatabaseManager.getInstance().getEqualizer();
 
         VideoGalleryTilePaneHandler.getInstance().listCreator();
 

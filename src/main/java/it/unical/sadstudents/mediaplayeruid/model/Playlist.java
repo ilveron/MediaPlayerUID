@@ -100,6 +100,7 @@ public class Playlist  {
     }
 
     public void deleteMyMedia(String path){
+        boolean eliminate=false;
         for(int i=0;i<list.size();i++){
             if(path.equals(list.get(i).getPath())) {
                 songs--;
@@ -107,12 +108,15 @@ public class Playlist  {
                     totalDuration="00:00:00";
                 else
                     durationCalculationRemove(list.get(i).getLength());
-                System.out.println("Playlist echenage Aggiungo song++ "+getSongs());
                 DatabaseManager.getInstance().setPlaylistSong(songs,totalDuration,name);
+                eliminate=true;
                 list.remove(i);
                 //Playlists.getInstance().setRefresh(1);
             }
         }
+        if(eliminate)
+            DatabaseManager.getInstance().deleteMedia(path,"MyMediaPlaylist");
+
     }
 
     public int indexMedia(MyMedia myMedia){

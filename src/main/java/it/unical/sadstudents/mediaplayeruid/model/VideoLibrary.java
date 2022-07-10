@@ -2,14 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.model;
 
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
-import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,8 +75,6 @@ public class VideoLibrary implements DataListedModel{
         videoLibrary.add(myMedia);
         VideoGalleryTilePaneHandler.getInstance().addSingleItem();
 
-
-
     }
 
     @Override
@@ -113,28 +104,35 @@ public class VideoLibrary implements DataListedModel{
         }
     }
 
-    public void removeWithIndex(MyMedia myMedia){
-        for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
-            if (myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i))) {
-                DatabaseManager.getInstance().deleteMedia(videoLibrary.get(i).getPath(),"MyMedia");
-                videoLibrary.remove(i);
-                VideoGalleryTilePaneHandler.getInstance().removeWithIndex(i);
-                break;
-            }
-        }
+    public void removeSafe(MyMedia myMedia){
 
-        // TODO: 06/07/2022 delete su playqueue e su playlist 
+        deleteCheck(myMedia);
+        VideoGalleryTilePaneHandler.getInstance().removeWithIndex(myMedia);
+        DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"MyMedia");
+        videoLibrary.remove(myMedia);
+       // changeHappened.set(true);
+
+
+        // TODO: 06/07/2022 delete su playqueue e su playlist DA VEDERE
     }
 
     public void clearAll(){
+        PlayQueue.getInstance().setDeletingInProcess(true);
+        for (int i=0;i<videoLibrary.size();i++){
+            deleteCheck(videoLibrary.get(i));
+        }
+
         videoLibrary.clear();
         VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().clear();
         VideoGalleryTilePaneHandler.getInstance().setReadyInteger(0);
-        
+        DatabaseManager.getInstance().deleteAllLibrary("VideoLibrary");
+        PlayQueue.getInstance().canRestart();
     }
 
-    public void notifyChangeHappened(){
-        setChangeHappened(true);
+    public void deleteCheck(MyMedia myMedia){
+        Home.getInstance().removeItem(myMedia);
+        PlayQueue.getInstance().deleteFromOtherController(myMedia);
+        PlaylistCollection.getInstance().deleteMediaCompletely(myMedia.getPath());
     }
 
 

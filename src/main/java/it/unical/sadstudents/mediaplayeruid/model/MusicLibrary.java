@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,15 +12,12 @@ import java.util.List;
 public class MusicLibrary implements DataListedModel{
     //VARIABLES
     private ObservableList<MyMedia> Library;
-    private Integer KMusic=0;
-    private ObservableList<MyMedia> Selection;
     //public int sortTF=0;
 
     //SINGLETON AND CLASS DECLARATION
     private static MusicLibrary instance = null;
     private MusicLibrary (){
         Library = FXCollections.observableArrayList();
-        Selection=FXCollections.observableArrayList();
     }
     public static MusicLibrary getInstance(){
         if (instance==null)
@@ -33,19 +31,22 @@ public class MusicLibrary implements DataListedModel{
         return Library;
     }
 
-    public ObservableList<MyMedia> getSelection() {
-        return Selection;
-    }
 
-    public Integer getKMusic() {
-        return KMusic;
-    }
 
     //FUNCTIONS
     @Override
     public void clearList() {
+        PlayQueue.getInstance().setDeletingInProcess(true);
+        for (int i=0;i<Library.size();i++){
+            Home.getInstance().removeItem(Library.get(i));
+            PlayQueue.getInstance().deleteFromOtherController(Library.get(i));
+            PlaylistCollection.getInstance().deleteMediaCompletely(Library.get(i).getPath());
+        }
+
         Library.clear();
-        Selection.clear();
+        DatabaseManager.getInstance().deleteAllLibrary("MusicLibrary");
+        PlayQueue.getInstance().canRestart();
+
     }
 
     @Override
@@ -54,13 +55,9 @@ public class MusicLibrary implements DataListedModel{
             if (myMedia.equals(myMedia1))
                 return;
         }
-
         Library.add(myMedia);
-        //sortTF++;
+
         //if(getKMusic()>1) sortList();
-        ++KMusic;
-
-
     }
 
 
@@ -102,12 +99,12 @@ public class MusicLibrary implements DataListedModel{
     }
 
     public void deleteWithIndex(int index){
-        if(index!=-1){
+        if(index>=0){
             Home.getInstance().removeItem(Library.get(index));
-            PlaylistCollection.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath());
-            MyMedia temp=MusicLibrary.getInstance().getMusicLibrary().get(index);
-            PlayQueue.getInstance().deleteFromOtherController(temp);
-            DatabaseManager.getInstance().deleteMedia(MusicLibrary.getInstance().getMusicLibrary().get(index).getPath(),"MyMedia");
+            PlaylistCollection.getInstance().deleteMediaCompletely(Library.get(index).getPath());
+            PlayQueue.getInstance().deleteFromOtherController(Library.get(index));
+            DatabaseManager.getInstance().deleteMedia(Library.get(index).getPath(),"MyMedia");
+
             MusicLibrary.getInstance().getMusicLibrary().remove(index);
         }
     }
@@ -117,6 +114,7 @@ public class MusicLibrary implements DataListedModel{
         PlaylistCollection.getInstance().deleteMediaCompletely(myMedia.getPath());
         PlayQueue.getInstance().deleteFromOtherController(myMedia);
         DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"MyMedia");
+
         MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
     }
 

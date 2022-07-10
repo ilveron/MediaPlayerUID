@@ -107,7 +107,8 @@ public class HomeTilePaneHandler {
 
     public void removeWithIndex(int i){
         myMediaSingleBoxes.remove(i);
-        readyInteger.set(readyInteger.get()-1);
+        if(readyInteger.get()>0)
+            readyInteger.set(readyInteger.get()-1);
     }
 
     public void addSingleItem(){

@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.model.Home;
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
 import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -104,17 +105,22 @@ public class VideoGalleryTilePaneHandler {
         thread.start();
     }
 
-    public void moveWithIndex(int i){
-        myMediaSingleBoxes.add(myMediaSingleBoxes.get(i));
-        readyInteger.set(readyInteger.get()+1);
+
+    /*public void removeWithIndex(int i){
         myMediaSingleBoxes.remove(i);
         readyInteger.set(readyInteger.get()-1);
+    }*/
 
-    }
+    public void removeWithIndex(MyMedia myMedia){
+        for(int i=0;i<myMediaSingleBoxes.size();i++){
+            if(myMedia.equals(myMediaSingleBoxes.get(i).getMyMedia())){
+                myMediaSingleBoxes.remove(i);
+                readyInteger.set(readyInteger.get()-1);
+            }
 
-    public void removeWithIndex(int i){
-        myMediaSingleBoxes.remove(i);
-        readyInteger.set(readyInteger.get()-1);
+        }
+
+
     }
 
     public void addSingleItem(){

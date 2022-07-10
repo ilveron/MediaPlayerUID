@@ -19,14 +19,14 @@
       </Label>
       <MenuButton graphicTextGap="5.0" mnemonicParsing="false" popupSide="LEFT" styleClass="largeMenuButton" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#addFiles" styleClass="menuItem" text="Media(s)">
+          <MenuItem mnemonicParsing="false" onAction="#addFiles" text="Media(s)">
                <graphic>
-                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="menuItem" />
+                  <FontIcon iconLiteral="fa-file" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
             </MenuItem>
-          <MenuItem mnemonicParsing="false" onAction="#addFolder" styleClass="menuItem" text="Folder(s)">
+          <MenuItem mnemonicParsing="false" onAction="#addFolder" text="Folder(s)">
                <graphic>
-                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="menuItem" />
+                  <FontIcon iconLiteral="fa-folder-open" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
             </MenuItem>
         </items>

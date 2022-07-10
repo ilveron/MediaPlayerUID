@@ -45,11 +45,12 @@ public class ContextMenuHandler extends ContextMenu {
                             Home.getInstance().removeItem(myMedia);
 
                         } else if(source == "video" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
-                            Home.getInstance().removeItem(myMedia);
+                            /*Home.getInstance().removeItem(myMedia);
                             if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
                                 Player.getInstance().stop();
                             PlayQueue.getInstance().deleteFromOtherController(myMedia);
-                            VideoLibrary.getInstance().removeWithIndex(myMedia);
+                            VideoLibrary.getInstance().removeSafe(myMedia);*/
+                            VideoLibrary.getInstance().removeSafe(myMedia);
                         }
                         else if(source == "musicLibrary" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Song?") ){
                             MusicLibrary.getInstance().deleteStandard(myMedia);

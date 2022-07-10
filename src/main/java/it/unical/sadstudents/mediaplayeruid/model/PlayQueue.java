@@ -21,6 +21,7 @@ public class PlayQueue implements DataListedModel{
     private boolean shuffleQueueIndexesGenerated = false;
     private Integer shuffleQueueCurrentIndex;
     private ArrayList<Integer> shuffleQueueIndexes;
+    private SimpleBooleanProperty deletingInProcess = new SimpleBooleanProperty(false);
     //END VARIABLES
 
     //SINGLETON
@@ -33,6 +34,7 @@ public class PlayQueue implements DataListedModel{
             if(queue.size()>0)
                 startMedia();
         } );
+
     }
 
     public static PlayQueue getInstance(){
@@ -44,6 +46,18 @@ public class PlayQueue implements DataListedModel{
 
     //GETTERS AND SETTERS
 
+
+    public boolean isDeletingInProcess() {
+        return deletingInProcess.get();
+    }
+
+    public SimpleBooleanProperty deletingInProcessProperty() {
+        return deletingInProcess;
+    }
+
+    public void setDeletingInProcess(boolean deletingInProcess) {
+        this.deletingInProcess.set(deletingInProcess);
+    }
 
     public int getCurrentMedia() {
         return currentMedia.get();
@@ -113,7 +127,7 @@ public class PlayQueue implements DataListedModel{
     @Override
     public void addFileToListFromOtherModel(MyMedia myMedia) {
         queue.add(myMedia);
-        DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
+        //DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath(),queue.size()-1);
         if(shuffleActive.get()){
             shuffleQueueIndexes.add(queue.size()-1);
         }
@@ -170,7 +184,8 @@ public class PlayQueue implements DataListedModel{
         }
 
         //Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
-        Player.getInstance().createMedia(currentMedia.get());
+        if(!isDeletingInProcess())
+            Player.getInstance().createMedia(currentMedia.get());
 
 
     }
@@ -234,23 +249,51 @@ public class PlayQueue implements DataListedModel{
     }
 
     public void deleteFromOtherController(MyMedia myMedia){
+        //int position=0;
+        /*
+        System.out.println("(PLAY QUEUE) My media: "+myMedia.getPath());
         for(MyMedia myMedia1: queue){
-            if(myMedia.equals(myMedia1)){
+            System.out.println("1 " +myMedia.getPath()+"\n 2 "+ myMedia1.getPath());
+            if(myMedia.getPath().equals(myMedia1.getPath())){
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(myMedia1.getPath())) {
+                    System.out.println("PLAY Q CI ENTRO");
                     Player.getInstance().stop();
                 }
-                DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
-                queue.remove(myMedia1);
+                //DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
+                System.out.println("VADO A ELIMINARE (SIZE QUEUE "+queue.size()+") IL \n -> "+queue.get(position));
+                queue.remove(position);
+                System.out.println("ELIMINATO IN POS "+position);
+                --position;
+                System.out.println("ORA IN POS "+(position+1)+" c'è "+queue.get(position+1));
                 currentMedia.set(currentMedia.get()-1);
+                System.out.println("OK FATTO");
+            }
+            position++;
+        }
+        */
+        for(int pos=0;pos<queue.size();pos++){
+            if(myMedia.getPath().equals(queue.get(pos).getPath())){
+                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(queue.get(pos).getPath())) {
+                    Player.getInstance().stop();
+                    if(currentMedia.get()>0)
+                        currentMedia.set(currentMedia.get()-1);
+
+                }
+                DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
+                if(currentMedia.get()>pos)
+                    currentMedia.set(currentMedia.get()-1);
+                queue.remove(pos);
             }
         }
 
     }
 
+
+
     public void clearQueue(){
         queue.clear();
         currentMedia.set(0);
-        DatabaseManager.getInstance().deleteAll("Playqueue");
+        //DatabaseManager.getInstance().deleteAll("Playqueue");
         shuffleActive.set(false);
         shuffleQueueIndexesGenerated = false;
         shuffleQueueCurrentIndex = 0;
@@ -264,7 +307,7 @@ public class PlayQueue implements DataListedModel{
     public void removeMedia(int i){
         if(getCurrentMedia()==i){
             Player.getInstance().stop();
-            DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
+            //DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
             currentMedia.set(currentMedia.get()-1);
             if(i<queue.size())
@@ -273,11 +316,17 @@ public class PlayQueue implements DataListedModel{
                 currentMedia.set(1);*/
         }
         else {
-            DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
+            //DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
             currentMedia.set(currentMedia.get()-1);
 
         }
+    }
+
+    public void canRestart(){
+        deletingInProcess.set(false);
+        if(queue.size()>0)
+            startMedia();
     }
 
 

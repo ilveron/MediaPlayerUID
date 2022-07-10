@@ -125,18 +125,18 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
+            if(index>=0) {
+                this.index = index;
+                media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
+                if (media.getSource().toLowerCase().endsWith(".mp4")) {
+                    isAVideo.set(true);
+                } else {
+                    isAVideo.set(false);
+                    SceneHandler.getInstance().setRequestedVideoView(false);
+                }
 
-            this.index = index;
-            media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
-            if (media.getSource().toLowerCase().endsWith(".mp4")){
-                isAVideo.set(true);
-            }else{
-                isAVideo.set(false);
-                SceneHandler.getInstance().setRequestedVideoView(false);
-            }
-
-            mediaPlayer = new MediaPlayer(media);
-            mediaView.setMediaPlayer(mediaPlayer);
+                mediaPlayer = new MediaPlayer(media);
+                mediaView.setMediaPlayer(mediaPlayer);
 
                 /*mediaPlayer.setOnReady(()->{
                     // TODO: 14/06/2022 se rimosso, problemi con lo slider
@@ -147,11 +147,12 @@ public class Player {
 
                 });*/
 
-            Platform.runLater(()->{
-                mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
-                artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
-            });
-            playMedia();
+                Platform.runLater(() -> {
+                    mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+                    artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
+                });
+                playMedia();
+            }
 
 
         //TODO: REGEX per riproduzione *.mp4
