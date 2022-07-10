@@ -1,4 +1,4 @@
-package it.unical.sadstudents.mediaplayeruid.thread;
+package it.unical.sadstudents.mediaplayeruid.utils;
 
 import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import javafx.collections.MapChangeListener;

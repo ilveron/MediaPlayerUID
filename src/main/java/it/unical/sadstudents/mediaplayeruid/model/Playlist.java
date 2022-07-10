@@ -17,7 +17,15 @@ public class Playlist  {
     private Integer songs;
     private String totalDuration;
     private SimpleBooleanProperty playing=new SimpleBooleanProperty(false);
+    private boolean initialized=false;
 
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
+    }
 
     public boolean isPlaying() {
         return playing.get();
@@ -62,7 +70,7 @@ public class Playlist  {
         if(isPlaying())
             PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
         DatabaseManager.getInstance().setPlaylistSong(getSongs(), getTotalDuration(),getName());
-        DatabaseManager.getInstance().addMyMediaInPlaylist(myMedia.getPath(), getName());
+        DatabaseManager.getInstance().addMyMediaInPlaylist(myMedia.getPath(), getName(),list.size()-1);
 
     }
     public void add(MyMedia myMedia){

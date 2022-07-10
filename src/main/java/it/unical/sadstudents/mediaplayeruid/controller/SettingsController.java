@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 
+import it.unical.sadstudents.mediaplayeruid.MainApplication;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.event.ActionEvent;
@@ -8,24 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        lblCredits.setText( "Version 1.0.0"+ System.lineSeparator() +
-                            "Software developed in June/July 2022 by the SadStudents' group:" + System.lineSeparator() +
-                            "    > Ernesto Rapisarda" + System.lineSeparator() +
-                            "    > Alessandro Monetti" + System.lineSeparator() +
-                            "    > Andrea Tocci" + System.lineSeparator() +
-                            "As User Interfaces Design's final project." + System.lineSeparator() +
-                            "Dedicated to Mina & Celentano.");
-
-    }
-
     @FXML
     private Label lblCredits;
 
@@ -34,6 +24,24 @@ public class SettingsController implements Initializable {
 
     @FXML
     private Button lightMode;
+
+    @FXML
+    private ImageView imvLogo;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblCredits.setText( "Version 1.0.0"+ System.lineSeparator() +
+                            "Software developed in June/July 2022 by the " + "SadStudents" +" group:" + System.lineSeparator() +
+                            "    > Ernesto Rapisarda" + System.lineSeparator() +
+                            "    > Alessandro Monetti" + System.lineSeparator() +
+                            "    > Andrea Tocci" + System.lineSeparator() +
+                            "As User Interfaces Design's final project." + System.lineSeparator() +
+                            "Dedicated to Mina & Celentano.");
+
+        imvLogo.setImage(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-125x125px.png")));
+    }
+
+
 
     @FXML
     void onLightMode(ActionEvent event) {

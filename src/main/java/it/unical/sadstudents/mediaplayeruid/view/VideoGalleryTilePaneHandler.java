@@ -1,14 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
-import it.unical.sadstudents.mediaplayeruid.model.Home;
 import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.model.VideoLibrary;
-import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
+import it.unical.sadstudents.mediaplayeruid.utils.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
@@ -64,7 +61,7 @@ public class VideoGalleryTilePaneHandler {
             public void run() {
                 for (int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
                     MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(i),"video");
-                    myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    /*myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
@@ -78,7 +75,7 @@ public class VideoGalleryTilePaneHandler {
                             }
 
                         }
-                    });
+                    });*/
 
                     myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                         @Override
@@ -129,7 +126,7 @@ public class VideoGalleryTilePaneHandler {
             @Override
             public void run() {
                 MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(VideoLibrary.getInstance().getVideoLibrary().size()-1),"video");
-                myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                /*myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
@@ -141,7 +138,7 @@ public class VideoGalleryTilePaneHandler {
                         }
 
                     }
-                });
+                });*/
 
                 myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                     @Override

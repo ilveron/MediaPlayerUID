@@ -234,7 +234,7 @@
 }
 
 .recentMedia, .selectedRecentMedia {
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15.0, 0.0, 2.0, 1.0);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10.0, 0.0, 2.0, 1.0);
     -fx-background-radius: 15px;
 }
 
@@ -246,7 +246,7 @@
 
 .recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
 
-.selectedRecentMedia { -fx-background-color: secondarySelectionColor; }
+.selectedRecentMedia { -fx-background-color: tertiarySelectionColor; }
 
 .recentMediaImageBg {
     -fx-background-color: black;
@@ -344,7 +344,7 @@
     -fx-background-color: primaryBackgroundColor,secondaryBackgroundColor;
     -fx-padding: 8 8 8 8;
     -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 5.0, 0.0, 2.0, 1.0);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10.0, 0.0, 2.0, 1.0);
 }
 
 .notification-bar>.pane .title {
@@ -386,10 +386,10 @@
     -fx-text-fill: textColor;
 }
 
-.cautionLabel {
+.errorLabel {
     -fx-font-size: 12px;
     -fx-font-family: "Montserrat Medium";
-    -fx-text-fill: alternateTextColor;
+    -fx-text-fill: errorColor;
 }
 
 .inProgressLabel {
@@ -455,9 +455,9 @@
 .playlistTemplate {
     -fx-background-color: secondaryBackgroundColor;
     -fx-background-radius: 30px;
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 2, 1);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
 }
 
 .withinPaneButton:hover, .largeMenuButton:hover, .smallMenuButton:hover {
-    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 15, 0, 2, 1);
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
 }

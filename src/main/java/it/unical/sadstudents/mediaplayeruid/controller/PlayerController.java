@@ -1,16 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.KeyCombo;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
-import it.unical.sadstudents.mediaplayeruid.view.MediaInfo;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
-import javafx.animation.Interpolator;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,9 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
@@ -184,9 +177,11 @@ public class PlayerController implements Initializable {
         Player.getInstance().mediaLoadedProperty().addListener(observable -> {
             if(Player.getInstance().isMediaLoaded()) {
                 changeButtonEnabledStatus();
+
             }
             else {
                 changeButtonEnabledStatus();
+
             }
         });
 
@@ -206,18 +201,29 @@ public class PlayerController implements Initializable {
 
         });
 
-        HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
+       HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
             if (HomeTilePaneHandler.getInstance().getReadyInteger() == HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()){
-                if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded())
-                    miniImageView.setImage(null);
+                if (!Player.getInstance().getIsRunning() && !Player.getInstance().isMediaLoaded()){
+                    if(miniImageView.getImage()!=null)
+                        miniImageView.getImage().cancel();
+                }
                 else{
                     int index = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()-1;
+                    if(miniImageView.getImage()!=null)
+                        miniImageView.getImage().cancel();
                     if(index!=-1)
                         miniImageView.setImage(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getImage());
                 }
             }
 
         });
+
+        /*Player.getInstance().isRunningProperty().addListener(observable -> {
+            if(!Player.getInstance().isMediaLoaded()){
+                if(miniImageView.getImage()!=null)
+                    miniImageView.getImage().cancel();
+            }
+        });*/
 
         Player.getInstance().currentMediaTimeProperty().addListener(observable -> {
             Platform.runLater(new Runnable() {
@@ -527,9 +533,15 @@ public class PlayerController implements Initializable {
     private void changeButtonEnabledStatus() {
         boolean status;
         if (Player.getInstance().isMediaLoaded()) {
+            miniImageView.setVisible(true);
+
             status = false;
-        } else
+        } else{
             status = true;
+            miniImageView.setVisible(false);
+        }
+
+
         plsPrevious.setDisable(status);
         plsEquilizer.setDisable(status);
         plsSkipBack.setDisable(status);

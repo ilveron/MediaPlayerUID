@@ -41,12 +41,12 @@
                   <ImageView fx:id="miniImageView" fitHeight="56.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox alignment="CENTER_LEFT" minWidth="220.0" prefHeight="75.0" prefWidth="333.0">
                      <children>
-                        <Label fx:id="mediaNameLabel" styleClass="mediaNameLabel" text="Label" VBox.vgrow="ALWAYS">
+                        <Label fx:id="mediaNameLabel" styleClass="mediaNameLabel" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="artistNameLabel" styleClass="artistMediaLabel" text="Label" />
+                        <Label fx:id="artistNameLabel" styleClass="artistMediaLabel" />
                      </children>
                   </VBox>
                </children>

@@ -1,7 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -31,7 +32,11 @@ public class MusicLibrary implements DataListedModel{
         return Library;
     }
 
+    private SimpleBooleanProperty refreshButton=new SimpleBooleanProperty(false);
 
+    public boolean isRefreshButton() {return refreshButton.get();}
+    public SimpleBooleanProperty refreshButtonProperty() {return refreshButton;}
+    public void setRefreshButton(boolean refreshButton) {this.refreshButton.set(refreshButton);}
 
     //FUNCTIONS
     @Override
@@ -44,6 +49,7 @@ public class MusicLibrary implements DataListedModel{
         }
 
         Library.clear();
+        setRefreshButton(true);
         DatabaseManager.getInstance().deleteAllLibrary("MusicLibrary");
         PlayQueue.getInstance().canRestart();
 
@@ -56,6 +62,7 @@ public class MusicLibrary implements DataListedModel{
                 return;
         }
         Library.add(myMedia);
+        setRefreshButton(true);
 
         //if(getKMusic()>1) sortList();
     }
@@ -106,6 +113,7 @@ public class MusicLibrary implements DataListedModel{
             DatabaseManager.getInstance().deleteMedia(Library.get(index).getPath(),"MyMedia");
 
             MusicLibrary.getInstance().getMusicLibrary().remove(index);
+            setRefreshButton(true);
         }
     }
 
@@ -116,6 +124,7 @@ public class MusicLibrary implements DataListedModel{
         DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"MyMedia");
 
         MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
+        setRefreshButton(true);
     }
 
 

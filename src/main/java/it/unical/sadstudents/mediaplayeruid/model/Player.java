@@ -1,11 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.collections.MapChangeListener;
-import javafx.scene.media.EqualizerBand;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;

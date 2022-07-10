@@ -1,12 +1,8 @@
-package it.unical.sadstudents.mediaplayeruid.thread;
+package it.unical.sadstudents.mediaplayeruid.utils;
 
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-
-import javax.print.attribute.standard.DialogOwner;
-import javax.swing.text.Position;
 
 public class MyNotification {
     public MyNotification instance = null;

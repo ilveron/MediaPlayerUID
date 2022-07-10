@@ -46,24 +46,14 @@ public class MusicLibraryController implements Initializable {
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(1));
         tableViewMusicLibrary.refresh();
-        if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
-            setObject(false);
-        }
         //System.out.println(MusicLibrary.getInstance().getKMusic());
     }
     @FXML
     void onAddMedia(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFile(1));
         tableViewMusicLibrary.refresh();
-        if(MusicLibrary.getInstance().getMusicLibrary().size()>0){
-            setObject(false);
-        }
     }
-    void setObject(boolean t){
-        btnAddLibraryToQueue.setDisable(t);
-        btnDelete.setDisable(t);
-        btnAddSongToQueue.setDisable(t);
-    }
+
     // TODO: 08/06/2022 stesso problema sotto, passo un myMedia non un file 
     @FXML
     void onAddLibraryToQueue(ActionEvent event) {
@@ -106,7 +96,7 @@ public class MusicLibraryController implements Initializable {
     private ContextMenuHandler contextMenuHandler;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
-        if(MusicLibrary.getInstance().getMusicLibrary().size()>0) setObject(false);
+        activeButton();
 
         /*tableViewMusicLibrary.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
             @Override
@@ -114,7 +104,6 @@ public class MusicLibraryController implements Initializable {
                // tableViewMusicLibrary.(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
             }
         });*/
-        // TODO: 03/06/2022 CARICAMENTO DA DATABASE
         // caricare da database
 
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
@@ -153,6 +142,14 @@ public class MusicLibraryController implements Initializable {
                 tableViewMusicLibrary.setItems(SearchForFile.getInstance().getSearch(newValue, MusicLibrary.getInstance().getMusicLibrary()));
             }
         });
+
+        MusicLibrary.getInstance().refreshButtonProperty().addListener(observable -> {
+            if(MusicLibrary.getInstance().isRefreshButton()){
+                activeButton();
+                MusicLibrary.getInstance().setRefreshButton(false);
+            }
+        });
+
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 
@@ -163,6 +160,20 @@ public class MusicLibraryController implements Initializable {
         btnAddSongToQueue.setTooltip(new Tooltip("Add song to queue"));
         TextField.setTooltip(new Tooltip("Research the Music"));
 
+    }
+    // MusicLibrary.getInstance().setRefreshButton(true); da mettere in ThreadManager
+    public void activeButton(){
+        if(MusicLibrary.getInstance().getMusicLibrary().size()>0) {
+            TextField.setDisable(false);
+            btnAddLibraryToQueue.setDisable(false);
+            btnDelete.setDisable(false);
+            btnAddSongToQueue.setDisable(false);
+        }else{
+            TextField.setDisable(true);
+            btnAddLibraryToQueue.setDisable(true);
+            btnDelete.setDisable(true);
+            btnAddSongToQueue.setDisable(true);
+        }
     }
 
     // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna

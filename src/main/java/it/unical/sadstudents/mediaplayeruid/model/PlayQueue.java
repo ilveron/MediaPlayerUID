@@ -1,7 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
-import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;

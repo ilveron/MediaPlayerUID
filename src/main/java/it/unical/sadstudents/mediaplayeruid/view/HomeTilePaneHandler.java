@@ -1,7 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.view;
 
 import it.unical.sadstudents.mediaplayeruid.model.Home;
-import it.unical.sadstudents.mediaplayeruid.thread.ImageCreator;
+import it.unical.sadstudents.mediaplayeruid.utils.ImageCreator;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.ContextMenuEvent;

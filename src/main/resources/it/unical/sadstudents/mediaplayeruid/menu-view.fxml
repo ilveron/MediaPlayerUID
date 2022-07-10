@@ -91,7 +91,7 @@
          <children>
             <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" />
             <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="250.0" progress="0.0" />
-            <Label styleClass="cautionLabel" text="Please DO NOT close the Media Player" textFill="#da0909" />
+            <Label styleClass="errorLabel" text="Please DO NOT close the Media Player" textFill="#da0909" />
          </children>
          <VBox.margin>
             <Insets right="10.0" />

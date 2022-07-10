@@ -1,18 +1,16 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
-import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -68,11 +66,14 @@ public class VideoLibraryController  implements Initializable {
 
     @FXML
     void onAddMediaPlayQueue(ActionEvent event) {
-        if(index!= -1){
-
-            //PlayQueue.getInstance().addFileToListFromOtherModel(tilePane.getChildren().get(index));
-            //selectedIndex=-1;
+        if(mouseEvent1!=null && index!=-1){
+            PlayQueue.getInstance().addFileToListFromOtherModel(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getMyMedia());
+            index=-1;
+            mouseEvent1=null;
+            removeStyle();
         }
+            
+
         MyNotification.notifyInfo("","Video added to queue",3);
     }
 
@@ -83,6 +84,8 @@ public class VideoLibraryController  implements Initializable {
     }
 
     private int index=-1;
+    private MouseEvent mouseEvent1 = null;
+    private MouseEvent mouseEvent2 = null;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
@@ -101,6 +104,19 @@ public class VideoLibraryController  implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 tilePane.getChildren().clear();
                 tilePane.getChildren().addAll(SearchForFile.getInstance().getSearchVideo(newValue));
+            }
+        });
+
+        SceneHandler.getInstance().getScene().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent1!=null && !mouseEvent.getTarget().equals(mouseEvent1.getTarget())){
+                    if (mouseEvent.getTarget()!=btnAddVideoToQueue){
+                        removeStyle();
+                        mouseEvent1=null;
+                        index=-1;
+                    }
+                }
             }
         });
 
@@ -136,7 +152,22 @@ public class VideoLibraryController  implements Initializable {
                     activeButton(false);
 
                 for (int i =0; i<size;  i++) {
+                    int finalI = i;
+                    VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                                if(mouseEvent.getClickCount() == 1 ){
+                                    removeStyle();
+                                    tilePane.getChildren().get(finalI).getStyleClass().add("selectedRecentMedia");
+                                    index=finalI;
+                                    tilePane.getChildren().get(finalI).requestFocus();
 
+                                }
+                            }
+                            mouseEvent1=mouseEvent;
+                        }
+                    });
                     tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
                 }
                 //loadingIndicator.setVisible(false);
@@ -158,6 +189,11 @@ public class VideoLibraryController  implements Initializable {
         btnAddLibraryToQueue.setDisable(!t);
         btnDelete.setDisable(!t);
         btnAddVideoToQueue.setDisable(!t);
+    }
+    
+    public void removeStyle(){
+        tilePane.getChildren().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
+
     }
 
 }

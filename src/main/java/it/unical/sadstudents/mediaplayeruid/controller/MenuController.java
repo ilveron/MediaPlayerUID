@@ -1,13 +1,11 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;

@@ -46,7 +46,8 @@ public class CreateNewPlaylistController implements Initializable {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image File","*.png","*.jpg");
             fileChooser.getExtensionFilters().add(extFilter);
             imageView.setImage(new Image(fileChooser.showOpenDialog(new Stage()).getPath()));
-            System.out.println(imageView.getImage().getUrl());
+            SubStageHandler.getInstance().setUpdated(true);
+
         }catch(Exception exception){
             exception.printStackTrace();
         }
@@ -63,6 +64,7 @@ public class CreateNewPlaylistController implements Initializable {
             PlaylistCollection.getInstance().getPlayListsCollections().get(index).setImage(imageView.getImage().getUrl());
             DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
             PlaylistCollection.getInstance().setUpdatePlaylist(true);
+            PlaylistCollection.getInstance().getPlayListsCollections().get(index).setInitialized(true);
             ((Node)(event.getSource())).getScene().getWindow().hide();
         }
 
@@ -136,6 +138,8 @@ public class CreateNewPlaylistController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!findName(newValue.trim())){ error();}
                 else {labelErrore.setVisible(false);}
+                SubStageHandler.getInstance().setUpdated(true);
+
             }
         });
     }

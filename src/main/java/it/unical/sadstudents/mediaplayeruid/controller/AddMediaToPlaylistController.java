@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -69,8 +70,9 @@ public class AddMediaToPlaylistController implements Initializable {
             temp.add(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
             //PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
             //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
+            SubStageHandler.getInstance().setUpdated(true);
+
         }
-        PlaylistCollection.getInstance().setUpdatePlayQueue(true);
     }
 
 
@@ -81,6 +83,8 @@ public class AddMediaToPlaylistController implements Initializable {
         if (index!=temp.size()-1){
             temp.add(index,temp.get(index+1));
             temp.remove(index+2);
+            SubStageHandler.getInstance().setUpdated(true);
+
         }
 
     }
@@ -92,6 +96,8 @@ public class AddMediaToPlaylistController implements Initializable {
         if(0<=index && index<temp.size()){
             temp.remove(index);
             tableViewPlaylist.getSelectionModel().select(index);
+            SubStageHandler.getInstance().setUpdated(true);
+
         }
 
 
@@ -104,6 +110,7 @@ public class AddMediaToPlaylistController implements Initializable {
             temp.add(index-1,temp.get(index));
             temp.remove(index+1);
             tableViewPlaylist.getSelectionModel().select(index-1);
+            SubStageHandler.getInstance().setUpdated(true);
         }
 
     }

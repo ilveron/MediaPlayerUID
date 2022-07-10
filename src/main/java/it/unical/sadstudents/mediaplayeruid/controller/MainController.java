@@ -1,35 +1,22 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
-import it.unical.sadstudents.mediaplayeruid.GlobalFocusAndSelection;
-import it.unical.sadstudents.mediaplayeruid.KeyCombo;
 import it.unical.sadstudents.mediaplayeruid.MainApplication;
-import it.unical.sadstudents.mediaplayeruid.thread.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.view.*;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

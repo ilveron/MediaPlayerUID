@@ -16,7 +16,7 @@
       <Label fx:id="labelTitle" styleClass="mediaNameLabel" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <items>
-          <Button fx:id="ButtonAddToPlayList" graphicTextGap="5.0" mnemonicParsing="false" onAction="#onSaveAction" styleClass="largeMenuButton" text="Save changes">
+          <Button fx:id="ButtonAddToPlayList" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#onSaveAction" styleClass="largeMenuButton" text="Save changes">
                <graphic>
                   <FontIcon iconLiteral="fa-floppy-o" iconSize="14" styleClass="iconsOverBackground" />
                </graphic>

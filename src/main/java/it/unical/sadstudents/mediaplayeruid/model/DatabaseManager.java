@@ -128,13 +128,16 @@ public class DatabaseManager {
         }catch (SQLException e){e.printStackTrace();}
         return false;
     }
-    public boolean addMyMediaInPlaylist(String pathMedia,String name){
+    public boolean addMyMediaInPlaylist(String pathMedia,String name,int Key){
         try {
             // TODO: 13/06/2022  controllare se esistono???
             if(connection != null && pathMedia!=null && name!=null && !connection.isClosed()) {
-                PreparedStatement stmt = connection.prepareStatement("INSERT INTO MyMediaPlaylist VALUES(?, ?);");
-                stmt.setString(1, pathMedia);
-                stmt.setString(2,   name);
+                while(isPresentInt("Key",Key,"MyMediaPlaylist"))
+                    Key++;
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO MyMediaPlaylist VALUES(?, ?, ?);");
+                stmt.setInt(1,Key);
+                stmt.setString(2, pathMedia);
+                stmt.setString(3,   name);
                 stmt.execute();
                 stmt.close();
                 return true;
@@ -614,11 +617,11 @@ public class DatabaseManager {
     public void createTableMediaMyMediaPlaylist(){
         try {
             String query =
-                    "CREATE TABLE IF NOT EXISTS MyMediaPlaylist(Path VARCHAR(255)," +
+                    "CREATE TABLE IF NOT EXISTS MyMediaPlaylist(Key INTEGER, Path VARCHAR(255)," +
                             "Name VARCHAR(100)," +
                             "FOREIGN KEY (Path) REFERENCES MyMedia(path),"+
                             "FOREIGN KEY (Name) REFERENCES Playlist(Name),"+
-                            "PRIMARY KEY (Path,Name));";
+                            "PRIMARY KEY (Key));";
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();

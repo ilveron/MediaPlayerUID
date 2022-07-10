@@ -2,7 +2,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.AudioEqualizer;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
-import it.unical.sadstudents.mediaplayeruid.thread.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

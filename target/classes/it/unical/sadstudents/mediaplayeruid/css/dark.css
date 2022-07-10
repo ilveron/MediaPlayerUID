@@ -1,19 +1,20 @@
 * {
-  primaryBackgroundColor: #222831;
-  secondaryBackgroundColor: #393E46;
+  primaryBackgroundColor: #1C1B1F;
+  secondaryBackgroundColor: #49454F;
   transparentBackgroundColor: transparent;
-  iconOverBackgroundColor: #EEEEEE;
-  primarySelectionColor: #C9D6DF;
-  secondarySelectionColor: #8da5c9;
-  tertiarySelectionColor: #697b96;
-  imagesColor: #dcdcdd;
-  textColor: #EEEEEE;
-  sliderTrackColor: #EEEEEE;
+  iconOverBackgroundColor: #E6E1E5;
+  primarySelectionColor: #D0BCFF;
+  secondarySelectionColor: #CCC2DC;
+  tertiarySelectionColor: #7D5260;
+  imagesColor: #E6E1E5;
+  textColor: #E6E1E5;
+  sliderTrackColor: #E6E1E5;
   alternateTextColor: #B0B0B0;
-  headersTextColor: #EEEEEE;
-  dropShadowColor: #898E96;
+  headersTextColor: #E6E1E5;
+  dropShadowColor: #49454F;
   selectedTextColor: #121212;
   lineColor: #b3b3b3;
   separatorColor: #7b90b0;
   settingsIconHoverColor: #121212;
+  errorColor: #601410;
 }
