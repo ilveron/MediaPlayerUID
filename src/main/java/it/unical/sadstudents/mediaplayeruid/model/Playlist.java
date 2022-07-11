@@ -65,13 +65,17 @@ public class Playlist  {
 
     public void addMedia(MyMedia myMedia){
         songs++;
-        //durationCalculation(myMedia.getLength());
+        durationCalculation(myMedia.getLength());
         list.add(myMedia);
         if(isPlaying())
             PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
         DatabaseManager.getInstance().setPlaylistSong(getSongs(), getTotalDuration(),getName());
         DatabaseManager.getInstance().addMyMediaInPlaylist(myMedia.getPath(), getName(),list.size()-1);
 
+    }
+    public void clearSongs(){
+        songs=0;
+        totalDuration="00:00:00";
     }
     public void add(MyMedia myMedia){
         list.add(myMedia);

@@ -77,14 +77,19 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onAddToPlayListNewAction(ActionEvent event) {
-        int index = PlaylistCollection.getInstance().getPlaylistWidthName(SubStageHandler.getInstance().getPlaylistName());
+        int index = tableViewSelection.getSelectionModel().getSelectedIndex();
+        if(index>=0){
+            temp.add(tableViewSelection.getItems().get(index));
+            SubStageHandler.getInstance().setUpdated(true);
+        }
+        /*
         for(int i=0;i<PosizioniSelezionate.size();i++){
             temp.add(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
             //PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
             //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
             SubStageHandler.getInstance().setUpdated(true);
 
-        }
+        }*/
     }
 
 
@@ -136,7 +141,7 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onMusicLibrary(ActionEvent event) {
-        reset();
+        //reset();
         tabSelezionata="MusicLibrary";
         tableViewSelection.setItems(MusicLibrary.getInstance().getMusicLibrary());
     }
@@ -144,7 +149,7 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @FXML
     void onVideoLibrary(ActionEvent event) {
-        reset();
+        //reset();
         tabSelezionata="VideoLibrary";
         tableViewSelection.setItems(VideoLibrary.getInstance().getVideoLibrary());
     }
@@ -153,6 +158,9 @@ public class AddMediaToPlaylistController implements Initializable {
     void onSaveAction(ActionEvent event) {
         int index = PlaylistCollection.getInstance().getPlaylistWidthName(SubStageHandler.getInstance().getPlaylistName());
         PlaylistCollection.getInstance().getPlayListsCollections().get(index).clearMyList();
+        if(temp.size()>0)
+            PlaylistCollection.getInstance().getPlayListsCollections().get(index).clearSongs();
+
         for(int i=0; i< temp.size();i++){
             PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(temp.get(i));
         }
@@ -162,7 +170,8 @@ public class AddMediaToPlaylistController implements Initializable {
             PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
                 //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
         }*/
-        PlaylistCollection.getInstance().setUpdatePlayQueue(true);
+        //PlaylistCollection.getInstance().setUpdatePlayQueue(true);
+        PlaylistCollection.getInstance().setUpdatePlaylist(true);
         //Playlists.getInstance().setTypePlaylist();
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
@@ -170,9 +179,9 @@ public class AddMediaToPlaylistController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        PosizioniSelezionate=new ArrayList<Integer>(); //se pos >0  allora il pulsante diventa cliccabile
+        //PosizioniSelezionate=new ArrayList<Integer>(); //se pos >0  allora il pulsante diventa cliccabile
         //start tooltip
-        setButtonAdd(true);
+        setButtonAdd(false);
         //String image= DataExchangePlaylist.getInstance().getImage();
         indexPlaylist = PlaylistCollection.getInstance().returnPlaylist(SubStageHandler.getInstance().getPlaylistName());
         System.out.println(indexPlaylist);
@@ -222,7 +231,7 @@ public class AddMediaToPlaylistController implements Initializable {
         });
 
 
-
+        /*
         tableViewSelection.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -254,7 +263,9 @@ public class AddMediaToPlaylistController implements Initializable {
             });
             return row;
         });
+        */
 
+        /*
         tableViewPlaylist.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -276,7 +287,7 @@ public class AddMediaToPlaylistController implements Initializable {
             });
             return row;
         });
-
+        */
         SceneHandler.getInstance().scaleTransition(btnAddToPlaylist);
         SceneHandler.getInstance().scaleTransition(btnDelete);
         SceneHandler.getInstance().scaleTransition(btnMoveDown);

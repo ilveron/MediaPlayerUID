@@ -52,7 +52,8 @@ public class PlaylistCollectionController implements Initializable {
         PlaylistCollection.getInstance().updatePlaylistProperty().addListener(observable -> {
             if (PlaylistCollection.getInstance().isUpdatePlaylist()) {
                 setContentTilePane();
-                PlaylistCollection.getInstance().setUpdatePlaylist(false);
+                System.out.println("AGGIORNAMENTO");
+                //PlaylistCollection.getInstance().setUpdatePlaylist(false);
             }
         });
 

@@ -232,18 +232,36 @@ public class SceneHandler {
             public void handle(WindowEvent windowEvent) {
 
                 try {
-                    //Player.getInstance().stop();
+                    if(Player.getInstance().getMediaPlayer()!=null)
+                        Player.getInstance().stop();
+
                     scene= new Scene((new FXMLLoader(MainApplication.class.getResource("exit-view.fxml"))).load(),500,180);
                     stage.hide();
-                    stage = new Stage(StageStyle.UNDECORATED);
+                    stage = new Stage();
                     //stage.initStyle();
                     stage.setScene(scene);
                     stage.show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        if(!SceneHandler.getInstance().showConfirmationAlert("Do you really want to close?"+System.lineSeparator()+ "Data will probably be corrupted or will not be entirely saved.")){
+                            windowEvent.consume();
+                            stage.show();
+                        }else{exit();}
+                    }
+                });
+
+
+
                 if(mediaLoadingInProgess.get()){
+                    if(Player.getInstance().getMediaPlayer()!=null)
+                        Player.getInstance().stop();
+
                     SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
                         canStartSaving.set(true);
                     });
@@ -373,14 +391,15 @@ public class SceneHandler {
 
     private void save(){
         numberOfData=PlayQueue.getInstance().getQueue().size();
-        System.out.println(numberOfData);
         //DatabaseManager.getInstance().changeApplicationClosureData();
         DatabaseManager.getInstance().deleteAll("Playqueue");
-        for(int i=0;i<numberOfData;i++) {
+        for (int i=0;i<numberOfData; i++){
             DatabaseManager.getInstance().insertPlayQueue(PlayQueue.getInstance().getQueue().get(i).getPath(),i);
             numberOfDataProcessed++;
 
         }
+
+
         exit();
     }
 

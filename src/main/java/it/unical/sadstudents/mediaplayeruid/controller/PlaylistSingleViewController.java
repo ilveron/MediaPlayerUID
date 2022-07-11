@@ -112,6 +112,8 @@ public class PlaylistSingleViewController implements Initializable {
 
     @FXML
     void onPlayPlaylist(ActionEvent event) {
+        initListPlayQueue();
+        /*
         if(!playlist.isPlaying()){
             playlist.setPlaying(true);
             playlist.playAll(false);

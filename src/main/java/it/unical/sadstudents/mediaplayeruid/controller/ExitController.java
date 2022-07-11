@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
@@ -50,6 +51,13 @@ public class ExitController implements Initializable {
                         ThreadManager.getInstance().progressBarUpdate(saving,"saving");
                     }
                 }));
+
+        Player.getInstance().isRunningProperty().addListener(observable -> {
+            if(Player.getInstance().getMediaPlayer()!=null)
+                Player.getInstance().stop();
+
+        });
+
 
 
 

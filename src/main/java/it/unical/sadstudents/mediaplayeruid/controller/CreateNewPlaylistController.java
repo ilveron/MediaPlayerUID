@@ -137,6 +137,10 @@ public class CreateNewPlaylistController implements Initializable {
         textTitle.textProperty().addListener(new ChangeListener<String>() {//che fa qui?
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.length()>25) {
+                    newValue=newValue.substring(0,newValue.length()-1);
+                    textTitle.setText(newValue);
+                }
                 if(!findName(newValue.trim())){ error();}
                 else {labelErrore.setVisible(false);}
                 SubStageHandler.getInstance().setUpdated(true);
