@@ -97,7 +97,7 @@ public class AddMediaToPlaylistController implements Initializable {
     @FXML
     void onDownOrderAction(ActionEvent event) {
         int index=tableViewPlaylist.getSelectionModel().getSelectedIndex();
-        if (index!=temp.size()-1){
+        if (index<temp.size()-1){
             temp.add(index,temp.get(index+1));
             temp.remove(index+2);
             SubStageHandler.getInstance().setUpdated(true);
