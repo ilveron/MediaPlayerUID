@@ -1,8 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.utils;
 
-import it.unical.sadstudents.mediaplayeruid.model.DatabaseManager;
-import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
-import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
@@ -58,13 +56,25 @@ public class UpdateMetadata {
 
         if(Player.getInstance().getEndMediaTime()>0){
             myMedia.setLength(ThreadManager.getInstance().formatTime(Player.getInstance().getEndMediaTime()));
+            if(myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                for(int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
+                    if(myMedia.equals(VideoLibrary.getInstance().getVideoLibrary().get(i)) && !myMedia.getLength().equals(VideoLibrary.getInstance().getVideoLibrary().get(i).getLength()))
+                        VideoLibrary.getInstance().getVideoLibrary().get(i).setLength(myMedia.getLength());
+                }
+            }
+            else{
+                for(int i=0; i< MusicLibrary.getInstance().getMusicLibrary().size();i++){
+                    if(myMedia.equals(MusicLibrary.getInstance().getMusicLibrary().get(i)) && !myMedia.getLength().equals(MusicLibrary.getInstance().getMusicLibrary().get(i).getLength()))
+                        MusicLibrary.getInstance().getMusicLibrary().get(i).setLength(myMedia.getLength());
+                }
+            }
+
+
             DatabaseManager.getInstance().setMediaString(myMedia.getLength(),"Length", myMedia.getPath());
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println(SceneHandler.getInstance().isUpdateViewRequired());
                     SceneHandler.getInstance().setUpdateViewRequired(true);
-
                 }
             });
 

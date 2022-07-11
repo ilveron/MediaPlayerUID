@@ -166,8 +166,7 @@ public class MusicLibraryController implements Initializable {
         });
 
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
-            if (SceneHandler.getInstance().isUpdateViewRequired()){
-
+            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="music-library-view.fxml"){
                 tableViewMusicLibrary.refresh();
                 colorSelectedRow();
                 SceneHandler.getInstance().setUpdateViewRequired(false);
@@ -203,17 +202,8 @@ public class MusicLibraryController implements Initializable {
     public void colorSelectedRow(){
         if(MusicLibrary.getInstance().getMusicLibrary().size() > 0 && Player.getInstance().getIsRunning()){
             MyMedia temp= PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia());
-            for (int i=0; i<tableViewMusicLibrary.getItems().size();i++){
-                System.out.println("funziona l'equals?");
+            tableViewMusicLibrary.getSelectionModel().select(temp);
 
-                if(temp.equals(tableViewMusicLibrary.getItems().get(i))) {
-                    System.out.println(tableViewMusicLibrary.getItems().size());
-
-                    tableViewMusicLibrary.getSelectionModel().select(i);
-                    //tableViewMusicLibrary.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
-                }
-
-            }
         }
 
 

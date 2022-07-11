@@ -162,7 +162,7 @@ public class PlayQueueController implements Initializable {
         });
 
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
-            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()==""){
+            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="play-queue-view.fxml"){
                 tableViewQueue.refresh();
                 tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia()) ;
                 SceneHandler.getInstance().setUpdateViewRequired(false);
