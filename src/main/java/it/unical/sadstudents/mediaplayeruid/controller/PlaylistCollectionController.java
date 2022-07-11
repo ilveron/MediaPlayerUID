@@ -58,13 +58,16 @@ public class PlaylistCollectionController implements Initializable {
             }
         });
 
-        /*PlaylistCollection.getInstance().deleteProperty().addListener(observable -> {
-                if(PlaylistCollection.getInstance().getDelete()!=-1){
-                    PlaylistCollection.getInstance().deletePlaylist(PlaylistCollection.getInstance().getDelete());
-                    PlaylistCollection.getInstance().setDelete(-1);
+        SceneHandler.getInstance().menuHoverProperty().addListener(observable -> {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
                     setContentTilePane();
                 }
-        });*/
+            });
+        });
+
+
 
         SceneHandler.getInstance().scaleTransition(ButtonCreatePlaylist);
     }
@@ -90,7 +93,12 @@ public class PlaylistCollectionController implements Initializable {
     }
 
     private  double setDimTilePane(){
-        double tilePaneSize = (SceneHandler.getInstance().getStage().getWidth())-350;
+        double tilePaneSize;
+        if(SceneHandler.getInstance().isMenuHover())
+            tilePaneSize = (SceneHandler.getInstance().getStage().getWidth())-350;
+        else{
+            tilePaneSize =(SceneHandler.getInstance().getStage().getWidth())-150;
+        }
         return tilePaneSize;
         //int numberOfColumns = ((int)tilePaneSize)/600;
         //tilePane.setPrefColumns(numberOfColumns);

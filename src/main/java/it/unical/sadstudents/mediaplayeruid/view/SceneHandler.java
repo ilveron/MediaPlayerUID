@@ -45,6 +45,8 @@ public class SceneHandler {
 
     private  SimpleBooleanProperty updateViewRequired = new SimpleBooleanProperty(false);
 
+    private SimpleBooleanProperty menuHover = new SimpleBooleanProperty(true);
+
 
 
     //SAVING PROCESS DATA
@@ -69,6 +71,18 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
+
+    public boolean isMenuHover() {
+        return menuHover.get();
+    }
+
+    public SimpleBooleanProperty menuHoverProperty() {
+        return menuHover;
+    }
+
+    public void setMenuHover(boolean menuHover) {
+        this.menuHover.set(menuHover);
+    }
 
     public boolean isUpdateViewRequired() {
         return updateViewRequired.get();
@@ -217,7 +231,7 @@ public class SceneHandler {
         DatabaseManager.getInstance().createTableMediaMyMediaPlaylist();
         DatabaseManager.getInstance().createTablePlayqueue();
         DatabaseManager.getInstance().createTableEqualizer();
-        //DatabaseManager.getInstance().createTableApplicationClosureData();
+        DatabaseManager.getInstance().createTableTheme();
 
         stage = mainStage;
         //stage.getIcons().add(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/logoMediaPlayerUID.png"));
@@ -239,6 +253,8 @@ public class SceneHandler {
         }
 
         //Loads style.css stylesheet
+        DatabaseManager.getInstance().initTheme();
+        DatabaseManager.getInstance().receiveTheme();
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
         scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
 
@@ -250,6 +266,7 @@ public class SceneHandler {
             public void handle(WindowEvent windowEvent) {
 
                 try {
+                    DatabaseManager.getInstance().changeTheme(Settings.theme);
                     if(Player.getInstance().getMediaPlayer()!=null)
                         Player.getInstance().stop();
 

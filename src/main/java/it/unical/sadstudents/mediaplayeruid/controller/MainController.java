@@ -116,6 +116,7 @@ public class MainController implements Initializable {
 
             anchorPane.hoverProperty().addListener(observable -> {
                 if(anchorPane.isHover()){
+
                     int startValue = 50;
 
 
@@ -131,6 +132,7 @@ public class MainController implements Initializable {
 
                     SceneHandler.getInstance().resizeAnchorPaneTransition(anchorPane, startValue,(int)anchorPane.maxHeightProperty().get(), 50, (int)anchorPane.maxHeightProperty().get(), 0.5);
                 }
+                SceneHandler.getInstance().setMenuHover(anchorPane.isHover());
             });
 
         } catch (Exception e) {

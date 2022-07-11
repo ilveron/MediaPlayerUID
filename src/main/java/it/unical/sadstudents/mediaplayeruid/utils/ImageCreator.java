@@ -59,7 +59,7 @@ public class ImageCreator extends Service<Boolean> {
                             return new Task<>() {
                                 @Override
                                 protected Void call() throws Exception {
-                                    Thread.sleep(2000);
+                                    Thread.sleep(3000);
                                     return null;
                                 }
                             };

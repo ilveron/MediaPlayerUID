@@ -123,7 +123,7 @@ public class AddMediaToPlaylistController implements Initializable {
     @FXML
     void onUpOrderAction(ActionEvent event) {
         int index=tableViewPlaylist.getSelectionModel().getSelectedIndex();
-        if (index!=0){
+        if (index>0){
             temp.add(index-1,temp.get(index));
             temp.remove(index+1);
             tableViewPlaylist.getSelectionModel().select(index-1);

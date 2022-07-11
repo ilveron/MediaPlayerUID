@@ -5,7 +5,6 @@ import it.unical.sadstudents.mediaplayeruid.utils.ListedDataInterface;
 import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -88,11 +87,6 @@ public class VideoLibrary implements ListedDataInterface {
         PlayQueue.getInstance().deleteFromOtherController(myMedia);
         PlaylistCollection.getInstance().deleteMediaCompletely(myMedia.getPath());
     }
-
-
     //END GETTERS AND SETTERS
-
-
-
 
 }

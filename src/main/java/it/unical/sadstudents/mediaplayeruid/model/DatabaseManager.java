@@ -1,9 +1,13 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.Settings;
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -47,7 +51,7 @@ public class DatabaseManager {
                 while (rs.next()) {return  true;}
                 stmt.close();
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return  false;
     } //gestisco se è presente o meno solo per non far apparire errore
     private boolean isPresentInt(String object,Integer key, String tab){
@@ -60,7 +64,7 @@ public class DatabaseManager {
                 while (rs.next()) {return  true;}
                 stmt.close();
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return  false;
     }
     private boolean checkTable(String table){
@@ -93,7 +97,7 @@ public class DatabaseManager {
                 return true;
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            MyNotification.notifyError("Error","Database connection error",3);
         }
         return false;
     }
@@ -104,7 +108,9 @@ public class DatabaseManager {
                 connection.close();
                 return  true;
             }
-        }catch (SQLException e){}
+        }catch (SQLException e){
+            MyNotification.notifyError("Error","Database disconnect error",3);
+        }
         return  false;
     }
 
@@ -129,7 +135,7 @@ public class DatabaseManager {
 
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
     }
     public boolean createPlaylist(String name,String image,Integer songs,String duration){
@@ -143,7 +149,7 @@ public class DatabaseManager {
                 stmt.execute();
                 return true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
     public boolean addMyMediaInPlaylist(String pathMedia,String name,int Key){
@@ -177,7 +183,7 @@ public class DatabaseManager {
                     return  true;
                 }
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
     public boolean insertPlayQueue(String path,int Key){
@@ -192,9 +198,10 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
+
     /*
     public boolean changeApplicationClosureData(){
         try {
@@ -231,7 +238,7 @@ public class DatabaseManager {
                 stmt.close();
                 return  true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     } // TODO: 05/07/2022 da controllare
 
@@ -255,7 +262,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
     }
     public boolean setMediaString(String date,String tipe,String pathMedia){
@@ -268,7 +275,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
 
     }
@@ -282,7 +289,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
 
     }
@@ -296,7 +303,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
 
     }
@@ -312,7 +319,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
     }
 
@@ -384,7 +391,7 @@ public class DatabaseManager {
                 return ;
             }
 
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
     }
     public void receiveMediaInPlaylist(String name){
         try {
@@ -406,7 +413,7 @@ public class DatabaseManager {
                 rs.close();
             }
 
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
     }
     public void receivePlaylist(){
         try {
@@ -423,7 +430,7 @@ public class DatabaseManager {
                 rs.close();
             }
 
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
     }
     public void receiveRecentMedia(){
         try {
@@ -445,7 +452,7 @@ public class DatabaseManager {
                 return ;
             }
 
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
     }
     public void receivePlayqueue(){
         try {
@@ -466,7 +473,7 @@ public class DatabaseManager {
                 rs.close();
             }
 
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return ;
     }
     /*
@@ -531,7 +538,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
     public boolean deleteAllMedia(String path){
@@ -542,7 +549,7 @@ public class DatabaseManager {
                         &deleteMedia(path,"MyMediaPlaylist")
                         &deleteMedia(path,"Playqueue");
             }
-        }catch (SQLException e){ e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
     public boolean deleteMedia(String pathMymedia, String tab){
@@ -555,7 +562,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){ e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
 
@@ -567,7 +574,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){ e.printStackTrace();}
+        }catch (SQLException e){ }
         return false;
     }
     public boolean deletePlaylist(String name){
@@ -580,7 +587,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
 
@@ -594,7 +601,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
 
@@ -618,9 +625,7 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
 
 
     }
@@ -633,9 +638,7 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
 
 
     }
@@ -650,9 +653,7 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
 
 
     }
@@ -667,9 +668,7 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
 
 
     }
@@ -682,9 +681,68 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
+    }
+
+
+
+    public void createTableTheme(){
+        try {
+            String query =
+                    "CREATE TABLE IF NOT EXISTS AppTheme(Key VARCHAR(3)," +
+                            "Theme VARCHAR(100),"+
+                            "PRIMARY KEY (Key));";
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            stmt.close();
+        }catch (SQLException e){}
+    }
+    public boolean changeTheme(String theme){
+        try {
+            if(connection != null &&!connection.isClosed()) {
+                PreparedStatement stmt = connection.prepareStatement(
+                        "UPDATE AppTheme " +
+                                "SET Theme=? " +
+                                "WHERE Key=Key;");
+                stmt.setString(1, theme);
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {}
+        return false;
+    }
+    public boolean initTheme(){
+        try {
+            if(connection != null &&!connection.isClosed()&&!isPresent("Key", "Key","AppTheme")) {
+                PreparedStatement stmt = connection.prepareStatement(
+                        "INSERT INTO AppTheme VALUES(?, ?);");
+                stmt.setString(1,"Key");
+                stmt.setString(2, "dark");
+                stmt.execute();
+                stmt.close();
+                return true;
+            }
+        }catch (SQLException e) {}
+        return false;
+    }
+    public void receiveTheme(){
+        try {
+            if(connection != null&&!connection.isClosed()) {
+                String query = "select * " +
+                        "from AppTheme " +
+                        "where Key=Key" +
+                        ";";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    Settings.theme=rs.getString("Theme");
+                }
+                stmt.close();
+                rs.close();
+            }
+
+        }catch (SQLException e){}
     }
     /*
     public void createTableApplicationClosureData(){
@@ -727,9 +785,7 @@ public class DatabaseManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(query);
             stmt.close();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        }catch (SQLException e){}
     }
     public boolean initEqualizer(){
         try {
@@ -750,7 +806,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
     }
     public boolean setEqualizer(int []vett){
@@ -781,7 +837,7 @@ public class DatabaseManager {
                 stmt.close();
                 return true;
             }
-        }catch (SQLException e) {e.printStackTrace();}
+        }catch (SQLException e) {}
         return false;
     }
     public boolean getEqualizer(){
@@ -805,7 +861,7 @@ public class DatabaseManager {
             AudioEqualizer.getInstance().getPresetsValues().remove(AudioEqualizer.getInstance().getPresetsNames().size()-1);
             AudioEqualizer.getInstance().getPresetsValues().add(settings);
             return true;
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){}
         return false;
     }
 
