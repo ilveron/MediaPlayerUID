@@ -15,8 +15,8 @@
       <Label layoutX="160.0" layoutY="274.0" styleClass="hotkeysElement" text="M:" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="274.0" />
       <Label layoutX="95.0" layoutY="304.0" styleClass="hotkeysElement" text="ALT + Left:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="304.0" />
       <Label layoutX="82.0" layoutY="334.0" styleClass="hotkeysElement" text="ALT + Right:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="334.0" />
-      <Label layoutX="92.0" layoutY="364.0" styleClass="hotkeysElement" text="CTRL + Up:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="364.0" />
-      <Label layoutX="67.0" layoutY="394.0" styleClass="hotkeysElement" text="CTRL + Down:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="394.0" />
+      <Label layoutX="92.0" layoutY="364.0" styleClass="hotkeysElement" text="Alt + Up:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="364.0" />
+      <Label layoutX="67.0" layoutY="394.0" styleClass="hotkeysElement" text="Alt + Down:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="394.0" />
       <Label layoutX="102.0" layoutY="424.0" styleClass="hotkeysElement" text="CTRL + Q:" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="424.0" />
       <Label layoutX="227.0" layoutY="94.0" styleClass="hotkeysDescription" text="Play/Pause" AnchorPane.leftAnchor="227.0" />
       <Label layoutX="227.0" layoutY="124.0" styleClass="hotkeysDescription" text="Stop" AnchorPane.leftAnchor="227.0" />
