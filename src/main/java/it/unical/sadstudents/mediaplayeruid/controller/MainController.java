@@ -28,21 +28,21 @@ import java.util.function.ToDoubleBiFunction;
 
 public class MainController implements Initializable {
     // TODO: 11/07/2022 IMPORTANTI:
-        // FATTTTOOOOOOOOOOOOO 11/07/2022 Sistemare multi selezione playlist, quando seleziono canzoni e poi cerchi una parola successivamente si bagga tutta la selezione
+        // FATTTTOOOOOOOOOOOOO ANDREA Sistemare multi selezione playlist, quando seleziono canzoni e poi cerchi una parola successivamente si bagga tutta la selezione
         // TODO: 11/07/2022 Sistemare nome canzone/video che si sovrappone al tempo
         // TODO: 11/07/2022 tooltip ovunque
         // TODO: 11/07/2022 gestione errori....fondamentale...domani pomeriggio si fa solo questo
         // FATTTTOOOOOOOOOOOOO ANDREA 11/07/2022 playlist...ora se una playlist sta suonando, e si aggiungono o RIMUOVONO file alla playlist, è un macello gestire l'aggiunta/RIMOZIONE alla coda
         // TODO: ERNESTO 11/07/2022 Aggiornamento tilepane, in playlist e videogallery
-        // FATTTTOOOOOOOOOOOOO 11/07/2022 sistemare il resize tilepane di home e videogallery
+        // FATTTTOOOOOOOOOOOOO  ERNESTO sistemare il resize tilepane di home e videogallery
         // TODO: 11/07/2022 MusicLibrary ClearAll
-        // FATTTTOOOOOOOOOOOOO caricamento quando è in corso un altro caricamento
+        // FATTTTOOOOOOOOOOOOO ERNESTO caricamento quando è in corso un altro caricamento
         // TODO: 11/07/2022 INTEGRITY CHECK DEI PATH
-        // TODO: 11/07/2022 KEYEVENT
+        // FATTTTOOOOOOOOOOOOO ERNESTO 11/07/2022 KEYEVENT
         // FATTTTOOOOOOOOOOOOO ERNESTO 11/07/2022 CLOSE STAGE
         // TODO: 11/07/2022 cosa è successo alla rotellina in home?
         // TODO: 11/07/2022 gestire quadretto vuoto in menu quando video in corso
-        // TODO: 11/07/2022 metadataupdate
+        // FATTTTOOOOOOOOOOOOO ERNESTO 11/07/2022 metadataupdate
 
     // TODO: 11/07/2022 SECONDARI:
         // TODO: 11/07/2022 Research brani in playlist
@@ -107,6 +107,8 @@ public class MainController implements Initializable {
             anchorPane1.setPrefHeight(96);
             anchorPane1.setPrefWidth(1344);
             myBorderPane.setBottom(anchorPane1);
+
+
 
 
 
@@ -360,7 +362,8 @@ public class MainController implements Initializable {
         Platform.exit();
     }
 
-    /*public void setKeyEvent() {
+    /*
+    public void setKeyEvent() {
 
         myBorderPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

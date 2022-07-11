@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javax.swing.plaf.IconUIResource;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -82,6 +83,7 @@ public class PlaylistSingleViewController implements Initializable {
     @FXML
     private Button btnEdit;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SceneHandler.getInstance().scaleTransition(btnAdd);
@@ -91,17 +93,25 @@ public class PlaylistSingleViewController implements Initializable {
 
     @FXML
     void onDeletePlaylist(ActionEvent event) {
-        if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
-        //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
-            int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlist.getName());
-            PlaylistCollection.getInstance().deletePlaylist(index);
+        try {
+            if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlist.getName()+"' ?")) {
+                //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
+                int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlist.getName());
+                PlaylistCollection.getInstance().deletePlaylist(index);
+                PlaylistCollection.getInstance().setUpdatePlaylist(true);
+            }
+        }catch (Exception e){
+            System.out.println("GIA ELIMINATO");
             PlaylistCollection.getInstance().setUpdatePlaylist(true);
         }
     }
 
     @FXML
     void onChange(ActionEvent event) {
-        SubStageHandler.getInstance().init("new-playlist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
+        try{
+            SubStageHandler.getInstance().init("new-playlist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
+
+        }catch (Exception e){}
         /*CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
         playlist.setImage(CreateNewPlaylist.getInstance().getImage());
         playlist.setName(CreateNewPlaylist.getInstance().getName());
@@ -112,7 +122,10 @@ public class PlaylistSingleViewController implements Initializable {
 
     @FXML
     void onPlayPlaylist(ActionEvent event) {
-        initListPlayQueue();
+        try {
+            initListPlayQueue();
+        }catch (Exception e){}
+
         /*
         if(!playlist.isPlaying()){
             playlist.setPlaying(true);
@@ -141,15 +154,19 @@ public class PlaylistSingleViewController implements Initializable {
 
     @FXML
     void onAddToPlaylist(ActionEvent event) {
-        SubStageHandler.getInstance().init("addMediaToPlaylist-view.fxml",700,761,"Edit Playlist",true, playlist.getName());
-        //PlaylistMedia.getInstance().changePlaylistMedia(playlist);
-        setLabel();
-        PlaylistCollection.getInstance().setUpdatePlaylist(true);
+        try {
+            SubStageHandler.getInstance().init("addMediaToPlaylist-view.fxml",700,761,"Edit Playlist",true, playlist.getName());
+            //PlaylistMedia.getInstance().changePlaylistMedia(playlist);
+            setLabel();
+            PlaylistCollection.getInstance().setUpdatePlaylist(true);
+        }catch (Exception e){}
+
     }
 
     Playlist playlist;
     private boolean PlayPause=false;
     private ContextMenuHandler contextMenuHandler;
+
     public void init(Playlist playlist) {
         this.playlist=playlist;
         // TODO: 02/07/2022 settare che non si resetta dopo lo switch di pagina , aggiornamento canzoni sbagliato
@@ -172,30 +189,34 @@ public class PlaylistSingleViewController implements Initializable {
         year.setCellValueFactory(new PropertyValueFactory<MyMedia, Integer>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia, Double>("length"));
 
-        summaryVBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            @Override
-            public void handle(ContextMenuEvent contextMenuEvent) {
-                //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(null,playlist.getName(),"playlist");
-                setOnContextMenuHandler(summaryVBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY(),null,0);
-            }
-        });
+        try {
 
-        tableViewPlaylist.setRowFactory(tableView ->{
-            final TableRow<MyMedia> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if(event.getButton().equals(MouseButton.SECONDARY)){
-                    if(!row.isEmpty()){
-                        MyMedia myMedia=row.getItem();
-                        contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(),"playlist",row.getIndex());
-                        row.setContextMenu(contextMenuHandler);
-                        row.getContextMenu();
-                    }
-
+            summaryVBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                @Override
+                public void handle(ContextMenuEvent contextMenuEvent) {
+                    //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(null,playlist.getName(),"playlist");
+                    setOnContextMenuHandler(summaryVBox, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY(), null, 0);
                 }
             });
 
-            return row;
-        });
+            tableViewPlaylist.setRowFactory(tableView -> {
+                final TableRow<MyMedia> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getButton().equals(MouseButton.SECONDARY)) {
+                        if (!row.isEmpty()) {
+                            MyMedia myMedia = row.getItem();
+                            contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(), "playlist", row.getIndex());
+                            row.setContextMenu(contextMenuHandler);
+                            row.getContextMenu();
+                        }
+
+                    }
+                });
+
+                return row;
+            });
+
+        }catch (Exception e){}
 
 
 

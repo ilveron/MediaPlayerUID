@@ -41,6 +41,7 @@ public class SceneHandler {
     private SimpleBooleanProperty infoMediaPropertyHover = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty fullScreenRequested = new SimpleBooleanProperty(false);
 
+
     //SAVING PROCESS DATA
     private double numberOfData=0;
     private double numberOfDataProcessed=0;
@@ -257,6 +258,7 @@ public class SceneHandler {
                 });
 
 
+                SceneHandler.getInstance().canStartSavingProperty().addListener(observable -> save());
 
                 if(mediaLoadingInProgess.get()){
                     if(Player.getInstance().getMediaPlayer()!=null)
@@ -271,7 +273,6 @@ public class SceneHandler {
                     save();
                 }
 
-                SceneHandler.getInstance().canStartSavingProperty().addListener(observable -> save());
 
 
 
@@ -405,7 +406,7 @@ public class SceneHandler {
 
 
 
-    private void exit(){
+    public void exit(){
         DatabaseManager.getInstance().disconnect();
         Platform.exit();
         System.exit(0);

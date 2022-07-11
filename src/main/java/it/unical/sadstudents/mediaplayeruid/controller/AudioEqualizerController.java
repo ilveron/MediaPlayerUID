@@ -144,6 +144,8 @@ public class AudioEqualizerController implements Initializable {
 
         SceneHandler.getInstance().scaleTransition(plsReset);
         SceneHandler.getInstance().scaleTransition(plsSave);
+
+        setTooltips();
     }
 
     private void presetComboBoxHandler(ActionEvent event) {
@@ -234,5 +236,10 @@ public class AudioEqualizerController implements Initializable {
         slider4k.setDisable(status);
         slider8k.setDisable(status);
         slider16k.setDisable(status);
+    }
+
+    private void setTooltips(){
+        plsSave.setTooltip(new Tooltip("Save the custom EQ preset"));
+        plsReset.setTooltip(new Tooltip("Reset the custom EQ preset"));
     }
 }

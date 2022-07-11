@@ -1,5 +1,9 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -64,6 +68,20 @@ public class DatabaseManager {
            table=="RecentMedia"||table=="Playqueue"||table=="MyMediaPlaylist"||table=="Equalizer")
             return true;
         else  return false;
+    }
+    private boolean checkFile(String path){
+        File file=new File(path);
+        try {
+            //System.out.println("file " + file.getCanonicalPath() + " doesn't exist");
+            System.out.println("File: " + path);
+            //Path p= Paths.get(path);
+            /*Files.exists(p)*/
+            if (file.exists() && file.isFile())
+                return true;
+            else
+                return false;
+        }catch (Exception e){return false;}
+
     }
     //  end function private
 
@@ -343,6 +361,13 @@ public class DatabaseManager {
                 PreparedStatement stmt = connection.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
+                    /*if(checkFile(rs.getString("Path"))){
+                        System.out.println("esiste:   "+rs.getString("Path"));
+                    }
+                    else
+                    {
+                        System.out.println("NON esiste:     "+rs.getString("Path"));
+                    }*/
                     if(filter=="MusicLibrary") {
                         MusicLibrary.getInstance().getMusicLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                                 rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")

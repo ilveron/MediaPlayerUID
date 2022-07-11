@@ -14,7 +14,7 @@
 
 .sceneHeaders {
     -fx-font-family: "Montserrat ExtraBold";
-    -fx-text-fill: headersTextColor;
+    -fx-text-fill: primarySelectionColor;
     -fx-font-size: 40px;
     -fx-text-alignment: center;
 }
@@ -27,17 +27,23 @@
 }
 
 .toolBarButton {
-    -fx-font-family: "Montserrat Regular";
+    -fx-font-family: "Montserrat Medium";
     -fx-font-size: 16px;
     -fx-text-fill: textColor;
 }
 
 .focusedToolBarButton {
-    -fx-background-color: secondarySelectionColor;
+    -fx-font-family: "Montserrat Medium";
+    -fx-font-size: 16px;
+    -fx-background-radius: 5px;
     -fx-text-fill: primaryBackgroundColor;
+    -fx-background-color: primarySelectionColor;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-content-display: LEFT;
+    -fx-min-width: 50px;
 }
 
-.focusedToolBarButton .iconsOverBackground { -fx-icon-color: iconOverBackgroundColor; }
+.focusedToolBarButton .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
 
 .toolBarIcons { -fx-icon-color: iconOverBackgroundColor; }
 
@@ -248,9 +254,7 @@
 
 /*.recentMedia:selected { -fx-background-color: secondarySelectionColor; }*/
 
-.recentMedia:hover > .recentArtistMediaLabel { -fx-text-fill: primaryBackgroundColor; }
-
-.recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: secondaryBackgroundColor; }
+.recentMedia:hover > .recentArtistMediaLabel, .recentMedia:hover > .recentMediaNameLabel { -fx-text-fill: primaryBackgroundColor; }
 
 .selectedRecentMedia { -fx-background-color: tertiarySelectionColor; }
 
@@ -342,6 +346,11 @@
 
 .littleSettingsPane .toolBarButton:hover .iconsOverBackground {
     -fx-icon-color: settingsIconHoverColor;
+}
+
+.selectedToolBarButton {
+
+
 }
 
 .choice-box > .label { -fx-text-fill: imagesColor; }

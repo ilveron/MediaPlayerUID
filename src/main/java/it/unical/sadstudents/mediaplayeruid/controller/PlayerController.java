@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.KeyCombo;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
@@ -98,6 +99,10 @@ public class PlayerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         double percentage = 100.0;// * (newValue.doubleValue() - volumeSlider.getMin()) / (volumeSlider.getMax() - volumeSlider.getMin());
+
+        Player.getInstance().isRunningProperty().addListener(observable -> {
+            setKeyEvent();
+        });
 
         Player.getInstance().isAVideoProperty().addListener(observable -> {
             if(Player.getInstance().getIsAVideo())
@@ -559,16 +564,16 @@ public class PlayerController implements Initializable {
 
 
 
-    /*public void setKeyEvent() {
+    public void setKeyEvent() {
 
-        myBorderPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        SceneHandler.getInstance().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 KeyCode key = keyEvent.getCode();
 
 
                 if (key == KeyCode.SPACE && Player.getInstance().isMediaLoaded()) { //Space	Play/pause
-                    plsPlayPause.requestFocus();
+                    btnPlayPause.requestFocus();
                     playPauseHandler();
                 } else if (key == KeyCode.S) {//S	Stop
                     Player.getInstance().stop();
@@ -577,9 +582,9 @@ public class PlayerController implements Initializable {
                 } else if (key == KeyCode.P) {//P	Previous track
                     previous();
                 } else if (key == KeyCode.L) { //L	Normal/loop/repeat
-                    plsRepeat.fire();
+                    btnRepeat.fire();
                 } else if (key == KeyCode.T) {//T	Shuffle
-                    plsShuffle.fire();
+                    btnShuffle.fire();
                 } else if (key == KeyCode.M) {//M	Mute
                     muteUnmuteHandler();
                 } else if (KeyCombo.skipBack.match(keyEvent)) {//ALT + LEFT  Skip back 10s
@@ -587,11 +592,13 @@ public class PlayerController implements Initializable {
                 } else if (KeyCombo.skipForward.match(keyEvent)) {//ALT + RIGHT  Skip forward 10s
                     skipForward();
                 } else if (KeyCombo.volumeUp.match(keyEvent)) {//CTRL + UP  Volume up 10%
+                    controlsBox.requestFocus();
                     volumeChange(10);
                 } else if (KeyCombo.volumeDown.match(keyEvent)) {//CTRL + DOWN  Volume down 10%
+                    controlsBox.requestFocus();
                     volumeChange(-10);
                 } else if (KeyCombo.quit.match(keyEvent)) {//CTRL + Q  Quit application
-                    quit();
+                    SceneHandler.getInstance().exit();
                 }
 
 
@@ -601,6 +608,6 @@ public class PlayerController implements Initializable {
         //END FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     }
 
-    */
+
 }
 

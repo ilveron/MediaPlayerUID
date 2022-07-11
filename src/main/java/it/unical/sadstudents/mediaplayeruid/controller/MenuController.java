@@ -3,16 +3,21 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToolBar;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
@@ -91,10 +96,6 @@ public class MenuController implements Initializable {
 
         });
 
-        SceneHandler.getInstance().currentMidPaneProperty().addListener(observable -> {
-            changeStyle();
-        });
-
         SceneHandler.getInstance().metadataLoadindagInProgessProperty().addListener(observable -> {
             if(SceneHandler.getInstance().isMetadataLoadindagInProgess())
             {
@@ -136,7 +137,31 @@ public class MenuController implements Initializable {
         SceneHandler.getInstance().scaleTransition(btnPlayQueue);
         SceneHandler.getInstance().scaleTransition(btnVideoLibrary);
         SceneHandler.getInstance().scaleTransition(btnVideoView);
+
+        for(Node btn: toolbarMenu.getItems()){
+            btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    //if(btn.getId() != null) {
+                        resetAllStyles();
+                        btn.getStyleClass().removeAll("button", "toolBarButton");
+                        btn.getStyleClass().add("focusedToolBarButton");
+                    //}
+                    System.out.println(btn.getStyleClass());
+                }
+            });
+        }
+
+        btnSettings.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetAllStyles();
+                btnSettings.getStyleClass().removeAll("button","toolBarButton");
+                btnSettings.getStyleClass().add("focusedToolBarButton");
+            }
+        });
     }
+
 
 
 
@@ -144,8 +169,19 @@ public class MenuController implements Initializable {
         // TODO: 09/07/2022
     }
 
-    private void changeStyle() {
-        // TODO: 09/07/2022
+    private void resetAllStyles() {
+        for(Node btn: toolbarMenu.getItems()){
+            if(btn.getStyleClass().indexOf("focusedToolBarButton") != -1){
+                btn.getStyleClass().remove("focusedToolBarButton");
+                btn.getStyleClass().addAll("button", "toolBarButton");
+            }
+        }
+
+        if(btnSettings.getStyleClass().indexOf("focusedToolBarButton") != -1){
+            btnSettings.getStyleClass().remove("focusedToolBarButton");
+            btnSettings.getStyleClass().addAll("button", "toolBarButton");
+        }
+
     }
 
     private void switchMenu(String menu,boolean videoRequested){

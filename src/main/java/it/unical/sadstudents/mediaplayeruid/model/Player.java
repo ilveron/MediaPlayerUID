@@ -4,6 +4,7 @@ import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -186,6 +187,7 @@ public class Player {
             }
             ThreadManager.getInstance().beginTimer();
             Home.getInstance().addToRecentMedia(PlayQueue.getInstance().getQueue().get(index));
+            updateMetadata(PlayQueue.getInstance().getQueue().get(index));
         }
     }
     //END FUNCTION START POINT FOR MEDIA REPRODUCTION
@@ -252,6 +254,44 @@ public class Player {
         //mediaPlayer.pause();
     }
     //END BASIC CONTROLS
+
+    public void updateMetadata(MyMedia myMedia){
+        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+            if (change.wasAdded()) {
+                String key = change.getKey();
+                if ("title".equals(key)) {
+                    if (media.getMetadata().get("title").toString() != null) {
+                        myMedia.setTitle(media.getMetadata().get("title").toString());
+                        DatabaseManager.getInstance().setMediaString(myMedia.getTitle(),"Title", myMedia.getPath());
+                    }
+                } else if ("artist".equals(key)) {
+                    myMedia.setArtist(media.getMetadata().get("artist").toString());
+                    DatabaseManager.getInstance().setMediaString(myMedia.getArtist(),"Artist", myMedia.getPath());
+                } else if ("album".equals(key)) {
+                    myMedia.setAlbum(media.getMetadata().get("album").toString());
+                    DatabaseManager.getInstance().setMediaString(myMedia.getAlbum(),"Album", myMedia.getPath());
+                } else if ("genre".equals(key)) {
+                    myMedia.setGenre(media.getMetadata().get("genre").toString());
+                    DatabaseManager.getInstance().setMediaString(myMedia.getGenre(),"Genre", myMedia.getPath());
+                } else if ("year".equals(key)) {
+                    myMedia.setYear(media.getMetadata().get("year").toString());
+                    DatabaseManager.getInstance().setMediaString(myMedia.getYear(),"Year", myMedia.getPath());
+                }
+            }
+        });
+        Player.getInstance().endMediaTimeProperty().addListener(observable -> {
+            if(endMediaTime.get()>0){
+                myMedia.setLength(ThreadManager.getInstance().formatTime(endMediaTime.get()));
+                DatabaseManager.getInstance().setMediaString(myMedia.getLength(),"Length", myMedia.getPath());
+                // TODO: 11/07/2022 refresh page 
+
+            }
+
+
+        });
+
+
+    }
 
 
 
