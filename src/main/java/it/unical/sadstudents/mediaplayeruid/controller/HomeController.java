@@ -8,8 +8,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -27,34 +26,28 @@ public class HomeController implements Initializable {
     private ImageView imageTest;
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private MenuButton mbtAdd;
+
 
 
     // TODO: 06/06/2022 DECIDERE SE SWITCHARE IN PLAYQUEUE xd !!!
     @FXML
     void addFiles(ActionEvent event) {
-        //invoca la funzione di PlayQueue per creare una coda da file
             Home.getInstance().addMediaToPlayAndLibrary(RetrievingEngine.getInstance().retrieveFile(0));
     }
 
     @FXML
     void addFolder(ActionEvent event) {
-        //invoca la funzione di PlayQueue per creare una coda da folder
-
         Home.getInstance().addMediaToPlayAndLibrary(RetrievingEngine.getInstance().retrieveFolder(0));
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        startToolTip();
 
         HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
             if(HomeTilePaneHandler.getInstance().getReadyInteger()==Home.getInstance().getRecentMedia().size()){
                 setContentTilePane();
-
             }
 
         });
@@ -68,16 +61,9 @@ public class HomeController implements Initializable {
 
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
-
         });
-
-
     }
 
-
-    private void startToolTip() {
-        // TODO: 07/06/2022
-    }
 
     public void setContentTilePane(){
         Platform.runLater(new Runnable() {
@@ -86,10 +72,10 @@ public class HomeController implements Initializable {
                 tilePane.getChildren().clear();
                 int size = HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
                 for (int i = size-1; i>=0;  i--) {
-                    tilePane.getChildren().add(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
-
+                   // try{
+                        tilePane.getChildren().add(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
+                   // }catch(Exception exception){}
                 }
-
             }
         });
     }

@@ -19,7 +19,7 @@ import javafx.scene.media.MediaView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyMediaSingleBoxController implements Initializable {
+public class MyMediaSingleBoxController  {
     @FXML
     private Label labelDuration;
     @FXML
@@ -44,10 +44,7 @@ public class MyMediaSingleBoxController implements Initializable {
     private Pane onActionPane;
 
     @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnPlay;
+    private Button btnDelete, btnPlay;
 
     @FXML
     void onDeleteAction(ActionEvent event) {
@@ -63,20 +60,27 @@ public class MyMediaSingleBoxController implements Initializable {
     private ContextMenu contextMenu;
     private MyMedia myMedia;
     private String source;
+
     public void init(MyMedia myMedia, String source){
         this.source=source;
         this.myMedia=myMedia;
         artistLabel.setText(myMedia.getArtist());
+
+        artistLabel.setTooltip(new Tooltip(myMedia.getArtist()));
+
         nameLabel.setText(myMedia.getTitle());
+
+        nameLabel.setTooltip(new Tooltip(myMedia.getTitle()));
+
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
         labelDuration.setText(myMedia.getLength());
-
-        //createContextMenu();
-        //contextMenu = new ContextMenuHandler(myMedia,"",source);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnPlay.setTooltip(new Tooltip("Play this media (a new queue will be created)"));
+        if(source=="home"){
+            btnDelete.setTooltip(new Tooltip("Delete media from recent media"));
+        }
+        else{
+            btnDelete.setTooltip(new Tooltip("Delete media from library"));
+        }
         SceneHandler.getInstance().scaleTransition(btnDelete);
         SceneHandler.getInstance().scaleTransition(btnPlay);
     }
@@ -97,7 +101,6 @@ public class MyMediaSingleBoxController implements Initializable {
         if(!actionAnchorPane.isVisible()){
             actionAnchorPane.setVisible(true);
             imageView.setEffect(new GaussianBlur(20));
-
         }
         else{
             actionAnchorPane.setVisible(false);
@@ -108,7 +111,6 @@ public class MyMediaSingleBoxController implements Initializable {
 
     public void playMedia(){
         PlayQueue.getInstance().generateNewQueue(myMedia);
-
     }
 
     public void deleteMedia(){
@@ -117,59 +119,7 @@ public class MyMediaSingleBoxController implements Initializable {
             } else if (source!="home" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
                 VideoLibrary.getInstance().removeSafe(myMedia);
             }
-
     }
-
-   /* public void createContextMenu(){
-        contextMenu = new ContextMenu();
-        MenuItem menuItem = new MenuItem("Play");
-        menuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                playMedia();
-            }
-        });
-
-        MenuItem menuItem1 = new MenuItem("Delete");
-        menuItem1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                deleteMedia();
-            }
-        });
-
-        MenuItem menuItem2 = new MenuItem("Add To Queue");
-        menuItem2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
-            }
-        });
-
-        MenuItem menuItem3 = new MenuItem("Add To Playlist");
-        menuItem3.setDisable(true);
-
-
-        contextMenu.getItems().add(menuItem);
-        contextMenu.getItems().add(menuItem1);
-        contextMenu.getItems().add(menuItem2);
-        contextMenu.getItems().add(menuItem3);
-        contextMenu.getItems().add(new SeparatorMenuItem());
-
-        for(int i= 0; i< Playlists.getInstance().getPlayListsCollections().size();i++){
-            MenuItem temp = new MenuItem(Playlists.getInstance().getPlayListsCollections().get(i).getName());
-            int finalI = i;
-            temp.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    Playlists.getInstance().getPlayListsCollections().get(finalI).addMedia(myMedia);
-
-                }
-            });
-            contextMenu.getItems().add(temp);
-        }
-
-    }*/
 
     public void contextMenuHandle(Node node,double x, double y) {
         if(contextMenu!=null && contextMenu.isShowing())

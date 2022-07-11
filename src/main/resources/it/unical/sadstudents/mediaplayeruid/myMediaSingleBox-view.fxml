@@ -38,7 +38,7 @@
          </children>
       </StackPane>
       <Label fx:id="nameLabel" styleClass="recentMediaNameLabel" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="210.0" />
-      <Label fx:id="artistLabel" styleClass="recentArtistMediaLabel" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="230.0" />
+      <Label fx:id="artistLabel" styleClass="recentArtistMediaLabel" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="230.0" />
       <Label fx:id="labelDuration" layoutX="136.0" layoutY="229.0" prefHeight="17.0" prefWidth="60.0" styleClass="recentArtistMediaLabel" text="Label" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="229.0" />
    </children>
 </AnchorPane>

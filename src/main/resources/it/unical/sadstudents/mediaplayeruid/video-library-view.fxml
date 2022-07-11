@@ -39,7 +39,7 @@
             <FontIcon iconLiteral="fa-film" iconSize="15" styleClass="iconsOverBackground" />
          </graphic>
       </MenuButton>
-      <TextField fx:id="textFieldSearch" focusTraversable="false" maxWidth="166.0" minWidth="-Infinity" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="62.0">
+      <TextField fx:id="textFieldSearch" focusTraversable="false" maxWidth="166.0" minWidth="-Infinity" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="65.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>

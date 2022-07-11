@@ -303,7 +303,7 @@ public class PlayerController implements Initializable {
         btnSkipBack.setTooltip(new Tooltip("Skip back 10s"));
         volumeButton.setTooltip(new Tooltip("Volume"));
         btnRepeat.setTooltip(new Tooltip("Repeat"));
-        btnEqualizer.setTooltip(new Tooltip("Equilizer"));
+        btnEqualizer.setTooltip(new Tooltip("Equalizer"));
         btnProperties.setTooltip(new Tooltip("Info"));
         btnNext.setTooltip(new Tooltip("Next"));
         btnPrevious.setTooltip(new Tooltip("Previous"));

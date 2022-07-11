@@ -8,8 +8,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -30,16 +28,12 @@ public class MyMediaSingleBox extends Pane {
             controller.init(myMedia,source);
             this.getChildren().add(root);
             addKeyMouseEvent();
-            //root.prefWidthProperty().bind(this.widthProperty());
         }catch(Exception ignoredException){}
 
     }
 
     public MyMedia getMyMedia(){return myMedia;}
 
-    public void mouseOverAction(){
-        controller.onMouseOver();
-    }
 
     public void setImage(Image image){
         controller.setImage(image);
@@ -74,7 +68,6 @@ public class MyMediaSingleBox extends Pane {
            }
        });
 
-        //this.setFocusTraversable(true);
         this.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -90,16 +83,9 @@ public class MyMediaSingleBox extends Pane {
 
 
 
-    }
 
-    public void playMedia(){
-        controller.playMedia();
-    }
 
-    public void deleteMedia(){
-        controller.deleteMedia();
     }
-
 
     public void contextMenu(Node node, double x, double y) {
         controller.contextMenuHandle(node,x,y);

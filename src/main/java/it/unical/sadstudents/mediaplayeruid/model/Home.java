@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import javafx.application.Platform;
@@ -27,77 +28,43 @@ public class Home {
     //END SINGLETON
 
     //GETTERS
-
-
-    public boolean isLoading() {
-        return loading.get();
-    }
-
-    public SimpleBooleanProperty loadingProperty() {
-        return loading;
-    }
-
-    public void setLoading(boolean loading) {
-        this.loading.set(loading);
-    }
-
     public ArrayList<MyMedia> getRecentMedia() { return recentMedia; }
 
-    public boolean isChangeHappened() {
-        return changeHappened.get();
-    }
-
-    public SimpleBooleanProperty changeHappenedProperty() {
-        return changeHappened;
-    }
-
-    public void setChangeHappened(boolean changeHappened) {
-        this.changeHappened.set(changeHappened);
-    }
 
 //FUNCTIONS
 
     public void addMediaToPlayAndLibrary(List<File> files){
-        /*for (int i=0; i<files.size(); i++){
-            MyMedia myMedia = ThreadManager.getInstance().createMyMedia(files.get(i));
-            if(i==0){
-                PlayQueue.getInstance().generateNewQueue(myMedia);
-            }
-            else
-                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
-
-            if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
-            }
-            else{
-                MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);}
-        }*/
         try {
             ThreadManager.getInstance().createMediaBis(files,true,true);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            MyNotification.notifyWarning("","Error",3);
         }
-
     }
 
     public void addToRecentMedia(MyMedia myMedia){
         boolean added=false;
         for(int i=0; i<recentMedia.size() && !added;i++){
             if (myMedia.equals(recentMedia.get(i)) ){
-                System.out.println("finded "+recentMedia.get(i));
-
-                recentMedia.remove(i);
+                try{
+                    recentMedia.remove(i);
+                }catch (Exception exception){
+                    MyNotification.notifyError("","Remove error",3);
+                }
                 recentMedia.add(myMedia);
                 added=true;
-                System.out.println("calling "+myMedia);
                 HomeTilePaneHandler.getInstance().moveWithIndex(i);
             }
         }
         if(!added ) {
             if(recentMedia.size()>=20){
                 DatabaseManager.getInstance().deleteMedia(recentMedia.get(0).getPath(),"RecentMedia");
-                recentMedia.remove(0);
-                HomeTilePaneHandler.getInstance().removeWithIndex(0);
+                try{
+                    recentMedia.remove(0);
+                    HomeTilePaneHandler.getInstance().removeWithIndex(0);
+                }
+                catch (Exception exception){
+                    MyNotification.notifyError("","Remove error",3);
+                }
             }
             recentMedia.add(myMedia);
             HomeTilePaneHandler.getInstance().addSingleItem();
@@ -126,19 +93,18 @@ public class Home {
         for (int i = 0; i < Home.getInstance().getRecentMedia().size(); i++) {
             if (myMedia.equals(Home.getInstance().getRecentMedia().get(i))) {
                 DatabaseManager.getInstance().deleteMedia(recentMedia.get(i).getPath(),"RecentMedia");
-                recentMedia.remove(i);
-                HomeTilePaneHandler.getInstance().removeWithIndex(i);
+                try{
+                    recentMedia.remove(i);
+                    HomeTilePaneHandler.getInstance().removeWithIndex(i);
+                }
+                catch (Exception exception)
+                {
+                    MyNotification.notifyError("","Remove error",3);
+                }
                 break;
             }
         }
-
-
     }
-
-
-
     //END FUNCTIONS
-
-
 
 }

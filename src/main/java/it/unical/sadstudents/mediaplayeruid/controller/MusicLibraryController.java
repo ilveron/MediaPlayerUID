@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
@@ -21,10 +22,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MusicLibraryController implements Initializable {
-    private Timer timer;
-    private TimerTask task;
-    private boolean runningTimer;
-
     //TABLEVIEW (WORK WITH OBSERVABLE LIST IN MUSIC LIBRARY MODEL)
     @FXML
     private TableView<MyMedia> tableViewMusicLibrary;
@@ -40,7 +37,7 @@ public class MusicLibraryController implements Initializable {
     @FXML
     private TextField TextField;
     @FXML
-    private Button btnAddLibraryToQueue, btnAddSongToQueue, btnDelete;
+    private Button btnAddLibraryToQueue, btnAddSongToQueue, btnRemove, btnClearAll;
     //END TABLEVIEW
 
     //ACTION EVENT ON BUTTON INSIDE THE FXML ASSOCIATED FILE
@@ -73,19 +70,22 @@ public class MusicLibraryController implements Initializable {
         }
     }
     @FXML
-    void onDeleteSong(ActionEvent event) {
-        /*int index=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
-        MusicLibrary.getInstance().deleteWithIndex(index);
-        tableViewMusicLibrary.refresh();*/
+    void onRemoveSong(ActionEvent event) {
+
         MyMedia myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedItem();
             if(myMedia==null){
                 MyNotification.notifyInfo("","Select a song",3);
                 return ;
             }
-            //MusicLibrary.getInstance().deleteWithIndex(index);
+
             MusicLibrary.getInstance().deleteStandard(myMedia);
             tableViewMusicLibrary.getItems().remove(myMedia);
             tableViewMusicLibrary.refresh();
+    }
+
+    @FXML
+    void onClearAll(ActionEvent event){
+        MusicLibrary.getInstance().clearList();
     }
 
     //END ACTION EVENT
@@ -95,14 +95,6 @@ public class MusicLibraryController implements Initializable {
         activeButton();
         colorSelectedRow();
 
-        /*tableViewMusicLibrary.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            @Override
-            public void handle(ContextMenuEvent contextMenuEvent) {
-               // tableViewMusicLibrary.(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
-            }
-        });*/
-        // caricare da database
-
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
         artist.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("artist"));
@@ -110,8 +102,6 @@ public class MusicLibraryController implements Initializable {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
-        //iconColumn.setCellFactory() .setCellValueFactory(new PropertyValueFactory<MyMedia,String>("delete") );
-        //MusicLibrary.getInstance().sortList();
 
         tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
@@ -149,7 +139,8 @@ public class MusicLibraryController implements Initializable {
 
         SceneHandler.getInstance().scaleTransition(btnAddLibraryToQueue);
         SceneHandler.getInstance().scaleTransition(btnAddSongToQueue);
-        SceneHandler.getInstance().scaleTransition(btnDelete);
+        SceneHandler.getInstance().scaleTransition(btnRemove);
+        SceneHandler.getInstance().scaleTransition(btnClearAll);
         SceneHandler.getInstance().scaleTransition(mbtAdd);
 
         //GESTIONE MULTILOADING
@@ -157,7 +148,6 @@ public class MusicLibraryController implements Initializable {
 
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
-
         });
 
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
@@ -172,29 +162,29 @@ public class MusicLibraryController implements Initializable {
                 colorSelectedRow();
 
         });
-
-        //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 
     private void startToolTip() {
         // TODO: 07/06/
         btnAddLibraryToQueue.setTooltip(new Tooltip("Add entire library to queue"));
-        btnDelete.setTooltip(new Tooltip("Delete selected music"));
-        btnAddSongToQueue.setTooltip(new Tooltip("Add song to queue"));
-        TextField.setTooltip(new Tooltip("Research the Music"));
+        btnRemove.setTooltip(new Tooltip("Delete selected media"));
+        btnAddSongToQueue.setTooltip(new Tooltip("Add media to queue"));
+        TextField.setTooltip(new Tooltip("Search for a media"));
+        btnClearAll.setTooltip(new Tooltip("Clear all media(s)"));
 
     }
-    // MusicLibrary.getInstance().setRefreshButton(true); da mettere in ThreadManager
     public void activeButton(){
         if(MusicLibrary.getInstance().getMusicLibrary().size()>0) {
             TextField.setDisable(false);
             btnAddLibraryToQueue.setDisable(false);
-            btnDelete.setDisable(false);
+            btnRemove.setDisable(false);
+            btnClearAll.setDisable(false);
             btnAddSongToQueue.setDisable(false);
         }else{
             TextField.setDisable(true);
             btnAddLibraryToQueue.setDisable(true);
-            btnDelete.setDisable(true);
+            btnRemove.setDisable(true);
+            btnClearAll.setDisable(true);
             btnAddSongToQueue.setDisable(true);
         }
     }
@@ -205,40 +195,6 @@ public class MusicLibraryController implements Initializable {
             tableViewMusicLibrary.getSelectionModel().select(temp);
             tableViewMusicLibrary.getSelectionModel().select(temp);
             tableViewMusicLibrary.scrollTo(temp);
-
         }
-
-
     }
-
-    // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna
-    //TASK
-    /*public void beginTimer(){
-
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                runningTimer = true;
-                if(MusicLibrary.getInstance().sortTF>0&&MusicLibrary.getInstance().getMusicLibrary().size()>0){
-                    MusicLibrary.getInstance().sortList();
-                    MusicLibrary.getInstance().sortTF--;
-                }
-                tableViewMusicLibrary.refresh();
-                if (MusicLibrary.getInstance().getMusicLibrary().size() == 0) {
-                    cancelTimer();
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task,0,500);
-
-    }
-    public void cancelTimer(){
-        runningTimer = false;
-        timer.cancel();
-    }*/
-    //END TASK
-
-
-
 }
