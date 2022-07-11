@@ -254,7 +254,8 @@ public class SceneHandler {
                     scene= new Scene((new FXMLLoader(MainApplication.class.getResource("exit-view.fxml"))).load(),500,180);
                     stage.hide();
                     stage = new Stage();
-                    //stage.initStyle();
+                    scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
+                    scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
                     stage.setScene(scene);
                     stage.show();
 

@@ -476,3 +476,4 @@
 .withinPaneButton:hover, .largeMenuButton:hover, .smallMenuButton:hover {
     -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
 }
+
