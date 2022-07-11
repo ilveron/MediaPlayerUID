@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 public class MediaInfo extends Pane {
 
     MediaInfoController mediaInfoController;
-    private boolean showed=false;
 
     public MediaInfo(MyMedia myMedia) {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("mediaInfo-view.fxml"));
@@ -21,19 +20,10 @@ public class MediaInfo extends Pane {
             mediaInfoController = loader.getController();
             mediaInfoController.init(myMedia);
             this.getChildren().add(root);
-            //root.prefWidthProperty().bind(this.widthProperty());
         } catch (Exception ignoredException) {
-            ignoredException.printStackTrace();
+            
         }
 
-    }
-
-    public boolean isShowed() {
-        return showed;
-    }
-
-    public void setShowed(boolean showed) {
-        this.showed = showed;
     }
 
     public void setImage(Image image){

@@ -32,7 +32,6 @@ public class CreateNewPlaylist {
         this.name=name;
         loader = new FXMLLoader(MainApplication.class.getResource("new-playlist-view.fxml"));
         try{
-            //Scene scene=new Scene(new AddMediaToPlaylist())
             scene= new Scene(loader.load(),300,400);
             stage=new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -42,11 +41,8 @@ public class CreateNewPlaylist {
             stage.setMaxHeight(300);
             stage.setMaxWidth(400);
             stage.getIcons().add(new Image(MainApplication.class.getResourceAsStream("image/logoMediaPlayerUID-48x48.png")));
-            //scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
-            //scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+ Settings.theme+".css")).toExternalForm());
             stage.setScene(scene);
             stage.showAndWait();
-            //root.prefWidthProperty().bind(this.widthProperty());
         }catch(Exception ignoredException){return ;}
     }
 

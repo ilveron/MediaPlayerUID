@@ -61,22 +61,6 @@ public class VideoGalleryTilePaneHandler {
             public void run() {
                 for (int i = 0; i< VideoLibrary.getInstance().getVideoLibrary().size(); i++){
                     MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(i),"video");
-                    /*myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                                if(mouseEvent.getClickCount() == 1 ){
-                                    getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
-                                    myMediaSingleBox.requestFocus();
-
-                                    myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
-
-                                }
-                            }
-
-                        }
-                    });*/
-
                     myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                         @Override
                         public void handle(ContextMenuEvent contextMenuEvent) {
@@ -102,12 +86,6 @@ public class VideoGalleryTilePaneHandler {
         thread.start();
     }
 
-
-    /*public void removeWithIndex(int i){
-        myMediaSingleBoxes.remove(i);
-        readyInteger.set(readyInteger.get()-1);
-    }*/
-
     public void removeWithIndex(MyMedia myMedia){
         for(int i=0;i<myMediaSingleBoxes.size();i++){
             if(myMedia.equals(myMediaSingleBoxes.get(i).getMyMedia())){
@@ -126,20 +104,6 @@ public class VideoGalleryTilePaneHandler {
             @Override
             public void run() {
                 MyMediaSingleBox myMediaSingleBox = new MyMediaSingleBox(VideoLibrary.getInstance().getVideoLibrary().get(VideoLibrary.getInstance().getVideoLibrary().size()-1),"video");
-                /*myMediaSingleBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 1 ){
-                                getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
-                                myMediaSingleBox.requestFocus();
-                                myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
-                            }
-                        }
-
-                    }
-                });*/
-
                 myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                     @Override
                     public void handle(ContextMenuEvent contextMenuEvent) {

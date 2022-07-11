@@ -82,14 +82,6 @@ public class AddMediaToPlaylistController implements Initializable {
             temp.add(tableViewSelection.getItems().get(index));
             SubStageHandler.getInstance().setUpdated(true);
         }
-        /*
-        for(int i=0;i<PosizioniSelezionate.size();i++){
-            temp.add(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
-            //PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
-            //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
-            SubStageHandler.getInstance().setUpdated(true);
-
-        }*/
     }
 
 
@@ -132,13 +124,6 @@ public class AddMediaToPlaylistController implements Initializable {
 
     }
 
-
-
-
-
-
-
-
     @FXML
     void onMusicLibrary(ActionEvent event) {
         //reset();
@@ -164,32 +149,19 @@ public class AddMediaToPlaylistController implements Initializable {
         for(int i=0; i< temp.size();i++){
             PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(temp.get(i));
         }
-        /*
-        for(int i=0;i<PosizioniSelezionate.size();i++){
-
-            PlaylistCollection.getInstance().getPlayListsCollections().get(index).addMedia(tableViewSelection.getItems().get(PosizioniSelezionate.get(i)));
-                //DataExchangePlaylist.getInstance().addPlaylist(tableView.getItems().get(PosizioniSelezionate.get(i)));
-        }*/
-        //PlaylistCollection.getInstance().setUpdatePlayQueue(true);
         PlaylistCollection.getInstance().setUpdatePlaylist(true);
-        //Playlists.getInstance().setTypePlaylist();
         ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     private int indexPlaylist;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //PosizioniSelezionate=new ArrayList<Integer>(); //se pos >0  allora il pulsante diventa cliccabile
         startToolTip();
         setButtonAdd(false);
-        //String image= DataExchangePlaylist.getInstance().getImage();
         indexPlaylist = PlaylistCollection.getInstance().returnPlaylist(SubStageHandler.getInstance().getPlaylistName());
-        System.out.println(indexPlaylist);
         String image = PlaylistCollection.getInstance().getPlayListsCollections().get(indexPlaylist).getImage();
-        //String image= PlaylistMedia.getInstance().getPlaylist().getImage();
         if(image!=null&&image!="")
             imageMedia.setImage(new Image(image));
-        //labelTitle.setText(DataExchangePlaylist.getInstance().getName());
         labelTitle.setText(SubStageHandler.getInstance().getPlaylistName());
 
         for(MyMedia myMedia: PlaylistCollection.getInstance().getPlayListsCollections().get(indexPlaylist).getMyList())
@@ -231,63 +203,6 @@ public class AddMediaToPlaylistController implements Initializable {
         });
 
 
-        /*
-        tableViewSelection.setRowFactory(tableView ->{
-            final TableRow<MyMedia> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                //if(event.getClickCount() > 1 && !row.isEmpty()){
-                //    DataExchangePlaylist.getInstance().addPlaylist(row.getItem());
-                //}else
-                if(event.getClickCount()==1 && !row.isEmpty()){
-                    int index=presente(row.getIndex());
-                    if(index!=-1){
-                        row.setStyle(""); // TODO: 02/07/2022  vedere che colore mettere
-                        row.setFocusTraversable(false);
-                        PosizioniSelezionate.remove(index);
-                    }else {
-                        setButtonAdd(false);
-                        row.setFocusTraversable(false);
-                        PosizioniSelezionate.add(row.getIndex());
-                        row.setStyle("-fx-background-color: tertiarySelectionColor;");
-                    }
-
-                }else if(row.isEmpty()){
-                    System.out.println("clear");
-                    reset();
-                    row.setFocusTraversable(false);
-                    PosizioniSelezionate.clear();
-                    setButtonAdd(true);
-
-                }
-
-            });
-            return row;
-        });
-        */
-
-        /*
-        tableViewPlaylist.setRowFactory(tableView ->{
-            final TableRow<MyMedia> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                //if(event.getClickCount() > 1 && !row.isEmpty()){
-                //    DataExchangePlaylist.getInstance().addPlaylist(row.getItem());
-                //}else
-                if(event.getClickCount()==1 && !row.isEmpty()){
-                    int index=presente(row.getIndex());
-
-                        row.setStyle("");
-                        row.setFocusTraversable(false);
-
-
-                }else if(row.isEmpty()){
-                    reset();
-                    row.setFocusTraversable(false);
-                }
-
-            });
-            return row;
-        });
-        */
         SceneHandler.getInstance().scaleTransition(btnAddToPlaylist);
         SceneHandler.getInstance().scaleTransition(btnDelete);
         SceneHandler.getInstance().scaleTransition(btnMoveDown);
@@ -324,12 +239,6 @@ public class AddMediaToPlaylistController implements Initializable {
             row.setStyle("-fx-background-color: white;");
         }
     }
-    /*
-    public void setData(ObservableList<MyMedia> list,String image, String title){
-        System.out.println("ok ok");
-        imageMedia.setImage(new Image(image));
-        labelTitle.setText(title);
-    }*/
 
 }
 

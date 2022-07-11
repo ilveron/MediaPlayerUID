@@ -57,7 +57,6 @@ public class Playlist  {
             if(PlaylistCollection.getInstance().getTypePlaylist()== getName() && PlaylistCollection.getInstance().getUpdatePlayQueue()) {
                 if(getMyList().size()>0) {
                     refreshPlayQueue();
-                    System.out.println("OK");
                 }
             }
         });
@@ -157,12 +156,6 @@ public class Playlist  {
         int tm=(m+minute+((s+second)/60))%60;
         int to=(h+hour+((m+minute+((s+second)/60)))/60);
 
-        /*if(to>=100)
-            playlist.setTotalDuration(format("+%02d:%02d:%02d",to,tm,ts));
-        else
-            playlist.setTotalDuration(format("%02d:%02d:%02d",to,tm,ts));
-
-         */
         setTotalDuration(format("%02d:%02d:%02d",to,tm,ts));
 
     }

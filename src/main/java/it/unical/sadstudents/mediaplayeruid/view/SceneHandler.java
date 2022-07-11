@@ -248,7 +248,6 @@ public class SceneHandler {
 
 
         for (String font : Settings.fonts) {
-            System.out.println();
             Font.loadFont(Objects.requireNonNull(MainApplication.class.getResourceAsStream(font)), 10);
         }
 
@@ -288,7 +287,6 @@ public class SceneHandler {
                     });
 
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
 
 
@@ -322,32 +320,6 @@ public class SceneHandler {
                     });
 
                 }
-
-
-
-
-               /* numberOfData=PlayQueue.getInstance().getQueue().size();
-
-                //DatabaseManager.getInstance().changeApplicationClosureData();
-                DatabaseManager.getInstance().deleteAll("Playqueue");
-                for(int i=0;i<numberOfData;i++) {
-                    DatabaseManager.getInstance().insertPlayQueue(PlayQueue.getInstance().getQueue().get(i).getPath(),i);
-                    numberOfDataProcessed++;
-                }
-                if(!mediaLoadingInProgess.get())
-                    exit();
-                SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
-                    if(numberOfDataProcessed==numberOfData)
-                        exit();
-                    else if()
-                });*/
-                /*
-                for(MyMedia myMedia: PlayQueue.getInstance().getQueue()) {
-                    DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
-                }*/
-
-                // TODO: 05/07/2022 modificare con thread pool
-
 
             }
         });

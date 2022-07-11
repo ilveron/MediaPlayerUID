@@ -91,7 +91,6 @@ public class PlayQueueController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO: 07/06/2022
         startToolTip();
 
         tableViewQueue.setItems(PlayQueue.getInstance().getQueue());
@@ -101,7 +100,6 @@ public class PlayQueueController implements Initializable {
         genre.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("genre"));
         year.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("year"));
         length.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("length"));
-        //beginTimer();
 
         colorSelectedRow();
 
@@ -133,10 +131,6 @@ public class PlayQueueController implements Initializable {
                 }
             });
 
-            /*row.setOnMouseDragged(event ->{
-                if(!row.isEmpty())
-                    PlayQueue.getInstance().setCurrentMedia(row.getIndex());
-            });*/
             return row;
         });
 

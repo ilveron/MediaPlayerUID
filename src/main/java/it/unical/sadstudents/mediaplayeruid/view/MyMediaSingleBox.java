@@ -80,11 +80,6 @@ public class MyMediaSingleBox extends Pane {
                 }
             }
         });
-
-
-
-
-
     }
 
     public void contextMenu(Node node, double x, double y) {

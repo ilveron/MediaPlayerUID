@@ -26,23 +26,19 @@ public class HomeTilePaneHandler {
     }
     //END SINGLETON
 
-
+    //GETTERS AND SETTERS
     public int getReadyInteger() {
         return readyInteger.get();
     }
-
     public SimpleIntegerProperty readyIntegerProperty() {
         return readyInteger;
     }
-
     public void setReadyInteger(int readyInteger) {
         this.readyInteger.set(readyInteger);
     }
-
     public ArrayList<MyMediaSingleBox> getMyMediaSingleBoxes() {
         return myMediaSingleBoxes;
     }
-
     public void setMyMediaSingleBoxes(ArrayList<MyMediaSingleBox> myMediaSingleBoxes) {
         this.myMediaSingleBoxes = myMediaSingleBoxes;
     }
@@ -59,40 +55,28 @@ public class HomeTilePaneHandler {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                                 if(mouseEvent.getClickCount() == 1 ){
                                     getMyMediaSingleBoxes().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
-
                                     myMediaSingleBox.requestFocus();
                                     myMediaSingleBox.getStyleClass().add("selectedRecentMedia");
-
-
-
                                 }
                             }
-
                         }
                     });
                     myMediaSingleBox.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                         @Override
                         public void handle(ContextMenuEvent contextMenuEvent) {
-                            //ContextMenuHandler contextMenuHandler = new ContextMenuHandler(myMediaSingleBox.getMyMedia());
                             myMediaSingleBox.contextMenu(myMediaSingleBox,contextMenuEvent.getScreenX(),contextMenuEvent.getScreenY());
                         }
                     });
-
-
                     myMediaSingleBoxes.add(myMediaSingleBox);
                     readyInteger.set(readyInteger.get()+1);
                 }
-
-
                 for (int i = 0; i< myMediaSingleBoxes.size(); ++i){
                     ImageCreator imageCreator = new ImageCreator();
                     imageCreator.setPane(myMediaSingleBoxes.get(i));
                     imageCreator.start();
                 }
-
             }
         });
-
         thread.setDaemon(true);
         thread.start();
     }
@@ -102,7 +86,6 @@ public class HomeTilePaneHandler {
         readyInteger.set(readyInteger.get()+1);
         myMediaSingleBoxes.remove(i);
         readyInteger.set(readyInteger.get()-1);
-
     }
 
     public void removeWithIndex(int i){
@@ -112,7 +95,6 @@ public class HomeTilePaneHandler {
     }
 
     public void addSingleItem(){
-
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -141,16 +123,11 @@ public class HomeTilePaneHandler {
                 ImageCreator imageCreator = new ImageCreator();
                 imageCreator.setPane(myMediaSingleBoxes.get(myMediaSingleBoxes.size()-1));
                 imageCreator.start();
-
-
-
             }
         });
 
         thread.setDaemon(true);
         thread.start();
     }
-
-
 
 }

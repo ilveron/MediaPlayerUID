@@ -45,11 +45,6 @@ public class ContextMenuHandler extends ContextMenu {
                             Home.getInstance().removeItem(myMedia);
 
                         } else if(source == "video" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
-                            /*Home.getInstance().removeItem(myMedia);
-                            if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource() == myMedia.getPath())
-                                Player.getInstance().stop();
-                            PlayQueue.getInstance().deleteFromOtherController(myMedia);
-                            VideoLibrary.getInstance().removeSafe(myMedia);*/
                             VideoLibrary.getInstance().removeSafe(myMedia);
                             SceneHandler.getInstance().setUpdateViewRequired(true);
 
@@ -61,10 +56,7 @@ public class ContextMenuHandler extends ContextMenu {
                         }
                         else if(source == "playqueue" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to remove from queue?")){
                             PlayQueue.getInstance().removeMedia(row);
-
                         }
-
-
                 }
             });
 
@@ -91,7 +83,6 @@ public class ContextMenuHandler extends ContextMenu {
                             PlaylistCollection.getInstance().getPlayListsCollections().get(index).setPlaying(true);
                             PlaylistCollection.getInstance().getPlayListsCollections().get(index).playAll(false);
                         }
-
                     }
                 });
             }
@@ -101,7 +92,6 @@ public class ContextMenuHandler extends ContextMenu {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
-
                         PlaylistCollection.getInstance().getPlayListsCollections().get(index).addToPlayQueue(myMedia);
                     }
                 });
@@ -113,7 +103,6 @@ public class ContextMenuHandler extends ContextMenu {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         if(SceneHandler.getInstance().showConfirmationAlert("Delete the playlist '"+playlistName+"' ?")) {
-                            //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
                             int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
                             PlaylistCollection.getInstance().deletePlaylist(index);
                         }
@@ -126,8 +115,6 @@ public class ContextMenuHandler extends ContextMenu {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
-
-                        //PlaylistCollection.getInstance().getPlayListsCollections().get(index).getMyList().clear();
                         PlaylistCollection.getInstance().getPlayListsCollections().get(index).clearMyList();
                     }
                 });
@@ -160,11 +147,7 @@ public class ContextMenuHandler extends ContextMenu {
 
                 }
             });
-
-
         }
-
-
 
         this.getItems().add(menuItem);
         this.getItems().add(menuItem1);

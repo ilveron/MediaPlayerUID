@@ -101,8 +101,6 @@ public class PlaylistSingleViewController implements Initializable {
                 //PlaylistCollection.getInstance().setUpdatePlaylist(true);
             }
         }catch (Exception e){
-            System.out.println("GIA ELIMINATO");
-            //PlaylistCollection.getInstance().setUpdatePlaylist(true);
         }
     }
 
@@ -112,12 +110,6 @@ public class PlaylistSingleViewController implements Initializable {
             SubStageHandler.getInstance().init("new-playlist-view.fxml",400,240,"Playlist editor",false, playlist.getName());
 
         }catch (Exception e){}
-        /*CreateNewPlaylist.getInstance().createPlaylist(playlist.getImage(), playlist.getName());
-        playlist.setImage(CreateNewPlaylist.getInstance().getImage());
-        playlist.setName(CreateNewPlaylist.getInstance().getName());
-
-        labelName.setText(playlist.getName());
-        imagePlaylist.setImage(new Image(playlist.getImage()));*/
     }
 
     @FXML
@@ -126,30 +118,6 @@ public class PlaylistSingleViewController implements Initializable {
             initListPlayQueue();
         }catch (Exception e){}
 
-        /*
-        if(!playlist.isPlaying()){
-            playlist.setPlaying(true);
-            playlist.playAll(false);
-        }
-       /*
-        if(playlist.getMyList().size()>0) {
-            if (PlaylistCollection.getInstance().getTypePlaylist() == playlist.getName()) {
-                if(PlaylistCollection.getInstance().isPlaying()){
-                    System.out.println("setto a false (sono nell if dentro if)");
-                    PlaylistCollection.getInstance().setPlaying(false);
-                    Player.getInstance().pauseMedia();
-                }else{
-                    System.out.println("setto a true (sono nell else dentro if)");
-                    PlaylistCollection.getInstance().setPlaying(true);
-                    Player.getInstance().playMedia();
-                }
-            } else {
-                initListPlayQueue();
-                System.out.println("setto a true (sono nell else)");
-                PlaylistCollection.getInstance().setPlaying(true);
-                PlaylistCollection.getInstance().setTypePlaylist(playlist.getName());
-            }
-        }*/
     }
 
     @FXML
@@ -229,23 +197,8 @@ public class PlaylistSingleViewController implements Initializable {
             if(ButtonAzione.isVisible())
                 setButtonPlay(newValue);
         });
-        /*
-        Playlists.getInstance().updatePlayQueueProperty().addListener(observable -> {
-            if(Playlists.getInstance().getTypePlaylist()== playlist.getName() && Playlists.getInstance().getUpdatePlayQueue()) {
-                if(playlist.getMyList().size()>0)
-                    refreshPlayQueue();
-                else
-                    initListPlayQueue();
-            }
-        });
-        */
-        //Playlists.getInstance().playingProperty().addListener(observable ->changeIcon());
-
-        //Player.getInstance().isRunningProperty().addListener(observable -> Playlists.getInstance().setPlaying(Player.getInstance().getIsRunning()));
-
     }
     private void changeIcon(){
-        System.out.println("cambio icona");
         if(PlaylistCollection.getInstance().isPlaying()) {
             iconPlayPause.setIconLiteral("fa-pause");
         }

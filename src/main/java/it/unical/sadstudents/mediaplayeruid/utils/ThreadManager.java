@@ -143,8 +143,6 @@ public class ThreadManager {
                 try {
                     sleep(2000);
                 } catch (InterruptedException e) {
-
-                    e.printStackTrace();
                 }
 
                 metaDataFinded= myMediaList.size()/3;

@@ -488,14 +488,10 @@ public class PlayerController implements Initializable {
                 break;
         }
 
-        //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue())*0.01);
-        //Player.getInstance().getMediaPlayer().setRate(Integer.parseInt(speedComboBox.getValue().substring(0, speedComboBox.getValue().length() - 1)) * 0.01);
     }
 
     private void setMediaSliderEnd() {
         mediaSlider.setMax(Player.getInstance().getEndMediaTime());
-        //durationMediaPlayed.setText(CalcolaTempo(Player.getInstance().getEnd()));
-        //System.out.println(CalcolaTempo(Player.getInstance().getEnd()));
     }
 
 
@@ -548,7 +544,6 @@ public class PlayerController implements Initializable {
             Player.getInstance().getMediaPlayer().setMute(false);
             volumeSlider.setValue(Player.getInstance().getUnmuteVolumeValue());
         } else {
-            System.out.println(Player.getInstance().getMediaPlayer().getVolume());
             Player.getInstance().setUnmuteVolumeValue(volumeSlider.getValue());
             volumeSlider.setValue(0);
             Player.getInstance().getMediaPlayer().setMute(true);

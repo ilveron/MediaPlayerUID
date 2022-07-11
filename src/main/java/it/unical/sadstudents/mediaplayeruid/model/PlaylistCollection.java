@@ -114,7 +114,6 @@ public class PlaylistCollection {
         for(int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){
             PlaylistCollection.getInstance().getPlayListsCollections().get(i).deleteMyMedia(Path);
         }
-        //setRefresh(1);
     }
 
 

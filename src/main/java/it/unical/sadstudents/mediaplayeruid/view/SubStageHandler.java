@@ -102,8 +102,7 @@ public class SubStageHandler {
                    }
                 }
             });
-        }catch(Exception exception){
-            exception.printStackTrace();}
+        }catch(Exception exception){}
 
     }
 }

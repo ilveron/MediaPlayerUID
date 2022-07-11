@@ -32,7 +32,6 @@ public class DatabaseManager {
 
     //GET AND SETTER
     public String getUrl() {return url;}
-    //public void setUrl(String url) {this.url = url;}
     //END GET AND SETTER
 
     //FUNCTION
@@ -53,7 +52,7 @@ public class DatabaseManager {
             }
         }catch (SQLException e){}
         return  false;
-    } //gestisco se è presente o meno solo per non far apparire errore
+    }
     private boolean isPresentInt(String object,Integer key, String tab){
         try {
             if (connection != null && !connection.isClosed()) {
@@ -76,10 +75,6 @@ public class DatabaseManager {
     private boolean checkFile(String path){
         File file=new File(path);
         try {
-            //System.out.println("file " + file.getCanonicalPath() + " doesn't exist");
-            System.out.println("File: " + path);
-            //Path p= Paths.get(path);
-            /*Files.exists(p)*/
             if (file.exists() && file.isFile())
                 return true;
             else
@@ -93,7 +88,6 @@ public class DatabaseManager {
         try {
             connection = DriverManager.getConnection(url);
             if(connection != null && !connection.isClosed()) {
-                System.out.println("Aperto DataBase");
                 return true;
             }
         }catch (SQLException e){
@@ -104,7 +98,6 @@ public class DatabaseManager {
     public boolean disconnect(){
         try {
             if(connection!=null && !connection.isClosed()) {
-                System.out.println("Chiuso DataBase");
                 connection.close();
                 return  true;
             }

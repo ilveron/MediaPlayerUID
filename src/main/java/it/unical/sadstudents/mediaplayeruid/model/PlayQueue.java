@@ -131,25 +131,10 @@ public class PlayQueue implements ListedDataInterface {
 
     @Override
     public void addFilesToList(List<File> files) {
-        /*for(File file: files){
-            MyMedia myMedia = ThreadManager.getInstance().createMyMedia(file);
-            queue.add(myMedia);
-            if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
-            }
-            else{
-                MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
-            }
-
-            if(!Player.getInstance().isMediaLoaded())
-                //Player.getInstance().createMedia(currentMedia.get());
-                startMedia();
-        }*/
         try {
             ThreadManager.getInstance().createMediaBis(files,true,false);
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+         }
     }
 
     public void generateNewQueue(MyMedia myMedia){
@@ -168,18 +153,15 @@ public class PlayQueue implements ListedDataInterface {
     public void startMedia(){
 
         if(Player.getInstance().isMediaLoaded()){
-            System.out.println("per caso entro qui");
             Player.getInstance().stop();
         }
 
-        //Home.getInstance().addToRecentMedia(queue.get(currentMedia.get()));
         if(!isDeletingInProcess())
             Player.getInstance().createMedia(currentMedia.get());
 
     }
 
     public void changeMedia(Integer direction){
-        System.out.println("change media");
 
         if(Player.getInstance().isLoopMode())
             setCurrentMedia(getCurrentMedia());
@@ -190,8 +172,6 @@ public class PlayQueue implements ListedDataInterface {
             setCurrentMedia(shuffleQueueIndexes.get(shuffleQueueCurrentIndex));
         }
         else{
-            // TODO: 11/06/2022 SISTEMARE PASSAGGIO DA SHUFFLE A SEQUENZIALE E VICEVERSA
-            System.out.println(direction);
             setCurrentMedia(getCurrentMedia()+direction);
         }
     }
@@ -226,28 +206,6 @@ public class PlayQueue implements ListedDataInterface {
     }
 
     public void deleteFromOtherController(MyMedia myMedia){
-        //int position=0;
-        /*
-        System.out.println("(PLAY QUEUE) My media: "+myMedia.getPath());
-        for(MyMedia myMedia1: queue){
-            System.out.println("1 " +myMedia.getPath()+"\n 2 "+ myMedia1.getPath());
-            if(myMedia.getPath().equals(myMedia1.getPath())){
-                if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(myMedia1.getPath())) {
-                    System.out.println("PLAY Q CI ENTRO");
-                    Player.getInstance().stop();
-                }
-                //DatabaseManager.getInstance().deleteMedia(myMedia.getPath(),"Playqueue");
-                System.out.println("VADO A ELIMINARE (SIZE QUEUE "+queue.size()+") IL \n -> "+queue.get(position));
-                queue.remove(position);
-                System.out.println("ELIMINATO IN POS "+position);
-                --position;
-                System.out.println("ORA IN POS "+(position+1)+" c'è "+queue.get(position+1));
-                currentMedia.set(currentMedia.get()-1);
-                System.out.println("OK FATTO");
-            }
-            position++;
-        }
-        */
         for(int pos=0;pos<queue.size();pos++){
             if(myMedia.getPath().equals(queue.get(pos).getPath())){
                 if(Player.getInstance().isMediaLoaded() && Player.getInstance().getMediaPlayer().getMedia().getSource().equals(queue.get(pos).getPath())) {
@@ -268,7 +226,6 @@ public class PlayQueue implements ListedDataInterface {
     public void clearQueue(){
         queue.clear();
         currentMedia.set(0);
-        //DatabaseManager.getInstance().deleteAll("Playqueue");
         shuffleActive.set(false);
         shuffleQueueCurrentIndex = 0;
         if(shuffleQueueIndexes != null && shuffleQueueIndexes.size() > 0)
@@ -278,16 +235,12 @@ public class PlayQueue implements ListedDataInterface {
     public void removeMedia(int i){
         if(getCurrentMedia()==i){
             Player.getInstance().stop();
-            //DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
             currentMedia.set(currentMedia.get()-1);
             if(i<queue.size())
                 startMedia();
-            /*else
-                currentMedia.set(1);*/
         }
         else {
-            //DatabaseManager.getInstance().deleteMedia(getQueue().get(i).getPath(),"Playqueue");
             getQueue().remove(i);
             currentMedia.set(currentMedia.get()-1);
 
@@ -299,7 +252,5 @@ public class PlayQueue implements ListedDataInterface {
         if(queue.size()>0)
             startMedia();
     }
-
-
 
 }

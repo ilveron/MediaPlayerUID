@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
@@ -155,7 +156,6 @@ public class MenuController implements Initializable {
                         btn.getStyleClass().removeAll("button", "toolBarButton");
                         btn.getStyleClass().add("focusedToolBarButton");
                     }
-                    System.out.println(btn.getStyleClass());
                 }
             });
         }
@@ -203,7 +203,8 @@ public class MenuController implements Initializable {
 
     private void buttonVideoTab(boolean status){
         btnVideoView.setVisible(status);
-        resetAllStyles();
+        if(status)
+            resetAllStyles();
         btnVideoView.getStyleClass().removeAll("button","toolBarButton");
         btnVideoView.getStyleClass().add("focusedToolBarButton");
     }

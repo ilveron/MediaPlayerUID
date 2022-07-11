@@ -21,9 +21,8 @@ public class SinglePlaylistView extends Pane {
             playlistTemplateController = loader.getController();
             playlistTemplateController.init(playlist);
             this.getChildren().add(root);
-            //root.prefWidthProperty().bind(this.widthProperty());
         }catch(Exception ignoredException){
-            ignoredException.printStackTrace();
+
             return ;
         }
     }

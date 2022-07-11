@@ -50,11 +50,6 @@ public class MyMedia  {
     //END CLASS CONSTRUCTOR
 
     //VARIABLES GETTERS AND SETTERS
-
-
-
-
-
     public void setTitle(String title) { this.title = title; }
     public void setArtist(String artist) { this.artist = artist; }
     public void setAlbum(String album) { this.album = album; }
@@ -92,14 +87,6 @@ public class MyMedia  {
    public String toString() {
         return  title + '\'' + artist + '\'' +album + '\'' +genre + '\'' +path + '\'' +length +'\''+year ;
     }
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyMedia myMedia = (MyMedia) o;
-        return Objects.equals(title, myMedia.title) && Objects.equals(artist, myMedia.artist) && Objects.equals(album, myMedia.album) && Objects.equals(genre, myMedia.genre) && Objects.equals(path, myMedia.path) && Objects.equals(length, myMedia.length) && Objects.equals(year, myMedia.year);
-    }*/
 
     //END VARIABLES GETTERS AND SETTERS
 

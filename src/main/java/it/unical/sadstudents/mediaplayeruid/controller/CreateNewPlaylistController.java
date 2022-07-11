@@ -50,7 +50,6 @@ public class CreateNewPlaylistController implements Initializable {
             SubStageHandler.getInstance().setUpdated(true);
 
         }catch(Exception exception){
-            exception.printStackTrace();
         }
 
     }
@@ -69,60 +68,16 @@ public class CreateNewPlaylistController implements Initializable {
             ((Node)(event.getSource())).getScene().getWindow().hide();
         }
 
-        /*if(previousName!=""){
-                int index= PlaylistCollection.getInstance().getPlaylistWidthName(previousName);
-                PlaylistCollection.getInstance().getPlayListsCollections().get(index).setName(text);
-                PlaylistCollection.getInstance().getPlayListsCollections().get(index).setImage(imageView.getImage().getUrl());
-                PlaylistCollection.getInstance().setUpdatePlaylist(true);
-        //}
-
-            //CreateNewPlaylist.getInstance().setImage(imageView.getImage().getUrl());
-        DatabaseManager.getInstance().changePlaylist(text,previousName,imageView.getImage().getUrl());
-
-        ((Node)(event.getSource())).getScene().getWindow().hide();
-        return ;
-        //}
-         */
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //String image=CreateNewPlaylist.getInstance().getImage();
-        //if(image=="") System.out.println("->"+image);
-        /*int lastIndex=0;
-        if(Playlists.getInstance().getPlayListsCollections().size()>0)
-            lastIndex = Playlists.getInstance().getPlayListsCollections().size()-1;
-        imageView.setImage(new Image(Playlists.getInstance().getPlayListsCollections().get(lastIndex).getImage()));
-
-        textTitle.setText("default"+(lastIndex+2));*/
-
-        /*
-        if(SubStageHandler.getInstance().getPlaylistName()!=""){
-            textTitle.setText(SubStageHandler.getInstance().getPlaylistName());
-            previousName=textTitle.getText();
-        }*/
         textTitle.setText(SubStageHandler.getInstance().getPlaylistName());
         previousName=textTitle.getText();
         imageView.setImage(new Image(PlaylistCollection.getInstance().getPlayListsCollections().get(PlaylistCollection.getInstance().returnPlaylist(previousName)).getImage()));
         textTitle.setFocusTraversable(false);
         btnSave.setDisable(false);
-        /*
-        textTitle.textProperty().addListener(observable -> {
-            if (textTitle.getText()!="Insert name"){
-                boolean error= false;
-                for (int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){
-                    if (textTitle.getText().equals(PlaylistCollection.getInstance().getPlayListsCollections().get(i).getName())){
-                        error=true;
-                        // TODO: 08/07/2022 gestire errore
-                    }
-                }
-                if(!error)
-                    btnSave.setDisable(false);
-            }
-
-        });
-        */
 
         imageView.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
             if(!ButtonImageChange.isVisible())
