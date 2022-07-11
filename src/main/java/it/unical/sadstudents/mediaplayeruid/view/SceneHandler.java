@@ -260,35 +260,50 @@ public class SceneHandler {
                     scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
                     stage.setScene(scene);
                     stage.show();
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
+                            if(!SceneHandler.getInstance().showConfirmationAlert("Do you really want to close?"+System.lineSeparator()+ "Data will probably be corrupted or will not be entirely saved.")){
+                                windowEvent.consume();
+                                stage.show();
+                            }else{exit();}
+                        }
+                    });
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent windowEvent) {
-                        if(!SceneHandler.getInstance().showConfirmationAlert("Do you really want to close?"+System.lineSeparator()+ "Data will probably be corrupted or will not be entirely saved.")){
-                            windowEvent.consume();
-                            stage.show();
-                        }else{exit();}
-                    }
-                });
+
 
 
                 SceneHandler.getInstance().canStartSavingProperty().addListener(observable -> save());
 
                 if(mediaLoadingInProgess.get()){
-                    if(Player.getInstance().getMediaPlayer()!=null)
+                    if(Player.getInstance().getMediaPlayer()!=null){
                         Player.getInstance().stop();
 
-                    SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
-                        canStartSaving.set(true);
-                    });
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+                                    canStartSaving.set(true);
+                                });
+                            }
+                        });
+
+                    }
+
 
                 }
                 else{
-                    save();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            save();
+                        }
+                    });
+
                 }
 
 

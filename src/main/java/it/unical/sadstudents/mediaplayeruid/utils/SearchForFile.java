@@ -1,7 +1,7 @@
-package it.unical.sadstudents.mediaplayeruid.model;
+package it.unical.sadstudents.mediaplayeruid.utils;
 
 
-import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 import it.unical.sadstudents.mediaplayeruid.view.MyMediaSingleBox;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.collections.FXCollections;
@@ -19,7 +19,7 @@ public class SearchForFile {
         return instance;
     }
 
-    public ObservableList<MyMedia> getSearch(String find,ObservableList<MyMedia> table) {
+    public ObservableList<MyMedia> getSearch(String find, ObservableList<MyMedia> table) {
         ObservableList<MyMedia> Search=FXCollections.observableArrayList();
         for(int i=0;i<table.size();i++){
             boolean add=false;

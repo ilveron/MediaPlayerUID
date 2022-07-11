@@ -1,10 +1,10 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;

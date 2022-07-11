@@ -2,18 +2,17 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
+import it.unical.sadstudents.mediaplayeruid.utils.SearchForFile;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 
 import java.net.URL;

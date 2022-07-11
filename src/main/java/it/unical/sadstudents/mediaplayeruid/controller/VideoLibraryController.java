@@ -2,6 +2,8 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
+import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
+import it.unical.sadstudents.mediaplayeruid.utils.SearchForFile;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.application.Platform;

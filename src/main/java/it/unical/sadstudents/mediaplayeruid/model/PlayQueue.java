@@ -1,5 +1,6 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.utils.ListedDataInterface;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PlayQueue implements DataListedModel{
+public class PlayQueue implements ListedDataInterface {
     //VARIABLES
     private ObservableList<MyMedia> queue;
     private ArrayList<Integer> alreadyPlayed;

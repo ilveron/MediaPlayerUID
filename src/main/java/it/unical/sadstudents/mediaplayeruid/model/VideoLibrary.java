@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 
+import it.unical.sadstudents.mediaplayeruid.utils.ListedDataInterface;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -11,7 +12,7 @@ import java.io.File;
 import java.util.List;
 
 
-public class VideoLibrary implements DataListedModel{
+public class VideoLibrary implements ListedDataInterface {
     //VARIABLES
     private ObservableList<MyMedia> videoLibrary;
     private SimpleBooleanProperty changeHappened = new SimpleBooleanProperty(false);

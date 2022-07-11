@@ -1,9 +1,11 @@
-package it.unical.sadstudents.mediaplayeruid.model;
+package it.unical.sadstudents.mediaplayeruid.utils;
+
+import it.unical.sadstudents.mediaplayeruid.model.MyMedia;
 
 import java.io.File;
 import java.util.List;
 
-public interface DataListedModel {
+public interface ListedDataInterface {
 
     public void clearList();
 

@@ -1,20 +1,16 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
 import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 

@@ -1,7 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.utils.ListedDataInterface;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
-import it.unical.sadstudents.mediaplayeruid.view.VideoGalleryTilePaneHandler;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 
-public class MusicLibrary implements DataListedModel{
+public class MusicLibrary implements ListedDataInterface {
     //VARIABLES
     private ObservableList<MyMedia> Library;
     //public int sortTF=0;

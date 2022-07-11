@@ -1,7 +1,5 @@
-package it.unical.sadstudents.mediaplayeruid.model;
+package it.unical.sadstudents.mediaplayeruid.utils;
 
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
