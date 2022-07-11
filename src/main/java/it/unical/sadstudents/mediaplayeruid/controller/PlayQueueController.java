@@ -160,6 +160,14 @@ public class PlayQueueController implements Initializable {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
 
         });
+
+        SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
+            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()==""){
+                tableViewQueue.refresh();
+                tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia()) ;
+                SceneHandler.getInstance().setUpdateViewRequired(false);
+            }
+        });
     }
 
     //aggiunta come fix

@@ -94,11 +94,11 @@ public class MusicLibraryController implements Initializable {
     }
 
     //END ACTION EVENT
-
     private ContextMenuHandler contextMenuHandler;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         activeButton();
+        colorSelectedRow();
 
         /*tableViewMusicLibrary.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
             @Override
@@ -165,6 +165,15 @@ public class MusicLibraryController implements Initializable {
 
         });
 
+        SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
+            if (SceneHandler.getInstance().isUpdateViewRequired()){
+
+                tableViewMusicLibrary.refresh();
+                colorSelectedRow();
+                SceneHandler.getInstance().setUpdateViewRequired(false);
+            }
+        });
+
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 
@@ -189,6 +198,25 @@ public class MusicLibraryController implements Initializable {
             btnDelete.setDisable(true);
             btnAddSongToQueue.setDisable(true);
         }
+    }
+
+    public void colorSelectedRow(){
+        if(MusicLibrary.getInstance().getMusicLibrary().size() > 0 && Player.getInstance().getIsRunning()){
+            MyMedia temp= PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia());
+            for (int i=0; i<tableViewMusicLibrary.getItems().size();i++){
+                System.out.println("funziona l'equals?");
+
+                if(temp.equals(tableViewMusicLibrary.getItems().get(i))) {
+                    System.out.println(tableViewMusicLibrary.getItems().size());
+
+                    tableViewMusicLibrary.getSelectionModel().select(i);
+                    //tableViewMusicLibrary.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia());
+                }
+
+            }
+        }
+
+
     }
 
     // TODO: 08/06/2022 inizialmente la lista deve essere ordinata usando il metodo sortList pero non funziona quando ci sono troppe canzoni dato che non si aggiorna

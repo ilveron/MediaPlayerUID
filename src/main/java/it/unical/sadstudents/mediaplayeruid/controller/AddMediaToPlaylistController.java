@@ -180,7 +180,7 @@ public class AddMediaToPlaylistController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //PosizioniSelezionate=new ArrayList<Integer>(); //se pos >0  allora il pulsante diventa cliccabile
-        //start tooltip
+        startToolTip();
         setButtonAdd(false);
         //String image= DataExchangePlaylist.getInstance().getImage();
         indexPlaylist = PlaylistCollection.getInstance().returnPlaylist(SubStageHandler.getInstance().getPlaylistName());
@@ -306,7 +306,17 @@ public class AddMediaToPlaylistController implements Initializable {
         return -1;
     }
 
-
+    private void startToolTip() {
+        btnAddToPlaylist.setTooltip(new Tooltip("Add to playlist"));
+        btnDelete.setTooltip(new Tooltip("Remove song"));
+        btnMoveDown.setTooltip(new Tooltip("Move down"));
+        btnMoveUp.setTooltip(new Tooltip("Move up"));
+        ButtonAddToPlayList.setTooltip(new Tooltip("Save your changes"));
+        textField.setTooltip(new Tooltip("Search for the song"));
+        // TODO: 11/07/2022 aggiungi 
+        buttonMusicLibrary.setTooltip(new Tooltip(""));
+        buttonVideoLibrary.setTooltip(new Tooltip(""));
+    }
     public void reset(){
         // TODO: 02/07/2022  non funziona il reset 
         for(int i=0;i<PosizioniSelezionate.size();i++){

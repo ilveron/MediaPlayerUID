@@ -282,6 +282,7 @@ public class PlayQueue implements DataListedModel{
                 if(currentMedia.get()>pos)
                     currentMedia.set(currentMedia.get()-1);
                 queue.remove(pos);
+                pos--;
             }
         }
 

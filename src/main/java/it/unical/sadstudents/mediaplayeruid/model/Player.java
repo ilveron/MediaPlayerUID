@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.utils.UpdateMetadata;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -27,6 +28,7 @@ public class Player {
     private boolean loopMode;
     private double unmuteVolumeValue=100;
     private double rate=1;
+
     //END VARIABLES
 
     //PROPERTIES
@@ -45,7 +47,7 @@ public class Player {
 
     //SINGLETON
     private static Player instance = null;
-    private Player() { }
+    private Player() {    }
     public static Player getInstance(){
         if (instance==null)
             instance = new Player();
@@ -187,7 +189,7 @@ public class Player {
             }
             ThreadManager.getInstance().beginTimer();
             Home.getInstance().addToRecentMedia(PlayQueue.getInstance().getQueue().get(index));
-            updateMetadata(PlayQueue.getInstance().getQueue().get(index));
+            UpdateMetadata.getInstance().updateMetadata(PlayQueue.getInstance().getQueue().get(index),media);
         }
     }
     //END FUNCTION START POINT FOR MEDIA REPRODUCTION
@@ -219,12 +221,14 @@ public class Player {
         //mediaPlayer.stop();
         mediaPlayer.dispose();
         mediaLoaded.set(false);
+        currentMediaTime.set(0);
+        endMediaTime.set(0);
+
         isRunning.set(false);
         isAVideo.set(false);
         mediaName.set("");
         artistName.set("");
-        currentMediaTime.set(0);
-        endMediaTime.set(0);
+
         ThreadManager.getInstance().cancelTimer();
     }
 
@@ -255,43 +259,7 @@ public class Player {
     }
     //END BASIC CONTROLS
 
-    public void updateMetadata(MyMedia myMedia){
-        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-            if (change.wasAdded()) {
-                String key = change.getKey();
-                if ("title".equals(key)) {
-                    if (media.getMetadata().get("title").toString() != null) {
-                        myMedia.setTitle(media.getMetadata().get("title").toString());
-                        DatabaseManager.getInstance().setMediaString(myMedia.getTitle(),"Title", myMedia.getPath());
-                    }
-                } else if ("artist".equals(key)) {
-                    myMedia.setArtist(media.getMetadata().get("artist").toString());
-                    DatabaseManager.getInstance().setMediaString(myMedia.getArtist(),"Artist", myMedia.getPath());
-                } else if ("album".equals(key)) {
-                    myMedia.setAlbum(media.getMetadata().get("album").toString());
-                    DatabaseManager.getInstance().setMediaString(myMedia.getAlbum(),"Album", myMedia.getPath());
-                } else if ("genre".equals(key)) {
-                    myMedia.setGenre(media.getMetadata().get("genre").toString());
-                    DatabaseManager.getInstance().setMediaString(myMedia.getGenre(),"Genre", myMedia.getPath());
-                } else if ("year".equals(key)) {
-                    myMedia.setYear(media.getMetadata().get("year").toString());
-                    DatabaseManager.getInstance().setMediaString(myMedia.getYear(),"Year", myMedia.getPath());
-                }
-            }
-        });
-        Player.getInstance().endMediaTimeProperty().addListener(observable -> {
-            if(endMediaTime.get()>0){
-                myMedia.setLength(ThreadManager.getInstance().formatTime(endMediaTime.get()));
-                DatabaseManager.getInstance().setMediaString(myMedia.getLength(),"Length", myMedia.getPath());
-                // TODO: 11/07/2022 refresh page 
 
-            }
-
-
-        });
-
-
-    }
 
 
 

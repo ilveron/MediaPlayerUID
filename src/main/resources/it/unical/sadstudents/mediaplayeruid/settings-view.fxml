@@ -20,7 +20,7 @@
          <children>
             <FontIcon iconLiteral="fa-paint-brush" iconSize="20" styleClass="alternateIcon" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Label text="App theme" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0" />
-            <ToolBar prefHeight="40.0" prefWidth="140.0" styleClass="secondaryTemplate" AnchorPane.rightAnchor="10.0">
+            <ToolBar prefHeight="40.0" prefWidth="141.0" styleClass="secondaryTemplate" AnchorPane.rightAnchor="10.0">
                <items>
                   <Button fx:id="lightMode" mnemonicParsing="false" onAction="#onLightMode" prefHeight="29.0" prefWidth="40.0" styleClass="toolBarButton">
                      <graphic>

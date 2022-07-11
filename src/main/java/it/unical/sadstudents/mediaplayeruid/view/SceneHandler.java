@@ -41,6 +41,9 @@ public class SceneHandler {
     private SimpleBooleanProperty infoMediaPropertyHover = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty fullScreenRequested = new SimpleBooleanProperty(false);
 
+    private  SimpleBooleanProperty updateViewRequired = new SimpleBooleanProperty(false);
+
+
 
     //SAVING PROCESS DATA
     private double numberOfData=0;
@@ -64,6 +67,18 @@ public class SceneHandler {
 
     //GETTERS AND SETTERS
 
+
+    public boolean isUpdateViewRequired() {
+        return updateViewRequired.get();
+    }
+
+    public SimpleBooleanProperty updateViewRequiredProperty() {
+        return updateViewRequired;
+    }
+
+    public void setUpdateViewRequired(boolean updateViewRequired) {
+        this.updateViewRequired.set(updateViewRequired);
+    }
 
     public boolean isCanStartSaving() {
         return canStartSaving.get();

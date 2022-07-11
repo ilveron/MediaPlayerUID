@@ -123,6 +123,7 @@ public class Playlist  {
                 DatabaseManager.getInstance().setPlaylistSong(songs,totalDuration,name);
                 eliminate=true;
                 list.remove(i);
+                --i;
                 //Playlists.getInstance().setRefresh(1);
             }
         }
