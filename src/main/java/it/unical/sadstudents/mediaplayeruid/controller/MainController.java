@@ -19,6 +19,9 @@ import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.ToDoubleBiFunction;
 
@@ -29,18 +32,20 @@ public class MainController implements Initializable {
     // TODO: 11/07/2022 Sistemare nome canzone/video che si sovrappone al tempo
     // TODO: 11/07/2022 tooltip ovunque
     // TODO: 11/07/2022 gestione errori....fondamentale...domani pomeriggio si fa solo questo
-    // TODO: 11/07/2022 playlist...ora se una playlist sta suonando, e si aggiungono o RIMUOVONO file alla playlist, è un macello gestire l'aggiunta/RIMOZIONE alla coda
-    // TODO: 11/07/2022 sistemare il resize tilepane di home e videogallery
+    // TODO: ANDREA 11/07/2022 playlist...ora se una playlist sta suonando, e si aggiungono o RIMUOVONO file alla playlist, è un macello gestire l'aggiunta/RIMOZIONE alla coda
+    // TODO: ERNESTO 11/07/2022 Aggiornamento tilepane, in playlist e videogallery
+    // FATTTTOOOOOOOOOOOOO 11/07/2022 sistemare il resize tilepane di home e videogallery
     // TODO: 11/07/2022 progress bar da gestire con hover
+    // TODO: 11/07/2022 MusicLibrary ClearAll
     // FATTTTOOOOOOOOOOOOO caricamento quando è in corso un altro caricamento
-    // TODO: 11/07/2022 INTEGRITY CHECK DEI PATH 
-    // TODO: 11/07/2022 KEYEVENT 
-    // TODO: 11/07/2022 CLOSE STAGE
+    // TODO: 11/07/2022 INTEGRITY CHECK DEI PATH
+    // TODO: 11/07/2022 KEYEVENT
+    // FATTTTOOOOOOOOOOOOO ERNESTO 11/07/2022 CLOSE STAGE
     // TODO: 11/07/2022 cosa è successo alla rotellina in home?
-    // TODO: 11/07/2022 gestire quadretto vuoto in menu quando video in corso 
+    // TODO: 11/07/2022 gestire quadretto vuoto in menu quando video in corso
 
     // TODO: 11/07/2022 SECONDARI:
-    // TODO: 11/07/2022  Research brani in playlist
+    // TODO: 11/07/2022 Research brani in playlist
     // TODO: 11/07/2022 aggiungere un tasto info o dettagli al tilepane in home
 
 
@@ -67,10 +72,15 @@ public class MainController implements Initializable {
     @FXML
     private Pane mediaInfoPane;
 
-
+    private String from = "home-view.fxml", to="";
+    private String[] menu = {  "home-view.fxml", "music-library-view.fxml",
+                                "video-library-view.fxml", "play-queue-view.fxml",
+                                "playlist-view.fxml", "settings-view.fxml"};
+    List<String> menuList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         //FIRST SETUP OF ITEMS
         startToolTip();
 
@@ -202,11 +212,9 @@ public class MainController implements Initializable {
             changeBackgroundMediaView();
 
         });
-
-
-
         //END LISTENER VARI
 
+        menuList = Arrays.asList(menu);
     }
 
     private void startToolTip() {
@@ -310,25 +318,27 @@ public class MainController implements Initializable {
     private void switchMidPane() {
         System.out.println("ci arrivo");
 
+        to = SceneHandler.getInstance().currentMidPaneProperty().get();
+
         if(centralStackPane.getChildren().size() <= 1){
             centralStackPane.getChildren().add(SceneHandler.getInstance().switchPane());
         }
 
-        // TODO: 03/07/2022 CLIC RIPETUTI BUGGANO TUTTO
         if(centralStackPane.getChildren().size() == 2){
             SceneHandler.getInstance().setSwitchingCurrentMidPane(true);
-            //subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
-            TranslateTransition translateTransitionOld = new TranslateTransition(Duration.seconds(0.75));
-            translateTransitionOld.setNode(centralStackPane.getChildren().get(0));
-            translateTransitionOld.setFromY(0);
-            translateTransitionOld.setToY(-SceneHandler.getInstance().getScene().getHeight());
-            translateTransitionOld.setInterpolator(Interpolator.EASE_BOTH);
 
-            TranslateTransition translateTransitionNew = new TranslateTransition(Duration.seconds(0.75));
-            translateTransitionNew.setNode(centralStackPane.getChildren().get(1));
-            translateTransitionNew.setFromY(SceneHandler.getInstance().getScene().getHeight());
-            translateTransitionNew.setToY(0);
-            translateTransitionNew.setInterpolator(Interpolator.EASE_BOTH);
+            TranslateTransition translateTransitionOld;
+            TranslateTransition translateTransitionNew;
+
+            if(menuList.indexOf(to) > menuList.indexOf(from)){
+                translateTransitionOld = SceneHandler.getInstance().translateTransition(centralStackPane.getChildren().get(0), (int)centralStackPane.getChildren().get(0).getTranslateX(), 0, centralStackPane.getChildren().get(0).getTranslateX(), -SceneHandler.getInstance().getScene().getHeight(), Interpolator.EASE_BOTH, 0.75);
+                translateTransitionNew = SceneHandler.getInstance().translateTransition(centralStackPane.getChildren().get(1), (int)centralStackPane.getChildren().get(0).getTranslateX(), SceneHandler.getInstance().getScene().getHeight(), centralStackPane.getChildren().get(0).getTranslateX(), 0, Interpolator.EASE_BOTH, 0.75);
+            }
+            else{
+                translateTransitionOld = SceneHandler.getInstance().translateTransition(centralStackPane.getChildren().get(0), (int)centralStackPane.getChildren().get(0).getTranslateX(), 0, centralStackPane.getChildren().get(0).getTranslateX(), SceneHandler.getInstance().getScene().getHeight(), Interpolator.EASE_BOTH, 0.75);
+                translateTransitionNew = SceneHandler.getInstance().translateTransition(centralStackPane.getChildren().get(1), (int)centralStackPane.getChildren().get(0).getTranslateX(), -SceneHandler.getInstance().getScene().getHeight(), centralStackPane.getChildren().get(0).getTranslateX(), 0, Interpolator.EASE_BOTH, 0.75);
+            }
+            //subScene = new FXMLLoader().load(MainApplication.class.getResource(currentMidPane.get()));
 
             translateTransitionOld.play();
             translateTransitionNew.play();
@@ -336,11 +346,10 @@ public class MainController implements Initializable {
             translateTransitionNew.setOnFinished(event -> {
                 centralStackPane.getChildren().remove(0);
                 SceneHandler.getInstance().setSwitchingCurrentMidPane(false);
-
             });
-
-
         }
+        from = to;
+        to = "";
         //stackPane.getChildren().get()
         //myBorderPane.setCenter(centralStackPane);
         //subScenePane.autosize();

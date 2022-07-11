@@ -227,7 +227,7 @@ public class ThreadManager {
                             break;
                         updateProgress(mediaProcessed,mediaFinded);
                     }
-                }else{
+                }else if(type=="meta"){
                     while(metaDataFinded>metaDataProcessed) {
                         if(isCancelled())
                             break;
@@ -236,7 +236,13 @@ public class ThreadManager {
                     }
                     SceneHandler.getInstance().setMetadataLoadindagInProgess(false);
                     SceneHandler.getInstance().setMediaLoadingInProgess(false);
-                    System.out.println("finito");
+                }
+                else{
+                    while(SceneHandler.getInstance().getNumberOfData()>SceneHandler.getInstance().getNumberOfDataProcessed()){
+                        if(isCancelled())
+                            break;
+                        updateProgress(SceneHandler.getInstance().getNumberOfDataProcessed(),SceneHandler.getInstance().getNumberOfData());
+                    }
                 }
                 return null;
             }

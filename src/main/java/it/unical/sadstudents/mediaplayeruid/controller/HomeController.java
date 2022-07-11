@@ -77,6 +77,8 @@ public class HomeController implements Initializable {
 
         });
 
+        System.out.println(PlayQueue.getInstance().getQueue().size());
+
     }
 
 

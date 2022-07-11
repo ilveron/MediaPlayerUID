@@ -19,9 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+import java.awt.desktop.AboutEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -39,6 +41,12 @@ public class SceneHandler {
     private SimpleBooleanProperty infoMediaPropertyHover = new SimpleBooleanProperty(false);
     private SimpleBooleanProperty fullScreenRequested = new SimpleBooleanProperty(false);
 
+    //SAVING PROCESS DATA
+    private double numberOfData=0;
+    private double numberOfDataProcessed=0;
+    private SimpleBooleanProperty canStartSaving = new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty finished = new SimpleBooleanProperty(false);
+
 
     private SimpleStringProperty currentMidPane = new SimpleStringProperty("home-view.fxml");//aggiunto per switchautomatico
     private SimpleBooleanProperty requestedVideoView = new SimpleBooleanProperty(false);
@@ -54,6 +62,35 @@ public class SceneHandler {
     //END SINGLETON
 
     //GETTERS AND SETTERS
+
+
+    public boolean isCanStartSaving() {
+        return canStartSaving.get();
+    }
+
+    public SimpleBooleanProperty canStartSavingProperty() {
+        return canStartSaving;
+    }
+
+    public void setCanStartSaving(boolean canStartSaving) {
+        this.canStartSaving.set(canStartSaving);
+    }
+
+    public double getNumberOfData() {
+        return numberOfData;
+    }
+
+    public void setNumberOfData(double numberOfData) {
+        this.numberOfData = numberOfData;
+    }
+
+    public double getNumberOfDataProcessed() {
+        return numberOfDataProcessed;
+    }
+
+    public void setNumberOfDataProcessed(double numberOfDataProcessed) {
+        this.numberOfDataProcessed = numberOfDataProcessed;
+    }
 
     public boolean isFullScreenRequested() {
         return fullScreenRequested.get();
@@ -193,18 +230,53 @@ public class SceneHandler {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
+
+                try {
+                    //Player.getInstance().stop();
+                    scene= new Scene((new FXMLLoader(MainApplication.class.getResource("exit-view.fxml"))).load(),500,180);
+                    stage.hide();
+                    stage = new Stage(StageStyle.UNDECORATED);
+                    //stage.initStyle();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(mediaLoadingInProgess.get()){
+                    SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+                        canStartSaving.set(true);
+                    });
+
+                }
+                else{
+                    save();
+                }
+
+                SceneHandler.getInstance().canStartSavingProperty().addListener(observable -> save());
+
+
+
+               /* numberOfData=PlayQueue.getInstance().getQueue().size();
+
                 //DatabaseManager.getInstance().changeApplicationClosureData();
                 DatabaseManager.getInstance().deleteAll("Playqueue");
-                for(int i=0;i<PlayQueue.getInstance().getQueue().size();i++) {
+                for(int i=0;i<numberOfData;i++) {
                     DatabaseManager.getInstance().insertPlayQueue(PlayQueue.getInstance().getQueue().get(i).getPath(),i);
+                    numberOfDataProcessed++;
                 }
+                if(!mediaLoadingInProgess.get())
+                    exit();
+                SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+                    if(numberOfDataProcessed==numberOfData)
+                        exit();
+                    else if()
+                });*/
                 /*
                 for(MyMedia myMedia: PlayQueue.getInstance().getQueue()) {
                     DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath());
                 }*/
-                DatabaseManager.getInstance().disconnect();
-                Platform.exit();
-                System.exit(0);
+
                 // TODO: 05/07/2022 modificare con thread pool
 
 
@@ -297,6 +369,39 @@ public class SceneHandler {
 
         node.setOnMouseEntered(mouseEvent -> onEnter.play());
         node.setOnMouseExited(mouseEvent -> onExit.play());
+    }
+
+    private void save(){
+        numberOfData=PlayQueue.getInstance().getQueue().size();
+        System.out.println(numberOfData);
+        //DatabaseManager.getInstance().changeApplicationClosureData();
+        DatabaseManager.getInstance().deleteAll("Playqueue");
+        for(int i=0;i<numberOfData;i++) {
+            DatabaseManager.getInstance().insertPlayQueue(PlayQueue.getInstance().getQueue().get(i).getPath(),i);
+            numberOfDataProcessed++;
+
+        }
+        exit();
+    }
+
+
+
+    private void exit(){
+        DatabaseManager.getInstance().disconnect();
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public TranslateTransition translateTransition(Node node, double startX, double startY, double stopX, double stopY, Interpolator interpolator, double secondsOfTransition){
+        TranslateTransition translate = new TranslateTransition(Duration.seconds(secondsOfTransition));
+        translate.setNode(node);
+        translate.setFromX(startX);
+        translate.setFromY(startY);
+        translate.setToX(stopX);
+        translate.setToY(stopY);
+        translate.setInterpolator(interpolator);
+
+        return translate;
     }
 
 }

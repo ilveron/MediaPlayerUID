@@ -1,5 +1,8 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
+import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
+import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -24,6 +27,32 @@ public class ExitController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(SceneHandler.getInstance().getMediaLoadingInProgess()){
+            ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"media");
+            progressType.setText("MEDIA LOADING IN PROGRESS");
+            SceneHandler.getInstance().metadataLoadindagInProgessProperty().addListener(observable -> {
+                if(SceneHandler.getInstance().isMetadataLoadindagInProgess())
+                {
+                    progressType.setText("METADATA LOADING IN PROGRESS");
+                    ThreadManager.getInstance().progressBarUpdate(progressBarLoading,"meta");
+                }
+            });
+        }
+        else{
+            progressType.setText("NOTHING IN UPLOADING");
+            progressBarLoading.setProgress(100);
+        }
+
+        SceneHandler.getInstance().canStartSavingProperty().addListener(observable ->
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ThreadManager.getInstance().progressBarUpdate(saving,"saving");
+                    }
+                }));
+
+
+
 
     }
 }

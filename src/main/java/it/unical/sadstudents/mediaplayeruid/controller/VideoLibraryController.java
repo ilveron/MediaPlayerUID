@@ -132,9 +132,11 @@ public class VideoLibraryController implements Initializable {
 
         //GESTIONE MULTILOADING
         mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+        btnDelete.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
 
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+            btnDelete.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
 
         });
     }
