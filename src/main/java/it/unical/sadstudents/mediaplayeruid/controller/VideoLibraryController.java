@@ -40,7 +40,8 @@ public class VideoLibraryController implements Initializable {
     private MenuButton mbtAdd;
     @FXML
     private TextField textFieldSearch;
-
+    @FXML
+    private Label lblVideosNum;
 
     @FXML
     void onAddFolder(ActionEvent event) {
@@ -84,6 +85,7 @@ public class VideoLibraryController implements Initializable {
         VideoLibrary.getInstance().clearAll();
         activeButton(false);
         setContentTilePane();
+        updateNumVideoLabel();
     }
 
     private int index=-1;
@@ -142,6 +144,7 @@ public class VideoLibraryController implements Initializable {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
             btnDelete.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
         });
+        updateNumVideoLabel();
     }
     
     public void startToolTip(){
@@ -164,22 +167,20 @@ public class VideoLibraryController implements Initializable {
 
             for (int i =0; i<size;  i++) {
                 int finalI = i;
-                VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                            if(mouseEvent.getClickCount() == 1 ){
-                                removeStyle();
-                                tilePane.getChildren().get(finalI).getStyleClass().add("selectedRecentMedia");
-                                index=finalI;
-                                tilePane.getChildren().get(finalI).requestFocus();
-                            }
+                VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i).setOnMouseClicked(mouseEvent -> {
+                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                        if(mouseEvent.getClickCount() == 1 ){
+                            removeStyle();
+                            tilePane.getChildren().get(finalI).getStyleClass().add("selectedRecentMedia");
+                            index=finalI;
+                            tilePane.getChildren().get(finalI).requestFocus();
                         }
-                        mouseEvent1=mouseEvent;
                     }
+                    mouseEvent1=mouseEvent;
                 });
                 tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
             }
+            updateNumVideoLabel();
         });
 
     }
@@ -200,6 +201,11 @@ public class VideoLibraryController implements Initializable {
     
     public void removeStyle(){
         tilePane.getChildren().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
+    }
+
+    private void updateNumVideoLabel(){
+        Integer size = VideoLibrary.getInstance().getVideoLibrary().size();
+        lblVideosNum.setText(size.toString());
     }
 
 }

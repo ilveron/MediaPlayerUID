@@ -290,8 +290,8 @@
 
 .equalizerButton {
     -fx-background-color: secondaryBackgroundColor;
-    -fx-opacity: 0.7;
-    -fx-text-fill: textColor;
+    -fx-opacity: 1.0;
+    -fx-text-fill: imagesColor;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 14px;
 }
@@ -358,11 +358,6 @@
     -fx-icon-color: settingsIconHoverColor;
 }
 
-.selectedToolBarButton {
-
-
-}
-
 .choice-box > .label { -fx-text-fill: imagesColor; }
 
 .notification-bar>.pane {
@@ -373,13 +368,13 @@
 }
 
 .notification-bar>.pane .title {
-    -fx-text-fill: alternateTextColor;
+    -fx-text-fill: imagesColor;
     -fx-font-family: "Montserrat ExtraBold";
     -fx-font-size: 16px;
 }
 
 .notification-bar>.pane .label {
-    -fx-text-fill: textColor;
+    -fx-text-fill: imagesColor;
     -fx-alignment: top-left;
     -fx-font-family: "Montserrat Medium";
     -fx-font-size: 14px;

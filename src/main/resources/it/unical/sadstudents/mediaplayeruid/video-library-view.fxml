@@ -77,5 +77,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <Label layoutX="285.0" layoutY="25.0" styleClass="descriptionLabel" text="Videos in library:" AnchorPane.leftAnchor="380.0" AnchorPane.topAnchor="25.0" />
+      <Label fx:id="lblVideosNum" layoutX="285.0" layoutY="25.0" styleClass="descriptionLabel" AnchorPane.leftAnchor="515.0" AnchorPane.topAnchor="25.0" />
    </children>
 </AnchorPane>

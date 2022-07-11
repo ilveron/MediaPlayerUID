@@ -6,21 +6,22 @@ import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
 import it.unical.sadstudents.mediaplayeruid.utils.SearchForFile;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
-import javafx.animation.Interpolator;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MusicLibraryController implements Initializable {
-    //TABLEVIEW (WORK WITH OBSERVABLE LIST IN MUSIC LIBRARY MODEL)
     @FXML
     private TableView<MyMedia> tableViewMusicLibrary;
     @FXML
@@ -45,7 +46,6 @@ public class MusicLibraryController implements Initializable {
     void onAddFolder(ActionEvent event) {
         MusicLibrary.getInstance().addFilesToList(RetrievingEngine.getInstance().retrieveFolder(1));
         tableViewMusicLibrary.refresh();
-        //System.out.println(MusicLibrary.getInstance().getKMusic());
     }
     @FXML
     void onAddMedia(ActionEvent event) {
@@ -93,11 +93,26 @@ public class MusicLibraryController implements Initializable {
     }
 
     //END ACTION EVENT
+    private MouseEvent mouseEvent1=null;
     private ContextMenuHandler contextMenuHandler;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         activeButton();
         colorSelectedRow();
+
+        SceneHandler.getInstance().getScene().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getClickCount()==1){
+                    if(mouseEvent1!=null && !mouseEvent.getTarget().equals(mouseEvent1.getTarget())){
+                        if (mouseEvent.getTarget()!=btnAddSongToQueue){
+                            tableViewMusicLibrary.getSelectionModel().clearSelection();
+                            mouseEvent1=null;
+                        }
+                    }
+                }
+            }
+        });
 
         tableViewMusicLibrary.setItems(MusicLibrary.getInstance().getMusicLibrary());
         title.setCellValueFactory(new PropertyValueFactory<MyMedia,String>("title"));
@@ -110,6 +125,7 @@ public class MusicLibraryController implements Initializable {
         tableViewMusicLibrary.setRowFactory(tableView ->{
             final TableRow<MyMedia> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
+                mouseEvent1=event;
                 if(!row.isEmpty() && !event.getButton().equals(MouseButton.SECONDARY)) {
                     MyMedia myMedia=row.getItem();
                     if (event.getClickCount() == 2) {
@@ -156,8 +172,16 @@ public class MusicLibraryController implements Initializable {
 
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
             if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="music-library-view.fxml"){
-                tableViewMusicLibrary.refresh();
-                SceneHandler.getInstance().setUpdateViewRequired(false);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        tableViewMusicLibrary.refresh();
+                        Integer size = MusicLibrary.getInstance().getMusicLibrary().size();
+                        lblSongsNum.setText(size.toString());
+                        SceneHandler.getInstance().setUpdateViewRequired(false);
+                    }
+                });
+
             }
         });
 

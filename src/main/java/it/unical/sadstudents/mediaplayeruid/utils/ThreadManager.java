@@ -46,126 +46,131 @@ public class ThreadManager {
         }catch (Exception exception){
             MyNotification.notifyWarning("","No file(s) selected",3);
         }
-        Thread t = new Thread(() -> {
+        if(mediaFinded>0){
+            Thread t = new Thread(() -> {
 
-            MediaPlayer mediaPlayer;
-            List<String> myMediaList = new ArrayList<>();
+                MediaPlayer mediaPlayer;
+                List<String> myMediaList = new ArrayList<>();
 
-            for (int i=0; i<files.size();i++) {
-                next = false;
-                MyMedia myMedia = new MyMedia(files.get(i));
-                DatabaseManager.getInstance().addMedia(myMedia);
-                try {
+                for (int i=0; i<files.size();i++) {
+                    next = false;
+                    MyMedia myMedia = new MyMedia(files.get(i));
+                    DatabaseManager.getInstance().addMedia(myMedia);
+                    try {
 
-                    String path = files.get(i).toURI().toString();
-                    Media media = new Media(path);
-                    media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-                        if (change.wasAdded()) {
-                            String key = change.getKey();
-                            if ("title".equals(key)) {
-                                if (media.getMetadata().get("title").toString() != null) {
-                                    myMedia.setTitle(media.getMetadata().get("title").toString());
-                                    myMediaList.add(myMedia.getTitle());
-                                    myMediaList.add("Title");
+                        String path = files.get(i).toURI().toString();
+                        Media media = new Media(path);
+                        media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
+                            if (change.wasAdded()) {
+                                String key = change.getKey();
+                                if ("title".equals(key)) {
+                                    if (media.getMetadata().get("title").toString() != null) {
+                                        myMedia.setTitle(media.getMetadata().get("title").toString());
+                                        myMediaList.add(myMedia.getTitle());
+                                        myMediaList.add("Title");
+                                        myMediaList.add(myMedia.getPath());
+                                    }
+                                } else if ("artist".equals(key)) {
+                                    myMedia.setArtist(media.getMetadata().get("artist").toString());
+                                    myMediaList.add(myMedia.getArtist());
+                                    myMediaList.add("Artist");
+                                    myMediaList.add(myMedia.getPath());
+                                } else if ("album".equals(key)) {
+                                    myMedia.setAlbum(media.getMetadata().get("album").toString());
+                                    myMediaList.add(myMedia.getAlbum());
+                                    myMediaList.add("Album");
+                                    myMediaList.add(myMedia.getPath());
+                                } else if ("genre".equals(key)) {
+                                    myMedia.setGenre(media.getMetadata().get("genre").toString());
+                                    myMediaList.add(myMedia.getGenre());
+                                    myMediaList.add("Genre");
+                                    myMediaList.add(myMedia.getPath());
+                                } else if ("year".equals(key)) {
+                                    myMedia.setYear(media.getMetadata().get("year").toString());
+                                    myMediaList.add(myMedia.getYear());
+                                    myMediaList.add("Year");
                                     myMediaList.add(myMedia.getPath());
                                 }
-                            } else if ("artist".equals(key)) {
-                                myMedia.setArtist(media.getMetadata().get("artist").toString());
-                                myMediaList.add(myMedia.getArtist());
-                                myMediaList.add("Artist");
-                                myMediaList.add(myMedia.getPath());
-                            } else if ("album".equals(key)) {
-                                myMedia.setAlbum(media.getMetadata().get("album").toString());
-                                myMediaList.add(myMedia.getAlbum());
-                                myMediaList.add("Album");
-                                myMediaList.add(myMedia.getPath());
-                            } else if ("genre".equals(key)) {
-                                myMedia.setGenre(media.getMetadata().get("genre").toString());
-                                myMediaList.add(myMedia.getGenre());
-                                myMediaList.add("Genre");
-                                myMediaList.add(myMedia.getPath());
-                            } else if ("year".equals(key)) {
-                                myMedia.setYear(media.getMetadata().get("year").toString());
-                                myMediaList.add(myMedia.getYear());
-                                myMediaList.add("Year");
-                                myMediaList.add(myMedia.getPath());
+                            }
+                        });
+
+                        mediaPlayer = new MediaPlayer(media);
+                        MediaPlayer finalMediaPlayer = mediaPlayer;
+                        finalMediaPlayer.setOnReady(() -> {
+                            myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
+                            myMediaList.add(myMedia.getLength());
+                            myMediaList.add("Length");
+                            myMediaList.add(myMedia.getPath());
+                            finalMediaPlayer.dispose();
+                        });
+                        boolean tooTime=false;
+                        double current=System.currentTimeMillis();
+                        while(!tooTime && finalMediaPlayer.getStatus()!= MediaPlayer.Status.READY ){
+                            if(myMedia.getPath().toLowerCase().endsWith(".mp3") && System.currentTimeMillis()-current>50) //con 100 solo 3 persi
+                                tooTime=true;
+                            else if(myMedia.getPath().toLowerCase().endsWith(".mp4") && System.currentTimeMillis()-current>5000)
+                                tooTime=true;
+
+                        }
+                        mediaProcessed+=1;
+                        next = true;
+                        if(startIsNeeded){
+                            if (resetPlayQueueNeeded && i==0){
+                                PlayQueue.getInstance().generateNewQueue(myMedia);
+                            }
+                            else{
+                                PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
                             }
                         }
-                    });
-
-                    mediaPlayer = new MediaPlayer(media);
-                    MediaPlayer finalMediaPlayer = mediaPlayer;
-                    finalMediaPlayer.setOnReady(() -> {
-                        myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
-                        myMediaList.add(myMedia.getLength());
-                        myMediaList.add("Length");
-                        myMediaList.add(myMedia.getPath());
-                        finalMediaPlayer.dispose();
-                    });
-                    boolean tooTime=false;
-                    double current=System.currentTimeMillis();
-                    while(!tooTime && finalMediaPlayer.getStatus()!= MediaPlayer.Status.READY ){
-                        if(myMedia.getPath().toLowerCase().endsWith(".mp3") && System.currentTimeMillis()-current>50) //con 100 solo 3 persi
-                            tooTime=true;
-                        else if(myMedia.getPath().toLowerCase().endsWith(".mp4") && System.currentTimeMillis()-current>5000)
-                            tooTime=true;
-
-                    }
-                    mediaProcessed+=1;
-                    next = true;
-                    if(startIsNeeded){
-                        if (resetPlayQueueNeeded && i==0){
-                            PlayQueue.getInstance().generateNewQueue(myMedia);
+                        if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
+                            DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"VideoLibrary");
+                            VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                         }
                         else{
-                            PlayQueue.getInstance().addFileToListFromOtherModel(myMedia);
+                            DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"MusicLibrary");
+                            MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                         }
-                    }
-                    if (myMedia.getPath().toLowerCase().endsWith(".mp4")){
-                        DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"VideoLibrary");
-                        VideoLibrary.getInstance().addFileToListFromOtherModel(myMedia);
-                    }
-                    else{
-                        DatabaseManager.getInstance().setLibrary(myMedia.getPath(),"MusicLibrary");
-                        MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
-                    }
-                } catch (Exception e) {
-                    Platform.runLater(() -> MyNotification.notifyError("Error","Media Unsupported"+System.lineSeparator()+myMedia.getPath(),3));
+                        SceneHandler.getInstance().setUpdateViewRequired(true);
 
-                    next = true;
-                    mediaProcessed+=1;
+                    } catch (Exception e) {
+                        Platform.runLater(() -> MyNotification.notifyError("Error","Media Unsupported"+System.lineSeparator()+myMedia.getPath(),3));
+
+                        next = true;
+                        mediaProcessed+=1;
+                    }
+                    while(!next) {}
                 }
-                while(!next) {}
-            }
-            try {
-                sleep(2000);
-            } catch (InterruptedException e) {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
 
-                e.printStackTrace();
-            }
+                    e.printStackTrace();
+                }
 
-            metaDataFinded= myMediaList.size()/3;
-            Platform.runLater(() -> {
-                SceneHandler.getInstance().setMetadataLoadindagInProgess(true);
+                metaDataFinded= myMediaList.size()/3;
+                Platform.runLater(() -> {
+                    SceneHandler.getInstance().setMetadataLoadindagInProgess(true);
+                });
+
+                for (int i=0; i<myMediaList.size();i+=3 ){
+                    next= false;
+                    try {
+                        DatabaseManager.getInstance().setMediaString(myMediaList.get(i), myMediaList.get(i + 1), myMediaList.get(i + 2));
+                        metaDataProcessed+=1;
+                        next = true;
+                    }catch (Exception exception){
+                        metaDataProcessed+=1;
+                        next=true;
+                    }
+
+                    while(!next){}
+                }
             });
 
-            for (int i=0; i<myMediaList.size();i+=3 ){
-                next= false;
-                try {
-                    DatabaseManager.getInstance().setMediaString(myMediaList.get(i), myMediaList.get(i + 1), myMediaList.get(i + 2));
-                    metaDataProcessed+=1;
-                    next = true;
-                }catch (Exception exception){
-                    metaDataProcessed+=1;
-                    next=true;
-                }
+            t.setDaemon(true);
+            t.start();
+        }
 
-                while(!next){}
-            }
-        });
-
-        t.setDaemon(true);
-        t.start();
     }
 
     public void progressBarUpdate(ProgressBar progressBar,String type) {
