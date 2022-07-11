@@ -12,8 +12,8 @@
 
 <AnchorPane styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.AddMediaToPlaylistController">
    <children>
-      <ImageView fx:id="imageMedia" fitHeight="79.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="584.0" AnchorPane.topAnchor="10.0" />
-      <Label fx:id="labelTitle" styleClass="mediaNameLabel" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
+      <ImageView fx:id="imageMedia" fitHeight="79.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="10.0" />
+      <Label fx:id="labelTitle" layoutX="45.0" layoutY="99.0" styleClass="mediaNameLabel" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="580.0" AnchorPane.topAnchor="100.0" />
       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <items>
           <Button fx:id="ButtonAddToPlayList" contentDisplay="RIGHT" graphicTextGap="5.0" mnemonicParsing="false" onAction="#onSaveAction" styleClass="largeMenuButton" text="Save changes">

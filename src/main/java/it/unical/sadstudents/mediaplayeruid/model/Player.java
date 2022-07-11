@@ -1,23 +1,23 @@
 package it.unical.sadstudents.mediaplayeruid.model;
 
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.utils.UpdateMetadata;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.collections.MapChangeListener;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Player {
     //VARIABLES
     private int skipMilliseconds = 10000;
-    private Double volume = 100.0 ; // TODO: 05/07/2022 transformare in property 
+    private Double volume = 100.0 ;
     private Timer timer;
     private TimerTask task;
     private boolean runningTimer;
@@ -126,37 +126,38 @@ public class Player {
 
     //FUNCTIONS: START POINT FOR MEDIA REPRODUCTION
     public void createMedia(Integer index){
-            if(index>=0) {
+            if(index>=0 && index<PlayQueue.getInstance().getQueue().size()) {
                 this.index = index;
-                media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
-                if (media.getSource().toLowerCase().endsWith(".mp4")) {
-                    isAVideo.set(true);
-                } else {
-                    isAVideo.set(false);
-                    SceneHandler.getInstance().setRequestedVideoView(false);
+
+                try {
+                    media = new Media(PlayQueue.getInstance().getQueue().get(index).getPath());
+
+                    if (media.getSource().toLowerCase().endsWith(".mp4")) {
+                        isAVideo.set(true);
+                    } else {
+                        isAVideo.set(false);
+                        SceneHandler.getInstance().setRequestedVideoView(false);
+                    }
+
+                    mediaPlayer = new MediaPlayer(media);
+                    mediaView.setMediaPlayer(mediaPlayer);
+
+                    Platform.runLater(() -> {
+                        mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
+                        artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
+                    });
+                    playMedia();
+                } catch (MediaException mediaException) {
+                    MyMedia temp = PlayQueue.getInstance().getQueue().get(index);
+                    VideoLibrary.getInstance().removeSafe(temp);
+                    MusicLibrary.getInstance().deleteStandard(temp);
+                    if(PlayQueue.getInstance().getQueue().size()>0 && PlayQueue.getInstance().getCurrentMedia()<PlayQueue.getInstance().getQueue().size())
+                        PlayQueue.getInstance().startMedia();
+                    MyNotification.notifyError("ERROR",temp.getPath()+System.lineSeparator()+"not supported or not found",5);
+
                 }
 
-                mediaPlayer = new MediaPlayer(media);
-                mediaView.setMediaPlayer(mediaPlayer);
-
-                /*mediaPlayer.setOnReady(()->{
-                    // TODO: 14/06/2022 se rimosso, problemi con lo slider
-
-                    //playMedia();
-                    for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
-                        mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
-
-                });*/
-
-                Platform.runLater(() -> {
-                    mediaName.set(PlayQueue.getInstance().getQueue().get(index).getTitle());
-                    artistName.set(PlayQueue.getInstance().getQueue().get(index).getArtist());
-                });
-                playMedia();
             }
-
-
-        //TODO: REGEX per riproduzione *.mp4
     }
 
 
