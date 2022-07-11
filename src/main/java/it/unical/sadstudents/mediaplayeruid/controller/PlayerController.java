@@ -3,6 +3,7 @@ package it.unical.sadstudents.mediaplayeruid.controller;
 import it.unical.sadstudents.mediaplayeruid.KeyCombo;
 import it.unical.sadstudents.mediaplayeruid.model.PlayQueue;
 import it.unical.sadstudents.mediaplayeruid.model.Player;
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.utils.ThreadManager;
 import it.unical.sadstudents.mediaplayeruid.view.HomeTilePaneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
@@ -320,14 +321,15 @@ public class PlayerController implements Initializable {
         if (PlayQueue.getInstance().shuffleActiveProperty().get()) {
             PlayQueue.getInstance().shuffleActiveProperty().set(false);
         } else {
+            MyNotification.notifyInfo("", "Shuffle list generated", 3);
             PlayQueue.getInstance().shuffleActiveProperty().set(true);
         }
 
-        if (!PlayQueue.getInstance().isShuffleQueueIndexesGenerated()) {
-            PlayQueue.getInstance().generateShuffleList();
-            System.out.println("Lista generata!");
-        }
+
+        PlayQueue.getInstance().generateShuffleList();
+
     }
+
 
     @FXML
     void onPrevious(ActionEvent event) {

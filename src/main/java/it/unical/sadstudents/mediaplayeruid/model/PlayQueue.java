@@ -15,10 +15,8 @@ import java.util.Random;
 public class PlayQueue implements ListedDataInterface {
     //VARIABLES
     private ObservableList<MyMedia> queue;
-    private ArrayList<Integer> alreadyPlayed;
     private SimpleIntegerProperty currentMedia = new SimpleIntegerProperty(0) ;
     private SimpleBooleanProperty shuffleActive = new SimpleBooleanProperty(false);
-    private boolean shuffleQueueIndexesGenerated = false;
     private Integer shuffleQueueCurrentIndex;
     private ArrayList<Integer> shuffleQueueIndexes;
     private SimpleBooleanProperty deletingInProcess = new SimpleBooleanProperty(false);
@@ -28,7 +26,6 @@ public class PlayQueue implements ListedDataInterface {
     private static PlayQueue instance = null;
     private PlayQueue (){
         queue = FXCollections.observableArrayList();
-        alreadyPlayed = new ArrayList<>();
         shuffleQueueCurrentIndex = 0;
         currentMediaProperty().addListener(observable -> {
             if(queue.size()>0)
@@ -87,14 +84,6 @@ public class PlayQueue implements ListedDataInterface {
         return queue;
     }
 
-    public boolean isShuffleQueueIndexesGenerated() {
-        return shuffleQueueIndexesGenerated;
-    }
-
-    public void setShuffleQueueIndexesGenerated(boolean shuffleQueueIndexesGenerated) {
-        this.shuffleQueueIndexesGenerated = shuffleQueueIndexesGenerated;
-    }
-
     public ArrayList<Integer> getShuffleQueueIndexes() {
         return shuffleQueueIndexes;
     }
@@ -128,9 +117,9 @@ public class PlayQueue implements ListedDataInterface {
     public void addFileToListFromOtherModel(MyMedia myMedia) {
         queue.add(myMedia);
         //DatabaseManager.getInstance().insertPlayQueue(myMedia.getPath(),queue.size()-1);
-        if(shuffleActive.get()){
-            shuffleQueueIndexes.add(queue.size()-1);
-        }
+        if(shuffleActive.get())
+            generateShuffleList();
+
         if(!Player.getInstance().isMediaLoaded())
             //Player.getInstance().createMedia(currentMedia.get());
             startMedia();
@@ -187,12 +176,9 @@ public class PlayQueue implements ListedDataInterface {
         if(!isDeletingInProcess())
             Player.getInstance().createMedia(currentMedia.get());
 
-
     }
 
     public void changeMedia(Integer direction){
-        // TODO: 07/06/2022 vedere se vale la pena di fare in modo che non richiami canzoni già suonate
-        alreadyPlayed.add(getCurrentMedia());
         System.out.println("change media");
 
         if(Player.getInstance().isLoopMode())
@@ -233,18 +219,9 @@ public class PlayQueue implements ListedDataInterface {
         shuffleQueueIndexes = new ArrayList<>();
 
         if(getQueue().size() > 0){
-            //Se presenti, aggiungo le canzoni già riprodotte all'inizio di shuffleQueueIndexes per permettere la riproduzione a ritroso
-            if(alreadyPlayed.size() > 0){
-                for(Integer index : alreadyPlayed)
-                    shuffleQueueIndexes.add(index);
-
-                shuffleQueueCurrentIndex = alreadyPlayed.size();
-            }
-
+            shuffleQueueIndexes.add(getCurrentMedia());
             while(shuffleQueueIndexes.size() != queue.size())
                 shuffleQueueIndexes.add(generateRandomForShuffle());
-
-            shuffleQueueIndexesGenerated = true;
         }
     }
 
@@ -286,23 +263,16 @@ public class PlayQueue implements ListedDataInterface {
                 pos--;
             }
         }
-
     }
-
-
 
     public void clearQueue(){
         queue.clear();
         currentMedia.set(0);
         //DatabaseManager.getInstance().deleteAll("Playqueue");
         shuffleActive.set(false);
-        shuffleQueueIndexesGenerated = false;
         shuffleQueueCurrentIndex = 0;
         if(shuffleQueueIndexes != null && shuffleQueueIndexes.size() > 0)
             shuffleQueueIndexes.clear();
-
-        if(shuffleQueueIndexes != null && alreadyPlayed.size() > 0)
-            alreadyPlayed.clear();
     }
 
     public void removeMedia(int i){

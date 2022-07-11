@@ -423,7 +423,9 @@ public class DatabaseManager {
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     String name=rs.getString("Name");
-                    PlaylistCollection.getInstance().addPlaylist(new Playlist(name,rs.getString("Image"),rs.getInt("Songs"),rs.getString("TotalDuration")));
+                    Playlist newPlaylist = new Playlist(name,rs.getString("Image"),rs.getInt("Songs"),rs.getString("TotalDuration"));
+                    newPlaylist.setInitialized(true);
+                    PlaylistCollection.getInstance().addPlaylist(newPlaylist);
                     //receiveMediaInPlaylist(name);
                 }
                 stmt.close();

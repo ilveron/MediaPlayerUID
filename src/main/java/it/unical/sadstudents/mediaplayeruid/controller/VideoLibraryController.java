@@ -88,12 +88,10 @@ public class VideoLibraryController implements Initializable {
 
     private int index=-1;
     private MouseEvent mouseEvent1 = null;
-    private MouseEvent mouseEvent2 = null;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startToolTip();
         setContentTilePane();
-
 
         VideoGalleryTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
             if (VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size()>0)
@@ -115,16 +113,19 @@ public class VideoLibraryController implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent1!=null && !mouseEvent.getTarget().equals(mouseEvent1.getTarget())){
                     if (mouseEvent.getTarget()!=btnAddVideoToQueue){
-                        removeStyle();
+                        try {
+                            removeStyle();
+                        }
+                        catch(Exception e){
+                            MyNotification.notifyError("", "Couldn't remove style from the selected recent media", 3);
+                        }
+
                         mouseEvent1=null;
                         index=-1;
                     }
                 }
             }
         });
-
-
-        //VideoLibrary.getInstance().changeHappenedProperty().addListener(observable -> setContentTilePane());
 
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
 
@@ -140,16 +141,7 @@ public class VideoLibraryController implements Initializable {
         SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
             mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
             btnDelete.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
-
         });
-
-       /* SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
-            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="play-queue-view.fxml"){
-                tableViewQueue.refresh();
-                tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia()) ;
-                SceneHandler.getInstance().setUpdateViewRequired(false);
-            }
-        });*/
     }
     
     public void startToolTip(){
@@ -162,39 +154,31 @@ public class VideoLibraryController implements Initializable {
 
 
     public void setContentTilePane(){
-        //VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(index).getMyMedia().getPath();
+        Platform.runLater(() -> {
+            tilePane.getChildren().clear();
+            int size = VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
+            if(size>0)
+                activeButton(true);
+            else
+                activeButton(false);
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                tilePane.getChildren().clear();
-                int size = VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().size();
-                if(size>0)
-                    activeButton(true);
-                else
-                    activeButton(false);
-
-                for (int i =0; i<size;  i++) {
-                    int finalI = i;
-                    VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                                if(mouseEvent.getClickCount() == 1 ){
-                                    removeStyle();
-                                    tilePane.getChildren().get(finalI).getStyleClass().add("selectedRecentMedia");
-                                    index=finalI;
-                                    tilePane.getChildren().get(finalI).requestFocus();
-
-                                }
+            for (int i =0; i<size;  i++) {
+                int finalI = i;
+                VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                            if(mouseEvent.getClickCount() == 1 ){
+                                removeStyle();
+                                tilePane.getChildren().get(finalI).getStyleClass().add("selectedRecentMedia");
+                                index=finalI;
+                                tilePane.getChildren().get(finalI).requestFocus();
                             }
-                            mouseEvent1=mouseEvent;
                         }
-                    });
-                    tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
-                }
-                //loadingIndicator.setVisible(false);
-                //loadingLabel.setVisible(false);
+                        mouseEvent1=mouseEvent;
+                    }
+                });
+                tilePane.getChildren().add(VideoGalleryTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
             }
         });
 
@@ -216,7 +200,6 @@ public class VideoLibraryController implements Initializable {
     
     public void removeStyle(){
         tilePane.getChildren().forEach(myMediaSingleBox1 -> myMediaSingleBox1.getStyleClass().remove("selectedRecentMedia"));
-
     }
 
 }

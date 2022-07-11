@@ -10,7 +10,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
-import java.sql.ResultSet;
 import java.util.*;
 
 import static java.lang.String.format;
@@ -19,24 +18,10 @@ import static java.lang.Thread.sleep;
 public class ThreadManager {
     private Timer timer;
     private TimerTask timerTask;
-    //private Task task;
-    //private Thread thread;
-    private final Object obj= new Object();
-
     private double mediaFinded = 0.0;
     private double mediaProcessed = 0.0;
     private double metaDataFinded = 0.0;
     private double metaDataProcessed=0.0;
-
-
-
-    /*public Thread getThread() {
-        return thread;
-    }*/
-
-    public Object getObj() {
-        return obj;
-    }
 
     //SINGLETON
     private static ThreadManager instance = null;
@@ -47,18 +32,6 @@ public class ThreadManager {
     }
     private ThreadManager() {    }
     //END SINGLETON
-
-
-
-    public void addToLibraryFromDB(ResultSet rs){
-        Thread A = new Thread(()->{
-
-        });
-        A.setDaemon(true);
-        A.start();
-
-    }
-
 
     private boolean next = false;
     private boolean startIsNeeded = false;
@@ -95,49 +68,39 @@ public class ThreadManager {
                                     myMediaList.add(myMedia.getTitle());
                                     myMediaList.add("Title");
                                     myMediaList.add(myMedia.getPath());
-                                    //DatabaseManager.getInstance().setMediaString(myMedia.getTitle(),"Title", myMedia.getPath());
                                 }
                             } else if ("artist".equals(key)) {
                                 myMedia.setArtist(media.getMetadata().get("artist").toString());
                                 myMediaList.add(myMedia.getArtist());
                                 myMediaList.add("Artist");
                                 myMediaList.add(myMedia.getPath());
-                                //DatabaseManager.getInstance().setMediaString(myMedia.getArtist(),"Artist", myMedia.getPath());
                             } else if ("album".equals(key)) {
                                 myMedia.setAlbum(media.getMetadata().get("album").toString());
                                 myMediaList.add(myMedia.getAlbum());
                                 myMediaList.add("Album");
                                 myMediaList.add(myMedia.getPath());
-                                //DatabaseManager.getInstance().setMediaString(myMedia.getAlbum(),"Album", myMedia.getPath());
                             } else if ("genre".equals(key)) {
                                 myMedia.setGenre(media.getMetadata().get("genre").toString());
                                 myMediaList.add(myMedia.getGenre());
                                 myMediaList.add("Genre");
                                 myMediaList.add(myMedia.getPath());
-                                //DatabaseManager.getInstance().setMediaString(myMedia.getGenre(),"Genre", myMedia.getPath());
                             } else if ("year".equals(key)) {
                                 myMedia.setYear(media.getMetadata().get("year").toString());
                                 myMediaList.add(myMedia.getYear());
                                 myMediaList.add("Year");
                                 myMediaList.add(myMedia.getPath());
-                                //DatabaseManager.getInstance().setMediaInt(myMedia.getYear(),"Year", myMedia.getPath());
                             }
-
-
                         }
                     });
 
                     mediaPlayer = new MediaPlayer(media);
                     MediaPlayer finalMediaPlayer = mediaPlayer;
-                    finalMediaPlayer.setOnReady(new Runnable() {
-                        @Override
-                        public void run() {
-                            myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
-                            myMediaList.add(myMedia.getLength());
-                            myMediaList.add("Length");
-                            myMediaList.add(myMedia.getPath());
-                            finalMediaPlayer.dispose();
-                        }
+                    finalMediaPlayer.setOnReady(() -> {
+                        myMedia.setLength(formatTime(finalMediaPlayer.getTotalDuration().toSeconds()));
+                        myMediaList.add(myMedia.getLength());
+                        myMediaList.add("Length");
+                        myMediaList.add(myMedia.getPath());
+                        finalMediaPlayer.dispose();
                     });
                     boolean tooTime=false;
                     double current=System.currentTimeMillis();
@@ -148,9 +111,6 @@ public class ThreadManager {
                             tooTime=true;
 
                     }
-
-
-
                     mediaProcessed+=1;
                     next = true;
                     if(startIsNeeded){
@@ -170,13 +130,7 @@ public class ThreadManager {
                         MusicLibrary.getInstance().addFileToListFromOtherModel(myMedia);
                     }
                 } catch (Exception e) {
-                    System.out.println(myMedia.getPath());
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            MyNotification.notifyError("Error","Media Unsupported"+System.lineSeparator()+myMedia.getPath(),3);
-                        }
-                    });
+                    Platform.runLater(() -> MyNotification.notifyError("Error","Media Unsupported"+System.lineSeparator()+myMedia.getPath(),3));
 
                     next = true;
                     mediaProcessed+=1;
@@ -208,24 +162,11 @@ public class ThreadManager {
 
                 while(!next){}
             }
-
-
-
         });
 
         t.setDaemon(true);
         t.start();
-
-
-
-
-
     }
-
-
-
-
-    //public void startUpdateProgress(ProgressBar)
 
     public void progressBarUpdate(ProgressBar progressBar,String type) {
        Task task = new Task<Void>() {
@@ -242,7 +183,6 @@ public class ThreadManager {
                         if(isCancelled())
                             break;
                         updateProgress(metaDataProcessed,metaDataFinded);
-                        //break;
                     }
                     SceneHandler.getInstance().setMetadataLoadindagInProgess(false);
                     SceneHandler.getInstance().setMediaLoadingInProgess(false);
@@ -264,11 +204,8 @@ public class ThreadManager {
 
     }
     
-    public void listGenerator(){
-        // TODO: 05/06/2022
-    }
 
-    //TASK PROGRESS BAR
+    //TASK SLIDER TIME AND MEDIA TIME LABEL
     public void beginTimer(){
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -300,11 +237,7 @@ public class ThreadManager {
 
             return format("%02d:%02d:%02d", hh, mm, ss);
         }
-
         return "00:00:00";
     }
-
-
-
 
 }

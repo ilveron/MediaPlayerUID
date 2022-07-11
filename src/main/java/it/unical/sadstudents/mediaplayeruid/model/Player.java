@@ -57,16 +57,12 @@ public class Player {
 
 
     //VARIABLES GETTERS AND SETTERS
-
-
     public void setRate(double rate) {
         this.rate = rate;
     }
-
     public double getUnmuteVolumeValue() {
         return unmuteVolumeValue;
     }
-
     public void setUnmuteVolumeValue(double unmuteVolumeValue) {
         this.unmuteVolumeValue = unmuteVolumeValue;
     }
@@ -111,6 +107,7 @@ public class Player {
 
     //END VARIABLES GETTERS AND SETTERS
 
+
     //GETTERS AND SETTERS NEEDED TO SET VIDEO TAB
     public MediaView getMediaView() {
         return mediaView;
@@ -154,27 +151,9 @@ public class Player {
                     if(PlayQueue.getInstance().getQueue().size()>0 && PlayQueue.getInstance().getCurrentMedia()<PlayQueue.getInstance().getQueue().size())
                         PlayQueue.getInstance().startMedia();
                     MyNotification.notifyError("ERROR",temp.getPath()+System.lineSeparator()+"not supported or not found",5);
-
                 }
-
             }
     }
-
-
-
-    //public void createMedia(Integer index){
-    /*public void createMediaTest(MyMedia myMedia){
-
-        mediaName.set(myMedia.getTitle());
-        media = new Media(myMedia.getPath());
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-        mediaLoaded.set(true);
-        playMedia();
-        ThreadManager.getInstance().setNameAndArtistLabels(media);
-        //TODO: REGEX per riproduzione *.mp4
-    }*/
-
 
     public void playMedia(){
         if(media != null){
@@ -184,7 +163,7 @@ public class Player {
             mediaPlayer.play();
             isRunning.set(true);
             for(int i = 0; i < mediaPlayer.getAudioEqualizer().getBands().size(); ++i)
-                mediaPlayer.getAudioEqualizer().getBands().get(i).setGain((double) AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
+                mediaPlayer.getAudioEqualizer().getBands().get(i).setGain(AudioEqualizer.getInstance().getPresetsValues().get(AudioEqualizer.getInstance().getCurrentPresetIndex())[i]);
             if(rate!=1){
                 mediaPlayer.setRate(rate);
             }
@@ -199,7 +178,6 @@ public class Player {
     public void pauseMedia(){
         if(media != null){
             mediaPlayer.pause();
-
             isRunning.set(false);
             ThreadManager.getInstance().cancelTimer();
         }
@@ -211,7 +189,6 @@ public class Player {
 
     public void tenSecondBack() {
         mediaPlayer.seek(Duration.millis((mediaPlayer.getCurrentTime().toMillis()-skipMilliseconds)));
-
     }
 
     public void tenSecondForward() {
@@ -224,12 +201,10 @@ public class Player {
         mediaLoaded.set(false);
         currentMediaTime.set(0);
         endMediaTime.set(0);
-
         isRunning.set(false);
         isAVideo.set(false);
         mediaName.set("");
         artistName.set("");
-
         ThreadManager.getInstance().cancelTimer();
     }
 
@@ -240,29 +215,10 @@ public class Player {
             loopMode = false;
     }
 
-
-
     public void setVolume(double v) {
         volume=v;
-
-            mediaPlayer.setVolume(v);
-    }
-
-    public Double getVolume(){
-        return volume;
-    }
-
-    public void skipTime(){
-        //mediaPlayer.play();
-        //ThreadManager.getInstance().beginTimer();
-        //mediaPlayer.seek(Duration.millis(getCurrentMediaTime()));
-        //mediaPlayer.pause();
+        mediaPlayer.setVolume(v);
     }
     //END BASIC CONTROLS
-
-
-
-
-
 
 }

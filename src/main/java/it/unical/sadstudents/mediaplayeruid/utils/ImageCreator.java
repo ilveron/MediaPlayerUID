@@ -46,9 +46,6 @@ public class ImageCreator extends Service<Boolean> {
                 mediaViewBis.setMediaPlayer(mediaPlayer);
 
                 mediaPlayer.setOnReady(()->{
-
-                    //System.out.println(mediaPlayer.getStatus());
-                    // mediaPlayer.seek(Duration.seconds(15));
                     mediaViewBis.setVisible(true);
                     mediaPlayer.seek(Duration.seconds(5));
                     mediaPlayer.play();
@@ -80,10 +77,6 @@ public class ImageCreator extends Service<Boolean> {
                         mediaViewBis.snapshot(new Callback<SnapshotResult, Void>() {
                             @Override
                             public Void call(SnapshotResult snapshotResult) {
-
-                                //System.out.println("QUI");
-                                //imageView.setImage(snapshotResult.getImage());
-                                //saveToFile(snapshotResult.getImage());
                                 mediaViewBis.setVisible(false);
                                 mediaPlayer.dispose();
                                 return null;
@@ -91,15 +84,9 @@ public class ImageCreator extends Service<Boolean> {
                         }, null, wim);
                         myMediaSingleBox.setImage(wim);
 
-                        //imageView.setFitWidth(200);
                     });
                     service.start();
-                    //BufferedImage image = wim.getPixelWriter();
-                    //System.out.println(wimBis);
 
-                    //mediaPlayer.stop();
-                    //mediaViewBis.setVisible(false);
-                    //               imageView.setImage(wim);
                 });
 
             }

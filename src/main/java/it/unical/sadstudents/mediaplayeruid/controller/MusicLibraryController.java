@@ -6,20 +6,18 @@ import it.unical.sadstudents.mediaplayeruid.utils.RetrievingEngine;
 import it.unical.sadstudents.mediaplayeruid.utils.SearchForFile;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
+import javafx.animation.Interpolator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MusicLibraryController implements Initializable {
     //TABLEVIEW (WORK WITH OBSERVABLE LIST IN MUSIC LIBRARY MODEL)
@@ -33,6 +31,8 @@ public class MusicLibraryController implements Initializable {
     private TableColumn<MyMedia, String> length;
     @FXML
     private MenuButton mbtAdd;
+    @FXML
+    private Label lblSongsNum;
 
     @FXML
     private TextField TextField;
@@ -81,11 +81,15 @@ public class MusicLibraryController implements Initializable {
             MusicLibrary.getInstance().deleteStandard(myMedia);
             tableViewMusicLibrary.getItems().remove(myMedia);
             tableViewMusicLibrary.refresh();
+
+            Integer size = MusicLibrary.getInstance().getMusicLibrary().size();
+            lblSongsNum.setText(size.toString());
     }
 
     @FXML
     void onClearAll(ActionEvent event){
         MusicLibrary.getInstance().clearList();
+        lblSongsNum.setText("0");
     }
 
     //END ACTION EVENT
@@ -162,6 +166,8 @@ public class MusicLibraryController implements Initializable {
                 colorSelectedRow();
 
         });
+        Integer size = MusicLibrary.getInstance().getMusicLibrary().size();
+        lblSongsNum.setText(size.toString());
     }
 
     private void startToolTip() {
