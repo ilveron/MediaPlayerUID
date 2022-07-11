@@ -157,6 +157,14 @@ public class MusicLibraryController implements Initializable {
         SceneHandler.getInstance().scaleTransition(btnDelete);
         SceneHandler.getInstance().scaleTransition(mbtAdd);
 
+        //GESTIONE MULTILOADING
+        mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+            mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        });
+
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
     }
 

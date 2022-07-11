@@ -153,6 +153,13 @@ public class PlayQueueController implements Initializable {
         SceneHandler.getInstance().scaleTransition(mbtAdd);
         SceneHandler.getInstance().scaleTransition(mbtAddSelectedTo);
         SceneHandler.getInstance().scaleTransition(delete);
+
+        //GESTIONE MULTILOADING
+        mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+        SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+            mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        });
     }
 
     //aggiunta come fix

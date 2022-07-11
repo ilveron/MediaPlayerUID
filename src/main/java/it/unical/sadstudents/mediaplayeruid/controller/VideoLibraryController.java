@@ -129,6 +129,14 @@ public class VideoLibraryController implements Initializable {
         SceneHandler.getInstance().scaleTransition(btnAddVideoToQueue);
         SceneHandler.getInstance().scaleTransition(btnDelete);
         SceneHandler.getInstance().scaleTransition(mbtAdd);
+
+        //GESTIONE MULTILOADING
+        mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+            mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        });
     }
     
     public void startToolTip(){

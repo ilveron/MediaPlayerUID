@@ -69,6 +69,14 @@ public class HomeController implements Initializable {
         SceneHandler.getInstance().getStage().widthProperty().addListener(observable -> setDimTilePane());
         SceneHandler.getInstance().scaleTransition(mbtAdd);
 
+        //GESTIONE MULTILOADING
+        mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        SceneHandler.getInstance().mediaLoadingInProgessProperty().addListener(observable -> {
+            mbtAdd.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
+
+        });
+
     }
 
 

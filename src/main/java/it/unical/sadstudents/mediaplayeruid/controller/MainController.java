@@ -20,9 +20,28 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.ToDoubleBiFunction;
 
 
 public class MainController implements Initializable {
+    // TODO: 11/07/2022 IMPORTANTI:
+    // TODO: 11/07/2022 Sistemare multi selezione playlist, quando seleziono canzoni e poi cerchi una parola successivamente si bagga tutta la selezione
+    // TODO: 11/07/2022 Sistemare nome canzone/video che si sovrappone al tempo
+    // TODO: 11/07/2022 tooltip ovunque
+    // TODO: 11/07/2022 gestione errori....fondamentale...domani pomeriggio si fa solo questo
+    // TODO: 11/07/2022 playlist...ora se una playlist sta suonando, e si aggiungono o RIMUOVONO file alla playlist, è un macello gestire l'aggiunta/RIMOZIONE alla coda
+    // TODO: 11/07/2022 sistemare il resize tilepane di home e videogallery
+    // TODO: 11/07/2022 progress bar da gestire con hover
+    // FATTTTOOOOOOOOOOOOO caricamento quando è in corso un altro caricamento
+    // TODO: 11/07/2022 INTEGRITY CHECK DEI PATH 
+    // TODO: 11/07/2022 KEYEVENT 
+    // TODO: 11/07/2022 CLOSE STAGE
+    // TODO: 11/07/2022 cosa è successo alla rotellina in home?
+    // TODO: 11/07/2022 gestire quadretto vuoto in menu quando video in corso 
+
+    // TODO: 11/07/2022 SECONDARI:
+    // TODO: 11/07/2022  Research brani in playlist
+    // TODO: 11/07/2022 aggiungere un tasto info o dettagli al tilepane in home
 
 
     //ELEMENTS ON LAYOUT
@@ -248,7 +267,6 @@ public class MainController implements Initializable {
     //END ACTION EVENT MEDIA CONTROLS BAR
 
 
-    // TODO: 06/06/2022 RENDERE INVISIBILE VIDEO VIEW DOPO CANCELLAZIONE DELLA PLAY QUEUE 
     //FUNCTION CALLED AFTER A LISTENER OR OTHER EVENT
     public void activeVideoView() {
         if (SceneHandler.getInstance().isRequestedVideoView() && Player.getInstance().getIsAVideo()) {
