@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="140.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.ExitController">
+   <children>
+      <Label alignment="CENTER" prefWidth="490.0" text="ATTENDERE IL COMPLETAMENTO DELLE OPERAZIONI IN CORSO" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
+      <Label alignment="CENTER" layoutX="15.0" layoutY="30.0" prefWidth="490.0" text="COMPLETING UPLOAD" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
+      <Label fx:id="progressType" alignment="CENTER" prefHeight="17.0" prefWidth="439.0" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" AnchorPane.leftAnchor="2.0" />
+      <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="440.0" progress="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="80.0" />
+      <Label fx:id="savingLabel" alignment="CENTER" layoutX="25.0" layoutY="40.0" prefWidth="490.0" text="SAVING DATA" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
+      <ProgressBar fx:id="saving" prefHeight="18.0" prefWidth="430.0" progress="0.0" visible="false" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="80.0" />
+   </children>
+</AnchorPane>
