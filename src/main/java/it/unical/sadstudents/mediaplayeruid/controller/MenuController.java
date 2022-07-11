@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -79,8 +80,7 @@ public class MenuController implements Initializable {
         startToolTip();
         
         Player.getInstance().isAVideoProperty().addListener(observable -> {
-                activeVideo(Player.getInstance().getIsAVideo());
-
+            activeVideo(Player.getInstance().getIsAVideo());
 
             // TODO: 10/07/2022 maybe some damage
         });
@@ -89,7 +89,12 @@ public class MenuController implements Initializable {
             if(SceneHandler.getInstance().getStage().isFullScreen()){
                 mainBox.setVisible(false);
             }
-
+            else if (Player.getInstance().getIsAVideo() && !SceneHandler.getInstance().getStage().isFullScreen()){
+                mainBox.setVisible(true);
+                resetAllStyles();
+                btnVideoView.getStyleClass().removeAll("button","toolBarButton");
+                btnVideoView.getStyleClass().add("focusedToolBarButton");
+            }
             else{
                 mainBox.setVisible(true);
             }
@@ -138,15 +143,18 @@ public class MenuController implements Initializable {
         SceneHandler.getInstance().scaleTransition(btnVideoLibrary);
         SceneHandler.getInstance().scaleTransition(btnVideoView);
 
+        btnHome.getStyleClass().removeAll("button","toolBarButton");
+        btnHome.getStyleClass().add("focusedToolBarButton");
+
         for(Node btn: toolbarMenu.getItems()){
             btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    //if(btn.getId() != null) {
+                    if(btn.getId() != null) {
                         resetAllStyles();
                         btn.getStyleClass().removeAll("button", "toolBarButton");
                         btn.getStyleClass().add("focusedToolBarButton");
-                    //}
+                    }
                     System.out.println(btn.getStyleClass());
                 }
             });
@@ -195,6 +203,9 @@ public class MenuController implements Initializable {
 
     private void buttonVideoTab(boolean status){
         btnVideoView.setVisible(status);
+        resetAllStyles();
+        btnVideoView.getStyleClass().removeAll("button","toolBarButton");
+        btnVideoView.getStyleClass().add("focusedToolBarButton");
     }
 
     private void toolbarButtonDisable(boolean status){

@@ -98,11 +98,11 @@ public class PlaylistSingleViewController implements Initializable {
                 //if(MyNotification.notifyConfirm("Confermi la tua scelta","Ok per confermare")){
                 int index= PlaylistCollection.getInstance().getPlaylistWidthName(playlist.getName());
                 PlaylistCollection.getInstance().deletePlaylist(index);
-                PlaylistCollection.getInstance().setUpdatePlaylist(true);
+                //PlaylistCollection.getInstance().setUpdatePlaylist(true);
             }
         }catch (Exception e){
             System.out.println("GIA ELIMINATO");
-            PlaylistCollection.getInstance().setUpdatePlaylist(true);
+            //PlaylistCollection.getInstance().setUpdatePlaylist(true);
         }
     }
 

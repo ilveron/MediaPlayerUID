@@ -4,6 +4,7 @@ import it.unical.sadstudents.mediaplayeruid.model.*;
 import it.unical.sadstudents.mediaplayeruid.view.SinglePlaylistView;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SubStageHandler;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,29 +58,34 @@ public class PlaylistCollectionController implements Initializable {
             }
         });
 
-        PlaylistCollection.getInstance().deleteProperty().addListener(observable -> {
+        /*PlaylistCollection.getInstance().deleteProperty().addListener(observable -> {
                 if(PlaylistCollection.getInstance().getDelete()!=-1){
                     PlaylistCollection.getInstance().deletePlaylist(PlaylistCollection.getInstance().getDelete());
                     PlaylistCollection.getInstance().setDelete(-1);
                     setContentTilePane();
                 }
-        });
+        });*/
 
         SceneHandler.getInstance().scaleTransition(ButtonCreatePlaylist);
     }
 
     private void setContentTilePane(){
-        tilePane.getChildren().clear();
-        int size= PlaylistCollection.getInstance().getPlayListsCollections().size();
-        for (int i= 0; i<size; ++i){
-            //System.out.println("creato");
-            SinglePlaylistView playList = new SinglePlaylistView(PlaylistCollection.getInstance().getPlayListsCollections().get(i));
-            playList.setFocusTraversable(true);
-            playList.setDim(setDimTilePane());
-            tilePane.getChildren().add(playList);
-            //System.out.println("ciao");
-        }
-        PlaylistCollection.getInstance().setUpdatePlaylist(false);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tilePane.getChildren().clear();
+                int size= PlaylistCollection.getInstance().getPlayListsCollections().size();
+                for (int i= 0; i<size; ++i){
+                    //System.out.println("creato");
+                    SinglePlaylistView playList = new SinglePlaylistView(PlaylistCollection.getInstance().getPlayListsCollections().get(i));
+                    playList.setFocusTraversable(true);
+                    playList.setDim(setDimTilePane());
+                    tilePane.getChildren().add(playList);
+                    //System.out.println("ciao");
+                }
+                PlaylistCollection.getInstance().setUpdatePlaylist(false);
+            }
+        });
 
     }
 

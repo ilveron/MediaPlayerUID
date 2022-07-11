@@ -81,6 +81,7 @@ public class VideoLibraryController implements Initializable {
     void onDeleteVideo(ActionEvent event) {
         VideoLibrary.getInstance().clearAll();
         activeButton(false);
+        setContentTilePane();
     }
 
     private int index=-1;
@@ -139,6 +140,14 @@ public class VideoLibraryController implements Initializable {
             btnDelete.setDisable(SceneHandler.getInstance().getMediaLoadingInProgess());
 
         });
+
+       /* SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
+            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="play-queue-view.fxml"){
+                tableViewQueue.refresh();
+                tableViewQueue.getSelectionModel().select(PlayQueue.getInstance().getCurrentMedia()) ;
+                SceneHandler.getInstance().setUpdateViewRequired(false);
+            }
+        });*/
     }
     
     public void startToolTip(){

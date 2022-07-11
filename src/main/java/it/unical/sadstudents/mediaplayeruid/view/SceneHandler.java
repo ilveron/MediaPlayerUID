@@ -13,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -251,7 +253,7 @@ public class SceneHandler {
                     if(Player.getInstance().getMediaPlayer()!=null)
                         Player.getInstance().stop();
 
-                    scene= new Scene((new FXMLLoader(MainApplication.class.getResource("exit-view.fxml"))).load(),500,180);
+                    scene= new Scene((new FXMLLoader(MainApplication.class.getResource("exit-view.fxml"))).load(),550,240);
                     stage.hide();
                     stage = new Stage();
                     scene.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
@@ -368,15 +370,20 @@ public class SceneHandler {
 
     public boolean showConfirmationAlert(String text) {
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma");
+        alert.setTitle("Please confirm");
         alert.setHeaderText(text);
         alert.setContentText(null);
+        DialogPane dialog = alert.getDialogPane();
+        dialog.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/style.css")).toExternalForm());
+        dialog.getStylesheets().add(Objects.requireNonNull(MainApplication.class.getResource("css/"+Settings.theme+".css")).toExternalForm());
+        dialog.getStyleClass().add("dialog");
         alert.showAndWait();
         return alert.getResult() != ButtonType.CANCEL;
     }
+
     public void createErrorMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
+        alert.setTitle("Error");
         alert.setContentText(message);
         alert.show();
     }

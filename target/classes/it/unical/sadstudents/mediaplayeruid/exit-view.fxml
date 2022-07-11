@@ -4,14 +4,13 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="180.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.ExitController">
+<AnchorPane prefHeight="220.0" prefWidth="500.0" styleClass="primaryTemplate" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.ExitController">
    <children>
-      <Label alignment="CENTER" prefWidth="490.0" text="ATTENDERE IL COMPLETAMENTO DELLE OPERAZIONI IN CORSO" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
-      <Label alignment="CENTER" layoutX="15.0" layoutY="30.0" prefWidth="490.0" text="COMPLETING UPLOAD" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0" />
-      <Label fx:id="progressType" alignment="CENTER" prefHeight="17.0" prefWidth="439.0" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" AnchorPane.leftAnchor="2.0" />
-      <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="440.0" progress="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="75.0" />
-      <Label fx:id="savingLabel" alignment="CENTER" layoutX="25.0" layoutY="40.0" prefWidth="490.0" text="SAVING DATA" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="120.0" />
-      <ProgressBar fx:id="saving" prefHeight="18.0" prefWidth="430.0" progress="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="145.0" />
+      <Label alignment="CENTER" prefWidth="490.0" styleClass="mediaNameLabel" text="PLEASE WAIT FOR DATA TO BE SAVED CORRECTLY" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
+      <Label alignment="CENTER" layoutX="15.0" layoutY="30.0" prefWidth="490.0" styleClass="artistMediaLabel" text="Upload completion status" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="70.0" />
+      <Label fx:id="progressType" alignment="CENTER" prefHeight="17.0" prefWidth="439.0" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee" visible="false" AnchorPane.leftAnchor="2.0" />
+      <ProgressBar fx:id="progressBarLoading" prefHeight="18.0" prefWidth="440.0" progress="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="95.0" />
+      <Label fx:id="savingLabel" alignment="CENTER" layoutX="25.0" layoutY="40.0" prefWidth="490.0" styleClass="artistMediaLabel" text="Data saving status" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="140.0" />
+      <ProgressBar fx:id="saving" prefHeight="18.0" prefWidth="430.0" progress="0.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="165.0" />
    </children>
 </AnchorPane>

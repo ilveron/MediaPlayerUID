@@ -32,7 +32,7 @@
                         <Insets />
                      </VBox.margin>
                   </AnchorPane>
-                  <Label fx:id="labelName" styleClass="recentMediaNameLabel" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                  <Label fx:id="labelName" styleClass="playlistNameLabel" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -46,17 +46,17 @@
                   <Separator prefWidth="200.0" />
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
-                        <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onChange" styleClass="withinPaneButton">
+                        <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#onChange" styleClass="playlistButton">
                            <graphic>
                               <FontIcon iconLiteral="fa-pencil" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDeletePlaylist" styleClass="withinPaneButton">
+                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#onDeletePlaylist" styleClass="playlistButton">
                            <graphic>
                               <FontIcon iconLiteral="fa-trash" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onAddToPlaylist" styleClass="withinPaneButton">
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onAddToPlaylist" styleClass="playlistButton">
                            <graphic>
                               <FontIcon iconLiteral="fa-plus" iconSize="14" styleClass="iconsOverBackground" />
                            </graphic>

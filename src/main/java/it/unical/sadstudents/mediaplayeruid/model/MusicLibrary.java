@@ -168,7 +168,20 @@ public class MusicLibrary implements DataListedModel{
     }
      END ORDINAMENTO */
 
+    public void deleteAll(){
+        for(int i=0;i<Library.size();i++){
+            deleteCheck(Library.get(i));
+        }
+        Library.clear();
+        DatabaseManager.getInstance().deleteAllLibrary("MusicLibrary");
+        PlayQueue.getInstance().canRestart();
 
+    }
+    public void deleteCheck(MyMedia myMedia){
+        Home.getInstance().removeItem(myMedia);
+        PlayQueue.getInstance().deleteFromOtherController(myMedia);
+        PlaylistCollection.getInstance().deleteMediaCompletely(myMedia.getPath());
+    }
 
     //END FUNCTIONS
 

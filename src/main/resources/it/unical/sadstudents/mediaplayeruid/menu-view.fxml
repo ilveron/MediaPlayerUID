@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="mainBox" minWidth="50.0" prefHeight="660.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
+<VBox fx:id="mainBox" minWidth="60.0" prefHeight="660.0" spacing="10.0" styleClass="primaryTemplate" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unical.sadstudents.mediaplayeruid.controller.MenuController">
    <children>
       <ToolBar fx:id="toolbarMenu" focusTraversable="false" minHeight="190.0" minWidth="50.0" orientation="VERTICAL" prefHeight="190.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
          <items>
@@ -87,7 +87,7 @@
             <Insets />
          </VBox.margin>
       </ToolBar>
-      <VBox fx:id="vBoxProgressBar" minWidth="50.0" spacing="5.0" visible="false" VBox.vgrow="NEVER">
+      <VBox fx:id="vBoxProgressBar" minWidth="50.0" spacing="5.0" styleClass="primaryTemplate" visible="false" VBox.vgrow="NEVER">
          <children>
             <Label fx:id="progressType" styleClass="inProgressLabel" text="Media loading in progress..." textFill="#f2eeee">
                <VBox.margin>
@@ -103,24 +103,23 @@
                </VBox.margin></Label>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets bottom="15.0" />
          </VBox.margin>
       </VBox>
-      <ToolBar maxHeight="-Infinity" minHeight="-Infinity" minWidth="50.0" orientation="VERTICAL" prefHeight="45.0" styleClass="primaryTemplate" VBox.vgrow="ALWAYS">
-         <items>
-            <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="245.0" styleClass="toolBarButton" text="Settings" textOverrun="CLIP">
-               <graphic>
-                  <FontIcon iconLiteral="fa-cog" iconSize="22" styleClass="iconsOverBackground" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-         </items>
-      </ToolBar>
+      <Button fx:id="btnSettings" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#onSettings" prefWidth="250.0" styleClass="toolBarButton" text="Settings" textOverrun="CLIP">
+         <graphic>
+            <FontIcon iconLiteral="fa-cog" iconSize="22" styleClass="iconsOverBackground" />
+         </graphic>
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Button>
    </children>
    <padding>
       <Insets left="10.0" />

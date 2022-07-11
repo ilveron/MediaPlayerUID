@@ -40,7 +40,7 @@
     -fx-background-color: primarySelectionColor;
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
     -fx-content-display: LEFT;
-    -fx-min-width: 50px;
+    -fx-min-width: 42px;
 }
 
 .focusedToolBarButton .iconsOverBackground { -fx-icon-color: primaryBackgroundColor; }
@@ -53,6 +53,12 @@
     -fx-font-family: "Montserrat ExtraBold";
 }
 
+.playlistNameLabel {
+    -fx-text-fill: imagesColor;
+    -fx-font-size: 18px;
+    -fx-font-family: "Montserrat ExtraBold";
+}
+
 .artistMediaLabel, .recentArtistMediaLabel {
     -fx-text-fill: alternateTextColor;
     -fx-font-family: "Montserrat Medium";
@@ -61,12 +67,16 @@
 
 .videoBackgroundColor{ -fx-background-color: black; }
 
-.largeMenuButton, .smallMenuButton, .withinPaneButton {
+.largeMenuButton, .smallMenuButton, .withinPaneButton, .playlistButton {
     -fx-background-color: transparentBackgroundColor;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
     -fx-border-color: primarySelectionColor;
     -fx-border-width: 1px;
+}
+
+.playlistButton .iconsOverBackground {
+    -fx-icon-color: imagesColor;
 }
 
 .toolBarMenuButton {
@@ -444,7 +454,7 @@
 .infoDescriptionLabel {
     -fx-font-size: 12px;
     -fx-font-family: "Montserrat Medium";
-    -fx-text-fill: textColor;
+    -fx-text-fill: imagesColor;
 }
 
 .littleDisclaimerPlaylist {
@@ -459,6 +469,7 @@
     -fx-font-size: 12px;
     -fx-font-family: "Montserrat Medium";
     -fx-text-fill: textColor;
+    -fx-prompt-text-fill: textColor;
 }
 
 .text-field:focused {
@@ -477,3 +488,20 @@
     -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
 }
 
+.dialog {
+    -fx-background-color: primaryBackgroundColor;
+    -fx-effect: dropshadow(three-pass-box, dropShadowColor, 10, 0, 2, 1);
+}
+
+.dialog .label {
+    -fx-text-fill: textColor;
+    -fx-font-family: "Montserrat Medium";
+}
+
+.dialog *.header-panel {
+    -fx-background-color: primaryBackgroundColor;
+}
+
+.dialog *.header-label {
+    -fx-text-fill: textColor;
+}

@@ -1,6 +1,7 @@
 package it.unical.sadstudents.mediaplayeruid.controller;
 
 import it.unical.sadstudents.mediaplayeruid.model.*;
+import it.unical.sadstudents.mediaplayeruid.utils.MyNotification;
 import it.unical.sadstudents.mediaplayeruid.view.ContextMenuHandler;
 import it.unical.sadstudents.mediaplayeruid.view.SceneHandler;
 import javafx.beans.value.ChangeListener;
@@ -74,23 +75,18 @@ public class MusicLibraryController implements Initializable {
     }
     @FXML
     void onDeleteSong(ActionEvent event) {
-        int index=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
+        /*int index=tableViewMusicLibrary.getSelectionModel().getSelectedIndex();
         MusicLibrary.getInstance().deleteWithIndex(index);
-        tableViewMusicLibrary.refresh();
-        /*if(myMedia!=-1){
-            for(int i=0;i<Home.getInstance().getRecentMedia().size();i++) {
-                if (MusicLibrary.getInstance().getMusicLibrary().get(myMedia).equals(Home.getInstance().getRecentMedia().get(i))){
-                    Home.getInstance().removeItem(i);
-                    break;
-                }
+        tableViewMusicLibrary.refresh();*/
+        MyMedia myMedia=tableViewMusicLibrary.getSelectionModel().getSelectedItem();
+            if(myMedia==null){
+                MyNotification.notifyInfo("","Select a song",3);
+                return ;
             }
-            Playlists.getInstance().deleteMediaCompletely(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath());
-            //PlayQueue.getInstance().getQueue().remove(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath());
-            DatabaseManager.getInstance().deleteMedia(MusicLibrary.getInstance().getMusicLibrary().get(myMedia).getPath(),"MyMedia");
-            MusicLibrary.getInstance().getMusicLibrary().remove(myMedia);
+            //MusicLibrary.getInstance().deleteWithIndex(index);
+            MusicLibrary.getInstance().deleteStandard(myMedia);
+            tableViewMusicLibrary.getItems().remove(myMedia);
             tableViewMusicLibrary.refresh();
-
-        }*/
     }
 
     //END ACTION EVENT
@@ -168,9 +164,14 @@ public class MusicLibraryController implements Initializable {
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
             if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="music-library-view.fxml"){
                 tableViewMusicLibrary.refresh();
-                colorSelectedRow();
                 SceneHandler.getInstance().setUpdateViewRequired(false);
             }
+        });
+
+        Player.getInstance().isRunningProperty().addListener(observable -> {
+            if(Player.getInstance().getIsRunning())
+                colorSelectedRow();
+
         });
 
         //Gestire se quandi clicchi su una canzone deve ricreare la playquee o aggiungere alla playquee
@@ -203,6 +204,8 @@ public class MusicLibraryController implements Initializable {
         if(MusicLibrary.getInstance().getMusicLibrary().size() > 0 && Player.getInstance().getIsRunning()){
             MyMedia temp= PlayQueue.getInstance().getQueue().get(PlayQueue.getInstance().getCurrentMedia());
             tableViewMusicLibrary.getSelectionModel().select(temp);
+            tableViewMusicLibrary.getSelectionModel().select(temp);
+            tableViewMusicLibrary.scrollTo(temp);
 
         }
 

@@ -31,10 +31,7 @@ public class HomeController implements Initializable {
     private ImageView imageTest;
     @FXML
     private ScrollPane scrollPane;
-    @FXML
-    private Label loadingLabel;
-    @FXML
-    private ProgressIndicator loadingIndicator;
+
     @FXML
     private MenuButton mbtAdd;
 
@@ -61,6 +58,7 @@ public class HomeController implements Initializable {
         HomeTilePaneHandler.getInstance().readyIntegerProperty().addListener(observable -> {
             if(HomeTilePaneHandler.getInstance().getReadyInteger()==Home.getInstance().getRecentMedia().size()){
                 setContentTilePane();
+
             }
 
         });
@@ -77,7 +75,6 @@ public class HomeController implements Initializable {
 
         });
 
-        System.out.println(PlayQueue.getInstance().getQueue().size());
 
     }
 
@@ -96,8 +93,7 @@ public class HomeController implements Initializable {
                     tilePane.getChildren().add(HomeTilePaneHandler.getInstance().getMyMediaSingleBoxes().get(i));
 
                 }
-                loadingIndicator.setVisible(false);
-                loadingLabel.setVisible(false);
+
             }
         });
     }
@@ -107,6 +103,8 @@ public class HomeController implements Initializable {
         int numberOfColumns = ((int)tilePaneSize)/230;
         tilePane.setPrefColumns(numberOfColumns);
     }
+
+
 
 
 }
