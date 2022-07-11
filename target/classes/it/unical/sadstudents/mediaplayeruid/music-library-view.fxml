@@ -65,14 +65,14 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER_LEFT" minWidth="387.0" prefHeight="30.0" prefWidth="387.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="90.0">
+      <AnchorPane prefHeight="30.0" prefWidth="547.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="85.0">
          <children>
-            <TextField fx:id="TextField" focusTraversable="false" maxWidth="328.0" prefHeight="26.0" prefWidth="166.0" promptText="Search" styleClass="secondaryTemplate">
+            <TextField fx:id="TextField" focusTraversable="false" layoutY="1.0" maxWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="Search" styleClass="secondaryTemplate" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Button fx:id="btnAddLibraryToQueue" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="30.0" prefWidth="95.0" styleClass="withinPaneButton" text="Play All">
+            <Button fx:id="btnAddLibraryToQueue" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddLibraryToQueue" prefHeight="30.0" prefWidth="95.0" styleClass="withinPaneButton" text="Play All" AnchorPane.leftAnchor="160.0">
                <graphic>
                   <FontIcon iconLiteral="fa-play" iconSize="15" styleClass="iconsOverBackground" text="" />
                </graphic>
@@ -80,7 +80,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" styleClass="withinPaneButton" text="Add to queue">
+            <Button fx:id="btnAddSongToQueue" disable="true" mnemonicParsing="false" onAction="#onAddMediaPlayQueue" styleClass="withinPaneButton" text="Add to queue" AnchorPane.leftAnchor="265.0">
                <graphic>
                   <FontIcon iconLiteral="fa-plus" iconSize="15" styleClass="iconsOverBackground" />
                </graphic>
@@ -88,22 +88,23 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="75.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="btnDelete" disable="true" mnemonicParsing="false" onAction="#onDeleteSong" styleClass="withinPaneButton" text="Delete">
-                     <graphic>
-                        <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
-                     </graphic>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            <Button fx:id="btnClearAll" disable="true" layoutX="454.0" layoutY="-1.0" mnemonicParsing="false" onAction="#onClearAll" styleClass="withinPaneButton" text="Clear All" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <FontIcon iconLiteral="fa-trash" iconSize="15" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnRemove" disable="true" mnemonicParsing="false" onAction="#onRemoveSong" styleClass="withinPaneButton" text="Remove" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <FontIcon iconLiteral="fa-remove" iconSize="17" styleClass="iconsOverBackground" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
 </AnchorPane>
