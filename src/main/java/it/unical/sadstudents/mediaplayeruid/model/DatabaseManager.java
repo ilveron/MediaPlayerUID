@@ -273,7 +273,7 @@ public class DatabaseManager {
         try {
             if(connection != null&&checkLibrary(filter)&&!connection.isClosed()) {
                 String query = "select * from MyMedia;";
-                if (filter != "empty") {
+                if (!filter.equals("empty")) {
                     query = "select * from MyMedia where "+filter+"=true";
                 }
                 PreparedStatement stmt = connection.prepareStatement(query);
@@ -644,16 +644,9 @@ public class DatabaseManager {
                         "Hz4000=?," +
                         "Hz8000=?," +
                         "Hz16000=?  WHERE Key=key ;");
-                stmt.setInt(1,vett[0]);
-                stmt.setInt(2,vett[1]);
-                stmt.setInt(3,vett[2]);
-                stmt.setInt(4,vett[3]);
-                stmt.setInt(5,vett[4]);
-                stmt.setInt(6,vett[5]);
-                stmt.setInt(7,vett[6]);
-                stmt.setInt(8,vett[7]);
-                stmt.setInt(9,vett[8]);
-                stmt.setInt(10,vett[9]);
+                for(int i = 0; i < 10; ++i)
+                    stmt.setInt(i+1, vett[i]);
+
                 stmt.execute();
                 stmt.close();
                 return true;
