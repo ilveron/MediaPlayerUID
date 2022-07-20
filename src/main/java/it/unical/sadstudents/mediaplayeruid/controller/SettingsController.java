@@ -28,7 +28,7 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lblCredits.setText( "Version 1.0.0"+ System.lineSeparator() +
+        lblCredits.setText( "Version 1.0.1"+ System.lineSeparator() +
                             "Software developed in June/July 2022 by the " + "SadStudents" +" group:" + System.lineSeparator() +
                             "    > Ernesto Rapisarda" + System.lineSeparator() +
                             "    > Alessandro Monetti" + System.lineSeparator() +
