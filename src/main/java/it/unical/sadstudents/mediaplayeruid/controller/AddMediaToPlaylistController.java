@@ -195,7 +195,7 @@ public class AddMediaToPlaylistController implements Initializable {
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(tabSelezionata=="MusicLibrary")
+                if(tabSelezionata.equals("MusicLibrary"))
                     tableViewSelection.setItems(SearchForFile.getInstance().getSearch(newValue, MusicLibrary.getInstance().getMusicLibrary()));
                 else
                     tableViewSelection.setItems(SearchForFile.getInstance().getSearch(newValue, VideoLibrary.getInstance().getVideoLibrary()));

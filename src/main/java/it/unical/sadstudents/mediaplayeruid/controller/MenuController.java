@@ -202,11 +202,49 @@ public class MenuController implements Initializable {
     }
 
     private void buttonVideoTab(boolean status){
-        btnVideoView.setVisible(status);
+        /*btnVideoView.setVisible(status);
         if(status)
             resetAllStyles();
         btnVideoView.getStyleClass().removeAll("button","toolBarButton");
-        btnVideoView.getStyleClass().add("focusedToolBarButton");
+        btnVideoView.getStyleClass().add("focusedToolBarButton");*/
+        if(Player.getInstance().getIsAVideo()){
+            btnVideoView.setVisible(status);
+            resetAllStyles();
+            btnVideoView.getStyleClass().removeAll("button","toolBarButton");
+            btnVideoView.getStyleClass().add("focusedToolBarButton");
+        }
+        else if (btnVideoView.isVisible()){
+            btnVideoView.getStyleClass().removeAll("focusedToolBarButton");
+            btnVideoView.getStyleClass().add(  "toolBarButton");
+            btnVideoView.setVisible(status);
+            String current = SceneHandler.getInstance().getCurrentMidPane();
+            if(current.equals("home-view.fxml")) {
+                btnHome.getStyleClass().removeAll("button", "toolBarButton");
+                btnHome.getStyleClass().add("focusedToolBarButton");
+            }
+            else if(current.equals("music-library-view.fxml")) {
+                btnMusicLibrary.getStyleClass().removeAll("button", "toolBarButton");
+                btnMusicLibrary.getStyleClass().add("focusedToolBarButton");
+            }
+            else if(current.equals("video-library-view.fxml")) {
+                btnVideoLibrary.getStyleClass().removeAll("button", "toolBarButton");
+                btnVideoLibrary.getStyleClass().add("focusedToolBarButton");
+            }
+            else if(current.equals("play-queue-view.fxml")) {
+                btnPlayQueue.getStyleClass().removeAll("button", "toolBarButton");
+                btnPlayQueue.getStyleClass().add("focusedToolBarButton");
+            }
+            else if(current.equals("playlist-view.fxml")) {
+                btnPlaylists.getStyleClass().removeAll("button", "toolBarButton");
+                btnPlaylists.getStyleClass().add("focusedToolBarButton");
+            }
+            else if(current.equals("settings-view.fxml")) {
+                btnSettings.getStyleClass().removeAll("button", "toolBarButton");
+                btnSettings.getStyleClass().add("focusedToolBarButton");
+            }
+        }
+
+
     }
 
     private void toolbarButtonDisable(boolean status){

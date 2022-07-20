@@ -116,7 +116,6 @@ public class PlayerController implements Initializable {
         mediaSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                //System.out.println(mediaSlider.getValue());
                 Player.getInstance().changePosition(mediaSlider.getValue());
 
             }

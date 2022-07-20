@@ -21,12 +21,12 @@ public class ContextMenuHandler extends ContextMenu {
         MenuItem menuItem2 = new MenuItem();
         MenuItem menuItem3 = new MenuItem();
 
-        if(source!="playlist"){
+        if(!source.equals("playlist")){
             menuItem.setText("Play");
             menuItem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    if(source != "playqueue")
+                    if(!source.equals("playqueue"))
                         PlayQueue.getInstance().generateNewQueue(myMedia);
                     else{
                         PlayQueue.getInstance().setCurrentMedia(row);
@@ -41,20 +41,20 @@ public class ContextMenuHandler extends ContextMenu {
                 @Override
                 public void handle(ActionEvent actionEvent) {
 
-                        if (source == "home"  && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
+                        if (source.equals("home")  && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
                             Home.getInstance().removeItem(myMedia);
 
-                        } else if(source == "video" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
+                        } else if(source.equals("video")  && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
                             VideoLibrary.getInstance().removeSafe(myMedia);
                             SceneHandler.getInstance().setUpdateViewRequired(true);
 
                         }
-                        else if(source == "musicLibrary" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Song?") ){
+                        else if(source.equals("musicLibrary") && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Song?") ){
                             MusicLibrary.getInstance().deleteStandard(myMedia);
                             SceneHandler.getInstance().setUpdateViewRequired(true);
 
                         }
-                        else if(source == "playqueue" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to remove from queue?")){
+                        else if(source.equals("playqueue") && SceneHandler.getInstance().showConfirmationAlert("Do you really want to remove from queue?")){
                             PlayQueue.getInstance().removeMedia(row);
                         }
                 }
@@ -71,8 +71,7 @@ public class ContextMenuHandler extends ContextMenu {
             menuItem3.setText("Add To Playlist");
             menuItem3.setDisable(true);
         }
-        else if(source == "playlist"){
-
+        else if(source.equals("playlist")){
             if(myMedia==null){
                 menuItem.setText("Play All");
                 menuItem.setOnAction(new EventHandler<ActionEvent>() {
@@ -151,11 +150,11 @@ public class ContextMenuHandler extends ContextMenu {
 
         this.getItems().add(menuItem);
         this.getItems().add(menuItem1);
-        if(source!="playqueue")
+        if(!source.equals("playqueue"))
             this.getItems().add(menuItem2);
         this.getItems().add(menuItem3);
 
-        if(source!="playlist"){
+        if(!source.equals("playlist")){
             this.getItems().add(new SeparatorMenuItem());
 
             for(int i = 0; i< PlaylistCollection.getInstance().getPlayListsCollections().size(); i++){

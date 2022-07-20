@@ -112,7 +112,7 @@ public class CreateNewPlaylistController implements Initializable {
     }
 
     private boolean findName(String name){
-        if(name=="")
+        if(name.equals(""))
             return false;
         for(int pos=0;pos<PlaylistCollection.getInstance().getPlayListsCollections().size();pos++){
             if(PlaylistCollection.getInstance().getPlayListsCollections().get(pos).getName().equals(name)&&!previousName.equals(name)) {

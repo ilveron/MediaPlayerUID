@@ -175,13 +175,13 @@ public class ThreadManager {
        Task task = new Task<Void>() {
             @Override
             public Void call() {
-                if(type=="media"){
+                if(type.equals("media")){
                     while(mediaFinded>mediaProcessed) {
                         if(isCancelled())
                             break;
                         updateProgress(mediaProcessed,mediaFinded);
                     }
-                }else if(type=="meta"){
+                }else if(type.equals("meta")){
                     while(metaDataFinded>metaDataProcessed) {
                         if(isCancelled())
                             break;

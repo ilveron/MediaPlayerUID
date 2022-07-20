@@ -173,7 +173,7 @@ public class PlaylistSingleViewController implements Initializable {
                     if (event.getButton().equals(MouseButton.SECONDARY)) {
                         if (!row.isEmpty()) {
                             MyMedia myMedia = row.getItem();
-                            contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(), "playlist", row.getIndex());
+                            contextMenuHandler = new ContextMenuHandler(myMedia, playlist.getName(),"playlist", row.getIndex());
                             row.setContextMenu(contextMenuHandler);
                             row.getContextMenu();
                         }
@@ -223,7 +223,7 @@ public class PlaylistSingleViewController implements Initializable {
 
 
 
-    private boolean exist(MyMedia myMedia){
+   /* private boolean exist(MyMedia myMedia){
         for(int i=0;i<playlist.getMyList().size();i++){
             if(playlist.getMyList().get(i)==myMedia)
                 return true;
@@ -237,7 +237,7 @@ public class PlaylistSingleViewController implements Initializable {
                 return pos;
         }
         return -1;
-    }
+    }*/
 
     public void setDim(double size){
         anchorPanePlaylist.setPrefWidth(size);

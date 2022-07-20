@@ -36,7 +36,7 @@ public class DatabaseManager {
     //FUNCTION
     //  function private
     private boolean checkLibrary(String name){
-        if(name=="MusicLibrary" || name =="VideoLibrary"||name=="empty") return true;
+        if(name.equals("MusicLibrary") || name.equals("VideoLibrary") ||name.equals("empty") ) return true;
         return  false;
     }
     private boolean isPresent(String object,String key, String tab){
@@ -66,8 +66,8 @@ public class DatabaseManager {
         return  false;
     }
     private boolean checkTable(String table){
-        if(table=="MyMedia"||table=="Playlist"||table=="Settings"||
-           table=="RecentMedia"||table=="Playqueue"||table=="MyMediaPlaylist"||table=="Equalizer")
+        if(table.equals("MyMedia") ||table.equals("Playlist") ||table.equals("Settings") ||
+           table.equals("RecentMedia") ||table.equals("Playqueue") ||table.equals("MyMediaPlaylist") ||table.equals("Equalizer"))
             return true;
         else  return false;
     }
@@ -187,10 +187,10 @@ public class DatabaseManager {
         try {
             if(connection != null && pathMedia!=null &&checkLibrary(nameLibrary) &&!connection.isClosed()&&isPresent("Path",pathMedia,"MyMedia")) {
                 PreparedStatement stmt = connection.prepareStatement("UPDATE MyMedia SET MusicLibrary=?, VideoLibrary=? WHERE Path=?;");
-                if(nameLibrary=="MusicLibrary"){
+                if(nameLibrary.equals("MusicLibrary")){
                     stmt.setInt(1,1);
                     stmt.setInt(2,0);
-                }else if(nameLibrary=="VideoLibrary"){
+                }else if(nameLibrary.equals("VideoLibrary")){
                     stmt.setInt(1,0);
                     stmt.setInt(2,1);
                 }else{
@@ -279,12 +279,12 @@ public class DatabaseManager {
                 PreparedStatement stmt = connection.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    if(filter=="MusicLibrary") {
+                    if(filter.equals("MusicLibrary")) {
                         MusicLibrary.getInstance().getMusicLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                                 rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                                 , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));
                     }
-                    else if(filter=="VideoLibrary"){
+                    else if(filter.equals("VideoLibrary")){
                         VideoLibrary.getInstance().getVideoLibrary().add(new MyMedia(rs.getString("Title"), rs.getString("Artist"),
                                 rs.getString("Album"), rs.getString("Genre"), rs.getString("Path")
                                 , rs.getString("Length"), rs.getString("Year"), rs.getString("Image")));

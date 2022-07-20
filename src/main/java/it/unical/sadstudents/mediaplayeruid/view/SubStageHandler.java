@@ -70,7 +70,7 @@ public class SubStageHandler {
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
-                   if(source=="new-playlist-view.fxml" ){
+                   if(source.equals("new-playlist-view.fxml") ){
                        int index = PlaylistCollection.getInstance().getPlaylistWidthName(playlistName);
                        if(PlaylistCollection.getInstance().getPlayListsCollections().get(index).isInitialized()){
                            if(!SceneHandler.getInstance().showConfirmationAlert("Discard changes?")) {
@@ -94,7 +94,7 @@ public class SubStageHandler {
                        }
 
                    }
-                   else if(source=="addMediaToPlaylist-view.fxml" && updated){
+                   else if(source.equals("addMediaToPlaylist-view.fxml") && updated){
                        if(!SceneHandler.getInstance().showConfirmationAlert("Discard changes?")) {
                            windowEvent.consume();
                            stage.show();

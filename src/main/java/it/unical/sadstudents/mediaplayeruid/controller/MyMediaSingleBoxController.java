@@ -75,7 +75,7 @@ public class MyMediaSingleBoxController  {
         imageView.setImage(new Image("file:"+"src/main/resources/it/unical/sadstudents/mediaplayeruid/image/iconaMusica.png"));
         labelDuration.setText(myMedia.getLength());
         btnPlay.setTooltip(new Tooltip("Play this media (a new queue will be created)"));
-        if(source=="home"){
+        if(source.equals("home") ){
             btnDelete.setTooltip(new Tooltip("Delete media from recent media"));
         }
         else{
@@ -114,9 +114,9 @@ public class MyMediaSingleBoxController  {
     }
 
     public void deleteMedia(){
-            if (source == "home" && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
+            if (source.equals("home")  && SceneHandler.getInstance().showConfirmationAlert("Do you want to remove from Recent Media?")) {
                 Home.getInstance().removeItem(myMedia);
-            } else if (source!="home" && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
+            } else if (!source.equals("home") && SceneHandler.getInstance().showConfirmationAlert("Do you really want to delete this Video?")){
                 VideoLibrary.getInstance().removeSafe(myMedia);
             }
     }

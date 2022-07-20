@@ -54,7 +54,7 @@ public class Playlist  {
 
     private void listenerRefresh(){
         PlaylistCollection.getInstance().updatePlayQueueProperty().addListener(observable -> {
-            if(PlaylistCollection.getInstance().getTypePlaylist()== getName() && PlaylistCollection.getInstance().getUpdatePlayQueue()) {
+            if(PlaylistCollection.getInstance().getTypePlaylist().equals(getName())  && PlaylistCollection.getInstance().getUpdatePlayQueue()) {
                 if(getMyList().size()>0) {
                     refreshPlayQueue();
                 }
@@ -212,7 +212,7 @@ public class Playlist  {
         for(int i=0;i<getMyList().size();i++){
             boolean e=false;
             for(int j=0;j<PlayQueue.getInstance().getQueue().size();j++)
-                if(getMyList().get(i)==PlayQueue.getInstance().getQueue().get(j))
+                if(getMyList().get(i).equals(PlayQueue.getInstance().getQueue().get(j)) )
                     e=true;
             if(!e)
                 PlayQueue.getInstance().addFileToListFromOtherModel(getMyList().get(i));

@@ -171,7 +171,7 @@ public class MusicLibraryController implements Initializable {
         });
 
         SceneHandler.getInstance().updateViewRequiredProperty().addListener(observable -> {
-            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane()=="music-library-view.fxml"){
+            if (SceneHandler.getInstance().isUpdateViewRequired() && SceneHandler.getInstance().getCurrentMidPane().equals("music-library-view.fxml")){
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
