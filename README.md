@@ -2,7 +2,7 @@
 ### What's this?
 The software was developed during June and July 2022 as the final project for the "[**User Interfaces Design**](https://sites.google.com/unical.it/inf-uid)" course.  
 The team consisted of (*in a strict alphabetical order*):
-  + [**Alessandro Monetti**](https://github.com/AceOfPotatoes), aged 21 (*Graphics, Play Queue, Shuffle Algorithm, Equalizer*);
+  + [**Alessandro Monetti**](https://github.com/ilveron), aged 21 (*Graphics, Play Queue, Shuffle Algorithm, Equalizer*);
   + [**Andrea Tocci**](https://github.com/AndreaYpmY), aged 21 (*Database, Playlist, Embryonic pages layouts*);
   + [**Ernesto Rapisarda**](https://github.com/Ernesto-Rapisarda), aged 41 (*Thread(s) management, Metadata handling, Tiled views, Every other thing not mentioned before*).
   
