@@ -10,7 +10,7 @@ The team consisted of (*in a strict alphabetical order*):
 
 ### What can it do?
  + It can play **.wav** / **.mp3** (*audio*) and **.mp4** (*video*) (*as we were limited by JavaFX's Media class*);
- + It allows to create (*and store*), your **personal playlists**, with custom names and custom thumbnails;
+ + It allows you to create (*and store*), your **personal playlists**, with custom names and custom thumbnails;
  + It "freezes" your **Play Queue** between two different sessions, to pick up where you left off;
  + It has an integrated **equalizer**, which you can use to tune audio frequencies' gain, selecting between 7 presets (*1 of which is customizable*);
  + All other basic stuff you expect a Media Player to do.
