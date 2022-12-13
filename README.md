@@ -1,4 +1,4 @@
-# Music Player UID
+# Media Player UID
 ### What's this?
 The software was developed during June and July 2022 as the final project for the "[**User Interfaces Design**](https://sites.google.com/unical.it/inf-uid)" course.  
 The team consisted of (*in a strict alphabetical order*):
