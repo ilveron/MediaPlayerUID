@@ -23,7 +23,7 @@ At the moment we don't know at all, as we are pretty busy with other university 
 ---
 
 ### Can I see some of it without downloading it?
-Of course! Here's some pics:
+Of course! Here are some pics:
 #### Home (*Recent media*)
 
 ![immagine](https://user-images.githubusercontent.com/85177113/183476917-c2117258-49ef-4d54-92ab-63420a276205.png)
